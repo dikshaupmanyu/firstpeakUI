@@ -216,7 +216,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTables" width="100%" cellspacing="0">
                   <thead>
                     <tr>
                       <th>Id</th>
@@ -303,10 +303,12 @@
   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
   <!-- Page level custom scripts -->
-<!--   <script src="js/demo/datatables-demo.js"></script>
- -->
+  <script src="js/demo/datatables-demo.js"></script>
+
 
   <script type="text/javascript">
+
+ 
 
 $(document).ready(function(){
 
@@ -328,84 +330,31 @@ $.ajax({
            var datak = JSON.stringify(data);
            var dataResult = JSON.parse(datak); 
            var len = dataResult.length;
+           $('#dataTables').dataTable( {
+            "aaData": data,
+            "columns": [
+                { "data": "id" },
+                { "data": "userName" },
+                { "data": "email" },
+                { "data": "isEmailAuthenticate" }
+            ]
+        })
 
-           // var oTblReport = $("#datatable")
- 
-           // oTblReport.DataTable ({
-           //           data: dataResult,
-           //          "columns" : [
-           //              { "data" : "id" },
-           //              { "data" : "userName" },
-           //              { "data" : "email" },
-           //              { "data" : "isEmailAuthenticate" }
-           //          ]
-           //    });
-           // alert(len);
-           var txt = "";
-            if(len > 0){
-                    for(var i=0;i<len;i++){
+           // var txt = "";
+           //  if(len > 0){
+           //          for(var i=0;i<len;i++){
 
-                            txt = "<tbody><tr><td>"+dataResult[i].id+"</td><td>"+dataResult[i].userName+"</td><td>"+dataResult[i].email+"</td><td>"+dataResult[i].isEmailAuthenticate+"</td></tr></tbody>";
-                            $("#dataTable").append(txt);
-                    }
-            }        
-            // alert(dataResult.length);         
-          // alert(dataResult);
-        //   var col = [];
-        //   for (var i = 0; i < dataResult.length; i++) {
-        //       for (var key in dataResult[i]) {
-        //           if (col.indexOf(key) === -1) {
-        //               col.push(key);
-        //           }
-        //       }
-        //   }
-        //    var table = document.createElement("table");
-
-        // // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
-
-        // var tr = table.insertRow(-1);                   // TABLE ROW.
-
-        // for (var i = 0; i < col.length; i++) {
-        //     var th = document.createElement("th");      // TABLE HEADER.
-        //     th.innerHTML = col[i];
-        //     tr.appendChild(th);
-        // }
-
-        // // ADD JSON DATA TO THE TABLE AS ROWS.
-        // for (var i = 0; i < dataResult.length; i++) {
-
-        //     tr = table.insertRow(-1);
-
-        //     for (var j = 0; j < col.length; j++) {
-        //         var tabCell = tr.insertCell(-1);
-        //         tabCell.innerHTML = dataResult[i][col[j]];
-        //     }
-        // }
-
-        // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
-        // var divContainer = document.getElementById("showData");
-        // divContainer.innerHTML = "";
-        // divContainer.appendChild(table);
-    
-          // alert(dataResult.length);
-          // var obj = JSON.parse(json);
-          // var length = Object.keys(dataResult).length;
-          // alert(length);
-          // if(dataResult){
-          //   alert("true");
-          // $("#success").show();
-          // $('#dataadd').html(dataResult);
-          //   window.location.href = "/home";            
-          // }
-          // else if(dataResult.statusCode==201){
-          //   alert("false");
-          //   $("#error").show();
-          //   $('#error').html('Invalid EmailId or Password !');
-          // }
+           //                  txt = "<tbody><tr><td>"+dataResult[i].id+"</td><td>"+dataResult[i].userName+"</td><td>"+dataResult[i].email+"</td><td>"+dataResult[i].isEmailAuthenticate+"</td></tr></tbody>";
+           //                  $("#dataTable").append(txt);
+           //          }
+           //  }        
+         
           
         }
       });
 });
+
+
  </script>
 
 </body>
