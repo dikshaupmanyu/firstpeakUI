@@ -335,7 +335,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="/">Logout</a>
+          <a class="btn btn-primary" href="#" onclick="logout()">Logout</a>
         </div>
       </div>
     </div>
@@ -360,7 +360,8 @@ $.ajax({
         type: 'POST',
         url: 'http://3.93.137.122:6080/api/appUser/getAllAppUsers',
         headers: {
-          Authorization: 'Bearer '+ localStorage.getItem("token")
+          Authorization: 'Bearer '+ localStorage.getItem("token"),
+          Authorization: 'Bearer '+ sessionStorage.getItem("token")
         },
         dataType:'json',
         // crossDomain: true,
@@ -387,6 +388,13 @@ $.ajax({
         }
       });
 });
+
+function logout() {
+  // body...
+  localStorage.clear();
+  sessionStorage.clear();
+  window.location.href = "/";
+}
  </script>
 
 </body>

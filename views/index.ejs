@@ -145,6 +145,10 @@ $(function () {
       $.ajax({
         type: 'POST',
         url: 'http://3.93.137.122:6080/api/auth/appSignIn',
+        headers: {
+          Authorization: 'Bearer '+ localStorage.getItem("token"),
+          Authorization: 'Bearer '+ sessionStorage.getItem("token")
+        },
         data: {
           type:2,
           userName: userName,
@@ -159,9 +163,11 @@ $(function () {
         //   },
         success: function(data){
           
-          var dataResult = JSON.stringify(data);          
+          var datak = JSON.stringify(data); 
+          var dataResult = JSON.parse(datak);          
           // alert(dataResult);
-          if(dataResult){
+          // alert(dataResult.accessToken);
+          if(dataResult.accessToken){
           // function tokenSuccess(err, response) {
           //   alert(response);
           //     if(err){
@@ -173,16 +179,22 @@ $(function () {
             $("#success").show();
             $('#success').html('Login Sucessfully !');
            
-          function saveToken() {
-            localStorage.setItem('token', dataResult.accessToken);
-            // alert(localStorage);
-         }
+              function saveToken() {
+                localStorage.setItem('token', dataResult.accessToken);
+                sessionStorage.setItem('token', dataResult.accessToken);
+                // alert(localStorage);
+             }
             window.location.href = "/home";            
           }
           else if(dataResult.statusCode==201){
             // alert("false");
             $("#error").show();
             $('#error').html('Invalid EmailId or Password !');
+
+          } else {
+            alert('Invalid EmailId or Password !');
+            window.location.href = "/"; 
+
           }
           
         }
