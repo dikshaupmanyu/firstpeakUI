@@ -138,7 +138,7 @@ $(document).ready(function(){
 $(function () {
 
    $('#butlogin').on('click', function() {
-    alert("hii");
+    // alert("hii");
     var userName = $('#uname').val();
     var password = $('#pswrd').val();
     if(userName!="" && password!="" ){
@@ -160,7 +160,7 @@ $(function () {
         success: function(data){
           
           var dataResult = JSON.stringify(data);          
-          alert(dataResult);
+          // alert(dataResult);
           if(dataResult){
           // function tokenSuccess(err, response) {
           //   alert(response);
@@ -169,7 +169,7 @@ $(function () {
           //     }
           //   window.sessionStorage.accessToken = response.body.access_token;
           // }
-            alert("true");
+            // alert("true");
             $("#success").show();
             $('#success').html('Login Sucessfully !');
            
@@ -180,7 +180,7 @@ $(function () {
             window.location.href = "/home";            
           }
           else if(dataResult.statusCode==201){
-            alert("false");
+            // alert("false");
             $("#error").show();
             $('#error').html('Invalid EmailId or Password !');
           }
