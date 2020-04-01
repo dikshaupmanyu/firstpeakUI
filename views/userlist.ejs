@@ -110,7 +110,7 @@ window.addEventListener("load", function() {
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
   // alert(tokens);
-  
+
 const url = "http://3.93.137.122:6080/api/appUserWebModify/getAllAppUsers";
 fetch(url, {
   method: "POST",
@@ -160,7 +160,10 @@ fetch(url, {
     var row = table.row(this.closest('tr')).data();
     var userdata = row["userName"];
     var formData = {appUserName:userdata};
-    $.ajax({
+    var mentordata = row["isMentor"];
+    // alert(mentordata);
+    if(mentordata == false){
+       $.ajax({
         url : "http://3.93.137.122:6080/api/appUserWebModify/addMentorUserByUserName",
         type: "POST",
         headers: {
@@ -172,13 +175,61 @@ fetch(url, {
             //data - response from server
             var datak = JSON.stringify(data);
             var dataResultp = JSON.parse(datak); 
-            alert("Mentor Update Sucessfully !!");
+            alert("User updated to mentor Sucessfully !!");
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-           alert("Mentor not updated !!");
+           alert("Not updated !!");
         }
     });
+
+    }else if(mentordata == true){
+        // alert("cll");
+        $.ajax({
+        url : "http://3.93.137.122:6080/api/appUserWebModify/removeMentorUserByUserName",
+        type: "POST",
+        headers: {
+             Authorization: 'Bearer ' + tokens,
+        },
+        data : formData,
+        success: function(data, textStatus, jqXHR)
+        {
+            //data - response from server
+            // alert(data);
+            var datak = JSON.stringify(data);
+            var dataResultp = JSON.parse(datak); 
+            alert("User removed to mentor Sucessfully !!");
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+           alert("Not updated !!");
+        }
+    });
+
+    } else if(mentordata == null){
+      // alert("null");
+       $.ajax({
+        url : "http://3.93.137.122:6080/api/appUserWebModify/addMentorUserByUserName",
+        type: "POST",
+        headers: {
+             Authorization: 'Bearer ' + tokens,
+        },
+        data : formData,
+        success: function(data, textStatus, jqXHR)
+        {
+            //data - response from server
+            var datak = JSON.stringify(data);
+            var dataResultp = JSON.parse(datak); 
+            alert("User updated to mentor Sucessfully !!");
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+           alert("Not updated !!");
+        }
+    });
+
+    }
+   
 
    });
 
