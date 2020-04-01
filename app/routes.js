@@ -7,10 +7,10 @@ module.exports = function(app, passport) {
 		res.render('index.ejs');
 	});
 
-  // app.get('/updateData', function(req, res) {
+  app.get('/commentlist', function(req, res) {
 
-  //   res.render('userlist.ejs');
-  // });
+    res.render('commentlist.ejs');
+  });
 
   // app.post('/verifyotp', function (req, res , done) {
 

@@ -110,11 +110,7 @@ window.addEventListener("load", function() {
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
   // alert(tokens);
-
-  document.getElementById("HomeLink").href = "/home?tokendata="+tokens;
-  document.getElementById("UserLink").href = "/userlist?tokendata="+tokens;
-
-
+  
 const url = "http://3.93.137.122:6080/api/appUserWebModify/getAllAppUsers";
 fetch(url, {
   method: "POST",
@@ -194,22 +190,6 @@ function logout() {
   sessionStorage.clear();
   window.location.href = "/";
 }
-
-window.addEventListener("load", function() {
-  var url_string = window.location.href; 
-  var urls = new URL(url_string);
-  var tokens = urls.searchParams.get("tokendata");
-   document.getElementById("HomeLink").href = "/home?tokendata="+tokens;
-  document.getElementById("UserLink").href = "/userlist?tokendata="+tokens;
-  document.getElementById("UserCallLink").href = "/userlist?tokendata="+tokens;
-
-
-
-    
-});
-
-
-
 
 });
 
