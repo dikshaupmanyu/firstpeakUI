@@ -166,7 +166,7 @@ $(function () {
           var datak = JSON.stringify(data); 
           var dataResult = JSON.parse(datak);          
           // alert(dataResult);
-          // alert(dataResult.accessToken);
+          alert(dataResult.accessToken);
           if(dataResult.accessToken){
           // function tokenSuccess(err, response) {
           //   alert(response);
@@ -179,12 +179,14 @@ $(function () {
             $("#success").show();
             $('#success').html('Login Sucessfully !');
            
-              function saveToken() {
-                localStorage.setItem('token', dataResult.accessToken);
-                sessionStorage.setItem('token', dataResult.accessToken);
-                // alert(localStorage);
-             }
-            window.location.href = "/home";            
+             //  function saveToken() {
+             //    alert("token");
+             var tdss = dataResult.accessToken;
+             // alert(tdss);
+             //   var tdsk = sessionStorage.setItem('token', dataResult.accessToken);
+             //    alert(tdsk);
+             // }
+            window.location.href = "/home?tokendata="+tdss;            
           }
           else if(dataResult.statusCode==201){
             // alert("false");

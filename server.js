@@ -16,6 +16,10 @@ var cors = require('cors');
 var request = require('request');
 var http = require('http');
 var Base64 = require('Base64');
+var expressJwt = require('express-jwt');
+var jwt = require('jsonwebtoken');
+
+
 
 // mongoose.connect("mongodb://ec2-34-207-120-143.compute-1.amazonaws.com:27017/dummyDB", {
 //     "auth": { "authSource": "admin" },
