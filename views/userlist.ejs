@@ -138,7 +138,8 @@ fetch(url, {
                 "data":   "isMentor",
                 render: function ( data, type, row ) {
                     if ( type === 'display' ) {
-                        return '<a href="updateData?id='+row.id+'&username='+row.userName+'&tokendata='+tokens+'"><input type="checkbox" class="editor-active"></a>';
+                        // return '<a href="updateData?id='+row.id+'&username='+row.userName+'&tokendata='+tokens+'"><input type="checkbox" class="editor-active"></a>';
+                        return '<input type="checkbox" class="editor-active">';
                     }
                     return data;
                 },
@@ -149,20 +150,6 @@ fetch(url, {
             $('input.editor-active', row).prop( 'checked', data.isMentor == true );
         }
 
-
-        //     "columnDefs": [
-        //     {
-        //         targets:-1, // Start with the last
-        //         render: function ( data, type, row, meta ) {
-        //              if(type === 'display'){
-        //                  return '<input type="checkbox" class="editor-active">';
-        //                 // data = '<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal' + encodeURIComponent(data) + '">Edit</button><div id="myModal' + encodeURIComponent(data) + '" class="modal fade" role="dialog"><div class="modal-dialog">    <div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div><div class="modal-body"><p>Some text in the modal.</p></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div>';
-        //              }
-                   
-        //             return data;
-        //         }
-        //     }
-        // ],  
         })
   })
   .catch(function(error) {
@@ -171,59 +158,35 @@ fetch(url, {
 
 
 
+   $('#dataTables').on('click', 'tbody td:not(:first-child)', function () {
+    // alert(tokens);
+    var table = $('#dataTables').DataTable();
+    var row = table.row(this.closest('tr')).data();
+    var userdata = row["userName"];
+    var formData = {appUserName:userdata};
+    $.ajax({
+        url : "http://3.93.137.122:6080/api/appUserWebModify/addMentorUserByUserName",
+        type: "POST",
+        headers: {
+             Authorization: 'Bearer ' + tokens,
+        },
+        data : formData,
+        success: function(data, textStatus, jqXHR)
+        {
+            //data - response from server
+            var datak = JSON.stringify(data);
+            var dataResultp = JSON.parse(datak); 
+            alert("Mentor Update Sucessfully !!");
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+           alert("Mentor not updated !!");
+        }
+    });
 
-   // $('#dataTables').on( 'change', 'input.editor-active', function () {
-   //      editor
-   //          .edit( $(this).closest('tr'), false )
-   //          .set( 'isMentor', $(this).prop( 'checked' ) ? 1 : 0 )
-   //          .submit();
-   //  } );
+   });
 
-   
- // $(document).ready(function(){
 
-// $.ajax({
-//         type: 'POST',
-//         url: 'http://3.93.137.122:6080/api/appUserWebModify/getAllAppUsers',
-//         headers: {
-//           Authorization: 'Bearer '+ localStorage.getItem("token"),
-//           Authorization: 'Bearer '+ sessionStorage.getItem("token")
-//         },
-//         dataType:'json',
-//         // crossDomain: true,
-//         cache:false,
-//         // contentType: "application/json; charset=utf-8",
-//         // headers: {
-//         //       Authorization: 'Bearer '+token
-//         //   },
-//         success: function(data){
-         
-//            var datak = JSON.stringify(data);
-//            var dataResult = JSON.parse(datak); 
-//            var len = dataResult.length;
-//            $('#dataTables').dataTable( {
-//             "aaData": data,
-//             "columns": [
-//                 { "data": "id" },
-//                 { "data": "userName" },
-//                 { "data": "email" },
-//                 { "data": "isEmailAuthenticate" }
-//             ]
-//         })
-
-           // var txt = "";
-           //  if(len > 0){
-           //          for(var i=0;i<len;i++){
-
-           //                  txt = "<tbody><tr><td>"+dataResult[i].id+"</td><td>"+dataResult[i].userName+"</td><td>"+dataResult[i].email+"</td><td>"+dataResult[i].isEmailAuthenticate+"</td></tr></tbody>";
-           //                  $("#dataTable").append(txt);
-           //          }
-           //  }        
-         
-          
-//         }
-//       });
-// });
 
 function logout() {
   // body...
@@ -233,44 +196,19 @@ function logout() {
 }
 
 window.addEventListener("load", function() {
-
-   // alert(window.location.href);
-
   var url_string = window.location.href; 
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
-  var UserdATA = urls.searchParams.get("username");
-  // alert(tokens);
-  document.getElementById("HomeLink").href = "/home?tokendata="+tokens;
+   document.getElementById("HomeLink").href = "/home?tokendata="+tokens;
   document.getElementById("UserLink").href = "/userlist?tokendata="+tokens;
   document.getElementById("UserCallLink").href = "/userlist?tokendata="+tokens;
 
 
 
-const url = "http://3.93.137.122:6080/api/appUserWebModify/addMentorUserByUserName";
-fetch(url, {
-  method: "POST",
-  headers: {
-          Authorization: 'Bearer ' + tokens,
-        },
-  data: {
-          appUserName: UserdATA,
-        },
-})
-  .then(resp => resp.json())
-    .then(function(data) {
-       var datak = JSON.stringify(data);
-       var dataResult = JSON.parse(datak); 
-       // alert(dataResult);
-        // $('#toatluser').html(dataResult.length);
+    
+});
 
 
-  })
-  .catch(function(error) {
-    console.log(error);
-  });
-
- });
 
 
 });
