@@ -129,7 +129,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="#" onclick="logout()">Logout</a>
+          <a class="btn btn-primary" href="/">Logout</a>
         </div>
       </div>
     </div>
@@ -148,6 +148,10 @@
 
   <script type="text/javascript">
 
+window.history.forward(); 
+        function noBack() { 
+            window.history.forward(); 
+        } 
 window.addEventListener("load", function() {
 
   var url_string = window.location.href; 
@@ -214,7 +218,18 @@ function logout() {
   window.location.href = "/";
 }
  </script>
-
+<script type="text/javascript">
+  window.addEventListener("load", function() {
+  var url_string = window.location.href; 
+  var urls = new URL(url_string);
+  var tokens = urls.searchParams.get("tokendata");
+   document.getElementById("HomeLink").href = "/home?tokendata="+tokens;
+  document.getElementById("UserLink").href = "/userlist?tokendata="+tokens;
+  document.getElementById("UserCallLink").href = "/userlist?tokendata="+tokens;
+   document.getElementById("CommentLink").href = "/commentlist?tokendata="+tokens;
+    
+});
+</script>
 </body>
 
 </html>
