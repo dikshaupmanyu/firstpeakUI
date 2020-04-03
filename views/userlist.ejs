@@ -9,7 +9,8 @@
           <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
  -->
           <!-- DataTales Example -->
-          <div class="card shadow mb-4">
+
+      <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">User List</h6>
             </div>
@@ -18,10 +19,11 @@
                 <table class="table table-bordered" id="dataTables" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Id</th>
+                      <!-- <th>Id</th> -->
                       <th>UserName</th>
                       <th>Email</th>
                       <th>Mentor</th>
+                      <th>Date</th>
 <!--                       <th>Action</th>
  --><!--                       <th>Authenticate by Email</th>
  -->                    </tr>
@@ -126,7 +128,7 @@ fetch(url, {
            $('#dataTables').dataTable( {
             "aaData": data,   
             "columns": [
-                { "data": "id" },
+                // { "data": "id" },
                 { "data": "userName" },
                 { "data": "email" },
                 // { "data": "isMentor" },
@@ -139,7 +141,18 @@ fetch(url, {
                     }
                     return data;
                 },
-              }
+
+              },
+              { 
+              "data": "createdOn" ,
+              render: function ( data, type, row ) {
+                    // alert(data);
+                    var current_date= new Date(data);
+                    // alert(current_date);
+                    $("#dateval"+row.id).html(current_date);
+                        return '<span id="dateval'+row.id+'"></span>';
+              },
+            }
             ],
             rowCallback: function ( row, data ) {
             // Set the checked state of the checkbox in the table
@@ -160,6 +173,9 @@ fetch(url, {
     var table = $('#dataTables').DataTable();
     var row = table.row(this.closest('tr')).data();
     var url ;
+    var result = confirm("Are you sure you want to update?");
+    if(result){
+        // Delete logic goes here
     var userdata = row["userName"];
     var formData = {appUserName:userdata};
     var mentordata = row["isMentor"];
@@ -191,6 +207,12 @@ fetch(url, {
         }
 
     });
+    } else {
+
+       window.location.reload();
+
+    }
+    
 
           // $('#dataTables').DataTable().ajax.reload();
 
