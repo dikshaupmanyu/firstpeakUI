@@ -118,7 +118,7 @@ window.addEventListener("load", function() {
   var tokens = urls.searchParams.get("tokendata");
   // alert(tokens);
 
-const url = "http://3.93.137.122:6080/api/appUserWebModify/getAllAppUsers";
+const url = "https://apis.tradetipsapp.com/api/appUserWebModify/getAllAppUsers";
 fetch(url, {
   method: "POST",
   headers: {
@@ -189,11 +189,11 @@ fetch(url, {
     var mentordata = row["isMentor"];
     // alert(mentordata);
     if(mentordata == false) {
-          url = "http://3.93.137.122:6080/api/appUserWebModify/addMentorUserByUserName";
+          url = "https://apis.tradetipsapp.com/api/appUserWebModify/addMentorUserByUserName";
       } else if(mentordata == true) {
-          url = "http://3.93.137.122:6080/api/appUserWebModify/removeMentorUserByUserName";
+          url = "https://apis.tradetipsapp.com/api/appUserWebModify/removeMentorUserByUserName";
       } else if(mentordata == null) {
-          url = "http://3.93.137.122:6080/api/appUserWebModify/addMentorUserByUserName";
+          url = "https://apis.tradetipsapp.com/api/appUserWebModify/addMentorUserByUserName";
       }
        $.ajax({
         url : url,
