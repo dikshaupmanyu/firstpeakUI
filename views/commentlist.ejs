@@ -165,7 +165,7 @@ window.addEventListener("load", function() {
   var tokens = urls.searchParams.get("tokendata");
 
  
-const url = "http://3.93.137.122:6080/api/appUserWebModify/getAllAppUsers";
+const url = "https://apis.tradetipsapp.com/api/appUserWebModify/getAllAppUsers";
 fetch(url, {
   method: "POST",
   headers: {
@@ -200,7 +200,7 @@ $('#butSaveData').on('click', function() {
     if(UserSelect!="" && Offset!="" && Limit!=""){
       $.ajax({
         type: 'POST',
-        url: 'http://3.93.137.122:6080/api/comment/getAllCommentsWithPagination',
+        url: 'https://apis.tradetipsapp.com/api/comment/getAllCommentsWithPagination',
         headers: {
           Authorization: 'Bearer '+ tokens
         },
