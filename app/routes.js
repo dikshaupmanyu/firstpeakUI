@@ -12,6 +12,22 @@ module.exports = function(app, passport) {
     res.render('commentlist.ejs');
   });
 
+
+  app.get('/csvlist', function(req, res) {
+
+    var fs = require("fs");
+    var arrayOfFilesc;
+
+    try {
+      var arrayOfFiles = fs.readdirSync("./public/csv");
+      console.log(arrayOfFiles);
+    } catch(e) {
+      console.log(e);
+    }
+
+    res.render('csvlist.ejs' , {data : arrayOfFiles});
+  });
+
   // app.post('/verifyotp', function (req, res , done) {
 
   //   console.log(res);
