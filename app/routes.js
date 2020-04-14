@@ -35,7 +35,7 @@ module.exports = function(app, passport) {
     var statusdata = req.query.status;
     // var tokenstatus = req.query.tokenval;        
      var fs = require("fs");
-       let rawdata = fs.readFileSync('public/json/bushwickWord.json');
+       let rawdata = fs.readFileSync('/json/bushwickWord.json');
        let userdetail = JSON.parse(rawdata);
         // let userdetailNew = JSON.parse(userdetail);
         console.log(userdetail);  
@@ -44,7 +44,7 @@ module.exports = function(app, passport) {
 
         let data = JSON.stringify(userdetailt, null, 2);
 
-        fs.writeFile('public/json/bushwickWord.json', data, (err) => {
+        fs.writeFile('/json/bushwickWord.json', data, (err) => {
              if (err) throw err;
              console.log(data);
         });            
@@ -61,7 +61,7 @@ module.exports = function(app, passport) {
     var statusdata = req.query.status;
     // var tokenstatus = req.query.tokenval;        
      var fs = require("fs");
-       let rawdata = fs.readFileSync('public/json/seanWord.json');
+       let rawdata = fs.readFileSync('/json/seanWord.json');
        let userdetail = JSON.parse(rawdata);
         // let userdetailNew = JSON.parse(userdetail);
         // console.log(userdetail);  
@@ -70,7 +70,7 @@ module.exports = function(app, passport) {
 
         let data = JSON.stringify(userdetailt, null, 2);
 
-        fs.writeFile('public/json/seanWord.json', data, (err) => {
+        fs.writeFile('/json/seanWord.json', data, (err) => {
              if (err) throw err;
              console.log(data);
         });            
@@ -86,7 +86,7 @@ module.exports = function(app, passport) {
     var statusdata = req.query.status;
     // var tokenstatus = req.query.tokenval;        
      var fs = require("fs");
-       let rawdata = fs.readFileSync('public/json/seanBlack.json');
+       let rawdata = fs.readFileSync('/json/seanBlack.json');
        let userdetail = JSON.parse(rawdata);
         // let userdetailNew = JSON.parse(userdetail);
         console.log(userdetail);  
@@ -95,7 +95,7 @@ module.exports = function(app, passport) {
 
         let data = JSON.stringify(userdetailt, null, 2);
 
-        fs.writeFile('public/json/seanBlack.json', data, (err) => {
+        fs.writeFile('/json/seanBlack.json', data, (err) => {
              if (err) throw err;
              console.log(data);
         });            
@@ -112,7 +112,7 @@ module.exports = function(app, passport) {
     var statusdata = req.query.status;
     // var tokenstatus = req.query.tokenval;        
      var fs = require("fs");
-       let rawdata = fs.readFileSync('public/json/bushwikBlack.json');
+       let rawdata = fs.readFileSync('/json/bushwikBlack.json');
        let userdetail = JSON.parse(rawdata);
         // let userdetailNew = JSON.parse(userdetail);
         console.log(userdetail);  
@@ -121,7 +121,7 @@ module.exports = function(app, passport) {
 
         let data = JSON.stringify(userdetailt, null, 2);
 
-        fs.writeFile('public/json/bushwikBlack.json', data, (err) => {
+        fs.writeFile('/json/bushwikBlack.json', data, (err) => {
              if (err) throw err;
              console.log(data);
         });            
