@@ -18,7 +18,17 @@ var http = require('http');
 var Base64 = require('Base64');
 var expressJwt = require('express-jwt');
 var jwt = require('jsonwebtoken');
-
+var glob = require('glob');
+// var getDirectories = function (src, callback) {
+//   glob(src + '/csv/', callback);
+// };
+// getDirectories('csv', function (err, res) {
+//   if (err) {
+//     console.log('Error', err);
+//   } else {
+//     console.log(res);
+//   }
+// });
 
 
 // mongoose.connect("mongodb://ec2-34-207-120-143.compute-1.amazonaws.com:27017/dummyDB", {
