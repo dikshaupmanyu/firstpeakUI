@@ -18,7 +18,7 @@ var http = require('http');
 var Base64 = require('Base64');
 var expressJwt = require('express-jwt');
 var jwt = require('jsonwebtoken');
-var glob = require('glob');
+// var glob = require('glob');
 // var getDirectories = function (src, callback) {
 //   glob(src + '/csv/', callback);
 // };
@@ -59,6 +59,7 @@ app.configure(function() {
 	// required for passport
 	app.use(express.session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
 	app.use(express.static(path.join(__dirname, 'public')));
+	// app.use(express.static(path.join(__dirname, '/opt/s')));
 	app.use(passport.initialize());
 	app.use(passport.session()); // persistent login sessions
 	app.use(flash()); // use connect-flash for flash messages stored in session

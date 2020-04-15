@@ -147,7 +147,7 @@ input:checked + .slider:before {
                     <td>
                       <!-- <a href="C:\FirstPeakUIServer\public\csv\words.csv" download>Download CSV File</a> -->
                       <a href=
-                      "/opt/sector-sentiment-files/words.csv" download>Download</a>
+                      "/csv/words.csv" download>Download</a>
                     </td>
                     <td> <label class="switch">
                    <input type="checkbox" id="togBtn1">
@@ -168,7 +168,7 @@ input:checked + .slider:before {
                          // alert("HII" + switchStatus);// To verify                     
                       $.ajax({
                         type: 'GET',
-                        url: 'http://admin.tradetipsapp.com:5555/Seanwordstatus',
+                        url: '/Seanwordstatus',
                         data: {status: switchStatus , tokenval : tokens},success:function(data){   
                            var datakk = JSON.stringify(data);
                            // alert(datakk);
@@ -184,7 +184,7 @@ input:checked + .slider:before {
                        // alert("HELLO" + switchStatus);// To verify
                        $.ajax({
                         type: 'GET',
-                        url: 'http://admin.tradetipsapp.com:5555/Seanwordstatus',
+                        url: '/Seanwordstatus',
                         data: {status: switchStatus, tokenval : tokens},   
                           success:function(data){   
                            var datakk = JSON.stringify(data);
@@ -218,7 +218,7 @@ input:checked + .slider:before {
                         // alert("HII" + switchStatus);// To verify                     
                       $.ajax({
                         type: 'GET',
-                        url: 'http://admin.tradetipsapp.com:5555/Bushwickwordstatus',
+                        url: '/Bushwickwordstatus',
                         data: {status: switchStatus , tokenval : tokens},success:function(data){   
                            var datakk = JSON.stringify(data);
                            // alert(datakk);
@@ -234,7 +234,7 @@ input:checked + .slider:before {
                        // alert("HELLO" + switchStatus);// To verify
                        $.ajax({
                         type: 'GET',
-                        url: 'http://admin.tradetipsapp.com:5555/Bushwickwordstatus',
+                        url: '/Bushwickwordstatus',
                         data: {status: switchStatus, tokenval : tokens},   
                           success:function(data){   
                            var datakk = JSON.stringify(data);
@@ -270,7 +270,7 @@ input:checked + .slider:before {
                          // alert("HII" + switchStatus);// To verify                     
                       $.ajax({
                         type: 'GET',
-                        url: 'http://admin.tradetipsapp.com:5555/seanblackliststatus',
+                        url: '/seanblackliststatus',
                         data: {status: switchStatus , tokenval : tokens},success:function(data){   
                            var datakk = JSON.stringify(data);
                            // alert(datakk);
@@ -286,7 +286,7 @@ input:checked + .slider:before {
                        // alert("HELLO" + switchStatus);// To verify
                        $.ajax({
                         type: 'GET',
-                        url: 'http://admin.tradetipsapp.com:5555/seanblackliststatus',
+                        url: '/seanblackliststatus',
                         data: {status: switchStatus, tokenval : tokens},   
                           success:function(data){   
                            var datakk = JSON.stringify(data);
@@ -317,7 +317,7 @@ input:checked + .slider:before {
                         // alert("HII" + switchStatus);// To verify                     
                       $.ajax({
                         type: 'GET',
-                        url: 'http://admin.tradetipsapp.com:5555/bushwickBlackStatus',
+                        url: '/bushwickBlackStatus',
                         data: {status: switchStatus , tokenval : tokens},success:function(data){   
                            var datakk = JSON.stringify(data);
                            // alert(datakk);
@@ -333,7 +333,7 @@ input:checked + .slider:before {
                        // alert("HELLO" + switchStatus);// To verify
                        $.ajax({
                         type: 'GET',
-                        url: 'http://admin.tradetipsapp.com:5555/bushwickBlackStatus',
+                        url: '/bushwickBlackStatus',
                         data: {status: switchStatus, tokenval : tokens},   
                           success:function(data){   
                            var datakk = JSON.stringify(data);
