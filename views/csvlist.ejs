@@ -145,9 +145,7 @@ input:checked + .slider:before {
                     <tr>
                     <td>words.csv</td>
                     <td>
-                      <!-- <a href="C:\FirstPeakUIServer\public\csv\words.csv" download>Download CSV File</a> -->
-                      <a href=
-                      "/csv/words.csv" download>Download</a>
+                      <a href="/csv/words.csv" download>Download CSV File</a>
                     </td>
                     <td> <label class="switch">
                    <input type="checkbox" id="togBtn1">
@@ -557,7 +555,7 @@ function openFile(func) {
 
          document.getElementById("urlvalue").value = tokens; 
 
- $.getJSON( "/json/seanWord.json", function( data ) {
+ $.getJSON( "json/seanWord.json", function( data ) {
 
         // alert("value is" + data.status);
 
@@ -577,7 +575,7 @@ function openFile(func) {
 
  //////////////////////////////////////////////////////
 
-   $.getJSON( "/json/bushwickWord.json", function( data ) {
+   $.getJSON( "json/bushwickWord.json", function( data ) {
 
        // alert(data.status);
 
@@ -598,7 +596,7 @@ function openFile(func) {
    //////////////////////////////////////////////////////
       
 
-       $.getJSON( "/json/seanBlack.json", function( data ) {
+       $.getJSON( "json/seanBlack.json", function( data ) {
 
        // alert(data.status);
 
@@ -619,7 +617,7 @@ function openFile(func) {
 
   ///////////////////////////////////////////////////////////
 
-   $.getJSON( "/json/bushwikBlack.json", function( data ) {
+   $.getJSON( "json/bushwikBlack.json", function( data ) {
 
        // alert(data.status);
 
@@ -654,7 +652,7 @@ function openFile(func) {
 //        alert(datak)
 //      });
 
-// $.getJSON( "/json/blcklistdetail.json", function( data ) {
+// $.getJSON( "json/blcklistdetail.json", function( data ) {
 
 //     // alert(data.name);
 
