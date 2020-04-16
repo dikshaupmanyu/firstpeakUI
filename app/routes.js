@@ -1007,7 +1007,12 @@ app.get('/backmale', isLoggedIn, function(req, res) {
     
   });
 
+   app.get('/flaglist',  function(req, res) {
 
+        res.render('flaglist.ejs');
+     
+    
+  });
 
 
     app.get('/ConsultById/:userid', function(req, res) {
