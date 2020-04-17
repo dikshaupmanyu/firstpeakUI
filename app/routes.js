@@ -7020,7 +7020,7 @@ console.log(_id);
        
       // console.log(passUrl);
 
-      var checkdataval = req.body.checkdata;
+      // var checkdataval = req.body.checkdata;
          // console.log(checkdataval);
 
       fs.rename(req.files.avatar.path, file, function(err) {
@@ -7029,19 +7029,19 @@ console.log(_id);
           res.send(500);
         } else {
 
-              let rawdata = fs.readFileSync('publicpublic/json/userdetail.json');
-              let userdetail = JSON.parse(rawdata);
-              // let userdetailNew = JSON.parse(userdetail);
-              console.log(userdetail);  
-              console.log(userdetail.name);
-              var userdetailt = { name: req.body.checkdata};
+              // let rawdata = fs.readFileSync('public/json/userdetail.json');
+              // let userdetail = JSON.parse(rawdata);
+              // // let userdetailNew = JSON.parse(userdetail);
+              // console.log(userdetail);  
+              // console.log(userdetail.name);
+              // var userdetailt = { name: req.body.checkdata};
 
-              let data = JSON.stringify(userdetailt, null, 2);
+              // let data = JSON.stringify(userdetailt, null, 2);
 
-              fs.writeFile('publicpublic/json/userdetail.json', data, (err) => {
-                  if (err) throw err;
-                  console.log('Data written to file');
-              });
+              // fs.writeFile('public/json/userdetail.json', data, (err) => {
+              //     if (err) throw err;
+              //     console.log('Data written to file');
+              // });
             
 
               return res.redirect("/csvlist?tokendata="+passUrl);
@@ -7070,7 +7070,7 @@ console.log(_id);
        
       // console.log(passUrl);
 
-      var checkdataval = req.body.checkdata;
+      // var checkdataval = req.body.checkdata;
          // console.log(checkdataval);
 
       fs.rename(req.files.avatar.path, file, function(err) {
