@@ -353,6 +353,8 @@ input:checked + .slider:before {
 
                  <h4>Uploaded CSV</h4>
 
+                 <p id="msgdata"></p>
+
                  <table class="table table-bordered" id="dataTables" width="100%" cellspacing="0">
                   <thead>
                     <tr>
@@ -545,6 +547,8 @@ function openFile(func) {
   var url_string = window.location.href; 
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
+  var msgdata = urls.searchParams.get("msg");
+  // alert(msgdata);
    document.getElementById("HomeLink").href = "/home?tokendata="+tokens;
   document.getElementById("UserLink").href = "/userlist?tokendata="+tokens;
   // document.getElementById("UserCallLink").href = "/userlist?tokendata="+tokens;
@@ -634,7 +638,16 @@ function openFile(func) {
      }
 
 });
+ 
+ if(msgdata == null){
 
+  document.getElementById("msgdata").textContent = "";
+
+ }else{
+
+  document.getElementById("msgdata").textContent = "File Uploaded Sucessfully !!";
+
+ }
 
 
 ////////////////////////////////////////////////////////////

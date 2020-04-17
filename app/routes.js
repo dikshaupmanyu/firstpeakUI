@@ -7029,6 +7029,8 @@ console.log(_id);
           res.send(500);
         } else {
 
+             var string = encodeURIComponent('something that would break');
+
               // let rawdata = fs.readFileSync('public/json/userdetail.json');
               // let userdetail = JSON.parse(rawdata);
               // // let userdetailNew = JSON.parse(userdetail);
@@ -7044,7 +7046,7 @@ console.log(_id);
               // });
             
 
-              return res.redirect("/csvlist?tokendata="+passUrl);
+              return res.redirect("/csvlist?tokendata="+passUrl+"&msg="+string);
 
         
 
@@ -7078,6 +7080,7 @@ console.log(_id);
           // console.log(err);
           res.send(500);
         } else {
+              var string = encodeURIComponent('something that would break');
 
               // let rawdata = fs.readFileSync('publicpublic/json/userdetail.json');
               // let userdetail = JSON.parse(rawdata);
@@ -7094,7 +7097,7 @@ console.log(_id);
               // });
             
 
-              return res.redirect("/csvlist?tokendata="+passUrl);
+              return res.redirect("/csvlist?tokendata="+passUrl+"&msg="+string);
 
         
 
