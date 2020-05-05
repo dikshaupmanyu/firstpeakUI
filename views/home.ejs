@@ -157,14 +157,15 @@ window.addEventListener("load", function() {
   var url_string = window.location.href; 
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
+  // alert(tokens);
 
 const url = "https://apis.tradetipsapp.com/api/appUserWebModify/getAllAppUsers";
 fetch(url, {
   method: "POST",
   headers: {
-          Authorization: 'Bearer ' + tokens,
+          Authorization: 'Bearer ' +tokens,
         },
-})
+  })
   .then(resp => resp.json())
     .then(function(data) {
        var datak = JSON.stringify(data);
@@ -176,39 +177,10 @@ fetch(url, {
   })
   .catch(function(error) {
     console.log(error);
+    // alert(error);
   });
 
-// $.ajax({
-//         type: 'POST',
-//         url: 'http://3.93.137.122:6080/api/appUser/getAllAppUsers',
-//         headers: {
-//           Authorization: 'Bearer '+ localStorage.getItem("token"),
-//           Authorization: 'Bearer '+ sessionStorage.getItem("token")
-//         },
-//         dataType:'json',
-//         // crossDomain: true,
-//         cache:false,
-//         // contentType: "application/json; charset=utf-8",
-//         success: function(data){
-          
-//           var datak = JSON.stringify(data);
-//            var dataResult = JSON.parse(datak); 
-//             // alert(dataResult.length);         
-//           // alert(dataResult);
-//           // if(dataResult){
-//           //   alert("true");
-//           // $("#success").show();
-//           $('#toatluser').html(dataResult.length);
-//           //   window.location.href = "/home";            
-//           // }
-//           // else if(dataResult.statusCode==201){
-//           //   alert("false");
-//           //   $("#error").show();
-//           //   $('#error').html('Invalid EmailId or Password !');
-//           // }
-          
-//         }
-//       });
+
  });
 
 function logout() {
@@ -217,6 +189,7 @@ function logout() {
   sessionStorage.clear();
   window.location.href = "/";
 }
+
  </script>
 <script type="text/javascript">
   window.addEventListener("load", function() {
@@ -229,7 +202,7 @@ function logout() {
    document.getElementById("CommentLink").href = "/commentlist?tokendata="+tokens;
 
   document.getElementById("CSVLink").href = "/csvlist?tokendata="+tokens;
- // document.getElementById("FlagCallLink").href = "/flaglist?tokendata="+tokens;
+  document.getElementById("FlagCallLink").href = "/flaglist?tokendata="+tokens;
 
     
 });
