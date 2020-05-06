@@ -187,17 +187,25 @@ $(function () {
           //   window.sessionStorage.accessToken = response.body.access_token;
           // }
             // alert("true");
-            $("#success").show();
-            $('#success').html('Login Sucessfully !');
-           
-             //  function saveToken() {
-             //    alert("token");
-             var tdss = dataResult.accessToken;
-             // alert(tdss);
-             //   var tdsk = sessionStorage.setItem('token', dataResult.accessToken);
-             //    alert(tdsk);
-             // }
-            window.location.href = "/home?tokendata="+tdss;            
+            if(userName == "admin"){
+
+              $("#success").show();
+              $('#success').html('Login Sucessfully !');
+             
+               //  function saveToken() {
+               //    alert("token");
+               var tdss = dataResult.accessToken;
+               // alert(tdss);
+               //   var tdsk = sessionStorage.setItem('token', dataResult.accessToken);
+               //    alert(tdsk);
+               // }
+              window.location.href = "/home?tokendata="+tdss;  
+
+            }else{
+
+              alert('Only logged in user as "admin" !!');
+              window.location.href = "/"; 
+            }                     
           }
           else if(dataResult.statusCode==201){
             // alert("false");
