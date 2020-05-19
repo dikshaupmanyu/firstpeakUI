@@ -18,6 +18,22 @@ var http = require('http');
 var Base64 = require('Base64');
 var expressJwt = require('express-jwt');
 var jwt = require('jsonwebtoken');
+var vhost = require('vhost');
+
+app.use(vhost('admin.tradetipsapp.com:5555', function (req, res) {
+  // handle req + res belonging to mail.example.com
+  res.setHeader('Content-Type', 'text/plain');
+  alert('hello from admin!');
+}))
+ 
+ 
+app.use(vhost('mentor.tradetipsapp.com:5555', function (req, res) {
+  // handle req + res belonging to api.example.com
+  // pass the request to a standard Node.js HTTP server
+  res.setHeader('Content-Type', 'text/plain');
+  alert('hello from mentor!');
+}))
+
 // var glob = require('glob');
 // var getDirectories = function (src, callback) {
 //   glob(src + '/csv/', callback);
