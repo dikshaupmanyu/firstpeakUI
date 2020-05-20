@@ -174,7 +174,7 @@ window.addEventListener("load", function() {
             dataType:'json',
             cache:false,
             success: function(data){
-              
+              alert(dataResult);
               var datak = JSON.stringify(data); 
               var dataResult = JSON.parse(datak);          
               if(dataResult.accessToken){
