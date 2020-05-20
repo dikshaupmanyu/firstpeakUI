@@ -174,7 +174,8 @@ window.addEventListener("load", function() {
             dataType:'json',
             cache:false,
             success: function(data){
-              // alert(dataResult);
+              alert(dataResult.accessToken);
+              alert(userName);
               var datak = JSON.stringify(data); 
               var dataResult = JSON.parse(datak);          
               if(dataResult.accessToken){
@@ -185,7 +186,7 @@ window.addEventListener("load", function() {
                   $('#success').html('Login Sucessfully !');
               
                    var tdss = dataResult.accessToken;
-                   // alert(tdss);
+                   alert(tdss);
                    //   var tdsk = sessionStorage.setItem('token', dataResult.accessToken);
                    //    alert(tdsk);
                    // }
