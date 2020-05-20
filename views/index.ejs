@@ -178,7 +178,7 @@ window.addEventListener("load", function() {
               alert(userName);
               var datak = JSON.stringify(data); 
               var dataResult = JSON.parse(datak);        
-              alert(dataResult.accessToken);  
+              alert(data.accessToken);  
               if(dataResult.accessToken){
               
                 if(userName == "admin"){
