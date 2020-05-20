@@ -150,7 +150,7 @@ window.addEventListener("load", function() {
 
   var url_string = window.location.href; 
   var urls = new URL(url_string);
-  alert(urls);
+  // alert(urls);
 
   if(urls == "http://admin.tradetipsapp.com:5555/"){
 
@@ -161,7 +161,7 @@ window.addEventListener("load", function() {
         if(userName!="" && password!="" ){
           $.ajax({
             type: 'POST',
-            url: 'https://apis.tradetipsapp.com/api/auth/appSignIn',
+            url: 'https://apis.tradetipsapp.com:6080/api/auth/appSignIn',
             headers: {
               Authorization: 'Bearer '+ localStorage.getItem("token"),
               Authorization: 'Bearer '+ sessionStorage.getItem("token")
@@ -232,7 +232,7 @@ window.addEventListener("load", function() {
         if(userName!="" && password!="" ){
           $.ajax({
             type: 'POST',
-            url: 'https://apis.tradetipsapp.com/api/auth/appSignIn',
+            url: 'https://apis.tradetipsapp.com:6080/api/auth/appSignIn',
             headers: {
               Authorization: 'Bearer '+ localStorage.getItem("token"),
               Authorization: 'Bearer '+ sessionStorage.getItem("token")
@@ -248,10 +248,10 @@ window.addEventListener("load", function() {
               alert(data);
               var datak = JSON.stringify(data); 
               var dataResult = JSON.parse(datak); 
-              alert(dataResult);         
+              // alert(dataResult);         
               if(dataResult.accessToken){
 
-                alert(userName);
+                // alert(userName);
 
                   if(userName != "admin"){
 
@@ -275,10 +275,10 @@ window.addEventListener("load", function() {
                       if(dataResultt.isMentor == true){
 
                          var newtokenvals = dataResult.accessToken;
-                         alert(newtokenvals);
+                         // alert(newtokenvals);
                          var username = dataResultt.userName;
                          var userid = dataResultt.id;
-                         alert(username);
+                         // alert(username);
 
                           window.location.href = "/tipPage?tokendata="+newtokenvals+"&uname="+username+"&id="+userid; 
 
