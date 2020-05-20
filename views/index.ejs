@@ -146,6 +146,14 @@ $(document).ready(function(){
             window.history.forward(); 
         } 
 
+window.addEventListener("load", function() {
+
+  var url_string = window.location.href; 
+  var urls = new URL(url_string);
+  alert(urls);
+
+});
+
 $(function () {
 
    $('#butlogin').on('click', function() {
