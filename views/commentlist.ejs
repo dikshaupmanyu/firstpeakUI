@@ -53,15 +53,20 @@
             </div>
 
 
-
             <div class="card-body">
               <div class="table-responsive">
+
+              <input type="button" class="btn btn-primary" id="btn_" value="Delete All Comment" />
+
+                <br>
+
                 <table class="table table-bordered" id="dataTables" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Id</th>
+                      <!-- <th>Id</th> -->
+                      <th></th>
                       <th>Comments</th>
-                      <th>Tip Id</th>
+                      <th>Username</th>
                       <th>Status</th>
                       <th>Action</th>
  <!--                       <th>Authenticate by Email</th>
@@ -77,8 +82,8 @@
                       <th>Salary</th>
                     </tr>
                   </tfoot> -->
-                 <!--  <tbody id="showData">
-                  </tbody> -->
+                  <tbody>
+                  </tbody>
                 </table>
               </div>
             </div>
@@ -165,6 +170,106 @@ window.addEventListener("load", function() {
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
 
+
+  const urlk = "https://apis.tradetipsapp.com/api/comment/getAllComments";
+fetch(urlk, {
+  method: "POST",
+  headers: {
+          Authorization: 'Bearer ' + tokens,
+        },
+})
+  .then(resp => resp.json())
+    .then(function(data) {
+           $('#dataTables').dataTable( {
+            "aaData": data, 
+            "columns": [
+                // { "data": "id" },
+                { "data" : null ,
+                  'render': function (data, type, row) {
+                       // return '<button id="' + row.id + '" class="deleteButton">Delete</button>'
+
+                       return '<input type="checkbox" id="' + row.id + '" value="' + row.id + '" name="letter[]">';
+                }
+                },
+                { "data": "commentDetails" },
+                { "data": "appUser.userName" },
+                { "data": "status",
+                 'render': function (data, type, row) {
+
+                  if ( type === 'display' ) {
+
+                      if(data == "approved"){
+                       return '<button id="' + row.id + '" class="approveStatus">Approved</button>'
+                      }else{
+                        return '<button id="' + row.id + '" class="approveStatus">Pending</button>'
+                      }
+                  }
+                return data;
+                }  
+               },  
+                { 'data': null,
+                 'render': function (data, type, row) {
+                       return '<button id="' + row.id + '" class="deleteButtons">Delete</button>'
+               }
+              },               
+            ],
+            "deferRender": true,
+            rowCallback: function ( row, data ) {
+            // Set the checked state of the checkbox in the table
+            // $('input.editor-active', row).prop( 'checked', data.isFlag == true );
+        }
+
+        });
+
+
+    $('#dataTables').on('click', 'button.deleteButtons', function () {
+
+      // alert("fff");
+
+      var id = $(this).attr('id');
+      // alert(ids);
+
+      var url ;
+      var result = confirm("Are you sure you want to delete?");
+      if(result){
+      var formData = {commentId:id};
+       url = "https://apis.tradetipsapp.com/api/comment/deleteCommentByCommentId";
+      $.ajax({
+        url : url,
+        type: "POST",
+        headers: {
+             Authorization: 'Bearer ' + tokens,
+        },
+        data : formData,
+        success: function(data, textStatus, jqXHR)
+        {
+            //data - response from server
+            var datak = JSON.stringify(data);
+            var dataResultp = JSON.parse(datak); 
+            // alert(dataResultp);
+            alert("Delete Sucessfully !!");
+            window.location.reload();
+
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+           alert("Not updated !!");
+        }
+
+       });
+      
+
+      } else {
+
+          window.location.reload();
+
+      }
+
+      });
+
+
+      });
+
  
 const url = "https://apis.tradetipsapp.com/api/appUserWebModify/getAllAppUsers";
 fetch(url, {
@@ -195,13 +300,16 @@ fetch(url, {
 $('#butSaveData').on('click', function() {
     var UserSelect = $('#sel_user').val();
     // alert(UserSelect);
-    var Offset = "5";
-    var Limit = "10";
-    var formdata = {userName : UserSelect,offset : Offset,limit : Limit};
-    if(UserSelect!="" && Offset!="" && Limit!=""){
+    // var Offset = "5";
+    // var Limit = "10";
+    var formdata = {userName : UserSelect};
+
+    // var formdata = {userName : UserSelect,offset : Offset,limit : Limit};
+    // if(UserSelect!="" && Offset!="" && Limit!=""){
+    if(UserSelect!=""){
       $.ajax({
         type: 'POST',
-        url: 'https://apis.tradetipsapp.com/api/comment/getAllCommentsWithPagination',
+        url: 'https://apis.tradetipsapp.com/api/comment/getAllComments',
         headers: {
           Authorization: 'Bearer '+ tokens
         },
@@ -224,10 +332,30 @@ $('#butSaveData').on('click', function() {
            $('#dataTables').dataTable( {
             "aaData": data,   
             "columns": [
-                { "data": "id" },
+                // { "data": "id" },
+                 { "data" : null ,
+                  'render': function (data, type, row) {
+                       // return '<button id="' + row.id + '" class="deleteButton">Delete</button>'
+
+                       return '<input type="checkbox" id="' + row.id + '" value="' + row.id + '" name="letter[]">';
+                }
+                },
                 { "data": "commentDetails" },
-                { "data": "tipId" },
-                { "data": "status" },
+                { "data": "appUser.userName" },
+                { "data": "status",
+                 'render': function (data, type, row) {
+
+                  if ( type === 'display' ) {
+
+                      if(data == "approved"){
+                       return '<button id="' + row.id + '" class="approveStatus">Approved</button>'
+                      }else{
+                        return '<button id="' + row.id + '" class="approveStatus">Pending</button>'
+                      }
+                  }
+                return data;
+                }  
+               },  
                 { 'data': null,
                  'render': function (data, type, row) {
                        return '<button id="' + row.id + '" class="deleteButton">Delete</button>'
@@ -235,21 +363,30 @@ $('#butSaveData').on('click', function() {
               },               
             ],
             "deferRender": true,
+            rowCallback: function ( row, data ) {
+            // Set the checked state of the checkbox in the table
+            // $('input.editor-active', row).prop( 'checked', data.isFlag == true );
+        }
+
 
 
         });
 
 
+   
+
     $('#dataTables').on('click', 'button.deleteButton', function () {
 
+      alert("fff");
+
       var id = $(this).attr('id');
-      // alert(id);
+      // alert(ids);
 
       var url ;
       var result = confirm("Are you sure you want to delete?");
       if(result){
       var formData = {commentId:id};
-      const url = "https://apis.tradetipsapp.com/api/comment/deleteCommentByCommentId";
+       url = "https://apis.tradetipsapp.com/api/comment/deleteCommentByCommentId";
       $.ajax({
         url : url,
         type: "POST",
@@ -305,6 +442,118 @@ $('#butSaveData').on('click', function() {
   
   });
 
+  $('#dataTables').on('click', 'button.approveStatus', function () {
+
+    var ids = $(this).attr('id');
+    // alert(ids);
+    var table = $('#dataTables').DataTable();
+    var row = table.row(this.closest('tr')).data();
+    var result = confirm("Are you sure you want to update the status?");
+    if(result){
+    var formData;
+    var id = ids;
+    // alert(id);
+    // var userId = row["userId"];
+    // var commentDetails = row["commentDetails"];
+    // alert(commentDetails);
+    var status = row["status"];
+    // alert(status);
+    var url;
+    if(status == "approved"){
+        url = "https://apis.tradetipsapp.com/api/comment/modifyCommentStatusById";
+        formData = {commentId:id,status:"pending"};
+    }else{
+        url = "https://apis.tradetipsapp.com/api/comment/modifyCommentStatusById";
+        formData = {commentId:id,status:"approved"};
+     }
+       
+       $.ajax({
+        url : url,
+        type: "POST",
+        headers: {
+             Authorization: 'Bearer ' + tokens,
+        },
+        data : formData,
+        success: function(data, textStatus, jqXHR)
+        {
+            //data - response from server
+            var datak = JSON.stringify(data);
+            // alert(datak);
+            var dataResultp = JSON.parse(datak); 
+            alert("Comment status updated Sucessfully !!");
+            window.location.reload();
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+           alert("Not updated !!");
+        }
+
+    });
+    } else {
+
+       window.location.reload();
+
+    }
+
+   });
+
+
+//   $("#btn_").on('click', function () {
+//     var checkbox_value = "";
+//     $(":checkbox").each(function () {
+//         var ischecked = $(this).is(":checked");
+//         if (ischecked) {
+//             checkbox_value += $(this).val() + "|";
+//         }
+//     });
+//     alert(checkbox_value);
+// });
+
+
+$("#btn_").on('click', function () {
+
+    var selected = new Array();
+ 
+        $("#dataTables input[type=checkbox]:checked").each(function () {
+                // alert("hii");
+                selected.push(this.value);
+
+            });
+
+        if (selected.length > 0) {
+
+        var isDelete = confirm("Do you really want to delete records?");
+        if (isDelete == true) {
+
+        for (var i = 0; i <= selected.length-1; i++) {
+        
+                 // AJAX Request
+                 // alert("ajax cl");
+                 // alert(selected);
+                 var commentId = selected[i];
+                 // alert(commentId);
+                 $.ajax({
+                    url: 'https://apis.tradetipsapp.com/api/comment/deleteCommentByCommentId',
+                    type: 'POST',
+                    headers: {
+                     Authorization: 'Bearer ' + tokens,
+                    },
+                    data: { commentId: commentId},
+                    success: function(response){
+                        // alert(response);
+                       // $.each(selected, function( i,l ){
+                       //     $("#tr_"+l).remove();
+                       // });
+                       window.location.reload();
+                    }
+                 });
+               } 
+             } 
+             alert("Comment deleted Sucessfully !!");      
+        }
+  });
+
+
 });
    
  </script>
@@ -318,8 +567,8 @@ $('#butSaveData').on('click', function() {
   document.getElementById("UserLink").href = "/userlist?tokendata="+tokens;
   // document.getElementById("UserCallLink").href = "/userlist?tokendata="+tokens;
    document.getElementById("CommentLink").href = "/commentlist?tokendata="+tokens;
-    document.getElementById("CSVLink").href = "/csvlist?tokendata="+tokens;
-
+   document.getElementById("CSVLink").href = "/csvlist?tokendata="+tokens;
+ document.getElementById("FlagCallLink").href = "/flaglist?tokendata="+tokens;
     
 });
 </script>

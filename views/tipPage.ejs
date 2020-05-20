@@ -1,5 +1,5 @@
 
-           <%- include partials/header %>
+           <%- include partials/mentorheader %>
 
 
         <!-- Begin Page Content -->
@@ -15,37 +15,8 @@
           <div class="row">
 
             <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <a id="UserCallLink"><div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Registered Users</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800"><span id="toatluser"></span></div>
-                    </div></a>
-                    <div class="col-auto">
-                      <i class="fas fa-user fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <a id="FlagCallLink"><div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Flag Comment</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800"><span id="toatlflagcomnt"></span></div>
-                    </div></a>
-                    <div class="col-auto">
-                      <i class="fas fa-user fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            
+          
 
 
             <!-- Earnings (Monthly) Card Example -->
@@ -174,7 +145,13 @@ window.addEventListener("load", function() {
   var url_string = window.location.href; 
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
-  // alert(tokens);
+
+  var name = urls.searchParams.get("uname");
+  // alert(name);
+   $('#loginName').html(name);
+
+    var userid = urls.searchParams.get("id");
+  $('#loginId').html(userid);
 
 const url = "https://apis.tradetipsapp.com/api/appUserWebModify/getAllAppUsers";
 fetch(url, {
@@ -268,13 +245,15 @@ function logout() {
   var url_string = window.location.href; 
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
-   document.getElementById("HomeLink").href = "/home?tokendata="+tokens;
-  document.getElementById("UserLink").href = "/userlist?tokendata="+tokens;
-  document.getElementById("UserCallLink").href = "/userlist?tokendata="+tokens;
-   document.getElementById("CommentLink").href = "/commentlist?tokendata="+tokens;
-   document.getElementById("CSVLink").href = "/csvlist?tokendata="+tokens;
+  var username = urls.searchParams.get("uname");
+  var userid = urls.searchParams.get("id");
+ document.getElementById("HomeLink").href = "/tipPage?tokendata="+tokens+"&uname="+username+"&id="+userid;
+  document.getElementById("UserLink").href = "/addMentor?tokendata="+tokens+"&uname="+username+"&id="+userid;
+  // document.getElementById("UserCallLink").href = "/userlist?tokendata="+tokens;
+  //  document.getElementById("CommentLink").href = "/commentlist?tokendata="+tokens;
+  //  document.getElementById("CSVLink").href = "/csvlist?tokendata="+tokens;
 
-  document.getElementById("FlagCallLink").href = "/flaglist?tokendata="+tokens;
+  // document.getElementById("FlagCallLink").href = "/flaglist?tokendata="+tokens;
     
 });
 </script>
