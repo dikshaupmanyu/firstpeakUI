@@ -161,7 +161,7 @@ window.addEventListener("load", function() {
         if(userName!="" && password!="" ){
           $.ajax({
             type: 'POST',
-            url: 'http://apis.tradetipsapp.com:6080/api/auth/appSignIn',
+            url: 'https://apis.tradetipsapp.com/api/auth/appSignIn',
             headers: {
               Authorization: 'Bearer '+ localStorage.getItem("token"),
               Authorization: 'Bearer '+ sessionStorage.getItem("token")
@@ -174,7 +174,7 @@ window.addEventListener("load", function() {
             dataType:'json',
             cache:false,
             success: function(data){
-              alert(dataResult);
+              // alert(dataResult);
               var datak = JSON.stringify(data); 
               var dataResult = JSON.parse(datak);          
               if(dataResult.accessToken){
@@ -185,7 +185,7 @@ window.addEventListener("load", function() {
                   $('#success').html('Login Sucessfully !');
               
                    var tdss = dataResult.accessToken;
-                   alert(tdss);
+                   // alert(tdss);
                    //   var tdsk = sessionStorage.setItem('token', dataResult.accessToken);
                    //    alert(tdsk);
                    // }
@@ -232,7 +232,7 @@ window.addEventListener("load", function() {
         if(userName!="" && password!="" ){
           $.ajax({
             type: 'POST',
-            url: 'http://apis.tradetipsapp.com:6080/api/auth/appSignIn',
+            url: 'https://apis.tradetipsapp.com/api/auth/appSignIn',
             headers: {
               Authorization: 'Bearer '+ localStorage.getItem("token"),
               Authorization: 'Bearer '+ sessionStorage.getItem("token")
