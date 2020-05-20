@@ -174,10 +174,11 @@ window.addEventListener("load", function() {
             dataType:'json',
             cache:false,
             success: function(data){
-              alert(dataResult.accessToken);
+              // alert(dataResult.accessToken);
               alert(userName);
               var datak = JSON.stringify(data); 
-              var dataResult = JSON.parse(datak);          
+              var dataResult = JSON.parse(datak);        
+              alert(dataResult.accessToken);  
               if(dataResult.accessToken){
               
                 if(userName == "admin"){
