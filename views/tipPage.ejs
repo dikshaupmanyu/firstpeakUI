@@ -143,94 +143,17 @@ window.history.forward();
 window.addEventListener("load", function() {
 
   var url_string = window.location.href; 
-  var urls = new URL(url_string);
-  var tokens = urls.searchParams.get("tokendata");
+  var urlst = new URL(url_string);
+  var tokens = urlst.searchParams.get("tokendata");
 
-  var name = urls.searchParams.get("uname");
+  var name = urlst.searchParams.get("uname");
   // alert(name);
    $('#loginName').html(name);
 
-    var userid = urls.searchParams.get("id");
+    var userid = urlst.searchParams.get("id");
   $('#loginId').html(userid);
+  
 
-const url = "https://apis.tradetipsapp.com/api/appUserWebModify/getAllAppUsers";
-fetch(url, {
-  method: "POST",
-  headers: {
-          Authorization: 'Bearer ' + tokens,
-        },
-})
-  .then(resp => resp.json())
-    .then(function(data) {
-       var datak = JSON.stringify(data);
-       var dataResult = JSON.parse(datak); 
-       // alert(dataResult);
-        $('#toatluser').html(dataResult.length);
-
-
-  })
-  .catch(function(error) {
-    console.log(error);
-  });
-
-  const url1 = "https://apis.tradetipsapp.com/api/tipCommentFlag/getAllFlaggedComment";
-fetch(url1, {
-  method: "POST",
-  headers: {
-          Authorization: 'Bearer ' + tokens,
-        },
-})
-  .then(resp => resp.json())
-    .then(function(data) {
-       var dataki = JSON.stringify(data);
-       var dataResulti = JSON.parse(dataki); 
-       // var fileLicenses = [];  
-         // for(var i=0, len=dataResulti.length; i<len; i++){
-         //  alert(dataResulti[i].isFlag);
-
-           
-         // }
-         var count = dataResulti.filter(function(s) { return s.isFlag; }).length;
-       
-        $('#toatlflagcomnt').html(count);
-
-
-  })
-  .catch(function(error) {
-    console.log(error);
-  });
-
-// $.ajax({
-//         type: 'POST',
-//         url: 'https://apis.tradetipsapp.com/api/appUser/getAllAppUsers',
-//         headers: {
-//           Authorization: 'Bearer '+ localStorage.getItem("token"),
-//           Authorization: 'Bearer '+ sessionStorage.getItem("token")
-//         },
-//         dataType:'json',
-//         // crossDomain: true,
-//         cache:false,
-//         // contentType: "application/json; charset=utf-8",
-//         success: function(data){
-          
-//           var datak = JSON.stringify(data);
-//            var dataResult = JSON.parse(datak); 
-//             // alert(dataResult.length);         
-//           // alert(dataResult);
-//           // if(dataResult){
-//           //   alert("true");
-//           // $("#success").show();
-//           $('#toatluser').html(dataResult.length);
-//           //   window.location.href = "/home";            
-//           // }
-//           // else if(dataResult.statusCode==201){
-//           //   alert("false");
-//           //   $("#error").show();
-//           //   $('#error').html('Invalid EmailId or Password !');
-//           // }
-          
-//         }
-//       });
  });
 
 function logout() {
@@ -249,11 +172,6 @@ function logout() {
   var userid = urls.searchParams.get("id");
  document.getElementById("HomeLink").href = "/tipPage?tokendata="+tokens+"&uname="+username+"&id="+userid;
   document.getElementById("UserLink").href = "/addMentor?tokendata="+tokens+"&uname="+username+"&id="+userid;
-  // document.getElementById("UserCallLink").href = "/userlist?tokendata="+tokens;
-  //  document.getElementById("CommentLink").href = "/commentlist?tokendata="+tokens;
-  //  document.getElementById("CSVLink").href = "/csvlist?tokendata="+tokens;
-
-  // document.getElementById("FlagCallLink").href = "/flaglist?tokendata="+tokens;
     
 });
 </script>
