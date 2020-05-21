@@ -320,6 +320,7 @@ $(document).ready(function(){
   $('#loginName').html(username);
   var userid = urls.searchParams.get("id");
   $('#loginId').val(userid);
+  document.getElementById("dashboardLink").href = "/tipPage?tokendata="+tokens+"&uname="+username+"&id="+userid;
  document.getElementById("HomeLink").href = "/tipPage?tokendata="+tokens+"&uname="+username+"&id="+userid;
   document.getElementById("UserLink").href = "/addMentor?tokendata="+tokens+"&uname="+username+"&id="+userid;
     

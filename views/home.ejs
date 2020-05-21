@@ -268,6 +268,7 @@ function logout() {
   var url_string = window.location.href; 
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
+document.getElementById("dashboardLink").href = "/home?tokendata="+tokens;
    document.getElementById("HomeLink").href = "/home?tokendata="+tokens;
   document.getElementById("UserLink").href = "/userlist?tokendata="+tokens;
   document.getElementById("UserCallLink").href = "/userlist?tokendata="+tokens;
