@@ -2,14 +2,40 @@ module.exports = function(app, passport) {
 
 // normal routes ===============================================================
 
-	// show the home page (will also have our login links)
-	app.get('/', function(req, res) {
-		res.render('index.ejs');
-	});
+  // show the home page (will also have our login links)
+  app.get('/', function(req, res) {
+    res.render('index.ejs');
+  });
 
   app.get('/commentlist', function(req, res) {
 
     res.render('commentlist.ejs');
+  });
+
+  app.get('/updateData', function(req, res) {
+
+    var status = req.query.status;
+    var userid = req.query.id;
+    var tokenval = req.query.tokendata;
+
+    var fs = require("fs");
+       let rawdata = fs.readFileSync('public/json/userdetail.json');
+       let userdetail = JSON.parse(rawdata);
+    
+        var userdetailt = { status : req.query.status};
+
+        let data = JSON.stringify(userdetailt, null, 2);
+
+        fs.writeFile('public/json/userdetail.json', data, (err) => {
+             if (err) throw err;
+             console.log(data);
+        });            
+        
+       return res.redirect("/userlist?tokendata="+tokenstatus);
+
+
+
+    res.render('editUser.ejs');
   });
 
 
@@ -33,14 +59,15 @@ module.exports = function(app, passport) {
    // console.log(res);
     
     var statusdata = req.query.status;
+    var timedata = req.query.currenttime;
     // var tokenstatus = req.query.tokenval;        
      var fs = require("fs");
        let rawdata = fs.readFileSync('public/json/bushwickWord.json');
        let userdetail = JSON.parse(rawdata);
         // let userdetailNew = JSON.parse(userdetail);
-        console.log(userdetail);  
-        console.log(userdetail.status);
-        var userdetailt = { status : statusdata};
+        // console.log(userdetail);  
+        // console.log(userdetail.status);
+        var userdetailt = { status : statusdata , currenttime : timedata};
 
         let data = JSON.stringify(userdetailt, null, 2);
 
@@ -54,11 +81,40 @@ module.exports = function(app, passport) {
 
   });
 
+  app.get('/Userimage', function (req, res , done) {
+   
+
+   // console.log(res);
+
+   var btoa = require("btoa");
+   // var Base64 = require('js-base64').Base64;
+
+   var finaldata = req.query;
+
+   var Base64 = require('base64-string').Base64;
+// other code
+    var enc = new Base64();
+     var b64 = enc.urlEncode(req.query);
+
+    // console.log(Base64(finaldata));
+
+     console.log(btoa(finaldata));
+
+    // res.send(200);
+     res.on("data", function(chunk) {
+       //this is body
+       // console.log(chunk);
+  });
+    
+
+  });
+
 
   app.get('/Seanwordstatus', function (req, res , done) {
    // console.log(res);
     
     var statusdata = req.query.status;
+    var timedata = req.query.currenttime;
     // var tokenstatus = req.query.tokenval;        
      var fs = require("fs");
        let rawdata = fs.readFileSync('public/json/seanWord.json');
@@ -66,7 +122,7 @@ module.exports = function(app, passport) {
         // let userdetailNew = JSON.parse(userdetail);
         // console.log(userdetail);  
         // console.log(userdetail.status);
-        var userdetailt = { status : statusdata};
+        var userdetailt = { status : statusdata , currenttime : timedata};
 
         let data = JSON.stringify(userdetailt, null, 2);
 
@@ -84,14 +140,15 @@ module.exports = function(app, passport) {
    // console.log(res);
     
     var statusdata = req.query.status;
-    // var tokenstatus = req.query.tokenval;        
+    // var tokenstatus = req.query.tokenval;    
+    var timedata = req.query.currenttime;    
      var fs = require("fs");
        let rawdata = fs.readFileSync('public/json/seanBlack.json');
        let userdetail = JSON.parse(rawdata);
         // let userdetailNew = JSON.parse(userdetail);
-        console.log(userdetail);  
-        console.log(userdetail.status);
-        var userdetailt = { status : statusdata};
+        // console.log(userdetail);  
+        // console.log(userdetail.status);
+        var userdetailt = { status : statusdata , currenttime : timedata};
 
         let data = JSON.stringify(userdetailt, null, 2);
 
@@ -110,14 +167,15 @@ module.exports = function(app, passport) {
    // console.log(res);
     
     var statusdata = req.query.status;
-    // var tokenstatus = req.query.tokenval;        
+    // var tokenstatus = req.query.tokenval;   
+    var timedata = req.query.currenttime;     
      var fs = require("fs");
        let rawdata = fs.readFileSync('public/json/bushwikBlack.json');
        let userdetail = JSON.parse(rawdata);
         // let userdetailNew = JSON.parse(userdetail);
-        console.log(userdetail);  
-        console.log(userdetail.status);
-        var userdetailt = { status : statusdata};
+        // console.log(userdetail);  
+        // console.log(userdetail.status);
+        var userdetailt = { status : statusdata , currenttime :timedata};
 
         let data = JSON.stringify(userdetailt, null, 2);
 
@@ -133,12 +191,12 @@ module.exports = function(app, passport) {
 
 
 
-	// PROFILE SECTION =========================
-	app.get('/profile', isLoggedIn, function(req, res) {
-		res.render('profile.ejs', {
-			user : req.user
-		});
-	});
+  // PROFILE SECTION =========================
+  app.get('/profile', isLoggedIn, function(req, res) {
+    res.render('profile.ejs', {
+      user : req.user
+    });
+  });
 
   app.get('/help',isLoggedIn, function(req, res) {
      var i = 0;
@@ -587,6 +645,7 @@ app.get('/backmale', isLoggedIn, function(req, res) {
 
    });
 
+
 //////////////////////////////////////////////////////////////////////
  
       var fs =  require('fs');
@@ -991,16 +1050,16 @@ app.get('/backmale', isLoggedIn, function(req, res) {
 
 
 
-	app.get('/home',  function(req, res) {
+  app.get('/home',  function(req, res) {
 
     // console.log(req);
      
         res.render('home.ejs');
      
-		
-	});
+    
+  });
 
-   app.get('/tipPage',  function(req, res) {
+  app.get('/tipPage',  function(req, res) {
 
     // console.log(req);
      
@@ -1130,19 +1189,19 @@ app.get('/backmale', isLoggedIn, function(req, res) {
 
     
 
-	app.get('/order-medicine', function(req, res) {
+  app.get('/order-medicine', function(req, res) {
 
-		var i = 0;
-		var vm = this;
+    var i = 0;
+    var vm = this;
         vm.product = null;
         vm.allProducts = [];
 
-	  var Product       = require('../app/models/products');
+    var Product       = require('../app/models/products');
 
    
       Product.find({'prostatus': '1'},function (err, product) {
-  		// docs is an array
-  		  for(var i = 0; i < product.length; i++){
+      // docs is an array
+        for(var i = 0; i < product.length; i++){
             vm.allProducts[i] = product[i];
 
 
@@ -1158,11 +1217,11 @@ app.get('/backmale', isLoggedIn, function(req, res) {
       });
 
 
-	});
+  });
 
-	app.get('/order-medicines', isLoggedIn, function(req, res) {
+  app.get('/order-medicines', isLoggedIn, function(req, res) {
 
-		    var i = 0;
+        var i = 0;
         var vm = this;
         vm.product = null;
         vm.allProducts = [];
@@ -1225,8 +1284,8 @@ app.get('/backmale', isLoggedIn, function(req, res) {
          var jsonObjectconsult = JSON.parse(productvalueconsult);
    
         Product.find({'prostatus': '1'},function (err, product) {
-    		// docs is an array
-    		  for(var i = 0; i < product.length; i++){
+        // docs is an array
+          for(var i = 0; i < product.length; i++){
               vm.allProducts[i] = product[i];
 
 
@@ -1245,7 +1304,7 @@ app.get('/backmale', isLoggedIn, function(req, res) {
 
       });
 
-	});
+  });
     
 
  });  
@@ -1254,20 +1313,20 @@ app.get('/backmale', isLoggedIn, function(req, res) {
 
 
 
-	app.get('/order-detail', function(req, res) {
+  app.get('/order-detail', function(req, res) {
 
-		var i = 0;
-		var vm = this;
+    var i = 0;
+    var vm = this;
         vm.product = null;
         vm.allProducts = [];
         vm.products = null;
 
-	  var Product       = require('../app/models/products');
+    var Product       = require('../app/models/products');
 
    
       Product.find({'prostatus': '1'},function (err, product) {
-  		// docs is an array
-  		  for(var i = 0; i < product.length; i++){
+      // docs is an array
+        for(var i = 0; i < product.length; i++){
             vm.allProducts[i] = product[i];
 
 
@@ -1276,7 +1335,7 @@ app.get('/backmale', isLoggedIn, function(req, res) {
        var productvalues = JSON.stringify(product);
        var jsonObjects = JSON.parse(productvalues);
 
-     	var id = req.query.id;
+      var id = req.query.id;
 
         Product.findById(id, function (err, products) {
        
@@ -1291,21 +1350,21 @@ app.get('/backmale', isLoggedIn, function(req, res) {
 
   
 
-  	 res.render('order-detail.ejs', {data: jsonObject,datas:jsonObjects,id:req.query.id,});
+     res.render('order-detail.ejs', {data: jsonObject,datas:jsonObjects,id:req.query.id,});
 
 
 
     });
 
-	});
+  });
 
 
-	});
+  });
 
-		app.get('/order-details', isLoggedIn, function(req, res) {
+    app.get('/order-details', isLoggedIn, function(req, res) {
 
-		var i = 0;
-		var vm = this;
+    var i = 0;
+    var vm = this;
         vm.product = null;
         vm.allProducts = [];
         vm.products = null;
@@ -1319,7 +1378,7 @@ app.get('/backmale', isLoggedIn, function(req, res) {
         var answerstatuscount = 0;  
         var totalreadconsultstatus = 0 ;
 
-	  var Product       = require('../app/models/products');
+    var Product       = require('../app/models/products');
     var Consult       = require('../app/models/consults');
     var Discount       = require('../app/models/discount');
 
@@ -1366,8 +1425,8 @@ app.get('/backmale', isLoggedIn, function(req, res) {
 
    
       Product.find({'prostatus': '1'},function (err, product) {
-  		// docs is an array
-  		  for(var i = 0; i < product.length; i++){
+      // docs is an array
+        for(var i = 0; i < product.length; i++){
             vm.allProducts[i] = product[i];
 
 
@@ -1376,7 +1435,7 @@ app.get('/backmale', isLoggedIn, function(req, res) {
        var productvalues = JSON.stringify(product);
        var jsonObjects = JSON.parse(productvalues);
 
-     	var id = req.query.id;
+      var id = req.query.id;
 
         Product.findById(id, function (err, products) {
        
@@ -1390,26 +1449,26 @@ app.get('/backmale', isLoggedIn, function(req, res) {
 
        Consult.find({'doctor_read_status': '0'},function (err, totalconsult) {
 
-  	 res.render('order-details.ejs', {data: jsonObject,datas:jsonObjects,loadconsultdata: totalconsult,id:req.query.id,user : req.user,totalreadconsultstatus : finalstatusconsult, datadiscount: jsonObjectdiscount});
+     res.render('order-details.ejs', {data: jsonObject,datas:jsonObjects,loadconsultdata: totalconsult,id:req.query.id,user : req.user,totalreadconsultstatus : finalstatusconsult, datadiscount: jsonObjectdiscount});
 
 
     });
 
     });
 
-	});
+  });
 
 
-	});
+  });
 
   }); 
 
     });     
 
-	app.get('/cart', function(req, res) {
-		res.render('cart.ejs', {
-		});
-	});
+  app.get('/cart', function(req, res) {
+    res.render('cart.ejs', {
+    });
+  });
 
 
   app.post('/update-terms', function (req, res) {
@@ -1429,13 +1488,13 @@ app.get('/backmale', isLoggedIn, function(req, res) {
          
   });
 
-	app.get('/thanks', function(req, res) {
-		res.render('thanks.ejs', {
-		});
-	});
+  app.get('/thanks', function(req, res) {
+    res.render('thanks.ejs', {
+    });
+  });
 
-	app.get('/carts', isLoggedIn, function(req, res) {
-		  var i = 0;
+  app.get('/carts', isLoggedIn, function(req, res) {
+      var i = 0;
        var vm = this;
         vm.consult = null;
         vm.allconsults = [];
@@ -1486,12 +1545,12 @@ app.get('/backmale', isLoggedIn, function(req, res) {
         });
 
       });
-	});
+  });
 
-	app.get('/order', isLoggedIn, function(req, res) {
+  app.get('/order', isLoggedIn, function(req, res) {
 
-	    var i = 0;
-		var vm = this;
+      var i = 0;
+    var vm = this;
         vm.order = null;
         vm.allorders = [];
         var a = 0;
@@ -1502,12 +1561,12 @@ app.get('/backmale', isLoggedIn, function(req, res) {
         var totalreadconsultstatus = 0 ;
 
       var Consult       = require('../app/models/consults');
-     	var Order       = require('../app/models/orders');
+      var Order       = require('../app/models/orders');
 
    
       Order.find(function (err, order) {
-  		// docs is an array
-  		  for(var i = 0; i < order.length; i++){
+      // docs is an array
+        for(var i = 0; i < order.length; i++){
             vm.allorders[i] = order[i];
 
 
@@ -1553,25 +1612,25 @@ app.get('/backmale', isLoggedIn, function(req, res) {
 
       });
 
-	});
+  });
 
 });
 
-	app.get('/manageorder', isLoggedIn, function(req, res) {
+  app.get('/manageorder', isLoggedIn, function(req, res) {
 
-	    var i = 0;
-		var vm = this;
+      var i = 0;
+    var vm = this;
         vm.order = null;
         vm.allorders = [];
         vm.user = null;
         vm.allusers = [];
 
-		var Order       = require('../app/models/orders');
-		var User       = require('../app/models/user');
+    var Order       = require('../app/models/orders');
+    var User       = require('../app/models/user');
 
-		 User.find(function (err, user) {
-  		// docs is an array
-  		  for(var i = 0; i < user.length; i++){
+     User.find(function (err, user) {
+      // docs is an array
+        for(var i = 0; i < user.length; i++){
             vm.allusers[i] = user[i];
 
 
@@ -1583,8 +1642,8 @@ app.get('/backmale', isLoggedIn, function(req, res) {
 
    
       Order.find(function (err, order) {
-  		// docs is an array
-  		  for(var i = 0; i < order.length; i++){
+      // docs is an array
+        for(var i = 0; i < order.length; i++){
             vm.allorders[i] = order[i];
 
 
@@ -1597,25 +1656,25 @@ app.get('/backmale', isLoggedIn, function(req, res) {
 
       });
 
-	});
+  });
 
-    });		
+    });   
 
-    	app.get('/admin', isLoggedIn, function(req, res) {
+      app.get('/admin', isLoggedIn, function(req, res) {
 
-	    var i = 0;
-		var vm = this;
+      var i = 0;
+    var vm = this;
         vm.order = null;
         vm.allorders = [];
         vm.user = null;
         vm.allusers = [];
 
-		var Order       = require('../app/models/orders');
-		var User       = require('../app/models/user');
+    var Order       = require('../app/models/orders');
+    var User       = require('../app/models/user');
 
-		 User.find(function (err, user) {
-  		// docs is an array
-  		  for(var i = 0; i < user.length; i++){
+     User.find(function (err, user) {
+      // docs is an array
+        for(var i = 0; i < user.length; i++){
             vm.allusers[i] = user[i];
 
 
@@ -1631,24 +1690,24 @@ app.get('/backmale', isLoggedIn, function(req, res) {
 
       });
 
-	});
+  });
 
 
     app.get('/managetransaction', isLoggedIn, function(req, res) {
 
-	    var i = 0;
-		var vm = this;
+      var i = 0;
+    var vm = this;
         vm.transaction = null;
         vm.alltransactions = [];
         vm.user = null;
         vm.allusers = [];
 
-		var Transaction       = require('../app/models/transaction');
-		var User       = require('../app/models/user');
+    var Transaction       = require('../app/models/transaction');
+    var User       = require('../app/models/user');
 
-		 User.find(function (err, user) {
-  		// docs is an array
-  		  for(var i = 0; i < user.length; i++){
+     User.find(function (err, user) {
+      // docs is an array
+        for(var i = 0; i < user.length; i++){
             vm.allusers[i] = user[i];
 
 
@@ -1660,8 +1719,8 @@ app.get('/backmale', isLoggedIn, function(req, res) {
 
    
       Transaction.find(function (err, transaction) {
-  		// docs is an array
-  		  for(var i = 0; i < transaction.length; i++){
+      // docs is an array
+        for(var i = 0; i < transaction.length; i++){
             vm.alltransactions[i] = transaction[i];
 
 
@@ -1674,17 +1733,17 @@ app.get('/backmale', isLoggedIn, function(req, res) {
 
       });
 
-	});
+  });
 
-    });		 
+    });    
 
 
-	app.get('/consult', isLoggedIn, function(req, res , document) {
-		
+  app.get('/consult', isLoggedIn, function(req, res , document) {
+    
 
-	    var i = 0;
+      var i = 0;
       var k = 0;
-		var vm = this;
+    var vm = this;
         vm.consult = null;
         vm.allconsults = [];
          vm.consultreply = null;
@@ -1694,19 +1753,19 @@ app.get('/backmale', isLoggedIn, function(req, res) {
         var totalreadconsultstatus = 0 ;
 
 
-	    var Consult       = require('../app/models/consults');
+      var Consult       = require('../app/models/consults');
        var Consultreplys       = require('../app/models/consultreply');
     //  var base64 = require('base-64');
     var Base64 = require('js-base64').Base64;
    
-     	 Consult.find().sort({"$natural": -1}).exec(function (err, consult) {
-	  		// docs is an array
+       Consult.find().sort({"$natural": -1}).exec(function (err, consult) {
+        // docs is an array
         var consultproblemall = [];
         var consultproblemdetailall = [];
          var consultproblemareaall = [];
          var consultfinalimage = [];
-	  		  for(var i = 0; i < consult.length; i++){
-	            vm.allconsults[i] = consult[i];
+          for(var i = 0; i < consult.length; i++){
+              vm.allconsults[i] = consult[i];
                if(req.user.user_role == 'user'){
 
                 if(req.user._id == consult[i].user_id){
@@ -1733,7 +1792,7 @@ app.get('/backmale', isLoggedIn, function(req, res) {
 
          //  consultfinalimage[i] =  consult[i].myimage.originalname;        
 
-	        }
+          }
 
       var totalconsultproblem = consultproblemall;
       var totalconsultproblemdetail = consultproblemdetailall;
@@ -1742,9 +1801,9 @@ app.get('/backmale', isLoggedIn, function(req, res) {
 
 
       var finalstatusconsult = readstatuscount ; 
-	 
-	    var productvalue = JSON.stringify(consult);
-	    var jsonObject = JSON.parse(productvalue);
+   
+      var productvalue = JSON.stringify(consult);
+      var jsonObject = JSON.parse(productvalue);
 
       
       Consultreplys.find(function (err, consultreply) {
@@ -1763,12 +1822,12 @@ app.get('/backmale', isLoggedIn, function(req, res) {
       var productvalueconsultreply = JSON.stringify(consultreply);
       var jsonObjectconsultreply = JSON.parse(productvalueconsultreply);
 
-	   
-	      res.render('consult.ejs', {data: jsonObject, dataconsultreply: jsonObjectconsultreply,  user : req.user , totalreadconsultstatus : finalstatusconsult, totalconsultproblems : consultproblemall, totalconsultproblemdetails : consultproblemdetailall, totalconsultproblemareas : consultproblemareaall, totalconsultfinalimages : consultfinalimage , totalconsultquery : consultquery});
+     
+        res.render('consult.ejs', {data: jsonObject, dataconsultreply: jsonObjectconsultreply,  user : req.user , totalreadconsultstatus : finalstatusconsult, totalconsultproblems : consultproblemall, totalconsultproblemdetails : consultproblemdetailall, totalconsultproblemareas : consultproblemareaall, totalconsultfinalimages : consultfinalimage , totalconsultquery : consultquery});
 
       });
 
-	});
+  });
 
 });
 
@@ -2000,7 +2059,7 @@ app.get('/backmale', isLoggedIn, function(req, res) {
         vm.allproducts = [];
          vm.consultimagereply = null;
         vm.allconsultimagereplys = [];
-		vm.consultreply = null;
+    vm.consultreply = null;
         vm.allconsultreplys = [];
          var answerstatuscount = 0 ;
         var readstatuscount = 0;
@@ -2016,7 +2075,7 @@ app.get('/backmale', isLoggedIn, function(req, res) {
       var User       = require('../app/models/user');
       var Product       = require('../app/models/products');
       var ConsultImagereply       = require('../app/models/consultimagereply');
-	  var Consultreplys       = require('../app/models/consultreply');
+    var Consultreplys       = require('../app/models/consultreply');
 
 
       Product.find(function (err, product) {
@@ -2045,7 +2104,7 @@ Consultreplys.find(function (err, consultreply) {
    
          var productvalueconsultreply = JSON.stringify(consultreply);
          var jsonObjectconsultreply = JSON.parse(productvalueconsultreply);
-		 
+     
 
       User.find(function (err, user) {
         // docs is an array
@@ -2157,12 +2216,12 @@ Consultreplys.find(function (err, consultreply) {
         vm.allusers = [];
         vm.consult = null;
         vm.allconsults = [];
-			vm.consultreply = null;
+      vm.consultreply = null;
         vm.allconsultreplys = [];
 
       var Consult       = require('../app/models/consults');
             var User       = require('../app/models/user');
-			 var Consultreplys       = require('../app/models/consultreply');
+       var Consultreplys       = require('../app/models/consultreply');
 
       var consultproblemall = [];
         var consultproblemdetailall = [];
@@ -2178,8 +2237,8 @@ Consultreplys.find(function (err, consultreply) {
    
          var productvalueuser = JSON.stringify(user);
          var jsonObjectuser = JSON.parse(productvalueuser);
-		
-		
+    
+    
 Consultreplys.find(function (err, consultreply) {
         // docs is an array
           for(var k = 0; k < consultreply.length; k++){
@@ -2188,9 +2247,9 @@ Consultreplys.find(function (err, consultreply) {
    
          var productvalueconsultreply = JSON.stringify(consultreply);
          var jsonObjectconsultreply = JSON.parse(productvalueconsultreply);
-		 
+     
 
-		 
+     
    
        Consult.find().sort({"$natural": -1}).exec(function (err, consult) {
         // docs is an array
@@ -2232,14 +2291,14 @@ Consultreplys.find(function (err, consultreply) {
  });
    
 
-	app.get('/list-orderitem', isLoggedIn, function(req, res) {
-		//	console.log(req.query.order_id);
-		var Order       = require('../app/models/orders');
-		var Orderitem       = require('../app/models/orderitem');
+  app.get('/list-orderitem', isLoggedIn, function(req, res) {
+    //  console.log(req.query.order_id);
+    var Order       = require('../app/models/orders');
+    var Orderitem       = require('../app/models/orderitem');
 
 
-	    var i = 0;
-		var vm = this;
+      var i = 0;
+    var vm = this;
         vm.order = null;
         vm.allorders = [];
           var a = 0;
@@ -2281,8 +2340,8 @@ Consultreplys.find(function (err, consultreply) {
        
    
         Order.find(function (err, order) {
-  		// docs is an array
-  		  for(var i = 0; i < order.length; i++){
+      // docs is an array
+        for(var i = 0; i < order.length; i++){
             vm.allorders[i] = order[i];
 
 
@@ -2317,11 +2376,11 @@ Consultreplys.find(function (err, consultreply) {
          }); 
 
      });
-		
-	app.get('/res-herbal', function(req, res) {
-		res.render('res-herbal.ejs', {
-		});
-	});
+    
+  app.get('/res-herbal', function(req, res) {
+    res.render('res-herbal.ejs', {
+    });
+  });
 
     app.get('/forget', function(req, res) {
     res.render('forget-password.ejs', {
@@ -2471,8 +2530,8 @@ app.get('/delete-consult-one',isLoggedIn, function(req, res) {
 
 
 
-	app.get('/delete-consult',isLoggedIn, function(req, res) {
-	   var Consult       = require('../app/models/consults');
+  app.get('/delete-consult',isLoggedIn, function(req, res) {
+     var Consult       = require('../app/models/consults');
     //  var base64 = require('base-64');
     var Base64 = require('js-base64').Base64;
 
@@ -2524,7 +2583,7 @@ app.get('/delete-consult-one',isLoggedIn, function(req, res) {
 
       });
        
-	});
+  });
 
 
 
@@ -2935,17 +2994,17 @@ app.get('/delete-consult-one',isLoggedIn, function(req, res) {
 
 
 
-	app.post('/symptom_insert',isLoggedIn, function(req, res) {
-	   var Symptom       = require('../app/models/symptoms');
-	   var User       = require('../app/models/user');
+  app.post('/symptom_insert',isLoggedIn, function(req, res) {
+     var Symptom       = require('../app/models/symptoms');
+     var User       = require('../app/models/user');
 
 
-	   var userid =  req.body.userid;
-	   console.log(userid);
+     var userid =  req.body.userid;
+     console.log(userid);
      var email =  req.body.email;
 
-	   var sets = {    
-		              userid : req.body.userid,
+     var sets = {    
+                  userid : req.body.userid,
                   fname : req.body.fname,
                   lname:req.body.lname,
                   age:req.body.age,
@@ -2962,79 +3021,79 @@ app.get('/delete-consult-one',isLoggedIn, function(req, res) {
                   menopause : req.body.menopause,
                   pregnancyMonth : req.body.pregnancyMonth,
                   addinfo : req.body.addinfo,
-		             // temperatures:req.body.temperatures,
-		              // stoolcolor:req.body.stoolcolor,
-		                // sleep : req.body.sleep,
-		                // exercise :req.body.exercise,
-		                // general_energy_level : req.body.general_energy_level,
-		                // energy_level_after_eating : req.body.energy_level_after_eating,
-		                // Appetite : req.body.Appetite,
-		                // Crave_Taste : req.body.Crave_Taste,
-		                // Avoid_Taste :req.body.Avoid_Taste,
-		                // Digestion :req.body.Digestion,
-		                // Stools :req.body.Stools,
-		                // What_color_are_your_stool :req.body.What_color_are_your_stool,
-		                // Number_of_daily_bowel_movements :req.body.Number_of_daily_bowel_movements,
-		                // Urine :req.body.Urine,
-		                // What_color_is_your_urine :req.body.What_color_is_your_urine,
-		                // How_often_do_you_urinate_in_a_day :req.body.How_often_do_you_urinate_in_a_day,
-		                // ReproductionMen :req.body.ReproductionMen,
-		                // Have_a_genital_discharge_What_color :req.body.Have_a_genital_discharge_What_color,
-		                // How_often_do_you_engage_in_sex :req.body.How_often_do_you_engage_in_sex,
-		                // ReproductionWomen :req.body.ReproductionWomen,
-		                // Clots :req.body.Clots,
-		                // How_long_is_your_menstrual_cycle_days:req.body.How_long_is_your_menstrual_cycle_days,
-		                // Is_it_regular:req.body.Is_it_regular,
-		                // How_long_is_your_menstrual_flow:req.body.How_long_is_your_menstrual_flow,
-		                // What_color_is_your_menstrual_flow:req.body.What_color_is_your_menstrual_flow,
-		                // Do_You_use_birth_control_pills_How_long:req.body.Do_You_use_birth_control_pills_How_long,
-		                // How_many_pregnancies_have_you_had:req.body.How_many_pregnancies_have_you_had,
-		                // How_many_children_have_you_borne:req.body.How_many_children_have_you_borne,
-		                // How_many_miscarriages:req.body.How_many_miscarriages,
-		                // How_many_abortions:req.body.How_many_abortions,
-		                // Respiration:req.body.Respiration,
-		                // cough:req.body.cough,
-		                // Pain:req.body.Pain,
-		                // Headaches:req.body.Headaches,
-		                // Eyes:req.body.Eyes,
-		                // noise_in_ears:req.body.noise_in_ears,
-		                // Ears:req.body.Ears,
-		                // Mouth:req.body.Mouth,
-		                // Teeth:req.body.Teeth,
-		                // Throat:req.body.Throat,
-		                // Nose:req.body.Nose,
-		                // Muscles:req.body.Muscles,
-		                // Muscle_weakness_Where:req.body.Muscle_weakness_Where,
-		                // Muscle_tension_Where:req.body.Muscle_tension_Where,
-		                // Emotional_Mental_Thinking:req.body.Emotional_Mental_Thinking,
-		                // emotions_predominant:req.body.emotions_predominant,
-		                // Miscellaneous:req.body.Miscellaneous,
-		                // feeling_of_heaviness:req.body.feeling_of_heaviness
+                 // temperatures:req.body.temperatures,
+                  // stoolcolor:req.body.stoolcolor,
+                    // sleep : req.body.sleep,
+                    // exercise :req.body.exercise,
+                    // general_energy_level : req.body.general_energy_level,
+                    // energy_level_after_eating : req.body.energy_level_after_eating,
+                    // Appetite : req.body.Appetite,
+                    // Crave_Taste : req.body.Crave_Taste,
+                    // Avoid_Taste :req.body.Avoid_Taste,
+                    // Digestion :req.body.Digestion,
+                    // Stools :req.body.Stools,
+                    // What_color_are_your_stool :req.body.What_color_are_your_stool,
+                    // Number_of_daily_bowel_movements :req.body.Number_of_daily_bowel_movements,
+                    // Urine :req.body.Urine,
+                    // What_color_is_your_urine :req.body.What_color_is_your_urine,
+                    // How_often_do_you_urinate_in_a_day :req.body.How_often_do_you_urinate_in_a_day,
+                    // ReproductionMen :req.body.ReproductionMen,
+                    // Have_a_genital_discharge_What_color :req.body.Have_a_genital_discharge_What_color,
+                    // How_often_do_you_engage_in_sex :req.body.How_often_do_you_engage_in_sex,
+                    // ReproductionWomen :req.body.ReproductionWomen,
+                    // Clots :req.body.Clots,
+                    // How_long_is_your_menstrual_cycle_days:req.body.How_long_is_your_menstrual_cycle_days,
+                    // Is_it_regular:req.body.Is_it_regular,
+                    // How_long_is_your_menstrual_flow:req.body.How_long_is_your_menstrual_flow,
+                    // What_color_is_your_menstrual_flow:req.body.What_color_is_your_menstrual_flow,
+                    // Do_You_use_birth_control_pills_How_long:req.body.Do_You_use_birth_control_pills_How_long,
+                    // How_many_pregnancies_have_you_had:req.body.How_many_pregnancies_have_you_had,
+                    // How_many_children_have_you_borne:req.body.How_many_children_have_you_borne,
+                    // How_many_miscarriages:req.body.How_many_miscarriages,
+                    // How_many_abortions:req.body.How_many_abortions,
+                    // Respiration:req.body.Respiration,
+                    // cough:req.body.cough,
+                    // Pain:req.body.Pain,
+                    // Headaches:req.body.Headaches,
+                    // Eyes:req.body.Eyes,
+                    // noise_in_ears:req.body.noise_in_ears,
+                    // Ears:req.body.Ears,
+                    // Mouth:req.body.Mouth,
+                    // Teeth:req.body.Teeth,
+                    // Throat:req.body.Throat,
+                    // Nose:req.body.Nose,
+                    // Muscles:req.body.Muscles,
+                    // Muscle_weakness_Where:req.body.Muscle_weakness_Where,
+                    // Muscle_tension_Where:req.body.Muscle_tension_Where,
+                    // Emotional_Mental_Thinking:req.body.Emotional_Mental_Thinking,
+                    // emotions_predominant:req.body.emotions_predominant,
+                    // Miscellaneous:req.body.Miscellaneous,
+                    // feeling_of_heaviness:req.body.feeling_of_heaviness
 
-		        
+            
             };
 
 
-				var symptoms = new Symptom(sets);
-				symptoms.save(function(error, datas){
-			    if(error){
-			        res.json(error);
-			    }
-			    else{
-			    	console.log(datas);
+        var symptoms = new Symptom(sets);
+        symptoms.save(function(error, datas){
+          if(error){
+              res.json(error);
+          }
+          else{
+            console.log(datas);
 
-			    	//res.json(datas);
-				    var _id = req.body.userid;
-	               
-	          var set = {consult_status:"1",first_time_login:"False"};
+            //res.json(datas);
+            var _id = req.body.userid;
+                 
+            var set = {consult_status:"1",first_time_login:"False"};
 
-			       User.update(
-		            { _id: _id },
-		            { $set: set },
-		            function (err, doc) {
-		              
-		                 console.log(doc);
-		            });
+             User.update(
+                { _id: _id },
+                { $set: set },
+                function (err, doc) {
+                  
+                     console.log(doc);
+                });
 
                     // var aws = require('aws-sdk');
                     // aws.config.loadFromPath('newconfig.json');
@@ -3060,16 +3119,16 @@ app.get('/delete-consult-one',isLoggedIn, function(req, res) {
                     //       }).promise();
 
 
-			     }
+           }
  
                 return res.redirect('homes');
 
 
-			    });     
+          });     
 
        
      
-	});
+  });
 
 
 app.post('/symptomApi', function(req, res) {
@@ -3424,15 +3483,15 @@ app.post('/symptomApi', function(req, res) {
      
 });
 
-	app.get('/symptom-user', isLoggedIn, function(req, res) {
+  app.get('/symptom-user', isLoggedIn, function(req, res) {
       
-		var Symptom       = require('../app/models/symptoms');
+    var Symptom       = require('../app/models/symptoms');
     var Consult       = require('../app/models/consults');
     var readstatuscount = 0; 
     var answerstatuscount = 0;  
     var totalreadconsultstatus = 0 ;
     var i = 0;
-		var vm = this;
+    var vm = this;
         vm.symptoms = null;
         vm.allsymptoms = [];
         vm.consult = null;
@@ -3469,8 +3528,8 @@ app.post('/symptomApi', function(req, res) {
       //console.log(finalstatusconsult);
 
       Symptom.find(function (err, symptoms) {
-  		// docs is an array
-  		  for(var i = 0; i < symptoms.length; i++){
+      // docs is an array
+        for(var i = 0; i < symptoms.length; i++){
             vm.allsymptoms[i] = symptoms[i];
        }
        var productvalue = JSON.stringify(symptoms);
@@ -3484,25 +3543,25 @@ app.post('/symptomApi', function(req, res) {
       });
 
 
-	});
+  });
 
   });       
 
-	app.get('/symptom-admin', isLoggedIn, function(req, res) {
-		var Symptom       = require('../app/models/symptoms');
-		var User       = require('../app/models/user');
+  app.get('/symptom-admin', isLoggedIn, function(req, res) {
+    var Symptom       = require('../app/models/symptoms');
+    var User       = require('../app/models/user');
 
          var i = 0;
-		var vm = this;
-		vm.users = null;
+    var vm = this;
+    vm.users = null;
         vm.allusers = [];
         vm.symptoms = null;
         vm.allsymptoms = [];
 
 
-		User.find(function (err, users) {
-  		// docs is an array
-  		  for(var i = 0; i < users.length; i++){
+    User.find(function (err, users) {
+      // docs is an array
+        for(var i = 0; i < users.length; i++){
             vm.allusers[i] = users[i];
        }
        var productvalueusers = JSON.stringify(users);
@@ -3511,8 +3570,8 @@ app.post('/symptomApi', function(req, res) {
        console.log(jsonObjectusers);
 
       Symptom.find().sort({"fname": -1}).exec(function(err, symptoms) {
-  		// docs is an array
-  		  for(var i = 0; i < symptoms.length; i++){
+      // docs is an array
+        for(var i = 0; i < symptoms.length; i++){
             vm.allsymptoms[i] = symptoms[i];
        }
        var productvalue = JSON.stringify(symptoms);
@@ -3526,9 +3585,9 @@ app.post('/symptomApi', function(req, res) {
       });
 
 
-	});
+  });
 
-});	
+}); 
 
   app.get('/symptom-all', isLoggedIn, function(req, res) {
     var Symptom       = require('../app/models/symptoms');
@@ -3598,13 +3657,13 @@ app.post('/symptomApi', function(req, res) {
 
    });       
 
-	app.get('/symptom-detail', isLoggedIn, function(req, res) {
-		var Symptom       = require('../app/models/symptoms');
-		var User       = require('../app/models/user');
+  app.get('/symptom-detail', isLoggedIn, function(req, res) {
+    var Symptom       = require('../app/models/symptoms');
+    var User       = require('../app/models/user');
 
          var i = 0;
-		var vm = this;
-		vm.users = null;
+    var vm = this;
+    vm.users = null;
         vm.allusers = [];
         vm.symptoms = null;
         vm.allsymptoms = [];
@@ -3629,9 +3688,9 @@ app.post('/symptomApi', function(req, res) {
    
 
 
-		User.find(function (err, users) {
-  		// docs is an array
-  		  for(var i = 0; i < users.length; i++){
+    User.find(function (err, users) {
+      // docs is an array
+        for(var i = 0; i < users.length; i++){
             vm.allusers[i] = users[i];
        }
        var productvalueusers = JSON.stringify(users);
@@ -3640,8 +3699,8 @@ app.post('/symptomApi', function(req, res) {
        console.log(jsonObjectusers);
 
       Symptom.find(function (err, symptoms) {
-  		// docs is an array
-  		  for(var i = 0; i < symptoms.length; i++){
+      // docs is an array
+        for(var i = 0; i < symptoms.length; i++){
             vm.allsymptoms[i] = symptoms[i];
        }
        var productvalue = JSON.stringify(symptoms);
@@ -3658,27 +3717,27 @@ app.post('/symptomApi', function(req, res) {
       });
 
 
-	});
+  });
 
-	 });
+   });
 
      });
 
-	app.get('/product-list', isLoggedIn, function(req, res) {
-		var Product       = require('../app/models/products');
-		var User       = require('../app/models/user');
+  app.get('/product-list', isLoggedIn, function(req, res) {
+    var Product       = require('../app/models/products');
+    var User       = require('../app/models/user');
 
          var i = 0;
-		var vm = this;
-		vm.users = null;
+    var vm = this;
+    vm.users = null;
         vm.allusers = [];
         vm.products = null;
         vm.allproducts = [];
 
 
-		User.find(function (err, users) {
-  		// docs is an array
-  		  for(var i = 0; i < users.length; i++){
+    User.find(function (err, users) {
+      // docs is an array
+        for(var i = 0; i < users.length; i++){
             vm.allusers[i] = users[i];
        }
        var productvalueusers = JSON.stringify(users);
@@ -3687,8 +3746,8 @@ app.post('/symptomApi', function(req, res) {
        // console.log(jsonObjectusers);
 
       Product.find(function (err, products) {
-  		// docs is an array
-  		  for(var i = 0; i < products.length; i++){
+      // docs is an array
+        for(var i = 0; i < products.length; i++){
             vm.allproducts[i] = products[i];
        }
        var productvalue = JSON.stringify(products);
@@ -3702,17 +3761,17 @@ app.post('/symptomApi', function(req, res) {
       });
 
 
-	});
+  });
 
  });
 
-	app.get('/edit-product', isLoggedIn, function(req, res) {
-		var Product       = require('../app/models/products');
-		var User       = require('../app/models/user');
+  app.get('/edit-product', isLoggedIn, function(req, res) {
+    var Product       = require('../app/models/products');
+    var User       = require('../app/models/user');
 
          var i = 0;
-		var vm = this;
-		vm.users = null;
+    var vm = this;
+    vm.users = null;
         vm.allusers = [];
         vm.products = null;
         vm.allproducts = [];
@@ -3720,9 +3779,9 @@ app.post('/symptomApi', function(req, res) {
         var productid = req.query.id;
 
 
-		User.find(function (err, users) {
-  		// docs is an array
-  		  for(var i = 0; i < users.length; i++){
+    User.find(function (err, users) {
+      // docs is an array
+        for(var i = 0; i < users.length; i++){
             vm.allusers[i] = users[i];
        }
        var productvalueusers = JSON.stringify(users);
@@ -3731,8 +3790,8 @@ app.post('/symptomApi', function(req, res) {
       // console.log(jsonObjectusers);
 
       Product.find(function (err, products) {
-  		// docs is an array
-  		  for(var i = 0; i < products.length; i++){
+      // docs is an array
+        for(var i = 0; i < products.length; i++){
             vm.allproducts[i] = products[i];
        }
        var productvalue = JSON.stringify(products);
@@ -3746,22 +3805,22 @@ app.post('/symptomApi', function(req, res) {
       });
 
 
-	});
+  });
 
-	 });
+   });
 
 
    
 
-	app.get('/deleteproduct',isLoggedIn, function(req, res) {
-	   var Product       = require('../app/models/products');
+  app.get('/deleteproduct',isLoggedIn, function(req, res) {
+     var Product       = require('../app/models/products');
        Product.remove({_id : req.query.productid}, function (err, products) {
          console.log(products);    
       });
 
      return res.redirect('product-list');
 
-	});
+  });
 
   app.post('/notification-query-update', isLoggedIn, function(req, res) {
      console.log(req.body.query);
@@ -3922,31 +3981,31 @@ app.post('/symptomApi', function(req, res) {
 
       });
 
-	app.post('/product-insert', isLoggedIn, function(req, res) {
-		var Product       = require('../app/models/products');
-		var User       = require('../app/models/user');
-		var dates=  new Date();
+  app.post('/product-insert', isLoggedIn, function(req, res) {
+    var Product       = require('../app/models/products');
+    var User       = require('../app/models/user');
+    var dates=  new Date();
         var strDate = (dates.getMonth()+1)+ "-" + dates.getDate() + "-" + dates.getFullYear();
 
         var set = {
-	          productname: req.body.productname,
-	          productname_chineese:req.body.productname_chineese,
-	          productprice: req.body.productprice,
-	          productdescr: req.body.productdescr,
-	          productfulldescr: req.body.productfulldescr,
-	          productcategory: req.body.productcategory,
-	          prosize:req.body.prosize,
+            productname: req.body.productname,
+            productname_chineese:req.body.productname_chineese,
+            productprice: req.body.productprice,
+            productdescr: req.body.productdescr,
+            productfulldescr: req.body.productfulldescr,
+            productcategory: req.body.productcategory,
+            prosize:req.body.prosize,
             total_stock : req.body.total_stock,
-	          addInfo:req.body.addInfo,
-	          producttype: req.body.producttype,
-	          datetime: dates
+            addInfo:req.body.addInfo,
+            producttype: req.body.producttype,
+            datetime: dates
        
         };
 
           var products = new Product(set);
           products.save(set,
             function (err, doc) {
-            	console.log(doc);
+              console.log(doc);
             });
         
       // return res.redirect('product-list');
@@ -3955,18 +4014,18 @@ app.post('/symptomApi', function(req, res) {
 
       });
 
-	app.get('/product', isLoggedIn, function(req, res) {
-		var Product       = require('../app/models/products');
-		var User       = require('../app/models/user');
+  app.get('/product', isLoggedIn, function(req, res) {
+    var Product       = require('../app/models/products');
+    var User       = require('../app/models/user');
 
         res.render('product.ejs', {
-			user : req.user 
-		 });
+      user : req.user 
+     });
 
       });
 
 
-	app.get('/add-symptoms', isLoggedIn, function(req, res) {
+  app.get('/add-symptoms', isLoggedIn, function(req, res) {
 var Product       = require('../app/models/products');
 var User       = require('../app/models/user');
 var Symptom       = require('../app/models/symptoms');
@@ -3992,29 +4051,29 @@ var vm = this;
 
      });   
 
-	app.get('/deletesymptom',isLoggedIn, function(req, res) {
-	  var Addsymptoms       = require('../app/models/addsymptom');
-	  var Addsymptomsfemales       = require('../app/models/addsymptomfemale');  
+  app.get('/deletesymptom',isLoggedIn, function(req, res) {
+    var Addsymptoms       = require('../app/models/addsymptom');
+    var Addsymptomsfemales       = require('../app/models/addsymptomfemale');  
        Addsymptoms.remove({_id : req.query.id}, function (err, addsymptoms) {
          console.log(addsymptoms);    
       });
         Addsymptomsfemales.remove({_id : req.query.id}, function (err, addsymptomsfemales) {
-         console.log(addsymptomsfemales);   		
+         console.log(addsymptomsfemales);       
       });
         return res.redirect('manage-symptoms');
-	});
+  });
 
-	app.get('/edit-symptommale', isLoggedIn, function(req, res) {
-		
-		var Product       = require('../app/models/products');
-		var User       = require('../app/models/user');
-		var Symptom       = require('../app/models/symptoms');
-		var Addsymptoms       = require('../app/models/addsymptom');
-		var Addsymptomsfemales       = require('../app/models/addsymptomfemale');   
+  app.get('/edit-symptommale', isLoggedIn, function(req, res) {
+    
+    var Product       = require('../app/models/products');
+    var User       = require('../app/models/user');
+    var Symptom       = require('../app/models/symptoms');
+    var Addsymptoms       = require('../app/models/addsymptom');
+    var Addsymptomsfemales       = require('../app/models/addsymptomfemale');   
         var i = 0;
         var j = 0;
         var k = 0;
-		var vm = this;
+    var vm = this;
         vm.products = null;
         vm.allproducts = [];
         vm.addsymptom = null;
@@ -4023,8 +4082,8 @@ var vm = this;
         vm.alladdsymptomfemale = [];
         var _id = req.query.id;
         Addsymptoms.find({_id : req.query.id},function (err, addsymptom) {
-  		// docs is an array
-  		  for(var j = 0; j < addsymptom.length; j++){
+      // docs is an array
+        for(var j = 0; j < addsymptom.length; j++){
             vm.alladdsymptom[j] = addsymptom[j];
        }
        var productvalueaddsymptom = JSON.stringify(addsymptom);
@@ -4033,24 +4092,24 @@ var vm = this;
         //console.log(jsonObject);
 
         Addsymptomsfemales.find({_id : req.query.id}, function (err, addsymptomfemale) {
-  		// docs is an array
-  		  for(var k = 0; k < addsymptomfemale.length; k++){
+      // docs is an array
+        for(var k = 0; k < addsymptomfemale.length; k++){
             vm.alladdsymptomfemale[k] = addsymptomfemale[k];
        }
        var productvalueaddsymptomfemale = JSON.stringify(addsymptomfemale);
         var jsonObjectaddsymptomfemale = JSON.parse(productvalueaddsymptomfemale);
 
         Product.find(function (err, products) {
-  		// docs is an array
-  		  for(var i = 0; i < products.length; i++){
+      // docs is an array
+        for(var i = 0; i < products.length; i++){
             vm.allproducts[i] = products[i];
        }
        var productvalue = JSON.stringify(products);
         var jsonObject = JSON.parse(productvalue);
      
       res.render('edit-symptommale.ejs', {
-			user : req.user , data: jsonObject , dataaddsymptom : jsonObjectaddsymptom , dataaddsymptomfemale :jsonObjectaddsymptomfemale , symptomid : req.query.id
-		});
+      user : req.user , data: jsonObject , dataaddsymptom : jsonObjectaddsymptom , dataaddsymptomfemale :jsonObjectaddsymptomfemale , symptomid : req.query.id
+    });
 
       });
 
@@ -4060,17 +4119,17 @@ var vm = this;
 
   });
 
-	app.get('/edit-symptomfemale', isLoggedIn, function(req, res) {
-		
-		var Product       = require('../app/models/products');
-		var User       = require('../app/models/user');
-		var Symptom       = require('../app/models/symptoms');
-		var Addsymptoms       = require('../app/models/addsymptom');
-		var Addsymptomsfemales       = require('../app/models/addsymptomfemale');   
+  app.get('/edit-symptomfemale', isLoggedIn, function(req, res) {
+    
+    var Product       = require('../app/models/products');
+    var User       = require('../app/models/user');
+    var Symptom       = require('../app/models/symptoms');
+    var Addsymptoms       = require('../app/models/addsymptom');
+    var Addsymptomsfemales       = require('../app/models/addsymptomfemale');   
         var i = 0;
         var j = 0;
         var k = 0;
-		var vm = this;
+    var vm = this;
         vm.products = null;
         vm.allproducts = [];
         vm.addsymptom = null;
@@ -4079,8 +4138,8 @@ var vm = this;
         vm.alladdsymptomfemale = [];
         var _id = req.query.id;
         Addsymptoms.find({_id : req.query.id},function (err, addsymptom) {
-  		// docs is an array
-  		  for(var j = 0; j < addsymptom.length; j++){
+      // docs is an array
+        for(var j = 0; j < addsymptom.length; j++){
             vm.alladdsymptom[j] = addsymptom[j];
        }
        var productvalueaddsymptom = JSON.stringify(addsymptom);
@@ -4089,24 +4148,24 @@ var vm = this;
         //console.log(jsonObject);
 
         Addsymptomsfemales.find({_id : req.query.id}, function (err, addsymptomfemale) {
-  		// docs is an array
-  		  for(var k = 0; k < addsymptomfemale.length; k++){
+      // docs is an array
+        for(var k = 0; k < addsymptomfemale.length; k++){
             vm.alladdsymptomfemale[k] = addsymptomfemale[k];
        }
        var productvalueaddsymptomfemale = JSON.stringify(addsymptomfemale);
         var jsonObjectaddsymptomfemale = JSON.parse(productvalueaddsymptomfemale);
 
         Product.find(function (err, products) {
-  		// docs is an array
-  		  for(var i = 0; i < products.length; i++){
+      // docs is an array
+        for(var i = 0; i < products.length; i++){
             vm.allproducts[i] = products[i];
        }
        var productvalue = JSON.stringify(products);
         var jsonObject = JSON.parse(productvalue);
      
       res.render('edit-symptomfemale.ejs', {
-			user : req.user , data: jsonObject , dataaddsymptom : jsonObjectaddsymptom , dataaddsymptomfemale :jsonObjectaddsymptomfemale , symptomid : req.query.id
-		});
+      user : req.user , data: jsonObject , dataaddsymptom : jsonObjectaddsymptom , dataaddsymptomfemale :jsonObjectaddsymptomfemale , symptomid : req.query.id
+    });
 
       });
 
@@ -4117,15 +4176,15 @@ var vm = this;
   });
 
   app.get('/manage-symptoms', isLoggedIn, function(req, res) {
-		var Product       = require('../app/models/products');
-		var User       = require('../app/models/user');
-		var Symptom       = require('../app/models/symptoms');
-		var Addsymptoms       = require('../app/models/addsymptom');
-		var Addsymptomsfemales       = require('../app/models/addsymptomfemale');   
+    var Product       = require('../app/models/products');
+    var User       = require('../app/models/user');
+    var Symptom       = require('../app/models/symptoms');
+    var Addsymptoms       = require('../app/models/addsymptom');
+    var Addsymptomsfemales       = require('../app/models/addsymptomfemale');   
         var i = 0;
         var j = 0;
         var k = 0;
-		var vm = this;
+    var vm = this;
         vm.products = null;
         vm.allproducts = [];
         vm.addsymptom = null;
@@ -4134,8 +4193,8 @@ var vm = this;
         vm.alladdsymptomfemale = [];
         
         Addsymptoms.find(function (err, addsymptom) {
-  		// docs is an array
-  		  for(var j = 0; j < addsymptom.length; j++){
+      // docs is an array
+        for(var j = 0; j < addsymptom.length; j++){
             vm.alladdsymptom[j] = addsymptom[j];
        }
        var productvalueaddsymptom = JSON.stringify(addsymptom);
@@ -4144,24 +4203,24 @@ var vm = this;
         //console.log(jsonObject);
 
         Addsymptomsfemales.find(function (err, addsymptomfemale) {
-  		// docs is an array
-  		  for(var k = 0; k < addsymptomfemale.length; k++){
+      // docs is an array
+        for(var k = 0; k < addsymptomfemale.length; k++){
             vm.alladdsymptomfemale[k] = addsymptomfemale[k];
        }
        var productvalueaddsymptomfemale = JSON.stringify(addsymptomfemale);
         var jsonObjectaddsymptomfemale = JSON.parse(productvalueaddsymptomfemale);
 
         Product.find(function (err, products) {
-  		// docs is an array
-  		  for(var i = 0; i < products.length; i++){
+      // docs is an array
+        for(var i = 0; i < products.length; i++){
             vm.allproducts[i] = products[i];
        }
        var productvalue = JSON.stringify(products);
         var jsonObject = JSON.parse(productvalue);
      
       res.render('manage-symptoms.ejs', {
-			user : req.user , data: jsonObject , dataaddsymptom : jsonObjectaddsymptom , dataaddsymptomfemale :jsonObjectaddsymptomfemale
-		});
+      user : req.user , data: jsonObject , dataaddsymptom : jsonObjectaddsymptom , dataaddsymptomfemale :jsonObjectaddsymptomfemale
+    });
 
       });
 
@@ -4171,7 +4230,7 @@ var vm = this;
 
   });     
 
-	app.post('/symptoms-insert', isLoggedIn, function(req, res) {
+  app.post('/symptoms-insert', isLoggedIn, function(req, res) {
 
 var Product = require('../app/models/products');
 var User = require('../app/models/user');
@@ -4255,20 +4314,20 @@ var vm = this;
 
 
 
-	app.post('/symptoms-update', isLoggedIn, function(req, res) {
-		//console.log(res);
-		var Product       = require('../app/models/products');
-		var User       = require('../app/models/user');
-		var Addsymptoms       = require('../app/models/addsymptom');
-		var Addsymptomsfemales       = require('../app/models/addsymptomfemale');   
+  app.post('/symptoms-update', isLoggedIn, function(req, res) {
+    //console.log(res);
+    var Product       = require('../app/models/products');
+    var User       = require('../app/models/user');
+    var Addsymptoms       = require('../app/models/addsymptom');
+    var Addsymptomsfemales       = require('../app/models/addsymptomfemale');   
    
         if (req.body.gender == 'male'){
 
-        	var _id = req.body.symptomid;
+          var _id = req.body.symptomid;
 
-        	//console.log(_id);
+          //console.log(_id);
 
-        	var set = {
+          var set = {
              gender : req.body.gender,
              bodypartname : req.body.bodypartname,
              affectedareaname : req.body.affectedareaname,
@@ -4277,22 +4336,22 @@ var vm = this;
              medincinename : req.body.medincinename
             
             };
-				Addsymptoms.update(
-		            { _id: _id },
-		            { $set: set},
+        Addsymptoms.update(
+                { _id: _id },
+                { $set: set},
 
-		            function (err, docs) {
-		            //	console.log(err);
-		              
-		               //  console.log(docs);
-		            });
+                function (err, docs) {
+                //  console.log(err);
+                  
+                   //  console.log(docs);
+                });
          }else{
 
-         	console.log("female");
+          console.log("female");
 
-         	var _id = req.body.symptomid;
+          var _id = req.body.symptomid;
 
-        	var set = {
+          var set = {
              gender : req.body.gender,
              bodypartfemale : req.body.bodypartfemale,
              affectedareafemale : req.body.affectedareafemale,
@@ -4303,12 +4362,12 @@ var vm = this;
             };
 
                 Addsymptomsfemales.update(
-		            { _id: req.body.symptomid},
-		            { $set: set },
-		            function (err, doc) {
-		              
-		                 //console.log(doc);
-		            });
+                { _id: req.body.symptomid},
+                { $set: set },
+                function (err, doc) {
+                  
+                     //console.log(doc);
+                });
 
         }
 
@@ -4318,38 +4377,38 @@ var vm = this;
 
       });
 
-	app.post('/symptoms-update', isLoggedIn, function(req, res) {
-		//console.log(res);
-		var Product       = require('../app/models/products');
-		var User       = require('../app/models/user');
-		var Addsymptoms       = require('../app/models/addsymptom');
-		var Addsymptomsfemales       = require('../app/models/addsymptomfemale');   
-		var i = 0;
-		var vm = this;
+  app.post('/symptoms-update', isLoggedIn, function(req, res) {
+    //console.log(res);
+    var Product       = require('../app/models/products');
+    var User       = require('../app/models/user');
+    var Addsymptoms       = require('../app/models/addsymptom');
+    var Addsymptomsfemales       = require('../app/models/addsymptomfemale');   
+    var i = 0;
+    var vm = this;
         vm.products = null;
         vm.allproducts = [];
         
         Addsymptoms.find(function (err, addsymptom) {
-  		// docs is an array
-  		  for(var i = 0; i < addsymptom.length; i++){
+      // docs is an array
+        for(var i = 0; i < addsymptom.length; i++){
             vm.alladdsymptom[i] = addsymptom[i];
        }
        var productvalue = JSON.stringify(addsymptom);
         var jsonObject = JSON.parse(productvalue);
 
-        	//console.log(jsonObject);
+          //console.log(jsonObject);
         
-       		//console.log(req.body.gender);
+          //console.log(req.body.gender);
 
         if (req.body.gender == 'male'){
 
-        	var _id = req.body.symptomid;
+          var _id = req.body.symptomid;
 
-        	//console.log(_id);
+          //console.log(_id);
 
-        	//console.log(req.body.gender);
+          //console.log(req.body.gender);
 
-        	var set = {
+          var set = {
              gender : req.body.gender,
              bodypartname : req.body.bodypartname,
              affectedareaname : req.body.affectedareaname,
@@ -4360,23 +4419,23 @@ var vm = this;
             };
 
             Addsymptoms.findById(_id, function (err, addsymptom){
-				Addsymptoms.update(
-		            { _id: _id },
-		            { $set: set},
+        Addsymptoms.update(
+                { _id: _id },
+                { $set: set},
 
-		            function (err, docs) {
-		              
-		                // console.log(docs);
-		            });
+                function (err, docs) {
+                  
+                    // console.log(docs);
+                });
             });
 
          }else{
 
-         	//console.log("female");
+          //console.log("female");
 
-         	var _id = req.body.symptomid;
+          var _id = req.body.symptomid;
 
-        	var set = {
+          var set = {
              gender : req.body.gender,
              bodypartfemale : req.body.bodypartfemale,
              affectedareafemale : req.body.affectedareafemale,
@@ -4389,12 +4448,12 @@ var vm = this;
             Addsymptomsfemales.findById(_id, function (err, addsymptomfemale){
 
                 Addsymptomsfemales.update(
-		            { _id: req.body.symptomid},
-		            { $set: set },
-		            function (err, doc) {
-		              
-		                // console.log(doc);
-		            });
+                { _id: req.body.symptomid},
+                { $set: set },
+                function (err, doc) {
+                  
+                    // console.log(doc);
+                });
            });     
         }
 
@@ -4408,110 +4467,110 @@ var vm = this;
 
 
 
-	app.post('/updateproduct', isLoggedIn, function(req, res) {
+  app.post('/updateproduct', isLoggedIn, function(req, res) {
 
-		var Product       = require('../app/models/products');
-		var dates=  new Date();
+    var Product       = require('../app/models/products');
+    var dates=  new Date();
         var strDate = (dates.getMonth()+1)+ "-" + dates.getDate() + "-" + dates.getFullYear();
 
-		var _id = req.body._id;
-		console.log(_id);
-		 var i = 0;
-		var vm = this;
+    var _id = req.body._id;
+    console.log(_id);
+     var i = 0;
+    var vm = this;
         vm.products = null;
         vm.allproducts = [];
-		Product.find(function (err, products) {
-  		// docs is an array
-  		  for(var i = 0; i < products.length; i++){
+    Product.find(function (err, products) {
+      // docs is an array
+        for(var i = 0; i < products.length; i++){
             vm.allproducts[i] = products[i];
        }
         var productvalue = JSON.stringify(products);
         var jsonObject = JSON.parse(productvalue);
 
          Product.findById(_id, function (err, product) {
-			        
-			  //      console.log(user._id);
+              
+        //      console.log(user._id);
 
-			          Product.update(
-			            { _id: _id },
-			            { $set: { 
-			              productname: req.body.productname,
-				          productname_chineese:req.body.productname_chineese,
-				          productprice: req.body.productprice,
-				          productdescr: req.body.productdescr,
-				          productfulldescr: req.body.productfulldescr,
-				          productcategory: req.body.productcategory,
-				          prosize:req.body.prosize,
+                Product.update(
+                  { _id: _id },
+                  { $set: { 
+                    productname: req.body.productname,
+                  productname_chineese:req.body.productname_chineese,
+                  productprice: req.body.productprice,
+                  productdescr: req.body.productdescr,
+                  productfulldescr: req.body.productfulldescr,
+                  productcategory: req.body.productcategory,
+                  prosize:req.body.prosize,
                   total_stock : req.body.total_stock,
-				          addInfo:req.body.addInfo,
-				          producttype: req.body.producttype,
-				          datetime: dates} 
-					     },
-			            function (err, doc) {
-			               // console.log(doc);        
-			            });  
+                  addInfo:req.body.addInfo,
+                  producttype: req.body.producttype,
+                  datetime: dates} 
+               },
+                  function (err, doc) {
+                     // console.log(doc);        
+                  });  
 
-			    });
+          });
 
-		 return res.redirect('product-list');
-	});
+     return res.redirect('product-list');
+  });
 
-	});	
+  }); 
 
 
-	app.post('/updateorder', isLoggedIn, function(req, res) {
+  app.post('/updateorder', isLoggedIn, function(req, res) {
 
-		var i = 0;
-		var vm = this;
+    var i = 0;
+    var vm = this;
         vm.order = null;
         vm.allorders = [];
 
-		var Order       = require('../app/models/orders');
-		var _id = req.body.orderid;
-		//console.log(_id);
+    var Order       = require('../app/models/orders');
+    var _id = req.body.orderid;
+    //console.log(_id);
 
-	    var set = {o_status : req.body.o_status};
+      var set = {o_status : req.body.o_status};
 
-	    console.log(set);
+      console.log(set);
 
-	       Order.update(
-	        { _id: _id },
-	        { $set: set },
-	        function (err, doc) {
-	          
-	             console.log(doc);
-	        });
+         Order.update(
+          { _id: _id },
+          { $set: set },
+          function (err, doc) {
+            
+               console.log(doc);
+          });
 
 
         return res.redirect('list-orderitem?order_id=' + req.body.orderid);
 
       });
 
-	app.get('/deleteorder',isLoggedIn, function(req, res) {
-	   var Order       = require('../app/models/orders');
+  app.get('/deleteorder',isLoggedIn, function(req, res) {
+     var Order       = require('../app/models/orders');
        Order.remove({_id : req.query.order_id}, function (err, orders) {
          console.log(orders);    
-		return res.redirect('manageorder');
+    return res.redirect('manageorder');
       });
-	});
+  });
 
-	app.get('/refund',isLoggedIn, function(req, res) {
-			//	console.log(req.query.order_id);
-		var Order       = require('../app/models/orders');
-		var Orderitem       = require('../app/models/orderitem');
-		var Transactions       = require('../app/models/transaction');
+  app.get('/refund',isLoggedIn, function(req, res) {
+      //  console.log(req.query.order_id);
+    var Order       = require('../app/models/orders');
+    var Orderitem       = require('../app/models/orderitem');
+    var Transactions       = require('../app/models/transaction');
 
 
-	    var i = 0;
-	    var j = 0;
-		var vm = this;
+      var i = 0;
+      var j = 0;
+    var vm = this;
         vm.order = null;
         vm.allorders = [];
         vm.transaction = null;
         vm.alltransactions = [];
         Transactions.find(function (err, transaction) {
-  		// docs is an array
-  		  for(var i = 0; i < transaction.length; i++){
+      // docs is an array
+        for(var i = 0; i < transaction.length; i++){
             vm.allorders[i] = transaction[i];
 
 
@@ -4521,8 +4580,8 @@ var vm = this;
        var jsonObjectstransaction = JSON.parse(productvaluestransaction);
 
         Order.find(function (err, order) {
-  		// docs is an array
-  		  for(var i = 0; i < order.length; i++){
+      // docs is an array
+        for(var i = 0; i < order.length; i++){
             vm.allorders[i] = order[i];
 
 
@@ -4546,69 +4605,69 @@ var vm = this;
 
      });
 
-	});
+  });
 
     });    
 
     app.post('/refundreturn',isLoggedIn, function(req, res) {
-				//console.log(res);
-		var Order       = require('../app/models/orders');
-		var Orderitem       = require('../app/models/orderitem');
-		var Transactions       = require('../app/models/transaction');
-		var Refund       = require('../app/models/refunds');
+        //console.log(res);
+    var Order       = require('../app/models/orders');
+    var Orderitem       = require('../app/models/orderitem');
+    var Transactions       = require('../app/models/transaction');
+    var Refund       = require('../app/models/refunds');
 
-		var orderid = req.body.orderid;
-		var _id = req.body._id;
-		var userid = req.body.userid;
-		var chargeId = req.body.paymentId;
+    var orderid = req.body.orderid;
+    var _id = req.body._id;
+    var userid = req.body.userid;
+    var chargeId = req.body.paymentId;
 
-		var stripe = require("stripe")("sk_test_beRNx3hBDckaj2C0eLZYgrqP");
+    var stripe = require("stripe")("sk_test_beRNx3hBDckaj2C0eLZYgrqP");
 
-		var token = req.body.stripeToken; 
-		var email = req.body.stripeEmail;
+    var token = req.body.stripeToken; 
+    var email = req.body.stripeEmail;
 
 
-		var refund = stripe.refunds.create({
-		  charge: chargeId,
-		}, function(err, refund) {
-		  // asynchronously called
-		  console.log(refund);
-		    var dates=  new Date();
-		      var sets = {
-		      	 refund_id: refund.id,
-		      	 userid : userid,
-		      	 orderid:orderid,
-		      	 amount:refund.amount*0.01,
-		      	 balance_transaction:refund.balance_transaction,
-		      	 chargeId:refund.charge,
-		      	 refundcreate:refund.created,
-		      	 status:refund.status,
-		      };
-		      	var refunds = new Refund(sets);
-		         refunds.save(sets,function (err, docs) {
-		                    var subiidd = sets._id;
-		         Transactions.update(
-		         	{ _id: req.body._id },
-		         	{ $set: {refundId:docs.refund_id,refundstataus:refund.status,} },
-		            function (err, doc) {
-		               console.log(doc);
-		            });   
-		                console.log(docs);
-		            }); 
-		});
-		return res.redirect('managetransaction');
+    var refund = stripe.refunds.create({
+      charge: chargeId,
+    }, function(err, refund) {
+      // asynchronously called
+      console.log(refund);
+        var dates=  new Date();
+          var sets = {
+             refund_id: refund.id,
+             userid : userid,
+             orderid:orderid,
+             amount:refund.amount*0.01,
+             balance_transaction:refund.balance_transaction,
+             chargeId:refund.charge,
+             refundcreate:refund.created,
+             status:refund.status,
+          };
+            var refunds = new Refund(sets);
+             refunds.save(sets,function (err, docs) {
+                        var subiidd = sets._id;
+             Transactions.update(
+              { _id: req.body._id },
+              { $set: {refundId:docs.refund_id,refundstataus:refund.status,} },
+                function (err, doc) {
+                   console.log(doc);
+                });   
+                    console.log(docs);
+                }); 
+    });
+    return res.redirect('managetransaction');
 
     });    
 
-	app.get('/deletetransaction',isLoggedIn, function(req, res) {
-	var Transactions       = require('../app/models/transaction');
+  app.get('/deletetransaction',isLoggedIn, function(req, res) {
+  var Transactions       = require('../app/models/transaction');
        Transactions.remove({_id : req.query.transaction_id}, function (err, transaction) {
          console.log(transaction);    
-		return res.redirect('managetransaction');
+    return res.redirect('managetransaction');
       });
-	});
+  });
 
-	app.get('/res-herbals', isLoggedIn, function(req, res) {
+  app.get('/res-herbals', isLoggedIn, function(req, res) {
 
      var i = 0;
        var vm = this;
@@ -4661,19 +4720,19 @@ var vm = this;
       });
 
       });   
-	
-	});
+  
+  });
 
 
 
 
 
-	app.get('/res-hplc', function(req, res) {
-		res.render('res-hplc.ejs', {
-		});
-	});
+  app.get('/res-hplc', function(req, res) {
+    res.render('res-hplc.ejs', {
+    });
+  });
 
-	app.get('/res-hplcs', isLoggedIn, function(req, res) {
+  app.get('/res-hplcs', isLoggedIn, function(req, res) {
      var i = 0;
        var vm = this;
         vm.consult = null;
@@ -4725,14 +4784,14 @@ var vm = this;
      });
 
       });
-	});
+  });
 
-	app.get('/res-organic', function(req, res) {
-		res.render('res-organic.ejs', {
-		});
-	});
+  app.get('/res-organic', function(req, res) {
+    res.render('res-organic.ejs', {
+    });
+  });
 
-	app.get('/res-organics', isLoggedIn, function(req, res) {
+  app.get('/res-organics', isLoggedIn, function(req, res) {
       var i = 0;
        var vm = this;
         vm.consult = null;
@@ -4784,12 +4843,12 @@ var vm = this;
        });
 
       });
-	});
+  });
 
-	app.get('/res-philosophy', function(req, res) {
-		res.render('res-philosophy.ejs', {
-		});
-	});
+  app.get('/res-philosophy', function(req, res) {
+    res.render('res-philosophy.ejs', {
+    });
+  });
 
   app.get('/about', function(req, res) {
     res.render('about.ejs', {
@@ -4811,7 +4870,7 @@ app.get('/privacyBefore', function(req, res) {
     });
   });
 
-	app.get('/res-philosophys', isLoggedIn, function(req, res) {
+  app.get('/res-philosophys', isLoggedIn, function(req, res) {
    var i = 0;
        var vm = this;
         vm.consult = null;
@@ -4863,7 +4922,7 @@ app.get('/privacyBefore', function(req, res) {
       });
 
       });
-	});
+  });
 
   app.get('/aboutus', isLoggedIn, function(req, res) {
    var i = 0;
@@ -4972,12 +5031,12 @@ app.get('/privacyBefore', function(req, res) {
 
       });
   });
-	app.get('/peo-comprofile', function(req, res) {
-		res.render('peo-comprofile.ejs', {
-		});
-	});
+  app.get('/peo-comprofile', function(req, res) {
+    res.render('peo-comprofile.ejs', {
+    });
+  });
 
-	app.get('/peo-comprofiles', isLoggedIn, function(req, res) {
+  app.get('/peo-comprofiles', isLoggedIn, function(req, res) {
     var i = 0;
        var vm = this;
         vm.consult = null;
@@ -5044,14 +5103,14 @@ app.get('/privacyBefore', function(req, res) {
 
       });
 
-	});
+  });
 
-	app.get('/peo-fourgps', function(req, res) {
-		res.render('peo-fourgps.ejs', {
-		});
-	});
+  app.get('/peo-fourgps', function(req, res) {
+    res.render('peo-fourgps.ejs', {
+    });
+  });
 
-	app.get('/peo-fourgpss', isLoggedIn, function(req, res) {
+  app.get('/peo-fourgpss', isLoggedIn, function(req, res) {
     var i = 0;
        var vm = this;
         vm.consult = null;
@@ -5117,18 +5176,18 @@ app.get('/privacyBefore', function(req, res) {
      });
 
       });
-	});
+  });
 
 
 
-	app.get('/consult-online', function(req, res) {
+  app.get('/consult-online', function(req, res) {
 
-		res.render('consult-online.ejs', {
-		});
-	});
+    res.render('consult-online.ejs', {
+    });
+  });
 
-	app.get('/consult-onlines',isLoggedIn, function(req, res) {
-		var i = 0;
+  app.get('/consult-onlines',isLoggedIn, function(req, res) {
+    var i = 0;
        var vm = this;
         vm.consult = null;
         vm.allconsults = [];
@@ -5180,7 +5239,7 @@ app.get('/privacyBefore', function(req, res) {
 
       });
     
-	});
+  });
 
 
   app.get('/consult-onliness',isLoggedIn, function(req, res) {
@@ -5253,203 +5312,203 @@ app.get('/privacyBefore', function(req, res) {
         remainquanty = [];
 
       var Product   = require('../app/models/products');
-    	var Order       = require('../app/models/orders');
-		var Orderitem       = require('../app/models/orderitem');
-		var Transactions       = require('../app/models/transaction');
-		var User       = require('../app/models/user');
-		var stripe = require("stripe")("sk_test_beRNx3hBDckaj2C0eLZYgrqP");
+      var Order       = require('../app/models/orders');
+    var Orderitem       = require('../app/models/orderitem');
+    var Transactions       = require('../app/models/transaction');
+    var User       = require('../app/models/user');
+    var stripe = require("stripe")("sk_test_beRNx3hBDckaj2C0eLZYgrqP");
 
 
-    	var orderarray = req.body.ordervalues;
-		var jsonObjectsss = JSON.parse(orderarray);
+      var orderarray = req.body.ordervalues;
+    var jsonObjectsss = JSON.parse(orderarray);
 
-		var total = req.body.hdnCartTotals;
-		var userid = req.body.userid;
-		console.log(res);
-		var dates=  new Date();
-		var strDate = (dates.getMonth()+1)+ "-" + dates.getDate() + "-" + dates.getFullYear();
-		//console.log(userid);
+    var total = req.body.hdnCartTotals;
+    var userid = req.body.userid;
+    console.log(res);
+    var dates=  new Date();
+    var strDate = (dates.getMonth()+1)+ "-" + dates.getDate() + "-" + dates.getFullYear();
+    //console.log(userid);
 
 
-		console.log(jsonObjectsss);
-		//console.log(orderarray);
-		//console.log(total);
-		var j = 0;
+    console.log(jsonObjectsss);
+    //console.log(orderarray);
+    //console.log(total);
+    var j = 0;
 
-	     for(var j = 0; j < jsonObjectsss.length; j++){
-	 		var set = {    
-	                userid : req.body.userid,
-	               shipfname:jsonObjectsss[0].Shippingfname,
-	               shiplname: jsonObjectsss[0].Shippinglname,
-	               autocomplete:jsonObjectsss[0].Shippingaddress,
-	               postal_code: jsonObjectsss[0].Shippingpcode,
-	               locality: jsonObjectsss[0].Shippingcity,
-	               administrative_area_level_1: jsonObjectsss[0].Shippingstate,
-	               country: jsonObjectsss[0].Shippingcountry,
-	               shipphone: jsonObjectsss[0].Shippingphone,
-	               shipemail: jsonObjectsss[0].Shippingemail,
-	               shipc_email:jsonObjectsss[0].Shippingcemail,
-	               billfname: jsonObjectsss[0].Billingfname,
-	               billname: jsonObjectsss[0].Billinglname,
-	               billemail: jsonObjectsss[0].Billingemail,
-	               billaddress: jsonObjectsss[0].Billingaddress,
-	               billcity: jsonObjectsss[0].Billingcity,
-	               billstate:jsonObjectsss[0].Billingstate,
-	               billcountry:jsonObjectsss[0].Billingcountry,
-	                billstate1:jsonObjectsss[0].Billingstate1,
-	               billcountry1:jsonObjectsss[0].Billingcountry1,
-	               billcode: jsonObjectsss[0].Billingcode,
-	               cardname: jsonObjectsss[0].CardName,
-	               cardno: jsonObjectsss[0].CardNo,
-	               cvvno: jsonObjectsss[0].Cvv,
-	               exp_month: jsonObjectsss[0].CardExMnth,
-	               exp_days: jsonObjectsss[0].CardExDay,
+       for(var j = 0; j < jsonObjectsss.length; j++){
+      var set = {    
+                  userid : req.body.userid,
+                 shipfname:jsonObjectsss[0].Shippingfname,
+                 shiplname: jsonObjectsss[0].Shippinglname,
+                 autocomplete:jsonObjectsss[0].Shippingaddress,
+                 postal_code: jsonObjectsss[0].Shippingpcode,
+                 locality: jsonObjectsss[0].Shippingcity,
+                 administrative_area_level_1: jsonObjectsss[0].Shippingstate,
+                 country: jsonObjectsss[0].Shippingcountry,
+                 shipphone: jsonObjectsss[0].Shippingphone,
+                 shipemail: jsonObjectsss[0].Shippingemail,
+                 shipc_email:jsonObjectsss[0].Shippingcemail,
+                 billfname: jsonObjectsss[0].Billingfname,
+                 billname: jsonObjectsss[0].Billinglname,
+                 billemail: jsonObjectsss[0].Billingemail,
+                 billaddress: jsonObjectsss[0].Billingaddress,
+                 billcity: jsonObjectsss[0].Billingcity,
+                 billstate:jsonObjectsss[0].Billingstate,
+                 billcountry:jsonObjectsss[0].Billingcountry,
+                  billstate1:jsonObjectsss[0].Billingstate1,
+                 billcountry1:jsonObjectsss[0].Billingcountry1,
+                 billcode: jsonObjectsss[0].Billingcode,
+                 cardname: jsonObjectsss[0].CardName,
+                 cardno: jsonObjectsss[0].CardNo,
+                 cvvno: jsonObjectsss[0].Cvv,
+                 exp_month: jsonObjectsss[0].CardExMnth,
+                 exp_days: jsonObjectsss[0].CardExDay,
                   hdnCartTotal : req.body.hdnCartTotals,
                   stateTax : req.body.stateTaxs,
                   shippingAmtt : "3.99",
-  	              o_status :"Pending",
-  	              payment_method: "Card",
-  	              datetime: strDate
+                  o_status :"Pending",
+                  payment_method: "Card",
+                  datetime: strDate
 
 
 
-	        };
+          };
 
-	       var orders = new Order(set);
+         var orders = new Order(set);
 
-			orders.save(function(error, doc){
-			    if(error){
-			        res.json(error);
-			    }
-			    else{
-			    	
-			       // res.json(data);
-			      console.log(doc); 
+      orders.save(function(error, doc){
+          if(error){
+              res.json(error);
+          }
+          else{
+            
+             // res.json(data);
+            console.log(doc); 
 
-			       var objectId = doc._id; // this will return the id of object inserted
-					//console.log(objectId);
-					 newvalue = objectId;   
+             var objectId = doc._id; // this will return the id of object inserted
+          //console.log(objectId);
+           newvalue = objectId;   
 
-					//console.log(newvalue);  
+          //console.log(newvalue);  
 
-					//return objectId; 
+          //return objectId; 
 
 
-			Order.findOne({'_id': newvalue},function(err,docs){ 
-		        console.log(docs);	
-				var i = 0;
-				var _id=docs._id;
-				var shipfname =docs.shipfname;
-				var autocomplete =docs.autocomplete;
-				var postal_code = docs.postal_code ;
-				var locality = docs.locality ;
-				var country = "US" ;
-				var administrative_area_level_1 = docs.administrative_area_level_1 ;
-				var country = docs.country ;
-				var shipphone = docs.shipphone ;
-				var total = 0 ;
-				var cartarray = req.body.cartvalues;
-				var datacart = JSON.parse(cartarray);
-				
-				var finalval= newvalue;
+      Order.findOne({'_id': newvalue},function(err,docs){ 
+            console.log(docs);  
+        var i = 0;
+        var _id=docs._id;
+        var shipfname =docs.shipfname;
+        var autocomplete =docs.autocomplete;
+        var postal_code = docs.postal_code ;
+        var locality = docs.locality ;
+        var country = "US" ;
+        var administrative_area_level_1 = docs.administrative_area_level_1 ;
+        var country = docs.country ;
+        var shipphone = docs.shipphone ;
+        var total = 0 ;
+        var cartarray = req.body.cartvalues;
+        var datacart = JSON.parse(cartarray);
+        
+        var finalval= newvalue;
 
-				
-	         for(var i = 0; i < datacart.length; i++){
-	      
-				//console.log(jsonObject[0].Product);
-				 var total = total + (datacart[i].Price * datacart[i].Qty);
-				// console.log(total);
-				 var sets = {    
-				                orderid : objectId,
-				                productname: datacart[i].Product,
+        
+           for(var i = 0; i < datacart.length; i++){
+        
+        //console.log(jsonObject[0].Product);
+         var total = total + (datacart[i].Price * datacart[i].Qty);
+        // console.log(total);
+         var sets = {    
+                        orderid : objectId,
+                        productname: datacart[i].Product,
                         productid: datacart[i].ProductIds,
                         productstocks : datacart[i].ProductStocks,
-				                productprice: datacart[i].Price,
-				                productqty: datacart[i].Qty ,
-				                datetime: strDate
-				            };
+                        productprice: datacart[i].Price,
+                        productqty: datacart[i].Qty ,
+                        datetime: strDate
+                    };
 
-				var orderitem = new Orderitem(sets);
-				 
-			
+        var orderitem = new Orderitem(sets);
+         
+      
 
-				orderitem.save(function(error, datas){
-			    if(error){
-			        res.json(error);
-			    }
-			    else{
-			    	console.log(datas);
-			    	//res.json(datas);
-			     }
+        orderitem.save(function(error, datas){
+          if(error){
+              res.json(error);
+          }
+          else{
+            console.log(datas);
+            //res.json(datas);
+           }
 
 
-			    });
+          });
 
              }
 
-	
-			 console.log(newvalue);  
-			 var finalval= newvalue;  
+  
+       console.log(newvalue);  
+       var finalval= newvalue;  
 
-			var stripe = require("stripe")("sk_test_beRNx3hBDckaj2C0eLZYgrqP");
-			//console.log(req);
-			// Token is created using Stripe.js or Checkout!
-			// Get the payment token ID submitted by the form:
-			var token = req.body.stripeToken; // Using Express
-			var email = req.body.stripeEmail;
-			var finalval= newvalue;
-
-
-			//console.log(finalval);
-			// Charge the user's card:
-
-			if(userid == 'guest'){
-			  console.log("I am Guest User");
-
-			  var charge = stripe.charges.create({
-			  amount: total*100,
-			  currency: "usd",
-			 // email: email,
-			  source: token,
-			}, function(err, charge) {
-			  // asynchronously called
-			  //var payment = JSON.stringify(charge);
-			  console.log(charge);
-			 var set = {    
-			                userid : "guest",
-			                orderid : finalval,
-			                paymentId: charge.id,
-			                amount: charge.amount,
-			                balance_transaction: charge.balance_transaction, 
-			                created: charge.created, 
-			                paid_status: charge.paid,
-			                sourceId: charge.source.id, 
-			                sourceObject: charge.source.object,
-			                sourceBrand: charge.source.brand,
-			                sourceCountry: charge.source.country,
-			                sourceExpMonth: charge.source.exp_month, 
-			                sourceExpYears: charge.source.exp_year, 
-			                sourceFingerprint: charge.source.fingerprint, 
-			                sourceFunding: charge.source.funding, 
-			                sourceLast4: charge.source.last4,
-			                sourceName: charge.source.name, 
-			                datetime: strDate
-			            };
+      var stripe = require("stripe")("sk_test_beRNx3hBDckaj2C0eLZYgrqP");
+      //console.log(req);
+      // Token is created using Stripe.js or Checkout!
+      // Get the payment token ID submitted by the form:
+      var token = req.body.stripeToken; // Using Express
+      var email = req.body.stripeEmail;
+      var finalval= newvalue;
 
 
+      //console.log(finalval);
+      // Charge the user's card:
 
-				var transaction = new Transactions(set);
-				 
-			
+      if(userid == 'guest'){
+        console.log("I am Guest User");
 
-				transaction.save(function(error, datas){
-			    if(error){
-			        res.json(error);
-			    }
-			    else{
-			    	console.log(datas);
-			    	var objectId = datas._id;
-			    	//res.json(datas);
+        var charge = stripe.charges.create({
+        amount: total*100,
+        currency: "usd",
+       // email: email,
+        source: token,
+      }, function(err, charge) {
+        // asynchronously called
+        //var payment = JSON.stringify(charge);
+        console.log(charge);
+       var set = {    
+                      userid : "guest",
+                      orderid : finalval,
+                      paymentId: charge.id,
+                      amount: charge.amount,
+                      balance_transaction: charge.balance_transaction, 
+                      created: charge.created, 
+                      paid_status: charge.paid,
+                      sourceId: charge.source.id, 
+                      sourceObject: charge.source.object,
+                      sourceBrand: charge.source.brand,
+                      sourceCountry: charge.source.country,
+                      sourceExpMonth: charge.source.exp_month, 
+                      sourceExpYears: charge.source.exp_year, 
+                      sourceFingerprint: charge.source.fingerprint, 
+                      sourceFunding: charge.source.funding, 
+                      sourceLast4: charge.source.last4,
+                      sourceName: charge.source.name, 
+                      datetime: strDate
+                  };
+
+
+
+        var transaction = new Transactions(set);
+         
+      
+
+        transaction.save(function(error, datas){
+          if(error){
+              res.json(error);
+          }
+          else{
+            console.log(datas);
+            var objectId = datas._id;
+            //res.json(datas);
 
               Orderitem.find({"orderid" : finalval},function (err, orderitem) {
 
@@ -5486,88 +5545,88 @@ app.get('/privacyBefore', function(req, res) {
 
                            });
 
-			     }
+           }
 
 
-			    });        
+          });        
 
 
-			});
+      });
 
-			//return res.redirect('thanks');
-
-
-			} 
-			else {
-
-			   console.log("I am Loggedin User");
-			//console.log(finalval);
-
-			  stripe.customers.create({
-			 //  amount: total,
-			 // currency: "usd",
-			  email: email,
-			  source: token,
-			}).then(function(customer) {
-			  // asynchronously called
-			   //var customercreate = JSON.stringify(customer);
-			  // console.log(customer);
-
-			  //var amount = Math.round(total*100);
-
-			   console.log(total);
-
-			               
-			  return stripe.charges.create({
-			          amount: total*100,
-			          currency: "usd",
-			          customer: customer.id,
-			        });
+      //return res.redirect('thanks');
 
 
+      } 
+      else {
 
+         console.log("I am Loggedin User");
+      //console.log(finalval);
 
-			    }).then(function(charge) {
-			     //var payment = JSON.stringify(charge);
+        stripe.customers.create({
+       //  amount: total,
+       // currency: "usd",
+        email: email,
+        source: token,
+      }).then(function(customer) {
+        // asynchronously called
+         //var customercreate = JSON.stringify(customer);
+        // console.log(customer);
 
-			      console.log(charge);
-		   	 //console.log(charge.customer);
-			 var _id=req.body.userid;
-			 var set = {    
-			                userid : _id,
-			                orderid : finalval,
-			                paymentId: charge.id,
-			                amount: charge.amount,
-			                balance_transaction: charge.balance_transaction, 
-			                created: charge.created, 
-			                paid_status: charge.paid,
-			                sourceId: charge.source.id, 
-			                sourceObject: charge.source.object,
-			                sourceBrand: charge.source.brand,
-			                sourceCountry: charge.source.country,
-			                sourceExpMonth: charge.source.exp_month, 
-			                sourceExpYears: charge.source.exp_year, 
-			                sourceFingerprint: charge.source.fingerprint, 
-			                sourceFunding: charge.source.funding, 
-			                sourceLast4: charge.source.last4,
-			                sourceName: charge.source.name, 
-			                datetime: strDate
-			            };
+        //var amount = Math.round(total*100);
+
+         console.log(total);
+
+                     
+        return stripe.charges.create({
+                amount: total*100,
+                currency: "usd",
+                customer: customer.id,
+              });
 
 
 
-			  	var transaction = new Transactions(set);
-				 
-			
 
-				transaction.save(function(error, datas){
-			    if(error){
-			        res.json(error);
-			    }
-			    else{
-			    	console.log(datas);
-			    	var objectId = datas._id;
-			    	//res.json(datas);
+          }).then(function(charge) {
+           //var payment = JSON.stringify(charge);
+
+            console.log(charge);
+         //console.log(charge.customer);
+       var _id=req.body.userid;
+       var set = {    
+                      userid : _id,
+                      orderid : finalval,
+                      paymentId: charge.id,
+                      amount: charge.amount,
+                      balance_transaction: charge.balance_transaction, 
+                      created: charge.created, 
+                      paid_status: charge.paid,
+                      sourceId: charge.source.id, 
+                      sourceObject: charge.source.object,
+                      sourceBrand: charge.source.brand,
+                      sourceCountry: charge.source.country,
+                      sourceExpMonth: charge.source.exp_month, 
+                      sourceExpYears: charge.source.exp_year, 
+                      sourceFingerprint: charge.source.fingerprint, 
+                      sourceFunding: charge.source.funding, 
+                      sourceLast4: charge.source.last4,
+                      sourceName: charge.source.name, 
+                      datetime: strDate
+                  };
+
+
+
+          var transaction = new Transactions(set);
+         
+      
+
+        transaction.save(function(error, datas){
+          if(error){
+              res.json(error);
+          }
+          else{
+            console.log(datas);
+            var objectId = datas._id;
+            //res.json(datas);
              Orderitem.find({"orderid" : finalval},function (err, orderitem) {
 
                              // console.log(orderitem.length)
@@ -5601,56 +5660,56 @@ app.get('/privacyBefore', function(req, res) {
 
 
                            });
-			     }
+           }
 
 
-			    });     
+          });     
 
-			    User.findById(_id, function (err, user) {
-			        
-			        console.log(user.stripeChargeCustomerId);
+          User.findById(_id, function (err, user) {
+              
+              console.log(user.stripeChargeCustomerId);
 
-			        if(!user.stripeChargeCustomerId){
-			          User.update(
-			            { _id: _id },
-			            { $set: {stripeChargeCustomerId:charge.customer} },
-			            function (err, doc) {
-			               console.log(doc);         
-			            });  
+              if(!user.stripeChargeCustomerId){
+                User.update(
+                  { _id: _id },
+                  { $set: {stripeChargeCustomerId:charge.customer} },
+                  function (err, doc) {
+                     console.log(doc);         
+                  });  
 
-			        }else{
-			        }
+              }else{
+              }
 
-			    });
-
-
-			            });
-
-			   // return res.redirect('charge_thanks');
+          });
 
 
-			}
+                  });
+
+         // return res.redirect('charge_thanks');
 
 
-			      });
-
-			if(userid == 'guest'){
-
-			return res.redirect('thanks');
-			} else{
-
-			return res.redirect('charge_thanks');
-
-			  }
+      }
 
 
-			}
+            });
 
-	});
+      if(userid == 'guest'){
 
-	}
+      return res.redirect('thanks');
+      } else{
 
-	});
+      return res.redirect('charge_thanks');
+
+        }
+
+
+      }
+
+  });
+
+  }
+
+  });
 
 
 
@@ -5660,7 +5719,7 @@ app.get('/privacyBefore', function(req, res) {
       var express = require('express');
       var multer = require('multer');
       var uploads = multer({ dest: 'public/uploads/consults/'});
-	app.post('/consultonlinedata-insert', function(req, res) {
+  app.post('/consultonlinedata-insert', function(req, res) {
     console.log(res);
 
       var User = require('../app/models/user');
@@ -5999,8 +6058,8 @@ app.get('/privacyBefore', function(req, res) {
 
 
   
-	
-	// });
+  
+  // });
 
 
   });   
@@ -6179,7 +6238,7 @@ app.get('/privacyBefore', function(req, res) {
    });  
 
 
-	app.get('/account',isLoggedIn, function(req, res) {
+  app.get('/account',isLoggedIn, function(req, res) {
      var i = 0;
        var vm = this;
         vm.consult = null;
@@ -6243,8 +6302,8 @@ app.get('/privacyBefore', function(req, res) {
       });
 
        });
-	
-	});
+  
+  });
 
 
 
@@ -6664,7 +6723,7 @@ app.get('/privacyBefore', function(req, res) {
 
  }); 
 
-	app.post('/profile-update', isLoggedIn, function(req, res) {
+  app.post('/profile-update', isLoggedIn, function(req, res) {
 
 var User = require('../app/models/user');
     var Hpdetail = require('../app/models/hpdetail');
@@ -6851,27 +6910,27 @@ console.log(_id);
 });
  });    
 
-	app.get('/edit-user', isLoggedIn, function(req, res) {
+  app.get('/edit-user', isLoggedIn, function(req, res) {
 
-		var User       = require('../app/models/user');
+    var User       = require('../app/models/user');
    var Hpdetail    = require('../app/models/hpdetail'); 
 
 
-		var dates=  new Date();
+    var dates=  new Date();
         var strDate = (dates.getMonth()+1)+ "-" + dates.getDate() + "-" + dates.getFullYear();
 
-		var userid = req.query.id;
-		//console.log(userid);
+    var userid = req.query.id;
+    //console.log(userid);
 
-		var i = 0;
+    var i = 0;
     var j = 0;
-		var vm = this;
+    var vm = this;
         vm.user = null;
         vm.allusers = [];
         vm.hpdetail = null;
         vm.allhpdetail = [];
 
-		var user_role = req.body.user_role;
+    var user_role = req.body.user_role;
 
     User.find(function (err, user) {
       // docs is an array
@@ -6885,21 +6944,21 @@ console.log(_id);
        var jsonObjectuser = JSON.parse(uservalue);
 
 
-		 Hpdetail.find(function (err, hpdetail) {
-  		
+     Hpdetail.find(function (err, hpdetail) {
+      
        var hpdetailvalue = JSON.stringify(hpdetail);
        var jsonObjecthpdetail = JSON.parse(hpdetailvalue);
        console.log(jsonObjecthpdetail);
 
-		res.render('edit-user.ejs', {
-			user : req.user , data : jsonObjectuser , datahp : jsonObjecthpdetail , userid : req.query.id ,
-		});
+    res.render('edit-user.ejs', {
+      user : req.user , data : jsonObjectuser , datahp : jsonObjecthpdetail , userid : req.query.id ,
+    });
 
-	});
+  });
 
-	});
+  });
 
-  });	 
+  });  
 
    app.post('/updateuserstatus', isLoggedIn, function(req, res) {
 
@@ -6970,22 +7029,22 @@ console.log(_id);
    });
 
 
-	app.post('/updateuser', isLoggedIn, function(req, res) {
+  app.post('/updateuser', isLoggedIn, function(req, res) {
 
-		var User       = require('../app/models/user');
-		var dates=  new Date();
+    var User       = require('../app/models/user');
+    var dates=  new Date();
         var strDate = (dates.getMonth()+1)+ "-" + dates.getDate() + "-" + dates.getFullYear();
 
-		var _id = req.body.userid;
-	//	console.log(_id);
-		var i = 0;
-		var vm = this;
-		vm.user = null;
+    var _id = req.body.userid;
+  //  console.log(_id);
+    var i = 0;
+    var vm = this;
+    vm.user = null;
         vm.allusers = [];
 
-	     User.find(function (err, user) {
-  		// docs is an array
-  		  for(var i = 0; i < user.length; i++){
+       User.find(function (err, user) {
+      // docs is an array
+        for(var i = 0; i < user.length; i++){
             vm.allusers[i] = user[i];
 
 
@@ -6996,28 +7055,28 @@ console.log(_id);
 
 
          User.findById({_id : req.body.userid}, function (err, user) {
-			        
-			     console.log(user);
-			     console.log(_id);
-			          User.update(
-			            { _id: _id },
-			            { $set: {  firstName: req.body.firstName,
-					               lastName: req.body.lastName,
-					               phone :req.body.phone,
-					               user_role : req.body.user_role,
-					               address : req.body.address,
-					               datetime : strDate} 
-					     },
-			            function (err, doc) {
-			               console.log(doc);        
-			            });  
+              
+           console.log(user);
+           console.log(_id);
+                User.update(
+                  { _id: _id },
+                  { $set: {  firstName: req.body.firstName,
+                         lastName: req.body.lastName,
+                         phone :req.body.phone,
+                         user_role : req.body.user_role,
+                         address : req.body.address,
+                         datetime : strDate} 
+               },
+                  function (err, doc) {
+                     console.log(doc);        
+                  });  
 
-			    });
+          });
 
-		res.render('admin.ejs', {
-			user : req.user , datauser : jsonObjectuser ,
-		});
-	});
+    res.render('admin.ejs', {
+      user : req.user , datauser : jsonObjectuser ,
+    });
+  });
    
    });
 
@@ -7026,7 +7085,7 @@ console.log(_id);
     var express = require('express');
     var multer = require('multer');
     var upload = multer({ dest: 'public/csv'});
-		app.post('/word-upload', function(req, res) {
+    app.post('/word-upload', function(req, res) {
 
        // console.log(req.files);
 
@@ -7071,7 +7130,7 @@ console.log(_id);
 
       });
 
-	});
+  });
 
 
     var fs =  require('fs');
@@ -7367,10 +7426,10 @@ console.log(_id);
   });
 
 
-	app.get('/about-worldex', function(req, res) {
-		res.render('about-worldex.ejs', {
-		});
-	});
+  app.get('/about-worldex', function(req, res) {
+    res.render('about-worldex.ejs', {
+    });
+  });
 
   app.get('/symptomstep', function(req, res) {
      var Product       = require('../app/models/products');
@@ -7635,7 +7694,7 @@ var Addsymptomsfemales       = require('../app/models/addsymptomfemale');
   });
 
 
-	 app.get('/subscription',isLoggedIn, function(req, res) {
+   app.get('/subscription',isLoggedIn, function(req, res) {
       var i = 0;
        var vm = this;
         vm.consult = null;
@@ -7911,20 +7970,20 @@ var Addsymptomsfemales       = require('../app/models/addsymptomfemale');
     // });
 
   });
-	app.get('/health-provider', function(req, res) {
-		res.render('health-provider.ejs', {
-		});
-	});
+  app.get('/health-provider', function(req, res) {
+    res.render('health-provider.ejs', {
+    });
+  });
 
    app.post('/health-provider', function(req, res) {
    
    return res.redirect('/');
   });
 
-	app.get('/download-app', function(req, res) {
-		res.render('download-app.ejs', {
-		});
-	});
+  app.get('/download-app', function(req, res) {
+    res.render('download-app.ejs', {
+    });
+  });
 
   app.get('/download-apps',isLoggedIn, function(req, res) {
     var i = 0;
@@ -7982,13 +8041,13 @@ var Addsymptomsfemales       = require('../app/models/addsymptomfemale');
   });
 
 
-	app.get('/checkout', function(req, res) {
-		res.render('checkout.ejs', {
-		});
-	});
+  app.get('/checkout', function(req, res) {
+    res.render('checkout.ejs', {
+    });
+  });
 
-	app.get('/checkouts',isLoggedIn, function(req, res) {
-	
+  app.get('/checkouts',isLoggedIn, function(req, res) {
+  
      var i = 0;
        var vm = this;
         vm.consult = null;
@@ -8042,7 +8101,7 @@ var Addsymptomsfemales       = require('../app/models/addsymptomfemale');
 
       });
     
-	});
+  });
 
 
 // //////////////////////thankuguest///////////////////
@@ -8050,9 +8109,9 @@ app.get('/thankyou', function(req, res) {
   // console.log(req.query.orderid);
   var Order   = require('../app/models/orders');
      res.render('thankyou.ejs', {
-		});
-	
-	});
+    });
+  
+  });
 
 
 ///////////////////////////////////////////////////////////
@@ -8174,7 +8233,7 @@ app.get('/thankyou', function(req, res) {
 
   //////////////////////////////////////////////////////////////
 
-	app.get('/paypal_thankyou',isLoggedIn, function(req, res) {
+  app.get('/paypal_thankyou',isLoggedIn, function(req, res) {
    var i = 0;
        var vm = this;
         vm.consult = null;
@@ -8225,11 +8284,11 @@ app.get('/thankyou', function(req, res) {
 
      });    
     
-	
-	});
+  
+  });
 
-	app.get('/charge_thanks',isLoggedIn, function(req, res) {
-	  var i = 0;
+  app.get('/charge_thanks',isLoggedIn, function(req, res) {
+    var i = 0;
        var vm = this;
         vm.consult = null;
         vm.allconsults = [];
@@ -8281,32 +8340,32 @@ app.get('/thankyou', function(req, res) {
       });
 
       });  
-	
-	});
+  
+  });
 
-	app.post('/checkout-function', function(req, res) {
+  app.post('/checkout-function', function(req, res) {
     console.log("checkout calling");
     console.log(res);
-		var Order       = require('../app/models/orders');
-		var Orderitem       = require('../app/models/orderitem');
-		var paypal = require('paypal-rest-sdk');
-		require('paypal-rest-sdk/lib/configure');
-		var newvalue = 0;
-		 var paypalCredentials = {
-		    "host" : "api.sandbox.paypal.com",
-		    "port" : "",
-		    "client_id" : "AdZno8uEIOj5xWLclvf1qHzvt1Z89xz5mcGgx3yvD1_iLjxT5FgrgrjNEkqQBuch5ySuoobEapBSQine",
-		    "client_secret" : "EEEfwiEQm0tgfy9RL6PlkohrL82izgdjrdCuzAujXtHTO-03J3lhLch1pwsDit1N-8h9bWFQYx4J9TO6"
-		};
-		paypal.configure(paypalCredentials);
+    var Order       = require('../app/models/orders');
+    var Orderitem       = require('../app/models/orderitem');
+    var paypal = require('paypal-rest-sdk');
+    require('paypal-rest-sdk/lib/configure');
+    var newvalue = 0;
+     var paypalCredentials = {
+        "host" : "api.sandbox.paypal.com",
+        "port" : "",
+        "client_id" : "AdZno8uEIOj5xWLclvf1qHzvt1Z89xz5mcGgx3yvD1_iLjxT5FgrgrjNEkqQBuch5ySuoobEapBSQine",
+        "client_secret" : "EEEfwiEQm0tgfy9RL6PlkohrL82izgdjrdCuzAujXtHTO-03J3lhLch1pwsDit1N-8h9bWFQYx4J9TO6"
+    };
+    paypal.configure(paypalCredentials);
 
 
-		var cartarray = req.body.cartvalue;
-		//console.log(cartarray);
-		var jsonObject = JSON.parse(cartarray);
-		var userid =  req.body.userid;
-		var dates=  new Date();
-		var strDate = (dates.getMonth()+1)+ "-" + dates.getDate() + "-" + dates.getFullYear();
+    var cartarray = req.body.cartvalue;
+    //console.log(cartarray);
+    var jsonObject = JSON.parse(cartarray);
+    var userid =  req.body.userid;
+    var dates=  new Date();
+    var strDate = (dates.getMonth()+1)+ "-" + dates.getDate() + "-" + dates.getFullYear();
 
         var set = {    
                 userid : req.body.userid,
@@ -8346,144 +8405,144 @@ app.get('/thankyou', function(req, res) {
                o_status :"Pending",
                payment_method: "Paypal",
                datetime: strDate
-        };	
+        };  
 
 
 
-		 	var orders = new Order(set);
+      var orders = new Order(set);
 
-			orders.save(function(error, data){
-			    if(error){
-			        res.json(error);
-			    }
-			    else{
-			    	
-			 
-			       var objectId = data._id; // this will return the id of object inserted
-					//console.log(objectId);
-					 newvalue = objectId;   
+      orders.save(function(error, data){
+          if(error){
+              res.json(error);
+          }
+          else{
+            
+       
+             var objectId = data._id; // this will return the id of object inserted
+          //console.log(objectId);
+           newvalue = objectId;   
 
 
-				Order.findOne({'_id': newvalue},function(err,docs){
-			//	console.log(docs);	
-				var i = 0;
-				var _id=docs._id;
-				var shipfname =docs.shipfname;
-				var autocomplete =docs.autocomplete;
-				var postal_code = docs.postal_code ;
-				var locality = docs.locality ;
-				var country = "US" ;
-				var administrative_area_level_1 = docs.administrative_area_level_1 ;
-				var country = docs.country ;
-				var shipphone = docs.shipphone ;
-				
-				var finalval= newvalue;
+        Order.findOne({'_id': newvalue},function(err,docs){
+      //  console.log(docs);  
+        var i = 0;
+        var _id=docs._id;
+        var shipfname =docs.shipfname;
+        var autocomplete =docs.autocomplete;
+        var postal_code = docs.postal_code ;
+        var locality = docs.locality ;
+        var country = "US" ;
+        var administrative_area_level_1 = docs.administrative_area_level_1 ;
+        var country = docs.country ;
+        var shipphone = docs.shipphone ;
+        
+        var finalval= newvalue;
 
-				//console.log(docs);
+        //console.log(docs);
 
-				var jsonObject = JSON.parse(cartarray);
-			//	console.log(jsonObject.length);
-				//console.log(jsonObject);
+        var jsonObject = JSON.parse(cartarray);
+      //  console.log(jsonObject.length);
+        //console.log(jsonObject);
 
-				var total = 0 ;
-				         for(var i = 0; i < jsonObject.length; i++){
-				      
-				//console.log(jsonObject[0].Product);
-				 var total = total + (jsonObject[i].Price * jsonObject[i].Qty);
-				// console.log(total);
-				 var sets = {    
-				                orderid : finalval,
+        var total = 0 ;
+                 for(var i = 0; i < jsonObject.length; i++){
+              
+        //console.log(jsonObject[0].Product);
+         var total = total + (jsonObject[i].Price * jsonObject[i].Qty);
+        // console.log(total);
+         var sets = {    
+                        orderid : finalval,
                         productid: jsonObject[i].ProductIds,
                         productstocks : jsonObject[i].ProductStocks,
-				                productname: jsonObject[i].Product,
-				                productprice: jsonObject[i].Price,
-				                productqty: jsonObject[i].Qty ,
-				                datetime: strDate
-				               // totalprice: "1",
-				               // grandtotalprice: "1" 
-				              
-				            };
+                        productname: jsonObject[i].Product,
+                        productprice: jsonObject[i].Price,
+                        productqty: jsonObject[i].Qty ,
+                        datetime: strDate
+                       // totalprice: "1",
+                       // grandtotalprice: "1" 
+                      
+                    };
 
-				var orderitem = new Orderitem(sets);
-				 
-				orderitem.save(function(error, datas){
-			    if(error){
-			        res.json(error);
-			    }
-			    else{
-			   // 	console.log(datas);
-			    	//res.json(datas);
-			     }
+        var orderitem = new Orderitem(sets);
+         
+        orderitem.save(function(error, datas){
+          if(error){
+              res.json(error);
+          }
+          else{
+         //   console.log(datas);
+            //res.json(datas);
+           }
 
-			    });
-
-
-
-
-			//	 return res.redirect('app/#/index' );
+          });
 
 
 
 
-
-				}
-
-
-			     if(userid == "guest"){
-
-
-				 console.log("guest checkout");
+      //   return res.redirect('app/#/index' );
 
 
 
-				  var create_payment_json = {
-				    "intent": "sale",
-				    "redirect_urls": {
-				     "return_url": "https://greenliving.io/paypal_loginbefore_update",
-				     "cancel_url": "https://greenliving.io/checkout"
-			   	     // "return_url": "http://localhost:5555/paypal_loginbefore_update",
-				        //  "cancel_url": "http://localhost:5555/checkout"
-				    },
-				    "payer": {
-				        "payment_method": "paypal",
-				        "payer_info": {
-				            "tax_id_type": "BR_CPF",
-				            "tax_id": "Fh618775690"
-				        }
-				    },
-				    "transactions": [
-				        {
-				            "amount": {
-				                "total": total,
-				                "currency": "USD"
-				                
-				            },
-				            "description": "This is the payment transaction description.",
-				            "custom": "EBAY_EMS_90048630024435",
-				            "invoice_number": "48787589677",
-				            "payment_options": {
-				                "allowed_payment_method": "INSTANT_FUNDING_SOURCE"
-				            },
-				            "soft_descriptor": "ECHI5786786",
-				            "item_list": {                      
-		                // "shipping_address": {
-		                //    // "recipient_name": shipfname,
-		                //     // "line1": autocomplete,
-		                //     // "city": locality,
-		                //   //  "country_code": country,
-		                //    // "postal_code": postal_code,
-		                //     //"phone": shipphone,
-		                //   //  "state": administrative_area_level_1
-		                // }      				           
+
+
+        }
+
+
+           if(userid == "guest"){
+
+
+         console.log("guest checkout");
+
+
+
+          var create_payment_json = {
+            "intent": "sale",
+            "redirect_urls": {
+             "return_url": "https://greenliving.io/paypal_loginbefore_update",
+             "cancel_url": "https://greenliving.io/checkout"
+               // "return_url": "http://localhost:5555/paypal_loginbefore_update",
+                //  "cancel_url": "http://localhost:5555/checkout"
+            },
+            "payer": {
+                "payment_method": "paypal",
+                "payer_info": {
+                    "tax_id_type": "BR_CPF",
+                    "tax_id": "Fh618775690"
+                }
+            },
+            "transactions": [
+                {
+                    "amount": {
+                        "total": total,
+                        "currency": "USD"
+                        
+                    },
+                    "description": "This is the payment transaction description.",
+                    "custom": "EBAY_EMS_90048630024435",
+                    "invoice_number": "48787589677",
+                    "payment_options": {
+                        "allowed_payment_method": "INSTANT_FUNDING_SOURCE"
+                    },
+                    "soft_descriptor": "ECHI5786786",
+                    "item_list": {                      
+                    // "shipping_address": {
+                    //    // "recipient_name": shipfname,
+                    //     // "line1": autocomplete,
+                    //     // "city": locality,
+                    //   //  "country_code": country,
+                    //    // "postal_code": postal_code,
+                    //     //"phone": shipphone,
+                    //   //  "state": administrative_area_level_1
+                    // }                         
                   }
-				        }
-				    ]
-				};
+                }
+            ]
+        };
 
   
   app.get('/paypal_loginbefore_update', function(req, res) {
     
-      var totalquantity = [];       			
+      var totalquantity = [];             
         var i = 0;
     var vm = this;
         vm.orderitem = null;
@@ -8588,13 +8647,13 @@ app.get('/thankyou', function(req, res) {
 
             // return res.redirect('/thankyou?orderid='+ _id);
 
-				     return res.redirect('/thankyou');   	 
+             return res.redirect('/thankyou');     
                  
             });
 
      
 
-				} 
+        } 
 
 
         else
@@ -8602,52 +8661,52 @@ app.get('/thankyou', function(req, res) {
 
         {
 
-				console.log("paypal");
-				var create_payment_json = {
-				    "intent": "sale",
-				    "redirect_urls": {
-				     "return_url": "https://greenliving.io/paypal_update",
-				     "cancel_url": "https://greenliving.io/checkouts"
-				   // "return_url": "http://localhost:5555/paypal_update",
-				    // "cancel_url": "http://localhost:5555/checkouts"
-				    },
-				    "payer": {
-				        "payment_method": "paypal",
-				        "payer_info": {
-				            "tax_id_type": "BR_CPF",
-				            "tax_id": "Fh618775690"
-				        }
-				    },
-				    "transactions": [
-				        {
-				            "amount": {
-				                "total": total,
-				                "currency": "USD"
-				                
-				            },
-				            "description": "This is the payment transaction description.",
-				            "custom": "EBAY_EMS_90048630024435",
-				            "invoice_number": "48787589677",
-				            "payment_options": {
-				                "allowed_payment_method": "INSTANT_FUNDING_SOURCE"
-				            },
-				            "soft_descriptor": "ECHI5786786",
-				            "item_list": {
-				                
-				                // "shipping_address": {
-				                 
+        console.log("paypal");
+        var create_payment_json = {
+            "intent": "sale",
+            "redirect_urls": {
+             "return_url": "https://greenliving.io/paypal_update",
+             "cancel_url": "https://greenliving.io/checkouts"
+           // "return_url": "http://localhost:5555/paypal_update",
+            // "cancel_url": "http://localhost:5555/checkouts"
+            },
+            "payer": {
+                "payment_method": "paypal",
+                "payer_info": {
+                    "tax_id_type": "BR_CPF",
+                    "tax_id": "Fh618775690"
+                }
+            },
+            "transactions": [
+                {
+                    "amount": {
+                        "total": total,
+                        "currency": "USD"
+                        
+                    },
+                    "description": "This is the payment transaction description.",
+                    "custom": "EBAY_EMS_90048630024435",
+                    "invoice_number": "48787589677",
+                    "payment_options": {
+                        "allowed_payment_method": "INSTANT_FUNDING_SOURCE"
+                    },
+                    "soft_descriptor": "ECHI5786786",
+                    "item_list": {
+                        
+                        // "shipping_address": {
+                         
                     //         "recipient_name": shipfname,
                     //         "line1": shipaddress,
                     //         "city": shipcity,
                     //         "country_code": shipcountry,
                     //         "postal_code": shippcode,
                     //         "phone": shipphone,
-                    //         "state": shipstate		
-                    //    }     		          
-				            }
-				        }
-				    ]
-				};
+                    //         "state": shipstate   
+                    //    }                   
+                    }
+                }
+            ]
+        };
 
 /////////////////////////////////mmail////////////////////////////////////////////////////////////////
   app.get('/paypal_update', function(req, res) {
@@ -8764,103 +8823,103 @@ app.get('/thankyou', function(req, res) {
 
 ///////////////////////////////////mmail////////////////////////////////////
 
-				
-				paypal.payment.create(create_payment_json, function (error, payment) {
-				    if (error) {
-				        console.log(error);
-				    } else {
-				      req.session.paymentId = payment.id;
-				            	var _id = newvalue ;
-				               	console.log(_id);
-				               	console.log("order id is  " + newvalue);
-				                orders.update({ '_id': newvalue },{ "$set": {  paymentId : req.session.paymentId,
-											//token : req.query.token,
-											//PayerID : req.query.PayerID,
-											o_status : "Done"
-										}},
-							    function (err, raw) {
-							        if (err) {
-							            console.log('Error log: ' + err)
-							        } else {
-							            console.log("Token updated: " + raw);
-							        }
-							    }
-							);
+        
+        paypal.payment.create(create_payment_json, function (error, payment) {
+            if (error) {
+                console.log(error);
+            } else {
+              req.session.paymentId = payment.id;
+                      var _id = newvalue ;
+                        console.log(_id);
+                        console.log("order id is  " + newvalue);
+                        orders.update({ '_id': newvalue },{ "$set": {  paymentId : req.session.paymentId,
+                      //token : req.query.token,
+                      //PayerID : req.query.PayerID,
+                      o_status : "Done"
+                    }},
+                  function (err, raw) {
+                      if (err) {
+                          console.log('Error log: ' + err)
+                      } else {
+                          console.log("Token updated: " + raw);
+                      }
+                  }
+              );
 
 
-						//  Order.findById({ '_id': newvalue }, function (err, orderss) {
-						//     orders.update({  paymentId : req.session.paymentId,
-						// 					token : req.query.token,
-						// 					PayerID : req.query.PayerID,
-						// 					o_status : "Done"
-						// 				}).exec();
-						//     console.log(orderss);
-						// });
-	
+            //  Order.findById({ '_id': newvalue }, function (err, orderss) {
+            //     orders.update({  paymentId : req.session.paymentId,
+            //          token : req.query.token,
+            //          PayerID : req.query.PayerID,
+            //          o_status : "Done"
+            //        }).exec();
+            //     console.log(orderss);
+            // });
+  
 
-				             
-				       var redirectUrl;
-				        for (var index = 0; index < payment.links.length; index++) {
-				        //Redirect user to this endpoint for redirect url
-				            if (payment.links[index].rel === 'approval_url') {
+                     
+               var redirectUrl;
+                for (var index = 0; index < payment.links.length; index++) {
+                //Redirect user to this endpoint for redirect url
+                    if (payment.links[index].rel === 'approval_url') {
 
-				            	 console.log(payment.links[index].href);	
+                       console.log(payment.links[index].href);  
 
-				            	  res.redirect(payment.links[index].href);   
+                        res.redirect(payment.links[index].href);   
 
-				            }
+                    }
 
-				        }
-				    }
-				});
+                }
+            }
+        });
 
-				
-
-
-				exports.execute = function(req, res){
-				console.log(res);
-				var payerId = req.param('PayerID');
-				console.log(payerId);
-				var execute_payment_json = {
-				    "payer_id": payerId,
-				    "transactions": [{
-				        "amount": {
-				            "currency": "USD",
-				            "total": total
-				        }
-				    }]
-				};
-
-				var paymentId = req.session.paymentId;
-
-				paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
-				    if (error) {
-				        console.log(error);
-				    } else {
-				        console.log("Get Payment Response");
-				        console.log(JSON.stringify(payment));
-
-				    }
-				});
-				};
+        
 
 
+        exports.execute = function(req, res){
+        console.log(res);
+        var payerId = req.param('PayerID');
+        console.log(payerId);
+        var execute_payment_json = {
+            "payer_id": payerId,
+            "transactions": [{
+                "amount": {
+                    "currency": "USD",
+                    "total": total
+                }
+            }]
+        };
 
-				exports.cancel = function(req, res){
-				  res.send("The payment got canceled");
-				};
+        var paymentId = req.session.paymentId;
 
-			});
+        paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log("Get Payment Response");
+                console.log(JSON.stringify(payment));
 
-			}
+            }
+        });
+        };
 
-			 
+
+
+        exports.cancel = function(req, res){
+          res.send("The payment got canceled");
+        };
+
+      });
+
+      }
+
+       
           
 
-			});
-			});
+      });
+      });
 
-				
+        
 
 
  app.post('/reorder', function(req, res) {
@@ -9256,11 +9315,11 @@ app.post('/payment', function(req, res) {
 
 
 
-	// LOGOUT ==============================
-	app.get('/logout', function(req, res) {
-		req.logout();
-		res.redirect('/');
-	});
+  // LOGOUT ==============================
+  app.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+  });
 
  
 
@@ -9501,23 +9560,23 @@ app.get('/orderbyId/:userid', function(req, res) {
 // AUTHENTICATE (FIRST LOGIN) ==================================================
 // =============================================================================
 
-	// locally --------------------------------
-		// LOGIN ===============================
-		// show the login form
-		app.get('/login', function(req, res) {
-			res.render('login.ejs', { message: req.flash('loginMessage') });
-		});
+  // locally --------------------------------
+    // LOGIN ===============================
+    // show the login form
+    app.get('/login', function(req, res) {
+      res.render('login.ejs', { message: req.flash('loginMessage') });
+    });
 
     app.get('/wronglogin', function(req, res) {
       res.render('wronglogin.ejs', { message: req.flash('loginMessage') });
     });
 
-		// process the login form
-		app.post('/login', passport.authenticate('local-login', {
-			successRedirect : '/home', // redirect to the secure profile section
-			failureRedirect : '/wronglogin', // redirect back to the signup page if there is an error
-			failureFlash : true // allow flash messages
-		}));
+    // process the login form
+    app.post('/login', passport.authenticate('local-login', {
+      successRedirect : '/home', // redirect to the secure profile section
+      failureRedirect : '/wronglogin', // redirect back to the signup page if there is an error
+      failureFlash : true // allow flash messages
+    }));
 
       // process the login form
     app.post('/androidloginapi', function(req, res) {
@@ -9654,23 +9713,23 @@ app.get('/orderbyId/:userid', function(req, res) {
 
 
     // SIGNUP =================================
-		// show the signup form
-		app.get('/signup', function(req, res) {
-			res.render('signup.ejs', { message: req.flash('signupMessage') });
-		});
+    // show the signup form
+    app.get('/signup', function(req, res) {
+      res.render('signup.ejs', { message: req.flash('signupMessage') });
+    });
 
     app.get('/wrongsignup', function(req, res) {
       res.render('wrongsignup.ejs', { message: req.flash('signupMessage') });
     });
 
-		// process the signup form
-		app.post('/signup', passport.authenticate('local-signup', {
-			successRedirect : '/wrongsignup', // redirect to the secure profile section
-			failureRedirect : '/wrongsignup', // redirect back to the signup page if there is an error
-			failureFlash : true // allow flash messages
-		}));
+    // process the signup form
+    app.post('/signup', passport.authenticate('local-signup', {
+      successRedirect : '/wrongsignup', // redirect to the secure profile section
+      failureRedirect : '/wrongsignup', // redirect back to the signup page if there is an error
+      failureFlash : true // allow flash messages
+    }));
 
-	// facebook -------------------------------
+  // facebook -------------------------------
 
 
       // send to facebook to do the authentication
@@ -9685,81 +9744,81 @@ app.get('/orderbyId/:userid', function(req, res) {
 
 
 
-	// twitter --------------------------------
+  // twitter --------------------------------
 
-		// send to twitter to do the authentication
-		app.get('/auth/twitter', passport.authenticate('twitter', { scope : 'email' }));
+    // send to twitter to do the authentication
+    app.get('/auth/twitter', passport.authenticate('twitter', { scope : 'email' }));
 
-		// handle the callback after twitter has authenticated the user
-		app.get('/auth/twitter/callback',
-			passport.authenticate('twitter', {
-				successRedirect : '/profile',
-				failureRedirect : '/'
-			}));
+    // handle the callback after twitter has authenticated the user
+    app.get('/auth/twitter/callback',
+      passport.authenticate('twitter', {
+        successRedirect : '/profile',
+        failureRedirect : '/'
+      }));
 
 
-	// google ---------------------------------
+  // google ---------------------------------
 
-		// send to google to do the authentication
-		app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
+    // send to google to do the authentication
+    app.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
 
-		// the callback after google has authenticated the user
-		app.get('/auth/google/callback',
-			passport.authenticate('google', {
-				successRedirect : '/home',
-				failureRedirect : '/'
-			}));
+    // the callback after google has authenticated the user
+    app.get('/auth/google/callback',
+      passport.authenticate('google', {
+        successRedirect : '/home',
+        failureRedirect : '/'
+      }));
 
 // =============================================================================
 // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
 // =============================================================================
 
-	// locally --------------------------------
-		app.get('/connect/local', function(req, res) {
-			res.render('connect-local.ejs', { message: req.flash('loginMessage') });
-		});
-		app.post('/connect/local', passport.authenticate('local-signup', {
-			successRedirect : '/home', // redirect to the secure profile section
-			failureRedirect : '/connect/local', // redirect back to the signup page if there is an error
-			failureFlash : true // allow flash messages
-		}));
+  // locally --------------------------------
+    app.get('/connect/local', function(req, res) {
+      res.render('connect-local.ejs', { message: req.flash('loginMessage') });
+    });
+    app.post('/connect/local', passport.authenticate('local-signup', {
+      successRedirect : '/home', // redirect to the secure profile section
+      failureRedirect : '/connect/local', // redirect back to the signup page if there is an error
+      failureFlash : true // allow flash messages
+    }));
 
-	// facebook -------------------------------
+  // facebook -------------------------------
 
-		// send to facebook to do the authentication
-		app.get('/connect/facebook', passport.authorize('facebook', { scope : 'email' }));
+    // send to facebook to do the authentication
+    app.get('/connect/facebook', passport.authorize('facebook', { scope : 'email' }));
 
-		// handle the callback after facebook has authorized the user
-		app.get('/connect/facebook/callback',
-			passport.authorize('facebook', {
-				successRedirect : '/home',
-				failureRedirect : '/'
-			}));
+    // handle the callback after facebook has authorized the user
+    app.get('/connect/facebook/callback',
+      passport.authorize('facebook', {
+        successRedirect : '/home',
+        failureRedirect : '/'
+      }));
 
-	// twitter --------------------------------
+  // twitter --------------------------------
 
-		// send to twitter to do the authentication
-		app.get('/connect/twitter', passport.authorize('twitter', { scope : 'email' }));
+    // send to twitter to do the authentication
+    app.get('/connect/twitter', passport.authorize('twitter', { scope : 'email' }));
 
-		// handle the callback after twitter has authorized the user
-		app.get('/connect/twitter/callback',
-			passport.authorize('twitter', {
-				successRedirect : '/profile',
-				failureRedirect : '/'
-			}));
+    // handle the callback after twitter has authorized the user
+    app.get('/connect/twitter/callback',
+      passport.authorize('twitter', {
+        successRedirect : '/profile',
+        failureRedirect : '/'
+      }));
 
 
-	// google ---------------------------------
+  // google ---------------------------------
 
-		// send to google to do the authentication
-		app.get('/connect/google', passport.authorize('google', { scope : ['profile', 'email'] }));
+    // send to google to do the authentication
+    app.get('/connect/google', passport.authorize('google', { scope : ['profile', 'email'] }));
 
-		// the callback after google has authorized the user
-		app.get('/connect/google/callback',
-			passport.authorize('google', {
-				successRedirect : '/home',
-				failureRedirect : '/'
-			}));
+    // the callback after google has authorized the user
+    app.get('/connect/google/callback',
+      passport.authorize('google', {
+        successRedirect : '/home',
+        failureRedirect : '/'
+      }));
 
 // =============================================================================
 // UNLINK ACCOUNTS =============================================================
@@ -9768,51 +9827,51 @@ app.get('/orderbyId/:userid', function(req, res) {
 // for local account, remove email and password
 // user account will stay active in case they want to reconnect in the future
 
-	// local -----------------------------------
-	app.get('/unlink/local', function(req, res) {
-		var user            = req.user;
-		user.local.email    = undefined;
-		user.local.password = undefined;
-		user.save(function(err) {
-			res.redirect('/profile');
-		});
-	});
+  // local -----------------------------------
+  app.get('/unlink/local', function(req, res) {
+    var user            = req.user;
+    user.local.email    = undefined;
+    user.local.password = undefined;
+    user.save(function(err) {
+      res.redirect('/profile');
+    });
+  });
 
-	// facebook -------------------------------
-	app.get('/unlink/facebook', function(req, res) {
-		var user            = req.user;
-		user.facebook.token = undefined;
-		user.save(function(err) {
-			res.redirect('/home');
-		});
-	});
+  // facebook -------------------------------
+  app.get('/unlink/facebook', function(req, res) {
+    var user            = req.user;
+    user.facebook.token = undefined;
+    user.save(function(err) {
+      res.redirect('/home');
+    });
+  });
 
-	// twitter --------------------------------
-	app.get('/unlink/twitter', function(req, res) {
-		var user           = req.user;
-		user.twitter.token = undefined;
-		user.save(function(err) {
-			res.redirect('/profile');
-		});
-	});
+  // twitter --------------------------------
+  app.get('/unlink/twitter', function(req, res) {
+    var user           = req.user;
+    user.twitter.token = undefined;
+    user.save(function(err) {
+      res.redirect('/profile');
+    });
+  });
 
-	// google ---------------------------------
-	app.get('/unlink/google', function(req, res) {
-		var user          = req.user;
-		user.google.token = undefined;
-		user.save(function(err) {
-			res.redirect('/home');
-		});
-	});
+  // google ---------------------------------
+  app.get('/unlink/google', function(req, res) {
+    var user          = req.user;
+    user.google.token = undefined;
+    user.save(function(err) {
+      res.redirect('/home');
+    });
+  });
 
 
 };
 
 // route middleware to ensure user is logged in
 function isLoggedIn(req, res, next) {
-	if (req.isAuthenticated())
-		return next();
+  if (req.isAuthenticated())
+    return next();
 
-	res.redirect('/');
+  res.redirect('/');
 }
 
