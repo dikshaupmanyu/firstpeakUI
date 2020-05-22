@@ -448,21 +448,31 @@ input:checked + .slider:before {
 
                  <%- include partials/footer %>
 <script type="text/javascript"> 
+
+  function formatAMPM1() {
+var d = new Date(),
+    minutes = d.getMinutes().toString().length == 1 ? '0'+d.getMinutes() : d.getMinutes(),
+    hours = d.getHours().toString().length == 1 ? '0'+d.getHours() : d.getHours(),
+    ampm = d.getHours() >= 12 ? 'pm' : 'am',
+    months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+return days[d.getDay()]+' '+months[d.getMonth()]+' '+d.getDate()+' '+d.getFullYear()+' '+hours+':'+minutes+ampm;
+}
+
 function show_now1() { 
-var my_time = new Date();
-document.getElementById('display1').innerHTML=my_time
+document.getElementById('display1').innerHTML=formatAMPM1();
 }
 function show_now2() { 
 var my_time = new Date();
-document.getElementById('display2').innerHTML=my_time
+document.getElementById('display2').innerHTML=formatAMPM1();
 }
 function show_now3() { 
 var my_time = new Date();
-document.getElementById('display3').innerHTML=my_time
+document.getElementById('display3').innerHTML=formatAMPM1();
 }
 function show_now4() { 
 var my_time = new Date();
-document.getElementById('display4').innerHTML=my_time
+document.getElementById('display4').innerHTML=formatAMPM1();
 }
 </script>
 
