@@ -212,7 +212,7 @@ $.ajax({
                 "data":   "image",
                 render: function ( data, type, row ) {
                     if ( type === 'display' ) {
-                        return '<button type="button" class="imgbtn btn btn-info btn-lg" data-toggle="modal" data-target="#myModal'+row.id+'">Image</button><div class="modal fade" id="myModal'+row.id+'" role="dialog"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h4 class="modal-title">Image</h4></div><div class="modal-body"><img src="" id="dishPhoto" class="img-responsive"></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div>';
+                        return '<button type="button" class="imgbtn btn btn-info btn-lg" data-toggle="modal" data-target="#myModal'+row.id+'">Image</button><div class="modal fade" id="myModal'+row.id+'" role="dialog"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h4 class="modal-title">Image</h4></div><div class="modal-body" style="height:400px;"><a class="imgPhoto" href="#" id="'+row.id+'" style="text-align:center;display: block;">Delete Image</a><img src="" id="dishPhoto"  style="height: 500px"/></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div>';
                        
                     }
                     return data;
@@ -257,6 +257,53 @@ $.ajax({
  }
 
  });
+
+   $('#dataTables').on('click', 'a.imgPhoto', function () {
+
+    // alert(tokens);
+    alert("hii");
+    var id = $(this).attr('id');
+    alert(id);
+    var table = $('#dataTables').DataTable();
+    var row = table.row(this.closest('tr')).data();
+    var result = confirm("Are you sure you want to delete?");
+    if(result){
+        // Delete logic goes here
+    // var ids = row["id"];
+    var formData = {appuserid:id};
+    alert(formData);
+     $.ajax({
+      url : "https://apis.tradetipsapp.com/api/appUserWebModify/deleteUserImageByAppUserId",
+      type: "POST",
+      headers: {
+           Authorization: 'Bearer ' + tokens,
+      },
+      data : formData,
+      success: function(data, textStatus, jqXHR)
+      {
+          //data - response from server
+          alert(data);
+          var datak = JSON.stringify(data);
+          var dataResultp = JSON.parse(datak); 
+          alert("User updated Sucessfully !!");
+          window.location.reload();
+      },
+      error: function (jqXHR, textStatus, errorThrown)
+      {
+         alert("Not updated !!");
+      }
+
+    });
+    } else {
+
+       window.location.reload();
+
+    }
+           // $('#dataTables').DataTable().ajax.reload();
+
+
+   });
+
 
    // $('#dataTables').on('click', 'tbody td:not(:first-child)', function () {
    $('#dataTables').on('click', 'input.editor-active', function () {
