@@ -449,12 +449,12 @@ input:checked + .slider:before {
                  <%- include partials/footer %>
 <script type="text/javascript"> 
 function show_now1() { 
-  alert("hii");
+  // alert("hii");
 var my_time = new Date();
 var lfckv = document.getElementById("togBtn1").checked;
-alert(lfckv);
+// alert(lfckv);
  if(lfckv === true){
-  alert("true calling");
+  // alert("true calling");
  document.getElementById('display1').innerHTML=my_time
 }else {
    document.getElementById('display1').innerHTML=""
@@ -463,24 +463,30 @@ alert(lfckv);
 }
 function show_now2() { 
 var my_time = new Date();
-// var lfckv2 = document.getElementById("togBtn2").checked;
-// if(lfckv2 == true){
+ var lfckv2 = document.getElementById("togBtn2").checked;
+ if(lfckv2 == true){
  document.getElementById('display2').innerHTML=my_time
-//}
+}else{
+   document.getElementById('display2').innerHTML=""
+}
 }
 function show_now3() { 
 var my_time = new Date();
-// var lfckv3 = document.getElementById("togBtn3").checked;
-// if(lfckv3 == true){
+var lfckv3 = document.getElementById("togBtn3").checked;
+if(lfckv3 == true){
  document.getElementById('display3').innerHTML=my_time
-// }
+ }else{
+   document.getElementById('display3').innerHTML=""
+}
 }
 function show_now4() { 
 var my_time = new Date();
-// var lfckv4 = document.getElementById("togBtn4").checked;
-// if(lfckv4 == true){
+var lfckv4 = document.getElementById("togBtn4").checked;
+if(lfckv4 == true){
  document.getElementById('display4').innerHTML=my_time
-//}
+}else{
+   document.getElementById('display4').innerHTML=""
+}
 }
 </script>
 
