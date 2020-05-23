@@ -450,10 +450,10 @@ input:checked + .slider:before {
 <script type="text/javascript"> 
 function show_now1() { 
 var my_time = new Date();
-// var lfckv = document.getElementById("togBtn1").checked;
-// if(lfckv == true){
+var lfckv = document.getElementById("togBtn1").checked;
+ if(lfckv == "true"){
  document.getElementById('display1').innerHTML=my_time
-//}
+}
 }
 function show_now2() { 
 var my_time = new Date();
