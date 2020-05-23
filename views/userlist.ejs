@@ -261,9 +261,9 @@ $.ajax({
    $('#dataTables').on('click', 'a.imgPhoto', function () {
 
     // alert(tokens);
-    alert("hii");
+    //alert("hii");
     var id = $(this).attr('id');
-    alert(id);
+    //alert(id);
     var table = $('#dataTables').DataTable();
     var row = table.row(this.closest('tr')).data();
     var result = confirm("Are you sure you want to delete?");
@@ -271,7 +271,7 @@ $.ajax({
         // Delete logic goes here
     // var ids = row["id"];
     var formData = {appuserid:id};
-    alert(formData);
+    //alert(formData);
      $.ajax({
       url : "https://apis.tradetipsapp.com/api/appUserWebModify/deleteUserImageByAppUserId",
       type: "POST",
@@ -285,7 +285,7 @@ $.ajax({
           alert(data);
           var datak = JSON.stringify(data);
           var dataResultp = JSON.parse(datak); 
-          alert("User updated Sucessfully !!");
+          alert("Image deleted Sucessfully !!");
           window.location.reload();
       },
       error: function (jqXHR, textStatus, errorThrown)
