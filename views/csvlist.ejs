@@ -449,8 +449,10 @@ input:checked + .slider:before {
                  <%- include partials/footer %>
 <script type="text/javascript"> 
 function show_now1() { 
+  alert("hii");
 var my_time = new Date();
 var lfckv = document.getElementById("togBtn1").checked;
+alert(lfckv);
  if(lfckv === true){
  document.getElementById('display1').innerHTML=my_time
 }
