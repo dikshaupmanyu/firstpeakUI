@@ -451,7 +451,7 @@ input:checked + .slider:before {
 function show_now1() { 
 var my_time = new Date();
 var lfckv = document.getElementById("togBtn1").checked;
- if(lfckv == "true"){
+ if(lfckv === true){
  document.getElementById('display1').innerHTML=my_time
 }
 }
