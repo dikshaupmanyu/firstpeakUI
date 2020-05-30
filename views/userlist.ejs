@@ -226,18 +226,18 @@ $.ajax({
 
                        if(data == null){
 
-                        return '<input type="button" class="updateStatusdata" value="Release">';
+                        return '<input type="button" class="updateStatusdata" value="Block">';
 
                         //  return '<a href="updateData?id='+row.id+'&username='+row.userName+'&tokendata='+tokens+'&status=1" id="userStatus">UnBlock</a>';
 
                         }else if(data == "Enable") {
 
-                           return '<input type="button" class="updateStatusdata" value="Release">';
+                           return '<input type="button" class="updateStatusdata" value="Block">';
                         //   return '<a href="updateData?id='+row.id+'&username='+row.userName+'&tokendata='+tokens+'&status=1" id="userStatus">UnBlock</a>';
 
                         }else {
                         //   return '<a href="updateData?id='+row.id+'&username='+row.userName+'&tokendata='+tokens+'&status=0" id="userStatus">Block</a>';
-                         return '<input type="button" class="updateStatusdata" value="Block">';
+                         return '<input type="button" class="updateStatusdata" value="Release">';
 
                         }
                        
@@ -362,11 +362,19 @@ $.ajax({
    $('#dataTables').on('click', 'input.updateStatusdata', function () {
 
     var id = $(this).attr('id');
+    var vals = $(this).attr('value');
+    // alert(vals);
     var table = $('#dataTables').DataTable();
     var row = table.row(this.closest('tr')).data();
     var url ;
     var formData;
-    var result = confirm("Are you sure you want to update?");
+    var result ;
+    if(vals == "Block"){
+      result = confirm("Are you sure you want to Block?");
+    }
+    if(vals == "Release"){
+      result = confirm("Are you sure you want to Release?");
+    }
     if(result){
         // Delete logic goes here
     var userdata = row["userName"];
@@ -377,13 +385,13 @@ $.ajax({
     var statusdata = row["status"];
      // alert(statusdata);
     if(statusdata == "Block") {
-          url = "https://apis.tradetipsapp.com/api/appUser/appUserUpdateById";
+          url = "https://apis.tradetipsapp.com/api/appUserWebModify/appUserUpdateByUserName";
          formData = {appUserName:userdata,appuserid:userId,userName:userdata,email:useremail,password:userpass,status:"Enable",firstName:"",middleName:"",lastName:"",gender:"",imageDetails:"",userLocation:"",userType:usertypeof,saved_stocks:"",savedMentors:"",description:""};
       } else if(statusdata == "Enable") {
-          url = "https://apis.tradetipsapp.com/api/appUser/appUserUpdateById";
+          url = "https://apis.tradetipsapp.com/api/appUserWebModify/appUserUpdateByUserName";
           formData = {appUserName:userdata,appuserid:userId,userName:userdata,email:useremail,password:userpass,status:"Block",firstName:"",middleName:"",lastName:"",gender:"",imageDetails:"",userLocation:"",userType:usertypeof,saved_stocks:"",savedMentors:"",description:""};
       } else if(statusdata == null) {
-          url = "https://apis.tradetipsapp.com/api/appUser/appUserUpdateById";
+          url = "https://apis.tradetipsapp.com/api/appUserWebModify/appUserUpdateByUserName";
           formData = {appUserName:userdata,appuserid:userId,userName:userdata,email:useremail,password:userpass,status:"Enable",firstName:"",middleName:"",lastName:"",gender:"",imageDetails:"",userLocation:"",userType:usertypeof,saved_stocks:"",savedMentors:"",description:""};
       }
        $.ajax({
@@ -398,7 +406,7 @@ $.ajax({
             //data - response from server
             var datak = JSON.stringify(data);
             var dataResultp = JSON.parse(datak); 
-            alert("User updated Sucessfully !!");
+            alert("Status updated Sucessfully !!");
             window.location.reload();
         },
         error: function (jqXHR, textStatus, errorThrown)
