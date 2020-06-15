@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+          <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -19,6 +19,7 @@
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
+
 
 
         <div class="container-fluid">
@@ -43,23 +44,14 @@
 
   <div class="form-group">
     <label for="exampleInputEmail1">Enter Company Name or Symbol Name</label>
-   <!--  <input type="text" class="form-control" placeholder="Enter Company Name or Symbol Name" id="sel_user"> -->
+  
 
-   <!-- <input type="text" name="stockname" id="stocklist" list="sel_user" onkeyup="myFunction()"> -->
-   <input type="text" id="stocklist" list="sel_user" onchange="myFunction()">
+    <input type="text" id="search-box" list="sel_user" placeholder="Enter Company Name or Symbol Name" style="text-transform:uppercase"/>
     <datalist id="sel_user">
    
-    </datalist>
+    </datalist> 
 
-    <!-- <input class="btn btn-primary" type="button" value="Search" id="butSaveData"> -->
   </div>
-
-
-  <!-- <div id="stocklist">
-   
-  </div>
-
-  <span id="result"></span> -->
 
   <div class="form-group">
     <label for="exampleInputEmail1">Set Entry</label>
@@ -104,9 +96,6 @@
 
       </div>
       <!-- End of Main Content -->
-
-                 <%- include partials/footer %>
-
 
     </div>
     <!-- End of Content Wrapper -->
@@ -256,7 +245,9 @@ $(document).ready(function(){
 
  </script>
  
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script type="text/javascript">
 
 
@@ -270,63 +261,78 @@ $(document).ready(function(){
   var url_string = window.location.href; 
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
+  // alert(tokens);
    var userid = urls.searchParams.get("id");
   $('#loginId').val(userid);
-  function myFunction() {
-     // alert("function 1");
-    var x = document.getElementById("stocklist");
-     x.value = x.value.toUpperCase();
-    var UserSelect = x.value;
-    var formdata = {stockSymbol : UserSelect};
-      $.ajax({
-        type: 'POST',
-        url: 'https://apis.tradetipsapp.com/api/stocksearchdetails/searchStockSymbol',
-        headers: {
-          Authorization: 'Bearer '+ tokens
-        },
-        data: formdata,
-        success: function(data, textStatus, jqXHR)
-        {
+
+
+
+  $(document).ready(function(){
+  $("#search-box").keyup(function(){
+
+    $.ajax({
+    type: "POST",
+    url: "https://apis.tradetipsapp.com/api/stocksearchdetails/searchStockSymbol",
+    headers: { Authorization: 'Bearer '+ tokens},
+    data:'stockSymbol='+$(this).val(),
+    // beforeSend: function(){
+    //   $("#search-box").css("background","#FFF url(LoaderIcon.gif) no-repeat 165px");
+    // },
+    success: function(data){
           var datak = JSON.stringify(data);
           var dataResult = JSON.parse(datak);
           var len = dataResult.length;
-
-            $("#sel_user").empty();
-                for( var i = 0; i<len; i++){
+          // alert(len);
+                   $("#sel_user").empty();
+                 for( var i = 0; i<len; i++){
                     var id = dataResult[i]['id'];
                     var symbol = dataResult[i]['stockSymbol'];
                     var name = dataResult[i]['stockName'];
-                    // alert(name);
+                     // alert(name);
                     $("#sel_user").append("<option id='radiobtn"+symbol+"' value='"+symbol+"'>"+name+"</option>");
 
-     var dataset= document.getElementById("stocklist").value;
-                    // alert(dataset);     
+                    }
 
-      var url = "https://cloud.iexapis.com/stable/stock/market/batch?token=pk_dd324da3fb5f4428a47b05ab12f23ce2&types=quote&symbols="+dataset;
-      $.ajax({
-        url : url,
-        type: "GET",
-        success: function(data)
-        {
-               // alert("function 2");
+                      var val = document.getElementById("search-box").value;
+                      var opts = document.getElementById('sel_user').childNodes;
+                      for (var i = 0; i < opts.length; i++) {
+                        if (opts[i].value === val) {
+                          // An item was selected from the list!
+                          // yourCallbackHere()
+                          // alert(opts[i].value);
+                          var dataset = opts[i].value;
+                           var url = "https://cloud.iexapis.com/stable/stock/market/batch?token=pk_dd324da3fb5f4428a47b05ab12f23ce2&types=quote&symbols="+dataset;
+                          $.ajax({
+                            url : url,
+                            type: "GET",
+                            success: function(data)
+                            {
+                                    // alert(data[symbol]);
 
-             document.getElementById("setEntry").value = JSON.stringify(data[dataset].quote.latestPrice);
-             document.getElementById("setStop").value = JSON.stringify(data[dataset].quote.latestPrice);
-             document.getElementById("setExit").value = JSON.stringify(data[dataset].quote.latestPrice);
-              document.getElementById("createprice").value = JSON.stringify(data[dataset].quote.latestPrice);
-          
-        }
+                                 document.getElementById("setEntry").value = JSON.stringify(data[dataset].quote.latestPrice);
+                                 document.getElementById("setStop").value = JSON.stringify(data[dataset].quote.latestPrice);
+                                 document.getElementById("setExit").value = JSON.stringify(data[dataset].quote.latestPrice);
+                                  document.getElementById("createprice").value = JSON.stringify(data[dataset].quote.latestPrice);
+                              
+                            }
 
-      });
-
-       }
-
-     }
-
-     });
-
+                          });
+                      
+                         }
+                          break;
+                        }
+     
     }
+    });
+  });
+});
+// //To select country name
+// function selectCountry(val) {
+// $("#search-box").val(val);
+// $("#suggesstion-box").hide();
+// }
 
+ 
  </script>
 
  
@@ -335,15 +341,14 @@ $(document).ready(function(){
   var url_string = window.location.href; 
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
-
+  var jwtTokens = urls.searchParams.get("chatToken");
   var username = urls.searchParams.get("uname");
   $('#loginName').html(username);
   var userid = urls.searchParams.get("id");
   $('#loginId').val(userid);
-  document.getElementById("dashboardLink").href = "/tipPage?tokendata="+tokens+"&uname="+username+"&id="+userid;
- document.getElementById("HomeLink").href = "/tipPage?tokendata="+tokens+"&uname="+username+"&id="+userid;
-  document.getElementById("UserLink").href = "/addMentor?tokendata="+tokens+"&uname="+username+"&id="+userid;
-    
+ // document.getElementById("HomeLink").href = "/tipPage?tokendata="+tokens+"&uname="+username+"&id="+userid;
+  // document.getElementById("UserLink").href = "/addMentor?tokendata="+tokens+"&uname="+username+"&id="+userid;
+  // document.getElementById("ChatManageLink").href = "/chatManage?tokendata="+tokens+"&uname="+username+"&id="+userid+"&chatToken="+jwtTokens;
 });
 </script>
 
