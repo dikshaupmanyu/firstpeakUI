@@ -238,9 +238,9 @@ fetch("http://apis.test.tradetipsapp.com:6080/api/tip/addTip", requestOptions)
   .then(result => {
 
             var datak = JSON.stringify(result);
-            alert(datak);
+            // alert(datak);
             var dataResultp = JSON.parse(datak); 
-            alert(dataResultp.stockName);
+            // alert(dataResultp.stockName);
             alert("Your tip for "+dataResultp.stockName+" was submitted successfully");
             window.location.reload();
 
