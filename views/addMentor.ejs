@@ -72,7 +72,9 @@
   </div>
   <div class="form-group">
     <label for="exampleInputEmail1">File</label>
-    <input type="file" id="image" value="public/upload/image.jpg">
+    <input id="file" type="file" accepts="image/*" /><br />
+    <label for="file"></label><br />
+    <img id="preview" />
 
   </div>
  
@@ -147,6 +149,12 @@ $(document).ready(function(){
   var url_string = window.location.href; 
   var urlst = new URL(url_string);
   var tokens = urlst.searchParams.get("tokendata");
+  var userids = urlst.searchParams.get("uid");
+
+//  $("input[type=file]").on("change", function() {
+//   $("[for=file]").html(this.files[0].name);
+//   alert(URL.createObjectURL(this.files[0]));
+// });
 
   $('form input').keydown(function (e) {
     if (e.keyCode == 13) {
@@ -155,13 +163,18 @@ $(document).ready(function(){
     }
 });
 
+  // $('input:radio[name="symbolName"]').click(function () {
+ 
+ 
+
+  // });
+
   $("#formoid").submit(function(event){
 
     // alert("function 3");
-  
   var stockName = $('#search-box').val();
   // alert(stockName);
-  var userids = $('#loginId').val();
+  var userids = userids;
   var entryPoint = $('#setEntry').val();
   var exitPoint = $('#setExit').val();
   var stopPoint = $('#setStop').val();
@@ -171,63 +184,153 @@ $(document).ready(function(){
   var timeFrame = "15 days";
   var stockSuggestion;
   var createTipPrice = $('#createprice').val();
+  
+//   $("input[type=file]").on("change", function() {
+//   $("[for=file]").html(this.files[0].name);
+//   alert(URL.createObjectURL(this.files[0]));
+// });
+  
+  var file = document.getElementById("file").files[0];
+  // alert(file);
+  var fullPath = $("#file").val();    
+  var filename = fullPath.replace(/^.*[\\\/]/, '');
+  // alert(filename);
+
+  var formdata = new FormData();
+
+if(entryPoint < exitPoint) {
+
+  formdata.append("stockSuggestion", "Buy");
+
+} else if (entryPoint > exitPoint) {
+
+  formdata.append("stockSuggestion", "Sell");
+
+} else {
+
+  formdata.append("stockSuggestion", "Avoid");
+
+}
+
+formdata.append("tipComment", tipComment);
+formdata.append("entryPoint", entryPoint);
+formdata.append("exitPoint", exitPoint);
+formdata.append("stopPoint", stopPoint);
+formdata.append("stockName", stockName);
+formdata.append("status", "Approved");
+// formdata.append("imageDetails", "/path/to/file");
+formdata.append("imageDetails", file , filename);
+formdata.append("timeFrame", "15 days");
+formdata.append("createTipPrice", createTipPrice);
+formdata.append("userId", userids);
+
+var requestOptions = {
+  method: 'POST',
+  headers: {
+          Authorization: 'Bearer '+ tokens
+        },
+  body: formdata,
+  redirect: 'follow'
+};
+
+fetch("http://apis.test.tradetipsapp.com:6080/api/tip/addTip", requestOptions)
+  .then(response => response.json())
+  .then(result => {
+
+            var datak = JSON.stringify(result);
+            alert(datak);
+            var dataResultp = JSON.parse(datak); 
+            alert(dataResultp.stockName);
+            alert("Your tip for "+dataResultp.stockName+" was submitted successfully");
+            window.location.reload();
+
+   })
+  .catch(error => console.log('error', error));
+
+  
+
+  
+  // var stockName = $('#search-box').val();
+  // alert(stockName);
+  // var userids = userids;
+  // var entryPoint = $('#setEntry').val();
+  // var exitPoint = $('#setExit').val();
+  // var stopPoint = $('#setStop').val();
+  // var tipComment = $('#commentdata').val();
+  // var imageDetails = $('#image').val();
+  // var status = "Pending";
+  // var timeFrame = "15 days";
+  // var stockSuggestion;
+  // var createTipPrice = $('#createprice').val();
   // var imageDetails = "public/upload/image.jpg";
   // alert(imageDetails);
   // event.stopPropagation();
 
-  var formdatas;
+//   var formdatas;
 
    
 
-  if(entryPoint < exitPoint) {
+//   if(entryPoint < exitPoint) {
 
-     // alert("1");
+//       alert("1");
 
-     formdatas = {stockName : stockName ,userId : userids, entryPoint : entryPoint ,exitPoint:exitPoint,stopPoint:stopPoint,tipComment:tipComment,imageDetails:"/C:/cameraApp/public/images/blog/1.jpg",status:status,timeFrame:timeFrame,stockSuggestion:"Buy",createTipPrice:createTipPrice};
+//      formdatas = {stockName : stockName ,userId : userids, entryPoint : entryPoint ,exitPoint:exitPoint,stopPoint:stopPoint,tipComment:tipComment,imageDetails:"/C:/cameraApp/public/images/blog/1.jpg",status:status,timeFrame:timeFrame,stockSuggestion:"Buy",createTipPrice:createTipPrice};
 
-} else if (entryPoint > exitPoint) {
+// } else if (entryPoint > exitPoint) {
 
-       // alert("2");
-
-
-     formdatas = {stockName : stockName ,userId : userids, entryPoint : entryPoint ,exitPoint:exitPoint,stopPoint:stopPoint,tipComment:tipComment,imageDetails:"/C:/cameraApp/public/images/blog/1.jpg",status:status,timeFrame:timeFrame,stockSuggestion:"Sell",createTipPrice:createTipPrice};
-
-  } else {
-
-         // alert("3");
-
-     formdatas = {stockName : stockName ,userId : userids, entryPoint : entryPoint ,exitPoint:exitPoint,stopPoint:stopPoint,tipComment:tipComment,imageDetails:"/C:/cameraApp/public/images/blog/1.jpg",status:status,timeFrame:timeFrame,stockSuggestion:"Avoid",createTipPrice:createTipPrice};
-
-   }
+//         alert("2");
 
 
- var urlss = "http://apis.test.tradetipsapp.com:6080/api/tip/addTip";
+//      formdatas = {stockName : stockName ,userId : userids, entryPoint : entryPoint ,exitPoint:exitPoint,stopPoint:stopPoint,tipComment:tipComment,imageDetails:"/C:/cameraApp/public/images/blog/1.jpg",status:status,timeFrame:timeFrame,stockSuggestion:"Sell",createTipPrice:createTipPrice};
 
-   $.ajax({
-        url: urlss,
-        type: "POST",
-        headers: {
-          Authorization: 'Bearer '+ tokens
-        },
-        data: formdatas,
-        success: function(data, textStatus, jqXHR)
-        {
-            //data - response from server
-            var datak = JSON.stringify(data);
-            var dataResultp = JSON.parse(datak); 
-            // alert(datak);
-            // alert(dataResultp.stockName);
-            alert("Your tip for "+dataResultp.stockName+" was submitted successfully");
-            window.location.reload();
+//   } else {
 
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-           // alert("Not updated !!");
-           alert(errorThrown);
-        }
+//           alert("3");
 
-      });
+//      formdatas = {stockName : stockName ,userId : userids, entryPoint : entryPoint ,exitPoint:exitPoint,stopPoint:stopPoint,tipComment:tipComment,imageDetails:"/C:/cameraApp/public/images/blog/1.jpg",status:status,timeFrame:timeFrame,stockSuggestion:"Avoid",createTipPrice:createTipPrice};
+
+//      alert(formdatas);
+
+//    }
+
+
+ 
+
+
+
+
+
+
+//  var urlss = "http://apis.test.tradetipsapp.com:6080/api/tip/addTip";
+
+// alert(urlss);
+
+//    $.ajax({
+//         url: urlss,
+//         type: "POST",
+//         headers: {
+//           Authorization: 'Bearer '+ tokens
+//         },
+//         data: formdatas,
+//         success: function(data, textStatus, jqXHR)
+//         {
+//             //data - response from server
+//             var datak = JSON.stringify(data);
+//             alert(datak);
+//             var dataResultp = JSON.parse(datak); 
+//             alert(dataResultp);
+//             // alert(dataResultp.stockName);
+//             alert("Your tip for "+dataResultp.stockName+" was submitted successfully");
+//             window.location.reload();
+
+//         },
+//         error: function (jqXHR, textStatus, errorThrown)
+//         {
+//            // alert("Not updated !!");
+//            alert(errorThrown);
+//         }
+
+//       });
 
  });
 
@@ -296,13 +399,17 @@ $(document).ready(function(){
 
                     var dataset = $(this).val();
 
+                    // alert(dataset);
+
                     var url = "https://cloud.iexapis.com/stable/stock/market/batch?token=pk_dd324da3fb5f4428a47b05ab12f23ce2&types=quote&symbols="+dataset;
                           $.ajax({
                             url : url,
                             type: "GET",
                             success: function(data)
                             {
-                                    // alert(data[symbol]);
+                                     // alert(data[symbol]);
+
+                                document.getElementById("search-box").value  = dataset;
 
                                  document.getElementById("setEntry").value = JSON.stringify(data[dataset].quote.latestPrice);
                                  document.getElementById("setStop").value = JSON.stringify(data[dataset].quote.latestPrice);
