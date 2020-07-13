@@ -196,56 +196,68 @@ $(document).ready(function(){
   var filename = fullPath.replace(/^.*[\\\/]/, '');
   // alert(filename);
 
-  var formdata = new FormData();
+  if(entryPoint == exitPoint || entryPoint == stopPoint){
 
-if(entryPoint < exitPoint) {
+      alert("Your entryPoint or exitPoint will not be same");
 
-  formdata.append("stockSuggestion", "Buy");
 
-} else if (entryPoint > exitPoint) {
+  }else{
 
-  formdata.append("stockSuggestion", "Sell");
+    var formdata = new FormData();
 
-} else {
+    if(entryPoint < exitPoint) {
 
-  formdata.append("stockSuggestion", "Avoid");
+      formdata.append("stockSuggestion", "Buy");
 
-}
+    } else if (entryPoint > exitPoint) {
 
-formdata.append("tipComment", tipComment);
-formdata.append("entryPoint", entryPoint);
-formdata.append("exitPoint", exitPoint);
-formdata.append("stopPoint", stopPoint);
-formdata.append("stockName", stockName);
-formdata.append("status", "Approved");
-// formdata.append("imageDetails", "/path/to/file");
-formdata.append("imageDetails", file , filename);
-formdata.append("timeFrame", "15 days");
-formdata.append("createTipPrice", createTipPrice);
-formdata.append("userId", userids);
+      formdata.append("stockSuggestion", "Sell");
 
-var requestOptions = {
-  method: 'POST',
-  headers: {
-          Authorization: 'Bearer '+ tokens
-        },
-  body: formdata,
-  redirect: 'follow'
-};
+    } else {
 
-fetch("http://apis.test.tradetipsapp.com:6080/api/tip/addTip", requestOptions)
-  .then(response => response.json())
-  .then(result => {
+      formdata.append("stockSuggestion", "Avoid");
 
-            var datak = JSON.stringify(result);
-            // alert(datak);
-            var dataResultp = JSON.parse(datak); 
-            // alert(dataResultp.stockName);
-            alert("Your tip for "+dataResultp.stockName+" was submitted successfully");
-            window.location.reload();
+    }
 
-   })
-  .catch(error => console.log('error', error));
+    formdata.append("tipComment", tipComment);
+    formdata.append("entryPoint", entryPoint);
+    formdata.append("exitPoint", exitPoint);
+    formdata.append("stopPoint", stopPoint);
+    formdata.append("stockName", stockName);
+    formdata.append("status", "Approved");
+    // formdata.append("imageDetails", "/path/to/file");
+    formdata.append("imageDetails", file , filename);
+    formdata.append("timeFrame", "15 days");
+    formdata.append("createTipPrice", createTipPrice);
+    formdata.append("userId", userids);
+
+    var requestOptions = {
+      method: 'POST',
+      headers: {
+              Authorization: 'Bearer '+ tokens
+            },
+      body: formdata,
+      redirect: 'follow'
+    };
+
+    fetch("http://apis.test.tradetipsapp.com:6080/api/tip/addTip", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+
+                var datak = JSON.stringify(result);
+                // alert(datak);
+                var dataResultp = JSON.parse(datak); 
+                // alert(dataResultp.stockName);
+                alert("Your tip for "+dataResultp.stockName+" was submitted successfully");
+                window.location.reload();
+
+       })
+      .catch(error => console.log('error', error));
+
+
+  }
+
+  
 
   
 
