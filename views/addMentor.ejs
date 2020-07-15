@@ -372,6 +372,11 @@ $(document).ready(function(){
 
 $(document).ready(function(){
     $("#search-box").keyup(function(){
+      // alert($(this).val());
+      // alert("timeset");
+       setTimeout(() => {
+         // alert("timeout");
+        // alert($(this).val());
         $.ajax({
         type: "POST",
         url: "https://apis.tradetipsapp.com/api/stocksearchdetails/searchStockSymbol",
@@ -436,8 +441,10 @@ $(document).ready(function(){
                              
         }
         });
+         }  , 1000 );
     });
 });
+
 //To select country name
 function selectCountry(val) {
 $("#search-box").val(val);
