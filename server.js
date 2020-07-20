@@ -5,7 +5,9 @@
 var compression = require('compression')
 var express  = require('express');
 var app      = express();
-var port     = process.env.PORT || 5555;
+var fs      = require('fs');
+
+// var port     = process.env.PORT || 5555;
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
@@ -15,48 +17,13 @@ var redis = require('redis');
 var cors = require('cors');
 var request = require('request');
 var http = require('http');
+var https = require('https');
+var privateKey  = fs.readFileSync('sslcert/server.key', 'utf8');
+var certificate = fs.readFileSync('sslcert/server.crt', 'utf8');
+var credentials = {key: privateKey, cert: certificate};
 var Base64 = require('Base64');
 var expressJwt = require('express-jwt');
 var jwt = require('jsonwebtoken');
-var vhost = require('vhost');
-
-app.use(vhost('admin.tradetipsapp.com:5555', function (req, res) {
-  // handle req + res belonging to mail.example.com
-  res.setHeader('Content-Type', 'text/plain');
-  alert('hello from admin!');
-}))
- 
- 
-app.use(vhost('mentor.tradetipsapp.com:5555', function (req, res) {
-  // handle req + res belonging to api.example.com
-  // pass the request to a standard Node.js HTTP server
-  res.setHeader('Content-Type', 'text/plain');
-  alert('hello from mentor!');
-}))
-
-// var glob = require('glob');
-// var getDirectories = function (src, callback) {
-//   glob(src + '/csv/', callback);
-// };
-// getDirectories('csv', function (err, res) {
-//   if (err) {
-//     console.log('Error', err);
-//   } else {
-//     console.log(res);
-//   }
-// });
-
-
-// mongoose.connect("mongodb://ec2-34-207-120-143.compute-1.amazonaws.com:27017/dummyDB", {
-//     "auth": { "authSource": "admin" },
-//     "user": "meenal",
-//     "pass": "meenal",
-//     "useMongoClient": true
-// });
- // var configDB = require('./config/database.js');
-
-// configuration ===============================================================
- // mongoose.connect(configDB.url); // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration
 
@@ -90,5 +57,11 @@ app.configure(function() {
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 // launch ======================================================================
-app.listen(port);
-console.log('The magic happens on port ' + port);
+// app.listen(port);
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
+
+httpServer.listen(5555);
+httpsServer.listen(6666);
+
+ console.log('The magic happens on port ');
