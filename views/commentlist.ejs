@@ -227,7 +227,7 @@ fetch(urlk, {
       // alert("fff");
 
       var id = $(this).attr('id');
-      // alert(ids);
+      // alert(id);
 
       var url ;
       var result = confirm("Are you sure you want to delete?");
@@ -248,7 +248,7 @@ fetch(urlk, {
             var dataResultp = JSON.parse(datak); 
             // alert(dataResultp);
             alert("Delete Sucessfully !!");
-            window.location.reload();
+            // window.location.reload();
 
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -300,16 +300,16 @@ fetch(url, {
 $('#butSaveData').on('click', function() {
     var UserSelect = $('#sel_user').val();
     // alert(UserSelect);
-    // var Offset = "5";
-    // var Limit = "10";
-    var formdata = {userName : UserSelect};
+    var Offset = "0";
+    var Limit = "100";
+    // var formdata = {userName : UserSelect};
 
-    // var formdata = {userName : UserSelect,offset : Offset,limit : Limit};
+    var formdata = {userName : UserSelect,offset : Offset,limit : Limit};
     // if(UserSelect!="" && Offset!="" && Limit!=""){
     if(UserSelect!=""){
       $.ajax({
         type: 'POST',
-        url: 'https://apis.tradetipsapp.com/api/comment/getAllComments',
+        url: 'https://apis.tradetipsapp.com/api/comment/getAllCommentsWithPagination',
         headers: {
           Authorization: 'Bearer '+ tokens
         },
