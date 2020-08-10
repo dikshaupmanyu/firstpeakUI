@@ -67,8 +67,8 @@
                      <!--  <th></th> -->
                       <th>Comments</th>
                       <th>Username</th>
-                      <th>Action</th>
                       <!-- <th>Action</th> -->
+                      <th>Action</th>
  <!--                       <th>Authenticate by Email</th>
                     </tr>
                   </thead>
@@ -193,25 +193,25 @@ fetch(urlk, {
                 // },
                 { "data": "commentDetails" },
                 { "data": "appUser.userName" },
-                { "data": "status",
+               //  { "data": "status",
+               //   'render': function (data, type, row) {
+
+               //    if ( type === 'display' ) {
+
+               //        if(data == "approved"){
+               //         return '<button id="' + row.id + '" class="approveStatus">Hide</button>'
+               //        }else{
+               //          return '<button id="' + row.id + '" class="approveStatus">Show</button>'
+               //        }
+               //    }
+               //  return data;
+               //  }  
+               // },  
+                { 'data': null,
                  'render': function (data, type, row) {
-
-                  if ( type === 'display' ) {
-
-                      if(data == "approved"){
-                       return '<button id="' + row.id + '" class="approveStatus">Hide</button>'
-                      }else{
-                        return '<button id="' + row.id + '" class="approveStatus">Show</button>'
-                      }
-                  }
-                return data;
-                }  
-               },  
-              //   { 'data': null,
-              //    'render': function (data, type, row) {
-              //          return '<button id="' + row.id + '" class="deleteButtons">Delete</button>'
-              //  }
-              // },               
+                       return '<button id="' + row.id + '" class="deleteButtons">Delete</button>'
+               }
+              },               
             ],
             "deferRender": true,
             rowCallback: function ( row, data ) {
@@ -342,25 +342,25 @@ $('#butSaveData').on('click', function() {
                 // },
                 { "data": "commentDetails" },
                 { "data": "appUser.userName" },
-                { "data": "status",
+               //  { "data": "status",
+               //   'render': function (data, type, row) {
+
+               //    if ( type === 'display' ) {
+
+               //        if(data == "approved"){
+               //         return '<button id="' + row.id + '" class="approveStatus">Hide</button>'
+               //        }else{
+               //          return '<button id="' + row.id + '" class="approveStatus">Show</button>'
+               //        }
+               //    }
+               //  return data;
+               //  }  
+               // },  
+                { 'data': null,
                  'render': function (data, type, row) {
-
-                  if ( type === 'display' ) {
-
-                      if(data == "approved"){
-                       return '<button id="' + row.id + '" class="approveStatus">Hide</button>'
-                      }else{
-                        return '<button id="' + row.id + '" class="approveStatus">Show</button>'
-                      }
-                  }
-                return data;
-                }  
-               },  
-              //   { 'data': null,
-              //    'render': function (data, type, row) {
-              //          return '<button id="' + row.id + '" class="deleteButton">Delete</button>'
-              //  }
-              // },               
+                       return '<button id="' + row.id + '" class="deleteButton">Delete</button>'
+               }
+              },               
             ],
             "deferRender": true,
             rowCallback: function ( row, data ) {
@@ -377,7 +377,7 @@ $('#butSaveData').on('click', function() {
 
     $('#dataTables').on('click', 'button.deleteButton', function () {
 
-      alert("fff");
+      // alert("fff");
 
       var id = $(this).attr('id');
       // alert(ids);
