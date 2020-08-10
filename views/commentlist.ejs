@@ -292,7 +292,7 @@ $('#butSaveData').on('click', function() {
     if(UserSelect!=""){
       $.ajax({
         type: 'POST',
-        url: 'https://apis.tradetipsapp.com/api/comment/getAllCommentsWithPagination',
+        url: 'https://apis.tradetipsapp.com/api/comment/getAllComments',
         headers: {
           Authorization: 'Bearer '+ tokens
         },
@@ -310,38 +310,22 @@ $('#butSaveData').on('click', function() {
                $('#dataTables').DataTable().destroy();
               }
 
-           // $('#dataTables tbody').empty();
-
            $('#dataTables').dataTable( {
             "aaData": data,   
             "columns": [
-                // { "data": "id" },
-                //  { "data" : null ,
-                //   'render': function (data, type, row) {
-                //        // return '<button id="' + row.id + '" class="deleteButton">Delete</button>'
-
-                //        return '<input type="checkbox" id="' + row.id + '" value="' + row.id + '" name="letter[]">';
-                // }
-                // },
+            
                 { "data": "commentDetails" },
                 { "data": "appUser.userName" },
-                { "data": "status",
-                 'render': function (data, type, row) {
-
-                  if ( type === 'display' ) {
-
-                      if(data == "approved"){
-                       return '<button id="' + row.id + '" class="approveStatus">Hide</button>'
-                      }else{
-                        return '<button id="' + row.id + '" class="approveStatus">Show</button>'
-                      }
-                  }
-                return data;
-                }  
-               },  
+                
                 { 'data': null,
                  'render': function (data, type, row) {
-                       return '<button id="' + row.id + '" class="deleteButton">Delete</button>'
+
+                      if(row.status == "deleted"){
+                       return '<button>Already deleted</button>'
+                      }else{
+                        return '<button id="' + row.id + '" class="deleteButton">Delete</button>'
+
+                      }
                }
               },               
             ],
@@ -360,7 +344,7 @@ $('#butSaveData').on('click', function() {
 
     $('#dataTables').on('click', 'button.deleteButton', function () {
 
-      alert("fff");
+      // alert("fff");
 
       var id = $(this).attr('id');
       // alert(ids);
