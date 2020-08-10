@@ -169,44 +169,28 @@ window.addEventListener("load", function() {
   var url_string = window.location.href; 
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
+  var formdata = new FormData();
+  formdata.append("offset", "0");
+  formdata.append("limit", "100");
 
-
-  const urlk = "https://apis.tradetipsapp.com/api/comment/getAllComments";
-fetch(urlk, {
-  method: "POST",
-  headers: {
+  var requestOptions = {
+    method: 'POST',
+    headers: {
           Authorization: 'Bearer ' + tokens,
         },
-})
+    body: formdata,
+    redirect: 'follow'
+  };
+
+  fetch("https://apis.tradetipsapp.com/api/comment/getAllComments", requestOptions)
   .then(resp => resp.json())
     .then(function(data) {
            $('#dataTables').dataTable( {
             "aaData": data, 
             "columns": [
-                // { "data": "id" },
-                // { "data" : null ,
-                //   'render': function (data, type, row) {
-                //        // return '<button id="' + row.id + '" class="deleteButton">Delete</button>'
-
-                //        return '<input type="checkbox" id="' + row.id + '" value="' + row.id + '" name="letter[]">';
-                // }
-                // },
+                
                 { "data": "commentDetails" },
                 { "data": "appUser.userName" },
-               //  { "data": "status",
-               //   'render': function (data, type, row) {
-
-               //    if ( type === 'display' ) {
-
-               //        if(data == "approved"){
-               //         return '<button id="' + row.id + '" class="approveStatus">Hide</button>'
-               //        }else{
-               //          return '<button id="' + row.id + '" class="approveStatus">Show</button>'
-               //        }
-               //    }
-               //  return data;
-               //  }  
-               // },  
                 { 'data': null,
                  'render': function (data, type, row) {
                        return '<button id="' + row.id + '" class="deleteButtons">Delete</button>'
@@ -215,8 +199,7 @@ fetch(urlk, {
             ],
             "deferRender": true,
             rowCallback: function ( row, data ) {
-            // Set the checked state of the checkbox in the table
-            // $('input.editor-active', row).prop( 'checked', data.isFlag == true );
+            
         }
 
         });
@@ -342,20 +325,20 @@ $('#butSaveData').on('click', function() {
                 // },
                 { "data": "commentDetails" },
                 { "data": "appUser.userName" },
-               //  { "data": "status",
-               //   'render': function (data, type, row) {
+                { "data": "status",
+                 'render': function (data, type, row) {
 
-               //    if ( type === 'display' ) {
+                  if ( type === 'display' ) {
 
-               //        if(data == "approved"){
-               //         return '<button id="' + row.id + '" class="approveStatus">Hide</button>'
-               //        }else{
-               //          return '<button id="' + row.id + '" class="approveStatus">Show</button>'
-               //        }
-               //    }
-               //  return data;
-               //  }  
-               // },  
+                      if(data == "approved"){
+                       return '<button id="' + row.id + '" class="approveStatus">Hide</button>'
+                      }else{
+                        return '<button id="' + row.id + '" class="approveStatus">Show</button>'
+                      }
+                  }
+                return data;
+                }  
+               },  
                 { 'data': null,
                  'render': function (data, type, row) {
                        return '<button id="' + row.id + '" class="deleteButton">Delete</button>'
@@ -377,7 +360,7 @@ $('#butSaveData').on('click', function() {
 
     $('#dataTables').on('click', 'button.deleteButton', function () {
 
-      // alert("fff");
+      alert("fff");
 
       var id = $(this).attr('id');
       // alert(ids);
