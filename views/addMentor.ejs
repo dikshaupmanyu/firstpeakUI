@@ -72,7 +72,7 @@
   </div>
   <div class="form-group">
     <label for="exampleInputEmail1">File</label>
-    <input id="file" type="file" accepts="image/*" /><br />
+    <input id="file" type="file" accepts="image/*" required="required" /><br />
     <label for="file"></label><br />
     <img id="preview" />
 
@@ -83,6 +83,8 @@
   <input type="reset" class="btn btn-primary" value="Cancel">
   
 </form>
+
+
             </div>
           </div>
 
@@ -142,6 +144,7 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script> 
     <script type="text/javascript" src="https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script> 
+ 
 
 <script type="text/javascript">
 
@@ -150,6 +153,8 @@ $(document).ready(function(){
   var urlst = new URL(url_string);
   var tokens = urlst.searchParams.get("tokendata");
   var userids = urlst.searchParams.get("uid");
+
+  // alert(userids);
 
 //  $("input[type=file]").on("change", function() {
 //   $("[for=file]").html(this.files[0].name);
@@ -231,6 +236,8 @@ $(document).ready(function(){
     formdata.append("createTipPrice", createTipPrice);
     formdata.append("userId", userids);
 
+    // alert("tip add");
+
     var requestOptions = {
       method: 'POST',
       headers: {
@@ -240,7 +247,9 @@ $(document).ready(function(){
       redirect: 'follow'
     };
 
-    fetch("https://apistest.tradetipsapp.com/api/tip/addTip", requestOptions)
+    // alert("neww");
+
+    fetch("https://apis.tradetipsapp.com/api/tip/addTip", requestOptions)
       .then(response => response.json())
       .then(result => {
 
