@@ -72,7 +72,7 @@
   </div>
   <div class="form-group">
     <label for="exampleInputEmail1">File</label>
-    <input id="file" type="file" accepts="image/*" required="required" /><br />
+    <input id="file" type="file" accepts="image/*" /><br />
     <label for="file"></label><br />
     <img id="preview" />
 
@@ -231,7 +231,16 @@ $(document).ready(function(){
     formdata.append("stockName", stockName);
     formdata.append("status", "Approved");
     // formdata.append("imageDetails", "/path/to/file");
-    formdata.append("imageDetails", file , filename);
+
+    if(filename == ""){
+    // alert("null");
+      formdata.append("imageDetails", "");
+
+    }else{
+    // alert("not null");
+      formdata.append("imageDetails", file , filename);
+
+    }
     formdata.append("timeFrame", "15 days");
     formdata.append("createTipPrice", createTipPrice);
     formdata.append("userId", userids);
