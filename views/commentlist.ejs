@@ -34,7 +34,7 @@
                     <label class="col-lg-3 col-form-label form-control-label"></label>
                     <div class="col-lg-9">
                       <input class="btn btn-secondary" type="reset" value="Cancel"> 
-                      <input class="btn btn-primary" type="button" value="Save Changes" id="butSaveData">
+                      <input class="btn btn-primary" type="button" value="Search User" id="butSaveData">
                      </div>
                   </div>
                 </form>
@@ -138,6 +138,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+<style type="text/css">
+  input.form-control.form-control-sm {
+    width: 400px;
+}
+</style>
 <script type="text/javascript">
   $(document).ready(function () {
 //change selectboxes to selectize mode to be searchable
@@ -171,7 +176,7 @@ window.addEventListener("load", function() {
   var tokens = urls.searchParams.get("tokendata");
   var formdata = new FormData();
   formdata.append("offset", "0");
-  formdata.append("limit", "100");
+  formdata.append("limit", "1000000000");
 
   var requestOptions = {
     method: 'POST',
@@ -187,6 +192,16 @@ window.addEventListener("load", function() {
     .then(function(data) {
            $('#dataTables').dataTable( {
             "aaData": data, 
+            "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
+            "pageLength": 500,
+            "aaSorting": [[ 0, "desc" ]],
+            // "columnDefs": [ {
+            // "targets": 4,
+            // "orderable": false
+            // } ],
+            "oLanguage": {
+                "sSearch": "<span>Search Comments</span> _INPUT_" //search
+            },
             "columns": [
                 
                 { "data": "commentDetails" },
