@@ -294,7 +294,7 @@ $('#butSaveData').on('click', function() {
     var UserSelect = $('#sel_user').val();
     // alert(UserSelect);
     var Offset = "0";
-    var Limit = "100";
+    var Limit = "500";
     // var formdata = {userName : UserSelect};
 
     var formdata = {userName : UserSelect,offset : Offset,limit : Limit};
@@ -322,6 +322,16 @@ $('#butSaveData').on('click', function() {
 
            $('#dataTables').dataTable( {
             "aaData": data,   
+            "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
+            "pageLength": 500,
+            // "aaSorting": [[ 0, "desc" ]],
+            // "columnDefs": [ {
+            // "targets": 4,
+            // "orderable": false
+            // } ],
+            "oLanguage": {
+              "sSearch": "<span>Search Comments</span> _INPUT_" //search
+            },
             "columns": [
             
                 { "data": "commentDetails" },
