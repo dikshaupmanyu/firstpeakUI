@@ -1083,6 +1083,13 @@ app.get('/backmale', isLoggedIn, function(req, res) {
     
   });
 
+  app.get('/verifyuserlist',  function(req, res) {
+
+        res.render('verifyuserlist.ejs');
+     
+    
+  });
+
    app.get('/flaglist',  function(req, res) {
 
         res.render('flaglist.ejs');
