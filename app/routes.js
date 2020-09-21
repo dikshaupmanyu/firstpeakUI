@@ -12,6 +12,11 @@ module.exports = function(app, passport) {
     res.render('commentlist.ejs');
   });
 
+  app.get('/tipList', function(req, res) {
+
+    res.render('tipList.ejs');
+  });
+
   app.get('/updateData', function(req, res) {
 
     var status = req.query.status;
