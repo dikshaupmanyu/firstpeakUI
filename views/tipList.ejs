@@ -168,9 +168,21 @@ window.addEventListener("load", function() {
             "columns": [
                 
                 { "data": "stockName" },
-                { "data": "entryPoint" },
-                { "data": "exitPoint" },
-                { "data": "stopPoint" },
+                { "data": "entryPoint",
+                 "render": function (data, type, full) {
+                       return parseFloat(data).toFixed(2);
+                  }
+                 },
+                { "data": "exitPoint" ,
+                 "render": function (data, type, full) {
+                       return parseFloat(data).toFixed(2);
+                  }
+                },
+                { "data": "stopPoint" ,
+                 "render": function (data, type, full) {
+                       return parseFloat(data).toFixed(2);
+                  }
+                },
                 { "data": "appUser.userName" },
                 { 
                  "data": "createdOn",
