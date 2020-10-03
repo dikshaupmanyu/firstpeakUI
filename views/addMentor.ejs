@@ -218,13 +218,13 @@ $(document).ready(function(){
 
     if(entryPoint < exitPoint) {
 
-         alert("Buy");
+         // alert("Buy");
 
       formdata.append("stockSuggestion", "Buy");
 
     } else if(entryPoint > exitPoint) {
 
-        alert("Sell");
+        // alert("Sell");
 
       formdata.append("stockSuggestion", "Sell");
 
@@ -269,7 +269,7 @@ $(document).ready(function(){
 
     // alert("neww");
 
-    fetch("https://apistest.tradetipsapp.com/api/tip/addTip", requestOptions)
+    fetch("https://apis.tradetipsapp.com/api/tip/addTip", requestOptions)
       .then(response => response.json())
       .then(result => {
 
@@ -398,14 +398,17 @@ $(document).ready(function(){
   // alert(tokens);
    var userid = urls.searchParams.get("id");
   $('#loginId').val(userid);
-
+   var timer;
 $(document).ready(function(){
     $("#search-box").keyup(function(){
-       // alert($(this).val());
-      // alert("timeset");
-       setTimeout(() => {
-          alert("timeout");
         // alert($(this).val());
+      // alert("timeset");
+
+     clearTimeout(timer);
+
+    timer = setTimeout(() => {
+          // alert("timeout");
+          // alert($(this).val());
         $.ajax({
         type: "POST",
         url: "https://apis.tradetipsapp.com/api/stocksearchdetails/searchStockSymbol",
@@ -414,32 +417,48 @@ $(document).ready(function(){
         beforeSend: function(){
             // $("#search-box").css("background","#FFF url(LoaderIcon.gif) no-repeat 165px");
              $("#suggesstion-box").css("overflow-y", "none");
-
+             // clearTimeout(timer);
 
         },
         success: function(data){
             // alert(data);
-             var datak = JSON.stringify(data);
-          var dataResult = JSON.parse(datak);
+
+           var datak = JSON.stringify(data);
+           var dataResult = JSON.parse(datak);
            var len = dataResult.length;
            // alert(len);
+          
+      
             // $("#suggesstion-box").show();
-             $("#suggesstion-box").css("overflow-y", "scroll");
-             $("#suggesstion-box").css("height", "200px");
+              $("#suggesstion-box").css("overflow-y", "scroll");
+              $("#suggesstion-box").css("height", "200px");
+              $("#suggesstion-box").empty();
 
+                  
+                  clearTimeout(timer);
+             
                  for( var i = 0; i<len; i++){
+                    // alert(len);
                     var id = dataResult[i]['id'];
                     var symbol = dataResult[i]['stockSymbol'];
                     var name = dataResult[i]['stockName'];
                      // alert(name);
+
+                     clearTimeout(timer);  
+
                     $("#suggesstion-box").append("<li style='    list-style: none;' value='"+symbol+"'><input id='radiobtn"+symbol+"' type='radio' name='symbolName' value='"+symbol+"'>&nbsp;"+symbol+"</li>");
+
+                    clearTimeout(timer);
 
                     $(':radio[name="symbolName"]').change(function(){
                         $(this).parent('li').addClass('selected').siblings().removeClass('selected');
 
-                    }).filter(':checked').change();            
+                    }).filter(':checked').change();   
+
+
                 }
 
+                   
                 $('input:radio[name="symbolName"]').click(function () {
                     // alert("hi");
                     // alert($(this).val());
