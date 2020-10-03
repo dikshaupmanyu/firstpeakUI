@@ -218,17 +218,21 @@ $(document).ready(function(){
 
     if(entryPoint < exitPoint) {
 
-        // alert("Buy");
+         alert("Buy");
 
       formdata.append("stockSuggestion", "Buy");
 
-    } else {
+    } else if(entryPoint > exitPoint) {
 
-       // alert("Sell");
+        alert("Sell");
 
       formdata.append("stockSuggestion", "Sell");
 
   
+    } else {
+
+      formdata.append("stockSuggestion", "Avoid");
+
     }
 
     formdata.append("tipComment", tipComment);
@@ -265,7 +269,7 @@ $(document).ready(function(){
 
     // alert("neww");
 
-    fetch("https://apis.tradetipsapp.com/api/tip/addTip", requestOptions)
+    fetch("https://apistest.tradetipsapp.com/api/tip/addTip", requestOptions)
       .then(response => response.json())
       .then(result => {
 
@@ -397,10 +401,10 @@ $(document).ready(function(){
 
 $(document).ready(function(){
     $("#search-box").keyup(function(){
-      // alert($(this).val());
+       // alert($(this).val());
       // alert("timeset");
        setTimeout(() => {
-         // alert("timeout");
+          alert("timeout");
         // alert($(this).val());
         $.ajax({
         type: "POST",
@@ -418,7 +422,7 @@ $(document).ready(function(){
              var datak = JSON.stringify(data);
           var dataResult = JSON.parse(datak);
            var len = dataResult.length;
-          // alert(dataResult);
+           // alert(len);
             // $("#suggesstion-box").show();
              $("#suggesstion-box").css("overflow-y", "scroll");
              $("#suggesstion-box").css("height", "200px");
