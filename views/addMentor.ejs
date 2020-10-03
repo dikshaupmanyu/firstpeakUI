@@ -52,19 +52,19 @@
 
   <div class="form-group">
     <label for="exampleInputEmail1">Set Entry</label>
-    <input type="text" class="form-control" id="setEntry" placeholder="Set Entry" readonly="readonly">
+    <input type="text" class="form-control" id="setEntry" placeholder="Set Entry" readonly="readonly" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
 
 
   </div>
   <div class="form-group">
     <label for="exampleInputEmail1">Set Exit</label>
-    <input type="text" class="form-control" id="setExit" placeholder="Set Exit" readonly="readonly">
+    <input type="text" class="form-control" id="setExit" placeholder="Set Exit" readonly="readonly" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
     <input type="hidden" id="createprice">
     <input type="hidden" id="loginId">
   </div>
    <div class="form-group">
     <label for="exampleInputEmail1">Set Stop</label>
-    <input type="text" class="form-control" id="setStop" placeholder="Set Stop" readonly="readonly">
+    <input type="text" class="form-control" id="setStop" placeholder="Set Stop" readonly="readonly" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" >
   </div>
   <div class="form-group">
     <label for="exampleInputEmail1">Enter Comment</label>
@@ -168,6 +168,9 @@ $(document).ready(function(){
     }
 });
 
+
+ 
+
   // $('input:radio[name="symbolName"]').click(function () {
  
  
@@ -181,11 +184,11 @@ $(document).ready(function(){
   // alert(stockName);
   var userids = userids;
   var entryPoint = $('#setEntry').val();
-  alert(entryPoint);
+  // alert(entryPoint);
   var exitPoint = $('#setExit').val();
-  alert(exitPoint);
+  // alert(exitPoint);
   var stopPoint = $('#setStop').val();
-  alert(stopPoint);
+  // alert(stopPoint);
   var tipComment = $('#commentdata').val();
   var imageDetails = $('#image').val();
   var status = "Pending";
@@ -215,19 +218,19 @@ $(document).ready(function(){
 
     if(entryPoint > exitPoint) {
 
-      // alert("Buy");
+       // alert("Buy");
 
       formdata.append("stockSuggestion", "Buy");
 
     } else if (entryPoint < exitPoint) {
 
-       // alert("Sell");
+        // alert("Sell");
 
       formdata.append("stockSuggestion", "Sell");
 
     } else {
 
-       alert("Avoid");
+       // alert("Avoid");
 
       // formdata.append("stockSuggestion", "Avoid");
 
