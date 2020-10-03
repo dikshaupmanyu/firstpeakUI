@@ -216,24 +216,19 @@ $(document).ready(function(){
 
     var formdata = new FormData();
 
-    if(entryPoint > exitPoint) {
+    if(entryPoint < exitPoint) {
 
-       // alert("Buy");
+        // alert("Buy");
 
       formdata.append("stockSuggestion", "Buy");
 
-    } else if (entryPoint < exitPoint) {
+    } else {
 
-        // alert("Sell");
+       // alert("Sell");
 
       formdata.append("stockSuggestion", "Sell");
 
-    } else {
-
-       // alert("Avoid");
-
-      // formdata.append("stockSuggestion", "Avoid");
-
+  
     }
 
     formdata.append("tipComment", tipComment);
