@@ -838,6 +838,31 @@ function openFile(func) {
      }
 
 });
+   
+   //////////////////////////////////////////////////////
+
+      $.getJSON( "json/seanTTSTOCK.json", function( data ) {
+
+       // alert(data.status);
+
+     if(data.status == "true"){
+      // alert("true");
+
+      document.getElementById("togBtn5").checked = true;
+      document.getElementById("display5").innerHTML  = data.currenttime;
+
+
+     }else {
+      // alert("false");
+
+      document.getElementById("togBtn5").checked = false;
+      document.getElementById("display5").innerHTML  = "";
+
+
+     }
+
+});
+
 
 
 
@@ -865,30 +890,7 @@ function openFile(func) {
 
 });
 
-    //////////////////////////////////////////////////////
-
-      $.getJSON( "json/seanTTSTOCK.json", function( data ) {
-
-       // alert(data.status);
-
-     if(data.status == "true"){
-      // alert("true");
-
-      document.getElementById("togBtn5").checked = true;
-      document.getElementById("display5").innerHTML  = data.currenttime;
-
-
-     }else {
-      // alert("false");
-
-      document.getElementById("togBtn5").checked = false;
-      document.getElementById("display5").innerHTML  = "";
-
-
-     }
-
-});
-
+    
 //////////////////////////////////////////////////////
 
 
