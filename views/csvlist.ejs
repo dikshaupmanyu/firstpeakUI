@@ -362,6 +362,118 @@ input:checked + .slider:before {
               </script>
             </td>
                    </tr>
+
+                    <td>TT STOCK SPLITS.csv</td>
+                    <td>
+                      <a href="/csv/TT STOCK SPLITS.csv" download>Download CSV File</a>
+                    </td>
+                    <td> <label class="switch">
+                   <input type="checkbox" id="togBtn5" onclick="show_now5();">
+
+                  <span class="slider round"></span>
+              </label>
+              <div id="display5"></div>
+
+              <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+              <script type="text/javascript">
+                var switchStatus = false;
+                $("#togBtn5").on('change', function() {
+                  // alert("diksha");
+                   var url_string = window.location.href; 
+                    var urls = new URL(url_string);
+                    var tokens = urls.searchParams.get("tokendata");
+                    var time = $("#display5").text();
+                    // alert(time);
+                    if ($(this).is(':checked')) {
+                        switchStatus = $(this).is(':checked');
+                         // alert("HII" + switchStatus);// To verify                     
+                      $.ajax({
+                        type: 'GET',
+                        url: '/SeanTTSTOCKstatus',
+                        data: {status: switchStatus , tokenval : tokens ,currenttime : time},success:function(data){   
+                           var datakk = JSON.stringify(data);
+                            // alert(datakk);
+                           // alert("Your OTP is : " + data["Otpdata"]);
+                         
+                            // alert(JSON.Stringify(html));
+                          }
+                      });
+            
+                    }
+                    else {
+                       switchStatus = $(this).is(':checked');
+                       // alert("HELLO" + switchStatus);// To verify
+                       $.ajax({
+                        type: 'GET',
+                        url: '/SeanTTSTOCKstatus',
+                        data: {status: switchStatus, tokenval : tokens ,currenttime : time},   
+                          success:function(data){   
+                           var datakk = JSON.stringify(data);
+                            // alert(datakk);
+                           // alert("Your OTP is : " + data["Otpdata"]);
+                         
+                            // alert(JSON.Stringify(html));
+                          }
+                      });
+                    }
+                });
+              </script>
+            </td>
+              <td>
+               <label class="switch">
+                   <input type="checkbox" id="togBtn6" onclick="show_now6();">
+
+                  <span class="slider round"></span>
+              </label>
+              <div id=display6></div>
+
+              <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+              <script type="text/javascript">
+                var switchStatus = false;
+                $("#togBtn6").on('change', function() {
+                  // alert("dik2");
+                   var url_string = window.location.href; 
+                    var urls = new URL(url_string);
+                    var tokens = urls.searchParams.get("tokendata");
+                    if ($(this).is(':checked')) {
+                        switchStatus = $(this).is(':checked');
+                         var time = $("#display6").text();
+                         // alert(time);
+                        // alert("HII" + switchStatus);// To verify                     
+                      $.ajax({
+                        type: 'GET',
+                        url: '/BushwickTTSTOCKstatus',
+                        data: {status: switchStatus , tokenval : tokens , currenttime : time},success:function(data){   
+                           var datakk = JSON.stringify(data);
+                           // alert(datakk);
+                           // alert("Your OTP is : " + data["Otpdata"]);
+                         
+                            // alert(JSON.Stringify(html));
+                          }
+                      });
+            
+                    }
+                    else {
+                       switchStatus = $(this).is(':checked');
+                       // alert("HELLO" + switchStatus);// To verify
+                       $.ajax({
+                        type: 'GET',
+                        url: '/BushwickTTSTOCKstatus',
+                        data: {status: switchStatus, tokenval : tokens , currenttime : time},   
+                          success:function(data){   
+                           var datakk = JSON.stringify(data);
+                           // alert(datakk);
+                           // alert("Your OTP is : " + data["Otpdata"]);
+                         
+                            // alert(JSON.Stringify(html));
+                          }
+                      });
+                    }
+                });
+              </script></td>
+                   </tr>
                   
                   </tbody>
                   
@@ -377,6 +489,7 @@ input:checked + .slider:before {
                       <!-- <th>CSV Name</th> -->
                       <th>Upload Words CSV</th>
                       <th>Upload Blacklist CSV</th>
+                      <th>Upload TT STOCK SPLITS CSV</th>
                       <!-- <th>Please check the name who download the csv or upload the csv</th> -->
                    </tr>
                   </thead>
@@ -395,7 +508,12 @@ input:checked + .slider:before {
                        <input type="submit" value="Upload">
                        </form>
                     </td>
-                 
+                     <td><form action="/TTSTOCK-upload" method="POST" enctype="multipart/form-data">
+                      <input type="file"  name="avatar" required="required">
+                      <input type="hidden" name="dataUrl" id="urlvalue">
+                       <input type="submit" value="Upload">
+                       </form>
+                    </td>
                  
                   
                       <!-- Sean &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="checkdata" value="Sean" required="required">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bushwick &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="checkdata" value="Bushwick" required="required">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
@@ -487,6 +605,24 @@ if(lfckv4 == true){
  document.getElementById('display4').innerHTML=my_time.toString().substring(0, 25);
 }else{
    document.getElementById('display4').innerHTML="";
+}
+}
+function show_now5() { 
+var my_time = new Date();
+var lfckv5 = document.getElementById("togBtn5").checked;
+if(lfckv5 == true){
+ document.getElementById('display5').innerHTML=my_time.toString().substring(0, 25);
+}else{
+   document.getElementById('display5').innerHTML="";
+}
+}
+function show_now6() { 
+var my_time = new Date();
+var lfckv6 = document.getElementById("togBtn6").checked;
+if(lfckv6 == true){
+ document.getElementById('display6').innerHTML=my_time.toString().substring(0, 25);
+}else{
+   document.getElementById('display6').innerHTML="";
 }
 }
 </script>
@@ -702,6 +838,60 @@ function openFile(func) {
      }
 
 });
+
+
+
+   //////////////////////////////////////////////////////////
+
+    $.getJSON( "json/bushwikTTSTOCK.json", function( data ) {
+
+       // alert(data.status);
+
+     if(data.status == "true"){
+      // alert("true");
+
+      document.getElementById("togBtn6").checked = true;
+      document.getElementById("display6").innerHTML  = data.currenttime;
+
+
+     }else {
+      // alert("false");
+
+      document.getElementById("togBtn6").checked = false;
+      document.getElementById("display6").innerHTML  = "";
+
+
+     }
+
+});
+
+    //////////////////////////////////////////////////////
+
+      $.getJSON( "json/seanTTSTOCK.json", function( data ) {
+
+       // alert(data.status);
+
+     if(data.status == "true"){
+      // alert("true");
+
+      document.getElementById("togBtn5").checked = true;
+      document.getElementById("display5").innerHTML  = data.currenttime;
+
+
+     }else {
+      // alert("false");
+
+      document.getElementById("togBtn5").checked = false;
+      document.getElementById("display5").innerHTML  = "";
+
+
+     }
+
+});
+
+//////////////////////////////////////////////////////
+
+
  
  if(msgdata == null){
 

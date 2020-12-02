@@ -86,6 +86,60 @@ module.exports = function(app, passport) {
 
   });
 
+
+  app.get('/SeanTTSTOCKstatus', function (req, res , done) {
+   // console.log(res);
+    
+    var statusdata = req.query.status;
+    var timedata = req.query.currenttime;
+    // var tokenstatus = req.query.tokenval;        
+     var fs = require("fs");
+       let rawdata = fs.readFileSync('public/json/seanTTSTOCK.json');
+       let userdetail = JSON.parse(rawdata);
+        // let userdetailNew = JSON.parse(userdetail);
+        // console.log(userdetail);  
+        // console.log(userdetail.status);
+        var userdetailt = { status : statusdata , currenttime : timedata};
+
+        let data = JSON.stringify(userdetailt, null, 2);
+
+        fs.writeFile('public/json/seanTTSTOCK.json', data, (err) => {
+             if (err) throw err;
+             console.log(data);
+        });            
+        
+         // return res.redirect("/csvlist?tokendata="+tokenstatus);
+
+
+  });
+
+  app.get('/BushwickTTSTOCKstatus', function (req, res , done) {
+   // console.log(res);
+    
+    var statusdata = req.query.status;
+    var timedata = req.query.currenttime;
+    // var tokenstatus = req.query.tokenval;        
+     var fs = require("fs");
+       let rawdata = fs.readFileSync('public/json/bushwikTTSTOCK.json');
+       let userdetail = JSON.parse(rawdata);
+        // let userdetailNew = JSON.parse(userdetail);
+        // console.log(userdetail);  
+        // console.log(userdetail.status);
+        var userdetailt = { status : statusdata , currenttime : timedata};
+
+        let data = JSON.stringify(userdetailt, null, 2);
+
+        fs.writeFile('public/json/bushwikTTSTOCK.json', data, (err) => {
+             if (err) throw err;
+             console.log(data);
+        });            
+        
+         // return res.redirect("/csvlist?tokendata="+tokenstatus);
+
+
+  });
+
+
   app.get('/Userimage', function (req, res , done) {
    
 
@@ -7143,6 +7197,60 @@ console.log(_id);
       });
 
   });
+
+
+     var fs =  require('fs');
+    var express = require('express');
+    var multer = require('multer');
+    var upload = multer({ dest: 'public/csv'});
+    app.post('/TTSTOCK-upload', function(req, res) {
+
+       console.log(req.files);
+
+
+      var file = 'public/csv/' + req.files.avatar.originalFilename;
+
+      var passUrl = req.body.dataUrl;
+       
+      console.log(passUrl);
+
+      // var checkdataval = req.body.checkdata;
+         console.log(req.files.avatar.path);
+
+      fs.rename(req.files.avatar.path, file, function(err) {
+        if (err) {
+          console.log(err);
+          res.send(500);
+        } else {
+
+             var string = encodeURIComponent('something that would break');
+
+              // let rawdata = fs.readFileSync('public/json/userdetail.json');
+              // let userdetail = JSON.parse(rawdata);
+              // // let userdetailNew = JSON.parse(userdetail);
+              // console.log(userdetail);  
+              // console.log(userdetail.name);
+              // var userdetailt = { name: req.body.checkdata};
+
+              // let data = JSON.stringify(userdetailt, null, 2);
+
+              // fs.writeFile('public/json/userdetail.json', data, (err) => {
+              //     if (err) throw err;
+              //     console.log('Data written to file');
+              // });
+            
+
+              return res.redirect("/csvlist?tokendata="+passUrl+"&msg="+string);
+
+        
+
+        }
+
+      });
+
+  });
+
+
 
 
     var fs =  require('fs');
