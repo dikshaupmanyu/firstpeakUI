@@ -254,7 +254,7 @@ input:checked + .slider:before {
                 });
               </script></td>
                    </tr>
-                        <tr>
+              <tr>
                     <td>Black_list.csv</td>
                     <td><a href="/csv/Black_list.csv" download>Download CSV File</a></td>
                     <td> <label class="switch">
@@ -362,7 +362,7 @@ input:checked + .slider:before {
               </script>
             </td>
                    </tr>
-
+                   <tr>
                     <td>TT STOCK SPLITS.csv</td>
                     <td>
                       <a href="/csv/TT STOCK SPLITS.csv" download>Download CSV File</a>
@@ -582,6 +582,120 @@ input:checked + .slider:before {
               </script>
             </td>
                    </tr>
+
+
+
+                    <tr>
+                    <td>Black_List_SM.csv</td>
+                    <td><a href="/csv/Black_List_SM.csv" download>Download CSV File</a></td>
+                    <td> <label class="switch">
+                   <input type="checkbox" id="togBtn9" onclick="show_now9();">
+
+                  <span class="slider round"></span>
+              </label>
+              <div id=display9></div>
+
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+              <script type="text/javascript">
+                var switchStatus = false;
+                $("#togBtn9").on('change', function() {
+                  // alert("hii");
+                   var url_string = window.location.href; 
+                    var urls = new URL(url_string);
+                    var tokens = urls.searchParams.get("tokendata");
+                     var time = $("#display9").text();
+                    // alert(time);
+                    if ($(this).is(':checked')) {
+                        switchStatus = $(this).is(':checked');
+                         // alert("HII" + switchStatus);// To verify                     
+                      $.ajax({
+                        type: 'GET',
+                        url: '/seanBlack_List_SMStatus',
+                        data: {status: switchStatus , tokenval : tokens , currenttime : time},success:function(data){   
+                           var datakk = JSON.stringify(data);
+                           // alert(datakk);
+                           // alert("Your OTP is : " + data["Otpdata"]);
+                         
+                            // alert(JSON.Stringify(html));
+                          }
+                      });
+            
+                    }
+                    else {
+                       switchStatus = $(this).is(':checked');
+                       // alert("HELLO" + switchStatus);// To verify
+                       $.ajax({
+                        type: 'GET',
+                        url: '/seanBlack_List_SMStatus',
+                        data: {status: switchStatus, tokenval : tokens , currenttime : time},   
+                          success:function(data){   
+                           var datakk = JSON.stringify(data);
+                           // alert(datakk);
+                           // alert("Your OTP is : " + data["Otpdata"]);
+                         
+                            // alert(JSON.Stringify(html));
+                          }
+                      });
+                    }
+                });
+              </script></td>
+              <td> <label class="switch">
+                   <input type="checkbox" id="togBtn10" onclick="show_now10();">
+
+                  <span class="slider round"></span>
+              </label>
+              <div id=display10></div>
+
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+              <script type="text/javascript">
+                var switchStatus = false;
+                $("#togBtn10").on('change', function() {
+                   var url_string = window.location.href; 
+                    var urls = new URL(url_string);
+                    var tokens = urls.searchParams.get("tokendata");
+                    if ($(this).is(':checked')) {
+                        switchStatus = $(this).is(':checked');
+                         var time = $("#display10").text();
+                         // alert(time);
+                        // alert("HII" + switchStatus);// To verify                     
+                      $.ajax({
+                        type: 'GET',
+                        url: '/bushwickBlack_List_SMStatus',
+                        data: {status: switchStatus , tokenval : tokens , currenttime : time},success:function(data){   
+                           var datakk = JSON.stringify(data);
+                           // alert(datakk);
+                           // alert("Your OTP is : " + data["Otpdata"]);
+                         
+                            // alert(JSON.Stringify(html));
+                          }
+                      });
+            
+                    }
+                    else {
+                       switchStatus = $(this).is(':checked');
+                       // alert("HELLO" + switchStatus);// To verify
+                       $.ajax({
+                        type: 'GET',
+                        url: '/bushwickBlack_List_SMStatus',
+                        data: {status: switchStatus, tokenval : tokens , currenttime : time},   
+                          success:function(data){   
+                           var datakk = JSON.stringify(data);
+                           // alert(datakk);
+                           // alert("Your OTP is : " + data["Otpdata"]);
+                         
+                            // alert(JSON.Stringify(html));
+                          }
+                      });
+                    }
+                });
+              </script>
+            </td>
+                   </tr>
+
+
+
                   
                   </tbody>
                   
@@ -599,6 +713,7 @@ input:checked + .slider:before {
                       <th>Upload Blacklist CSV</th>
                       <th>Upload TT STOCK SPLITS CSV</th>
                       <th>Upload SoicalMedia CSV</th>
+                      <th>Upload Blacklist_SM CSV</th>
                       <!-- <th>Please check the name who download the csv or upload the csv</th> -->
                    </tr>
                   </thead>
@@ -624,6 +739,12 @@ input:checked + .slider:before {
                        </form>
                     </td>
                     <td><form action="/soicalMedia-upload" method="POST" enctype="multipart/form-data">
+                      <input type="file"  name="avatar" required="required">
+                      <input type="hidden" name="dataUrl" id="urlvalue">
+                       <input type="submit" value="Upload">
+                       </form>
+                    </td>
+                     <td><form action="/blacklist_SM-upload" method="POST" enctype="multipart/form-data">
                       <input type="file"  name="avatar" required="required">
                       <input type="hidden" name="dataUrl" id="urlvalue">
                        <input type="submit" value="Upload">
@@ -755,6 +876,24 @@ if(lfckv8 == true){
  document.getElementById('display8').innerHTML=my_time.toString().substring(0, 25);
 }else{
    document.getElementById('display8').innerHTML="";
+}
+}
+function show_now9() { 
+var my_time = new Date();
+var lfckv9 = document.getElementById("togBtn9").checked;
+if(lfckv9 == true){
+ document.getElementById('display9').innerHTML=my_time.toString().substring(0, 25);
+}else{
+   document.getElementById('display9').innerHTML="";
+}
+}
+function show_now10() { 
+var my_time = new Date();
+var lfckv10 = document.getElementById("togBtn10").checked;
+if(lfckv10 == true){
+ document.getElementById('display10').innerHTML=my_time.toString().substring(0, 25);
+}else{
+   document.getElementById('display10').innerHTML="";
 }
 }
 </script>
@@ -1068,6 +1207,62 @@ function openFile(func) {
 
       document.getElementById("togBtn8").checked = false;
       document.getElementById("display8").innerHTML  = "";
+
+
+     }
+
+});
+
+
+///////////////////////////////////////////////////////////////////
+
+
+    
+//////////////////////////////////////////////////////
+
+
+ $.getJSON( "json/seanBlackListSM.json", function( data ) {
+
+       // alert(data.status);
+
+     if(data.status == "true"){
+      // alert("true");
+
+      document.getElementById("togBtn9").checked = true;
+      document.getElementById("display9").innerHTML  = data.currenttime;
+
+
+     }else {
+      // alert("false");
+
+      document.getElementById("togBtn9").checked = false;
+      document.getElementById("display9").innerHTML  = "";
+
+
+     }
+
+});
+
+
+///////////////////////////////////////////////////////////////////
+
+
+ $.getJSON( "json/bushwickBlackListSM.json", function( data ) {
+
+       // alert(data.status);
+
+     if(data.status == "true"){
+      // alert("true");
+
+      document.getElementById("togBtn10").checked = true;
+      document.getElementById("display10").innerHTML  = data.currenttime;
+
+
+     }else {
+      // alert("false");
+
+      document.getElementById("togBtn10").checked = false;
+      document.getElementById("display10").innerHTML  = "";
 
 
      }
