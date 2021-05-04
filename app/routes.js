@@ -1276,6 +1276,13 @@ app.get('/backmale', isLoggedIn, function(req, res) {
     
   });
 
+  
+  app.get('/nonverifyuserlist',  function(req, res) {
+
+        res.render('nonverifyuserlist.ejs');
+     
+  });
+
    app.get('/flaglist',  function(req, res) {
 
         res.render('flaglist.ejs');
