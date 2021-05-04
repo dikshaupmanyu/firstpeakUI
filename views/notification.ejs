@@ -34,7 +34,7 @@
 }
 
 input:checked + .slider {
-  background-color: #2ab934;
+  background-color: #4e73df;
 }
 
 input:focus + .slider {
@@ -101,7 +101,7 @@ input:checked + .slider .off
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ca2222;
+  background-color: #4e73df;
   -webkit-transition: .4s;
   transition: .4s;
    border-radius: 34px;
@@ -136,15 +136,14 @@ input:checked + .slider .off
                     <label class="col-lg-3 col-form-label form-control-label">Title</label>
                     <div class="col-lg-9">
                      
-                      <input class="form-control" type="text">
+                      <input class="form-control" type="text" id="titles">
 
                     </div>
                   </div>
                    <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label">Description</label>
                     <div class="col-lg-9">
-                      <!-- <input class="form-control" type="text" id="offset"> -->
-                      <textarea class="form-control"></textarea>
+                      <textarea class="form-control" id="description"></textarea>
                     </div>
                   </div>
                    <!-- Default unchecked -->
@@ -163,10 +162,10 @@ input:checked + .slider .off
                           <label class="col-form-label form-control-label"> Non-subscribed </label><span class="slider round"></span><label class="col-form-label form-control-label">All</label> 
                         </label> -->
                         <label class="switch">
-                           <input type="checkbox" id="togBtn1" onclick="show_now1();">
+                           <input type="checkbox" id="togBtn1">
                            <div class="slider round">
                             <!--ADDED HTML -->
-                            <span class="on">All</span>
+                            <span class="on" id="allss">All</span>
                             <span class="off" id="offss">Non-subscribed</span>
                             <!--END-->
                            </div>
@@ -187,12 +186,15 @@ input:checked + .slider .off
                     // alert(time);
                     if ($(this).is(':checked')) {
                         switchStatus = $(this).is(':checked');
-                         // alert("You selected Subscribe User !");// To verify                     
+                        // alert("hiiii " + switchStatus);// To verify                     
+                         $("#allss").val("All");
                      
                     }
                     else {
                        switchStatus = $(this).is(':checked');
                        // alert("You selected All User !");// To verify
+                        // alert("hello " + switchStatus);
+                       $("#offss").val("Non-subscribed");
                      
                     }
                 });
@@ -207,6 +209,8 @@ input:checked + .slider .off
                     </div>
                   </div>
       -->
+
+             
 
 
                  <div class="form-group row">
@@ -232,13 +236,13 @@ input:checked + .slider .off
                   </div>
        
            
-
+                  <button type="button" id="getDataBtn" class="btn btn-success">Get Data</button>
                 
                   <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label"></label>
                     <div class="col-lg-9">
                       <input class="btn btn-secondary" type="reset" value="Cancel"> 
-                      <input class="btn btn-primary" type="button" value="Submit">
+                      <input class="btn btn-primary" type="button" value="Submit" id="notifySubmit">
                      </div>
                   </div>
                 </form>
@@ -373,8 +377,13 @@ window.addEventListener("load", function() {
   fetch("https://apistest.tradetipsapp.com/api/adBannerSimple/getAllSimpleAdBanner", requestOptions)
   .then(resp => resp.json())
     .then(function(data) {
+       var datak = JSON.stringify(data);
+       var dataResult = JSON.parse(datak); 
+        var len = dataResult.length;
+         var countdataa = dataResult.filter(function(s) { return s.isActive; });
+
            $('#dataTables').dataTable( {
-            "aaData": data, 
+            "aaData": countdataa, 
             "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
             "pageLength": 500,
             // "aaSorting": [[ 0, "desc" ]],
@@ -382,6 +391,7 @@ window.addEventListener("load", function() {
             // "targets": 4,
             // "orderable": false
             // } ],
+
             "columns": [
                 {
                    "data": "id",
@@ -397,32 +407,6 @@ window.addEventListener("load", function() {
                        return '<img src="https://apistest.tradetipsapp.com' + data + '" class="avatar" width="50" height="50"/>';
                        }
                 },
-              //   { 'data': null,
-              //    'render': function (data, type, row) {
-              //          return '<button id="' + row.id + '" class="deleteButtons">Delete</button>'
-              //  }
-              // },  
-              //  {
-              //   "data":   "isActive",
-              //   render: function ( data, type, row ) {
-              //       if ( type === 'display' ) {
-
-              //          if(data == true) {
-
-              //              return '<button id="' + row.id + '" class="deleteButtonsactive btn btn-success">Active</button>';
-              //           //   return '<a href="updateData?id='+row.id+'&username='+row.userName+'&tokendata='+tokens+'&status=1" id="userStatus">UnBlock</a>';
-
-              //           }else {
-              //           //   return '<a href="updateData?id='+row.id+'&username='+row.userName+'&tokendata='+tokens+'&status=0" id="userStatus">Block</a>';
-              //             return '<button id="' + row.id + '" class="deleteButtonsdeactive btn btn-danger">Deactive</button>';
-
-              //           }
-                       
-              //       }
-              //       return data;
-              //   },
-
-              // }             
             ],
             "deferRender": true,
             rowCallback: function ( row, data ) {
@@ -431,125 +415,78 @@ window.addEventListener("load", function() {
 
         });
 
-      $('#dataTables').on('click', 'button.deleteButtonsactive', function () {
+     
+   var data = new Object();
+  
+  var table = $('#dataTables').DataTable();
+  
+  $('#dataTables').on('change', ':checkbox', function () {
+    data[table.row($(this).parents('tr').get(0)).index()] = this.checked;
+  });
+  
+  $('#getDataBtn').on('click',function(){
+    console.log(data);
+  });
 
-      // alert("fff");
-
-      var id = $(this).attr('id');
-      // alert(id);
-
-      var url ;
-      var result = confirm("Are you sure you want to Update?");
-      if(result){
-      // alert(result);
-      var formData = {adBannerId:id};
-       url = "https://apistest.tradetipsapp.com/api/adBannerSimple/disableSimpleAdBannerById";
-      $.ajax({
-        url : url,
-        type: "POST",
-        headers: {
-             Authorization: 'Bearer ' + tokens,
-        },
-        data : formData,
-        success: function(data, textStatus, jqXHR)
-        {
-            //data - response from server
-            var datak = JSON.stringify(data);
-            // alert(datak);
-            var dataResultp = JSON.parse(datak); 
-            // alert(dataResultp);
-            alert("Status Updated Sucessfully !!");
-            window.location.reload();
-
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-           alert("Not updated !!");
-        }
-
-       });
-      
-
-      } else {
-
-          window.location.reload();
-
-      }
-
-      });  
+});  
 
 
-       $('#dataTables').on('click', 'button.deleteButtonsdeactive', function () {
 
-      // alert("fff");
 
-      var id = $(this).attr('id');
-      // alert(id);
+    $("#notifySubmit").on('click', function (e) {
 
-      var url ;
-      var result = confirm("Are you sure you want to Update?");
-      if(result){
-      // alert(result);
-      var formData = {adBannerId:id};
-       url = "https://apistest.tradetipsapp.com/api/adBannerSimple/activeSimpleAdBannerById";
-      $.ajax({
-        url : url,
-        type: "POST",
-        headers: {
-             Authorization: 'Bearer ' + tokens,
-        },
-        data : formData,
-        success: function(data, textStatus, jqXHR)
-        {
-            //data - response from server
-            var datak = JSON.stringify(data);
-            // alert(datak);
-            var dataResultp = JSON.parse(datak); 
-            // alert(dataResultp);
-            alert("Status Updated Sucessfully !!");
-            window.location.reload();
+ alert(JSON.stringify(e));
 
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-           alert("Not updated !!");
-        }
+  var title = $('#titles').val();
+  var description = $('#description').val();
+  var filterUser = switchStatus;
+  // alert(filterUser);
 
-       });
-      
+  var formdata = new FormData();
+    formdata.append("title", title);
+    formdata.append("description", description);
 
-      } else {
+  if(filterUser == "true"){
+    // alert("null");
+      formdata.append("userId", "All");
 
-          window.location.reload();
+    }else{
+    // alert("not null");
+      formdata.append("userId", "Non-subscribed");
 
-      }
+    }
 
-      });
+  //   var requestOptions = {
+  //     method: 'POST',
+  //     headers: {
+  //             Authorization: 'Bearer '+ tokens
+  //           },
+  //     body: formdata,
+  //     redirect: 'follow'
+  //   };
 
-      });  
+  //   fetch("https://apistest.tradetipsapp.com/api/adBannerSimple/addSimpleAdBanner", requestOptions)
+  //     .then(response => response.json())
+  //     .then(result => {
+            
+  //               var datak = JSON.stringify(result);
+  //              // alert(datak);
+  //               var dataResultp = JSON.parse(datak); 
+  //               // alert(dataResultp.title);
+  //               alert("Your banner "+dataResultp.title+" was submitted successfully");
+  //               window.location.reload("/banner?tokendata="+tokens); 
+          
 
-   $(document).ready(function() {
-    var max_fields = 50;
-    var wrapper = $(".slot_subclass");
-    var add_button = $(".add_form_field");
+  //      })
+  //     .catch(error => console.log('error', error));
 
-    var x = 1;
-    $(add_button).click(function(e) {
-        e.preventDefault();
-        if (x < max_fields) {
-            x++;
-            $(wrapper).append('<div class="item"><input type="text" name="key" class="item_name"/>&nbsp;<input type="text" name="value" class="item_qty"/><a href="#" class="delete">Delete</a></div>'); //add input box
-        } else {
-            alert('You Reached the limits')
-        }
-    });
 
-    $(wrapper).on("click", ".delete", function(e) {
-        e.preventDefault();
-        $(this).parent('div').remove();
-        x--;
-    })
- });
+   
+});
+
+
+
+
  });   
    
  </script>
