@@ -164,9 +164,9 @@ window.history.forward();
         } 
  var url_string = window.location.href; 
   var urls = new URL(url_string);
-  // var tokens = urls.searchParams.get("tokendata");
+  var tokens = urls.searchParams.get("tokendata");
 
-  var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjAwMzIwMjcsImV4cCI6MTYyMDYzNjgyN30.BSmCDBqWEf4FKxTsTgVe7-zTjHqRr6HYjglEUvlyUHx03rUfrp9N75pedAre1LQsdYtF7eyViM-5xaempJ68Ew";
+  // var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjAwMzIwMjcsImV4cCI6MTYyMDYzNjgyN30.BSmCDBqWEf4FKxTsTgVe7-zTjHqRr6HYjglEUvlyUHx03rUfrp9N75pedAre1LQsdYtF7eyViM-5xaempJ68Ew";
 
 // $('.test').on('click', function() {
 //   var obj = {}
@@ -234,13 +234,7 @@ $("#bannerSubmit").on('click', function (e) {
                 // alert(dataResultp.title);
                 alert("Your banner "+dataResultp.title+" was submitted successfully");
                 window.location.reload("/banner?tokendata="+tokens); 
-              // $(".successmsg").html('<spa>"Your banner '+dataResultp.title+' was submitted successfully"</span>');
-              //  setTimeout(function(){$(".successmsg").empty()}, 2000);
-              //  //window.location.reload();
-              //  setTimeout(function(){
-              //  // window.location.reload(1);
-              //  window.location.href = "/banner"; 
-              //  }, 2000);
+           
                 
 
        })

@@ -131,9 +131,9 @@ window.history.forward();
         } 
  var url_string = window.location.href; 
   var urls = new URL(url_string);
-  // var tokens = urls.searchParams.get("tokendata");
+  var tokens = urls.searchParams.get("tokendata");
 
-  var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImphaW4uYWthc2hAbm92YXNvZnRjb3Jwcy5jb20iLCJzdWIiOiI3ZmM5MjRiNy05YTE4LTRhNDctYjJkMS01NDI4ZDNiYzE2MWQiLCJpYXQiOjE2MTc3NzM3ODcsImV4cCI6MTYxODM3ODU4N30.p2TDAyDwo0__wrUZ0NI4sF9xBLZw4B4oL9WgP_s_yxL6dOwSQgVkQr89Y4m-7E5mrgwi1A2uv6JnuDqsNEwNwg";
+  // var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjAwMzIwMjcsImV4cCI6MTYyMDYzNjgyN30.BSmCDBqWEf4FKxTsTgVe7-zTjHqRr6HYjglEUvlyUHx03rUfrp9N75pedAre1LQsdYtF7eyViM-5xaempJ68Ew";
 
 $("#bannerSubmit").on('click', function (e) {
 
@@ -291,6 +291,7 @@ $("#bannerSubmit").on('click', function (e) {
   //   });
 
     var bannerIdd = $('#bannerIds').val();
+    // alert(bannerIdd);
   
          $.ajax({
               type: 'POST',

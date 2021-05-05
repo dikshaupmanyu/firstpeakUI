@@ -235,9 +235,6 @@ input:checked + .slider .off
                     </div>
                   </div>
        
-           
-                  <button type="button" id="getDataBtn" class="btn btn-success">Get Data</button>
-                
                   <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label"></label>
                     <div class="col-lg-9">
@@ -396,7 +393,7 @@ window.addEventListener("load", function() {
                 {
                    "data": "id",
                    "render": function (data) {
-                       return '<input type="checkbox">';
+                       return '<input type="checkbox" id="'+ data +'">';
                        }
                 },
                 { "data": "title" },
@@ -422,29 +419,31 @@ window.addEventListener("load", function() {
   
   $('#dataTables').on('change', ':checkbox', function () {
     data[table.row($(this).parents('tr').get(0)).index()] = this.checked;
-  });
-  
-  $('#getDataBtn').on('click',function(){
-    console.log(data);
-  });
 
-});  
+    var id = $(this).attr('id');
+    // alert(id);
+   
+   });
 
+  $("#notifySubmit").on('click', function (e) {
 
-
-
-    $("#notifySubmit").on('click', function (e) {
-
- alert(JSON.stringify(e));
+  // alert(JSON.stringify(e));
 
   var title = $('#titles').val();
   var description = $('#description').val();
   var filterUser = switchStatus;
   // alert(filterUser);
+  var table = $('#dataTables').DataTable();
+  var row = table.row(this.closest('tr')).data();
+  // var id = $(this).attr('id');
+  // alert(row.id);
 
+  var bannerids = row.id;
+   
   var formdata = new FormData();
     formdata.append("title", title);
     formdata.append("description", description);
+    formdata.append("addBannerSimpleIds" , bannerids);
 
   if(filterUser == "true"){
     // alert("null");
@@ -455,34 +454,42 @@ window.addEventListener("load", function() {
       formdata.append("userId", "Non-subscribed");
 
     }
+    
 
-  //   var requestOptions = {
-  //     method: 'POST',
-  //     headers: {
-  //             Authorization: 'Bearer '+ tokens
-  //           },
-  //     body: formdata,
-  //     redirect: 'follow'
-  //   };
+    var requestOptions = {
+      method: 'POST',
+      headers: {
+              Authorization: 'Bearer '+ tokens
+            },
+      body: formdata,
+      redirect: 'follow'
+    };
 
-  //   fetch("https://apistest.tradetipsapp.com/api/adBannerSimple/addSimpleAdBanner", requestOptions)
-  //     .then(response => response.json())
-  //     .then(result => {
+    fetch("https://apistest.tradetipsapp.com/api/adBannerSimpleNotification/sendFCMNotificationForSimpleAdBannerWithUserId", requestOptions)
+      .then(response => response.json())
+      .then(result => {
             
-  //               var datak = JSON.stringify(result);
-  //              // alert(datak);
-  //               var dataResultp = JSON.parse(datak); 
-  //               // alert(dataResultp.title);
-  //               alert("Your banner "+dataResultp.title+" was submitted successfully");
-  //               window.location.reload("/banner?tokendata="+tokens); 
+                var datak = JSON.stringify(result);
+               // alert(datak);
+                var dataResultp = JSON.parse(datak); 
+                // alert(dataResultp.title);
+                alert("Your Notification "+dataResultp.title+" was submitted successfully");
+                // window.location.reload("/notification?tokendata="+tokens); 
           
 
-  //      })
-  //     .catch(error => console.log('error', error));
+       })
+      .catch(error => console.log('error', error));
 
 
    
 });
+
+  
+});  
+
+
+
+
 
 
 
@@ -506,7 +513,7 @@ document.getElementById("TipLink").href = "/tipList?tokendata="+tokens;
    document.getElementById("CSVLink").href = "/csvlist?tokendata="+tokens;
  document.getElementById("FlagCallLink").href = "/flaglist?tokendata="+tokens;
        document.getElementById("BannerLink").href = "/banner?tokendata="+tokens;
-
+ document.getElementById("NotifyLink").href = "/notification?tokendata="+tokens;
 });
 </script>
 
