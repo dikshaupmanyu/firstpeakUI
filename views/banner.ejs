@@ -224,7 +224,7 @@ $("#bannerSubmit").on('click', function (e) {
       redirect: 'follow'
     };
 
-    fetch("https://apistest.tradetipsapp.com/api/adBannerSimple/addSimpleAdBanner", requestOptions)
+    fetch("https://apis.tradetipsapp.com/api/adBannerSimple/addSimpleAdBanner", requestOptions)
       .then(response => response.json())
       .then(result => {
             
@@ -338,7 +338,7 @@ var formdata = new FormData();
     redirect: 'follow'
   };
 
-  fetch("https://apistest.tradetipsapp.com/api/adBannerSimple/getAllSimpleAdBanner", requestOptions)
+  fetch("https://apis.tradetipsapp.com/api/adBannerSimple/getAllSimpleAdBanner", requestOptions)
   .then(resp => resp.json())
     .then(function(data) {
            $('#dataTables').dataTable( {
@@ -358,7 +358,7 @@ var formdata = new FormData();
                 {
                    "data": "image",
                    "render": function (data) {
-                       return '<img src="https://apistest.tradetipsapp.com' + data + '" class="avatar" width="50" height="50"/>';
+                       return '<img src="https://apis.tradetipsapp.com' + data + '" class="avatar" width="50" height="50"/>';
                        }
                 },
               //   { 'data': null,
@@ -412,7 +412,7 @@ var formdata = new FormData();
       if(result){
       // alert(result);
       var formData = {adBannerId:id};
-       url = "https://apistest.tradetipsapp.com/api/adBannerSimple/disableSimpleAdBannerById";
+       url = "https://apis.tradetipsapp.com/api/adBannerSimple/disableSimpleAdBannerById";
       $.ajax({
         url : url,
         type: "POST",
@@ -460,7 +460,7 @@ var formdata = new FormData();
       if(result){
       // alert(result);
       var formData = {adBannerId:id};
-       url = "https://apistest.tradetipsapp.com/api/adBannerSimple/activeSimpleAdBannerById";
+       url = "https://apis.tradetipsapp.com/api/adBannerSimple/activeSimpleAdBannerById";
       $.ajax({
         url : url,
         type: "POST",

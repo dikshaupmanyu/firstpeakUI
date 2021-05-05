@@ -175,7 +175,7 @@ $("#bannerSubmit").on('click', function (e) {
       redirect: 'follow'
     };
 
-    fetch("https://apistest.tradetipsapp.com/api/adBannerSimple/modifySimpleAdBanner", requestOptions)
+    fetch("https://apis.tradetipsapp.com/api/adBannerSimple/modifySimpleAdBanner", requestOptions)
       .then(response => response.json())
       .then(result => {
             
@@ -295,7 +295,7 @@ $("#bannerSubmit").on('click', function (e) {
   
          $.ajax({
               type: 'POST',
-              url: 'https://apistest.tradetipsapp.com/api/adBannerSimple/getSimpleAdBannerById',
+              url: 'https://apis.tradetipsapp.com/api/adBannerSimple/getSimpleAdBannerById',
               headers: {
                 Authorization: 'Bearer '+ tokens,
                  },
@@ -310,7 +310,7 @@ $("#bannerSubmit").on('click', function (e) {
                   document.getElementById("shortDescriptions").value = dataResult.shortDescription;
                   document.getElementById("longDescriptions").value = dataResult.longDescription;
                 
-                  document.getElementById("newImage").src = "https://apistest.tradetipsapp.com"+dataResult.image;
+                  document.getElementById("newImage").src = "https://apis.tradetipsapp.com"+dataResult.image;
                    
                  
 

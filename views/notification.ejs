@@ -332,8 +332,8 @@ window.addEventListener("load", function() {
 
   var url_string = window.location.href; 
   var urls = new URL(url_string);
-  // var tokens = urls.searchParams.get("tokendata");
-     var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjAwMzIwMjcsImV4cCI6MTYyMDYzNjgyN30.BSmCDBqWEf4FKxTsTgVe7-zTjHqRr6HYjglEUvlyUHx03rUfrp9N75pedAre1LQsdYtF7eyViM-5xaempJ68Ew";
+var tokens = urls.searchParams.get("tokendata");
+    
   // var formdata = new FormData();
   // formdata.append("offset", "0");
   // formdata.append("limit", "500");
@@ -371,7 +371,7 @@ window.addEventListener("load", function() {
     redirect: 'follow'
   };
 
-  fetch("https://apistest.tradetipsapp.com/api/adBannerSimple/getAllSimpleAdBanner", requestOptions)
+  fetch("https://apis.tradetipsapp.com/api/adBannerSimple/getAllSimpleAdBanner", requestOptions)
   .then(resp => resp.json())
     .then(function(data) {
        var datak = JSON.stringify(data);
@@ -401,7 +401,7 @@ window.addEventListener("load", function() {
                 {
                    "data": "image",
                    "render": function (data) {
-                       return '<img src="https://apistest.tradetipsapp.com' + data + '" class="avatar" width="50" height="50"/>';
+                       return '<img src="https://apis.tradetipsapp.com' + data + '" class="avatar" width="50" height="50"/>';
                        }
                 },
             ],
@@ -428,6 +428,8 @@ window.addEventListener("load", function() {
   $("#notifySubmit").on('click', function (e) {
 
   // alert(JSON.stringify(e));
+
+   var tokensss = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjAwMzIwMjcsImV4cCI6MTYyMDYzNjgyN30.BSmCDBqWEf4FKxTsTgVe7-zTjHqRr6HYjglEUvlyUHx03rUfrp9N75pedAre1LQsdYtF7eyViM-5xaempJ68Ew";
 
   var title = $('#titles').val();
   var description = $('#description').val();
@@ -459,7 +461,7 @@ window.addEventListener("load", function() {
     var requestOptions = {
       method: 'POST',
       headers: {
-              Authorization: 'Bearer '+ tokens
+              Authorization: 'Bearer '+ tokensss
             },
       body: formdata,
       redirect: 'follow'
