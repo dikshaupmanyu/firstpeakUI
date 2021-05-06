@@ -168,14 +168,14 @@ $("#bannerSubmit").on('click', function (e) {
 
     var requestOptions = {
       method: 'POST',
-      headers: {
-              Authorization: 'Bearer '+ tokens
+        headers: {
+              Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjAyODE4MTYsImV4cCI6MTYyMDg4NjYxNn0.wRkAckmjXoCvRtVLzmSz_6EnvtOTwxKj3Q05Bzf7NVamW9wDB6CAZ-2p6gfeSwvXEevAHkVXMoocsZWwWciLzA'
             },
       body: formdata,
       redirect: 'follow'
     };
 
-    fetch("https://apis.tradetipsapp.com/api/adBannerSimple/modifySimpleAdBanner", requestOptions)
+    fetch("https://apistest.tradetipsapp.com/api/adBannerSimple/modifySimpleAdBanner", requestOptions)
       .then(response => response.json())
       .then(result => {
             
@@ -295,9 +295,9 @@ $("#bannerSubmit").on('click', function (e) {
   
          $.ajax({
               type: 'POST',
-              url: 'https://apis.tradetipsapp.com/api/adBannerSimple/getSimpleAdBannerById',
-              headers: {
-                Authorization: 'Bearer '+ tokens,
+              url: 'https://apistest.tradetipsapp.com/api/adBannerSimple/getSimpleAdBannerById',
+               headers: {
+              Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjAyODE4MTYsImV4cCI6MTYyMDg4NjYxNn0.wRkAckmjXoCvRtVLzmSz_6EnvtOTwxKj3Q05Bzf7NVamW9wDB6CAZ-2p6gfeSwvXEevAHkVXMoocsZWwWciLzA'
                  },
               data: {
                   adBannerId : bannerIdd,
@@ -310,7 +310,7 @@ $("#bannerSubmit").on('click', function (e) {
                   document.getElementById("shortDescriptions").value = dataResult.shortDescription;
                   document.getElementById("longDescriptions").value = dataResult.longDescription;
                 
-                  document.getElementById("newImage").src = "https://apis.tradetipsapp.com"+dataResult.image;
+                  document.getElementById("newImage").src = "https://apistest.tradetipsapp.com"+dataResult.image;
                    
                  
 

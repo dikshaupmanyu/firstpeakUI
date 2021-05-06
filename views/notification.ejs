@@ -157,17 +157,12 @@ input:checked + .slider .off
                       <!-- <div class="col-sm-3">
                           <input type="checkbox" id="togBtn1"><span class="slider round"></span>
                         </div>  -->
-                        <!-- <label class="switch">
-                          <input type="checkbox" id="togBtn1" onclick="show_now1();">
-                          <label class="col-form-label form-control-label"> Non-subscribed </label><span class="slider round"></span><label class="col-form-label form-control-label">All</label> 
-                        </label> -->
+                   <!-- 
                         <label class="switch">
                            <input type="checkbox" id="togBtn1">
                            <div class="slider round">
-                            <!--ADDED HTML -->
                             <span class="on" id="allss">All</span>
                             <span class="off" id="offss">Non-subscribed</span>
-                            <!--END-->
                            </div>
                           </label>
              
@@ -198,17 +193,16 @@ input:checked + .slider .off
                      
                     }
                 });
-              </script>
+              </script> -->
 
-                <!--    <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label">Select User</label>
+                 
                     <div class="col-lg-9">
-                     <select id="userFull" name="basicOptgroup[]" multiple="multiple" class="form-control" placeholder="Choose User">
+                     <select id="userFull" onchange="test(this)" class="form-control" placeholder="Choose User">
                       
                     </select>
                     </div>
                   </div>
-      -->
+     
 
              
 
@@ -327,36 +321,41 @@ window.history.forward();
         function noBack() { 
             window.history.forward(); 
         } 
-
+function test(a) {
+    var x = (a.value || a.options[a.selectedIndex].value);  //crossbrowser solution =)
+    // alert(x);
+}
 window.addEventListener("load", function() {
+
 
   var url_string = window.location.href; 
   var urls = new URL(url_string);
-var tokens = urls.searchParams.get("tokendata");
+ var tokensn = urls.searchParams.get("tokendata");
+ var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjAyODE4MTYsImV4cCI6MTYyMDg4NjYxNn0.wRkAckmjXoCvRtVLzmSz_6EnvtOTwxKj3Q05Bzf7NVamW9wDB6CAZ-2p6gfeSwvXEevAHkVXMoocsZWwWciLzA";
     
-  // var formdata = new FormData();
-  // formdata.append("offset", "0");
-  // formdata.append("limit", "500");
+  var formdata = new FormData();
+  formdata.append("offset", "0");
+  formdata.append("limit", "500");
 
-  // var requestOptions = {
-  //   method: 'POST',
-  //   headers: {
-  //         Authorization: 'Bearer ' + tokens,
-  //       },
-  //   body: formdata,
-  //   redirect: 'follow'
-  // };
+  var requestOptions = {
+    method: 'POST',
+    headers: {
+          Authorization: 'Bearer ' + tokensn,
+        },
+    body: formdata,
+    redirect: 'follow'
+  };
 
-  // fetch("https://apis.tradetipsapp.com/api/appUserWebModify/getAllAppUsers", requestOptions)
-  // .then(resp => resp.json())
-  //   .then(function(data) {
-  //     // console.log(data);
-  //     for( var i = 0; i< data.length; i++){
-  //         var userid = data[i]['id'];
-  //         var username = data[i]['userName'];
-  //         $("#userFull").append("<option value='"+userid+"'>"+username+"</option>");
-  //      }         
-  // });
+  fetch("https://apis.tradetipsapp.com/api/appUserWebModify/getAllAppUsers", requestOptions)
+  .then(resp => resp.json())
+    .then(function(data) {
+      // console.log(data);
+      for( var i = 0; i< data.length; i++){
+          var userid = data[i]['id'];
+          var username = data[i]['userName'];
+          $("#userFull").append("<option value='"+username+"'>"+username+"</option>");
+       }         
+  });
 
   var formdata = new FormData();
   formdata.append("offset", "0");
@@ -371,7 +370,7 @@ var tokens = urls.searchParams.get("tokendata");
     redirect: 'follow'
   };
 
-  fetch("https://apis.tradetipsapp.com/api/adBannerSimple/getAllSimpleAdBanner", requestOptions)
+  fetch("https://apistest.tradetipsapp.com/api/adBannerSimple/getAllSimpleAdBanner", requestOptions)
   .then(resp => resp.json())
     .then(function(data) {
        var datak = JSON.stringify(data);
@@ -401,7 +400,7 @@ var tokens = urls.searchParams.get("tokendata");
                 {
                    "data": "image",
                    "render": function (data) {
-                       return '<img src="https://apis.tradetipsapp.com' + data + '" class="avatar" width="50" height="50"/>';
+                       return '<img src="https://apistest.tradetipsapp.com' + data + '" class="avatar" width="50" height="50"/>';
                        }
                 },
             ],
@@ -429,16 +428,20 @@ var tokens = urls.searchParams.get("tokendata");
 
   // alert(JSON.stringify(e));
 
-   var tokensss = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjAwMzIwMjcsImV4cCI6MTYyMDYzNjgyN30.BSmCDBqWEf4FKxTsTgVe7-zTjHqRr6HYjglEUvlyUHx03rUfrp9N75pedAre1LQsdYtF7eyViM-5xaempJ68Ew";
+   var tokensss = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjAyODE4MTYsImV4cCI6MTYyMDg4NjYxNn0.wRkAckmjXoCvRtVLzmSz_6EnvtOTwxKj3Q05Bzf7NVamW9wDB6CAZ-2p6gfeSwvXEevAHkVXMoocsZWwWciLzA";
 
   var title = $('#titles').val();
   var description = $('#description').val();
-  var filterUser = switchStatus;
+  // var filterUser = switchStatus;
   // alert(filterUser);
+  var filterdata = $('#select2-userFull-container').text();
+  // alert(filterdata);
   var table = $('#dataTables').DataTable();
   var row = table.row(this.closest('tr')).data();
   // var id = $(this).attr('id');
   // alert(row.id);
+
+
 
   var bannerids = row.id;
    
@@ -446,16 +449,17 @@ var tokens = urls.searchParams.get("tokendata");
     formdata.append("title", title);
     formdata.append("description", description);
     formdata.append("addBannerSimpleIds" , bannerids);
+    formdata.append("userName" , filterdata);
 
-  if(filterUser == "true"){
-    // alert("null");
-      formdata.append("userId", "All");
+  // if(filterUser == "true"){
+  //   // alert("null");
+  //     formdata.append("userName", "All");
 
-    }else{
-    // alert("not null");
-      formdata.append("userId", "Non-subscribed");
+  //   }else{
+  //   // alert("not null");
+  //     formdata.append("userName", "Non-subscribed");
 
-    }
+  //   }
     
 
     var requestOptions = {
@@ -475,8 +479,8 @@ var tokens = urls.searchParams.get("tokendata");
                // alert(datak);
                 var dataResultp = JSON.parse(datak); 
                 // alert(dataResultp.title);
-                alert("Your Notification "+dataResultp.title+" was submitted successfully");
-                // window.location.reload("/notification?tokendata="+tokens); 
+                alert("Notification has been sent");
+                window.location.reload("/notification?tokendata="+tokens); 
           
 
        })
