@@ -154,10 +154,10 @@ input:checked + .slider .off
                       <input class="form-control" type="text" id="limit">
                     </div> -->
                       <label class="col-lg-3 col-form-label form-control-label switch"> Select User List Filter </label>
-                      <!-- <div class="col-sm-3">
+                     <!--  <div class="col-sm-3">
                           <input type="checkbox" id="togBtn1"><span class="slider round"></span>
                         </div>  -->
-                   <!-- 
+                   
                         <label class="switch">
                            <input type="checkbox" id="togBtn1">
                            <div class="slider round">
@@ -193,15 +193,15 @@ input:checked + .slider .off
                      
                     }
                 });
-              </script> -->
+              </script>
 
                  
-                    <div class="col-lg-9">
+                  <!--   <div class="col-lg-9">
                      <select id="userFull" onchange="test(this)" class="form-control" placeholder="Choose User">
                       
                     </select>
                     </div>
-                  </div>
+                  </div> -->
      
 
              
@@ -432,9 +432,9 @@ window.addEventListener("load", function() {
 
   var title = $('#titles').val();
   var description = $('#description').val();
-  // var filterUser = switchStatus;
+  var filterUser = switchStatus;
   // alert(filterUser);
-  var filterdata = $('#select2-userFull-container').text();
+  //var filterdata = $('#select2-userFull-container').text();
   // alert(filterdata);
   var table = $('#dataTables').DataTable();
   var row = table.row(this.closest('tr')).data();
@@ -449,7 +449,7 @@ window.addEventListener("load", function() {
     formdata.append("title", title);
     formdata.append("description", description);
     formdata.append("addBannerSimpleIds" , bannerids);
-    formdata.append("userName" , filterdata);
+    formdata.append("userName" , filterUser);
 
   // if(filterUser == "true"){
   //   // alert("null");
