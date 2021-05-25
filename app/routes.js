@@ -12,6 +12,11 @@ module.exports = function(app, passport) {
     res.render('commentlist.ejs');
   });
 
+   app.get('/account', function(req, res) {
+
+    res.render('account.ejs');
+  });
+
    app.get('/changePassword', function(req, res) {
 
     res.render('changePassword.ejs');
