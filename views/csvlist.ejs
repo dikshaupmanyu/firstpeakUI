@@ -694,7 +694,12 @@ input:checked + .slider:before {
             </td>
                    </tr>
 
-
+                    <tr>
+                    <td>MACD.csv</td>
+                    <td><a href="/csv/MACD.csv" download>Download CSV File</a></td>
+                    <td> -- </td>
+                    <td> -- </td>
+                   </tr>
 
                   
                   </tbody>
@@ -1011,6 +1016,7 @@ function openFile(func) {
       document.getElementById("TipLink").href = "/tipList?tokendata="+tokens;
      document.getElementById("BannerLink").href = "/banner?tokendata="+tokens;
 document.getElementById("NotifyLink").href = "/notification?tokendata="+tokens;
+   document.getElementById("AccountLink").href = "/account?tokendata="+tokens;  
 
 
       // $('#urlvalue').val(tokens); 

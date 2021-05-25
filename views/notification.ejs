@@ -331,7 +331,7 @@ window.addEventListener("load", function() {
   var url_string = window.location.href; 
   var urls = new URL(url_string);
  var tokensn = urls.searchParams.get("tokendata");
- var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjAyODE4MTYsImV4cCI6MTYyMDg4NjYxNn0.wRkAckmjXoCvRtVLzmSz_6EnvtOTwxKj3Q05Bzf7NVamW9wDB6CAZ-2p6gfeSwvXEevAHkVXMoocsZWwWciLzA";
+ var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6InBhbmthanRlamF3YXRAZ21haWwuY29tIiwic3ViIjoiZDlhY2VkMjMtN2I4OS00YWJjLWJkNzEtNTUyM2FiODNhOThhIiwiaWF0IjoxNjIxOTQyNzAyLCJleHAiOjE2MjI1NDc1MDJ9.-SVSPe_DjBsAVs-sqZXdjxyt9aqo9n-S3H8Wx1TP2IM8Hw_MXAUM05AUV3ia5P3WHOHYbF6KM_kgz8SyD7niJg";
     
   var formdata = new FormData();
   formdata.append("offset", "0");
@@ -428,7 +428,7 @@ window.addEventListener("load", function() {
 
   // alert(JSON.stringify(e));
 
-   var tokensss = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjAyODE4MTYsImV4cCI6MTYyMDg4NjYxNn0.wRkAckmjXoCvRtVLzmSz_6EnvtOTwxKj3Q05Bzf7NVamW9wDB6CAZ-2p6gfeSwvXEevAHkVXMoocsZWwWciLzA";
+   var tokensss = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6InBhbmthanRlamF3YXRAZ21haWwuY29tIiwic3ViIjoiZDlhY2VkMjMtN2I4OS00YWJjLWJkNzEtNTUyM2FiODNhOThhIiwiaWF0IjoxNjIxOTQyNzAyLCJleHAiOjE2MjI1NDc1MDJ9.-SVSPe_DjBsAVs-sqZXdjxyt9aqo9n-S3H8Wx1TP2IM8Hw_MXAUM05AUV3ia5P3WHOHYbF6KM_kgz8SyD7niJg";
 
   var title = $('#titles').val();
   var description = $('#description').val();
@@ -521,6 +521,7 @@ document.getElementById("TipLink").href = "/tipList?tokendata="+tokens;
        document.getElementById("BannerLink").href = "/banner?tokendata="+tokens;
  document.getElementById("NotifyLink").href = "/notification?tokendata="+tokens;
     document.getElementById("changePassLink").href = "/changePassword?tokendata="+tokens;  
+   document.getElementById("AccountLink").href = "/account?tokendata="+tokens;  
 
 });
 </script>
