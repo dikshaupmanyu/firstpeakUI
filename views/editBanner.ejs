@@ -149,7 +149,10 @@ $("#bannerSubmit").on('click', function (e) {
   var filename = fullPath.replace(/^.*[\\\/]/, '');
   // alert(filename);
 
-  
+  if(title == "" || shortDescription == ""  || longDescription == ""  || filename == ""){
+    alert("Please fill all the field");
+  }else {
+
   var formdata = new FormData();
     formdata.append("adBannerId", ids);
     formdata.append("title", title);
@@ -169,7 +172,7 @@ $("#bannerSubmit").on('click', function (e) {
     var requestOptions = {
       method: 'POST',
         headers: {
-              Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjAyODE4MTYsImV4cCI6MTYyMDg4NjYxNn0.wRkAckmjXoCvRtVLzmSz_6EnvtOTwxKj3Q05Bzf7NVamW9wDB6CAZ-2p6gfeSwvXEevAHkVXMoocsZWwWciLzA'
+              Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6InBhbmthanRlamF3YXRAZ21haWwuY29tIiwic3ViIjoiZDlhY2VkMjMtN2I4OS00YWJjLWJkNzEtNTUyM2FiODNhOThhIiwiaWF0IjoxNjIxOTQyNzAyLCJleHAiOjE2MjI1NDc1MDJ9.-SVSPe_DjBsAVs-sqZXdjxyt9aqo9n-S3H8Wx1TP2IM8Hw_MXAUM05AUV3ia5P3WHOHYbF6KM_kgz8SyD7niJg'
             },
       body: formdata,
       redirect: 'follow'
@@ -197,7 +200,7 @@ $("#bannerSubmit").on('click', function (e) {
        })
       .catch(error => console.log('error', error));
 
-
+ }
 
 // // set values for demo
  // setDemoValues()
@@ -297,7 +300,7 @@ $("#bannerSubmit").on('click', function (e) {
               type: 'POST',
               url: 'https://apistest.tradetipsapp.com/api/adBannerSimple/getSimpleAdBannerById',
                headers: {
-              Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjAyODE4MTYsImV4cCI6MTYyMDg4NjYxNn0.wRkAckmjXoCvRtVLzmSz_6EnvtOTwxKj3Q05Bzf7NVamW9wDB6CAZ-2p6gfeSwvXEevAHkVXMoocsZWwWciLzA'
+              Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6InBhbmthanRlamF3YXRAZ21haWwuY29tIiwic3ViIjoiZDlhY2VkMjMtN2I4OS00YWJjLWJkNzEtNTUyM2FiODNhOThhIiwiaWF0IjoxNjIxOTQyNzAyLCJleHAiOjE2MjI1NDc1MDJ9.-SVSPe_DjBsAVs-sqZXdjxyt9aqo9n-S3H8Wx1TP2IM8Hw_MXAUM05AUV3ia5P3WHOHYbF6KM_kgz8SyD7niJg'
                  },
               data: {
                   adBannerId : bannerIdd,
