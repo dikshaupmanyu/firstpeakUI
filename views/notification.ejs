@@ -331,7 +331,7 @@ window.addEventListener("load", function() {
   var url_string = window.location.href; 
   var urls = new URL(url_string);
  var tokensn = urls.searchParams.get("tokendata");
- var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6InBhbmthanRlamF3YXRAZ21haWwuY29tIiwic3ViIjoiZDlhY2VkMjMtN2I4OS00YWJjLWJkNzEtNTUyM2FiODNhOThhIiwiaWF0IjoxNjIxOTQyNzAyLCJleHAiOjE2MjI1NDc1MDJ9.-SVSPe_DjBsAVs-sqZXdjxyt9aqo9n-S3H8Wx1TP2IM8Hw_MXAUM05AUV3ia5P3WHOHYbF6KM_kgz8SyD7niJg";
+ var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6InBhbmthanRlamF3YXRAZ21haWwuY29tIiwic3ViIjoiZDlhY2VkMjMtN2I4OS00YWJjLWJkNzEtNTUyM2FiODNhOThhIiwiaWF0IjoxNjIyMjEwNTA3LCJleHAiOjE2MjI4MTUzMDd9.G5ci8uBbFetPvcEbWeSlNzis4CU8NFkkHJTorrgEZbFWbGj8AAFozGKhcQ-4s9fzRc2RJPy6tsF6P4m72WQV6w";
     
   var formdata = new FormData();
   formdata.append("offset", "0");
@@ -428,7 +428,7 @@ window.addEventListener("load", function() {
 
   // alert(JSON.stringify(e));
 
-   var tokensss = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6InBhbmthanRlamF3YXRAZ21haWwuY29tIiwic3ViIjoiZDlhY2VkMjMtN2I4OS00YWJjLWJkNzEtNTUyM2FiODNhOThhIiwiaWF0IjoxNjIxOTQyNzAyLCJleHAiOjE2MjI1NDc1MDJ9.-SVSPe_DjBsAVs-sqZXdjxyt9aqo9n-S3H8Wx1TP2IM8Hw_MXAUM05AUV3ia5P3WHOHYbF6KM_kgz8SyD7niJg";
+   var tokensss = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6InBhbmthanRlamF3YXRAZ21haWwuY29tIiwic3ViIjoiZDlhY2VkMjMtN2I4OS00YWJjLWJkNzEtNTUyM2FiODNhOThhIiwiaWF0IjoxNjIyMjEwNTA3LCJleHAiOjE2MjI4MTUzMDd9.G5ci8uBbFetPvcEbWeSlNzis4CU8NFkkHJTorrgEZbFWbGj8AAFozGKhcQ-4s9fzRc2RJPy6tsF6P4m72WQV6w";
 
   var title = $('#titles').val();
   var description = $('#description').val();
@@ -453,17 +453,17 @@ window.addEventListener("load", function() {
     formdata.append("title", title);
     formdata.append("description", description);
     formdata.append("addBannerSimpleIds" , bannerids);
-    formdata.append("userName" , filterUser);
+    // formdata.append("userType" , filterUser);
 
-  // if(filterUser == "true"){
-  //   // alert("null");
-  //     formdata.append("userName", "All");
+  if(filterUser == "true"){
+    // alert("null");
+      formdata.append("userType", "all");
 
-  //   }else{
-  //   // alert("not null");
-  //     formdata.append("userName", "Non-subscribed");
+    }else{
+    // alert("not null");
+      formdata.append("userType", "unsubscribed");
 
-  //   }
+    }
     
 
     var requestOptions = {
@@ -475,7 +475,7 @@ window.addEventListener("load", function() {
       redirect: 'follow'
     };
 
-    fetch("https://apistest.tradetipsapp.com/api/adBannerSimpleNotification/sendFCMNotificationForSimpleAdBannerWithUserId", requestOptions)
+    fetch("https://apistest.tradetipsapp.com/api/adBannerSimpleNotification/sendFCMNotificationForSimpleAdBannerWithUserType", requestOptions)
       .then(response => response.json())
       .then(result => {
             
@@ -484,7 +484,7 @@ window.addEventListener("load", function() {
                 var dataResultp = JSON.parse(datak); 
                 // alert(dataResultp.title);
                 alert("Notification has been sent");
-                window.location.reload("/notification?tokendata="+tokens); 
+                // window.location.reload("/notification?tokendata="+tokens); 
           
 
        })
