@@ -64,6 +64,7 @@
                   <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label"></label>
                     <div class="col-lg-9">
+                      <input class="btn btn-secondary" data-toggle="modal" data-target="#previewModal" type="button" value="Preview" id="bannerPreviewData">
                       <input class="btn btn-secondary" type="reset" value="Cancel"> 
                       <input class="btn btn-primary" type="button" value="Submit" id="bannerSubmit">
                      </div>
@@ -126,6 +127,41 @@
     </div>
   </div>
 
+  <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"></h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body"><main>
+    <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
+        <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
+            <div class="col">
+                <div class="card h-100 shadow-sm"> <img src="https://www.freepnglogos.com/uploads/notebook-png/download-laptop-notebook-png-image-png-image-pngimg-2.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <div class="clearfix mb-3"><span style="display: block;margin: 0;" class="text-center my-4">12354.00€</span> </div>
+                        <h5>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam quidem eaque ut eveniet aut quis rerum. Asperiores accusamus harum ducimus velit odit ut. Saepe, iste optio laudantium sed aliquam sequi.</h5>
+                        <div class="text-center my-4"> <a href="#" class="btn btn-warning">Check offer</a> </div>
+                    </div>
+                </div>
+            </div>
+           
+            
+        </div>
+    </div>
+</main></div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="#">Submit</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -179,7 +215,56 @@ window.history.forward();
   
 //   console.log(obj)
 // })
+
+
+$("#bannerPreviewData").on('click', function (e) {
+
+
+  var title = $('#titles').val();
+  var shortDescription = $('#shortDescriptions').val();
+  var longDescription = $('#longDescriptions').val();
+   // alert(imageDetails);
+  var file = document.getElementById("imageDetailss").files[0];
+  // alert(file);
+  // if(file == undefined){
+  //   readURLs(file);
+  // }
  
+  var fullPath = $("#imageDetailss").val();
+  // alert(fullPath);   
+  var filename = fullPath.replace(/^.*[\\\/]/, '');
+  // alert(filename);
+
+  
+  if(title == "" || shortDescription == ""  || longDescription == ""  || filename == ""){
+    alert("Please fill all the field");
+  }else {
+
+  //    var formdata = new FormData();
+  //   formdata.append("title", title);
+  //   formdata.append("shortDescription", shortDescription);
+  //   formdata.append("longDescription", longDescription);
+
+  // if(filename == ""){
+  //   // alert("null");
+  //     formdata.append("imageDetails", "");
+
+  //   }else{
+  //   // alert("not null");
+  //     formdata.append("imageDetails", file , filename);
+
+  //   }
+
+   //alert(title);
+   //alert(shortDescription);
+   //alert(longDescription);
+
+ }
+    
+ });
+
+
+///////////////////////////////////////////////////////
 
 $("#bannerSubmit").on('click', function (e) {
 
@@ -222,7 +307,7 @@ $("#bannerSubmit").on('click', function (e) {
     var requestOptions = {
       method: 'POST',
       headers: {
-              Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6InBhbmthanRlamF3YXRAZ21haWwuY29tIiwic3ViIjoiZDlhY2VkMjMtN2I4OS00YWJjLWJkNzEtNTUyM2FiODNhOThhIiwiaWF0IjoxNjIxOTQyNzAyLCJleHAiOjE2MjI1NDc1MDJ9.-SVSPe_DjBsAVs-sqZXdjxyt9aqo9n-S3H8Wx1TP2IM8Hw_MXAUM05AUV3ia5P3WHOHYbF6KM_kgz8SyD7niJg'
+              Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjI1NDg2NTcsImV4cCI6MTYyMzE1MzQ1N30.4l3KHe4LMAo1_flYRxjHF-bk9rQfSZRk-_kzsltM-2YYDAwKDHaKNlHm1qNYCIjk5W6zJUcJ-HsnZRW4yIuZIw'
             },
       body: formdata,
       redirect: 'follow'
@@ -232,7 +317,7 @@ $("#bannerSubmit").on('click', function (e) {
     var requestOptions1 = {
       method: 'POST',
       headers: {
-              Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6InBhbmthanRlamF3YXRAZ21haWwuY29tIiwic3ViIjoiZDlhY2VkMjMtN2I4OS00YWJjLWJkNzEtNTUyM2FiODNhOThhIiwiaWF0IjoxNjIxOTQyNzAyLCJleHAiOjE2MjI1NDc1MDJ9.-SVSPe_DjBsAVs-sqZXdjxyt9aqo9n-S3H8Wx1TP2IM8Hw_MXAUM05AUV3ia5P3WHOHYbF6KM_kgz8SyD7niJg'
+              Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjI1NDg2NTcsImV4cCI6MTYyMzE1MzQ1N30.4l3KHe4LMAo1_flYRxjHF-bk9rQfSZRk-_kzsltM-2YYDAwKDHaKNlHm1qNYCIjk5W6zJUcJ-HsnZRW4yIuZIw'
             },
       // body: formdata,
       redirect: 'follow'
@@ -364,7 +449,7 @@ var formdata = new FormData();
   var requestOptions = {
     method: 'POST',
     headers: {
-           Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6InBhbmthanRlamF3YXRAZ21haWwuY29tIiwic3ViIjoiZDlhY2VkMjMtN2I4OS00YWJjLWJkNzEtNTUyM2FiODNhOThhIiwiaWF0IjoxNjIxOTQyNzAyLCJleHAiOjE2MjI1NDc1MDJ9.-SVSPe_DjBsAVs-sqZXdjxyt9aqo9n-S3H8Wx1TP2IM8Hw_MXAUM05AUV3ia5P3WHOHYbF6KM_kgz8SyD7niJg'
+           Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjI1NDg2NTcsImV4cCI6MTYyMzE1MzQ1N30.4l3KHe4LMAo1_flYRxjHF-bk9rQfSZRk-_kzsltM-2YYDAwKDHaKNlHm1qNYCIjk5W6zJUcJ-HsnZRW4yIuZIw'
         },
     body: formdata,
     redirect: 'follow'
@@ -449,7 +534,7 @@ var formdata = new FormData();
         url : url,
         type: "POST",
         headers: {
-             Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6InBhbmthanRlamF3YXRAZ21haWwuY29tIiwic3ViIjoiZDlhY2VkMjMtN2I4OS00YWJjLWJkNzEtNTUyM2FiODNhOThhIiwiaWF0IjoxNjIxOTQyNzAyLCJleHAiOjE2MjI1NDc1MDJ9.-SVSPe_DjBsAVs-sqZXdjxyt9aqo9n-S3H8Wx1TP2IM8Hw_MXAUM05AUV3ia5P3WHOHYbF6KM_kgz8SyD7niJg',
+             Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjI1NDg2NTcsImV4cCI6MTYyMzE1MzQ1N30.4l3KHe4LMAo1_flYRxjHF-bk9rQfSZRk-_kzsltM-2YYDAwKDHaKNlHm1qNYCIjk5W6zJUcJ-HsnZRW4yIuZIw',
         },
         data : formData,
         success: function(data, textStatus, jqXHR)
@@ -535,7 +620,7 @@ var formdata = new FormData();
                var requestOptions1 = {
                 method: 'POST',
                 headers: {
-                        Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6InBhbmthanRlamF3YXRAZ21haWwuY29tIiwic3ViIjoiZDlhY2VkMjMtN2I4OS00YWJjLWJkNzEtNTUyM2FiODNhOThhIiwiaWF0IjoxNjIxOTQyNzAyLCJleHAiOjE2MjI1NDc1MDJ9.-SVSPe_DjBsAVs-sqZXdjxyt9aqo9n-S3H8Wx1TP2IM8Hw_MXAUM05AUV3ia5P3WHOHYbF6KM_kgz8SyD7niJg'
+                        Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjI1NDg2NTcsImV4cCI6MTYyMzE1MzQ1N30.4l3KHe4LMAo1_flYRxjHF-bk9rQfSZRk-_kzsltM-2YYDAwKDHaKNlHm1qNYCIjk5W6zJUcJ-HsnZRW4yIuZIw'
                       },
                 // body: formdata,
                 redirect: 'follow'
@@ -587,7 +672,7 @@ var formdata = new FormData();
         url : url,
         type: "POST",
         headers: {
-             Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6InBhbmthanRlamF3YXRAZ21haWwuY29tIiwic3ViIjoiZDlhY2VkMjMtN2I4OS00YWJjLWJkNzEtNTUyM2FiODNhOThhIiwiaWF0IjoxNjIxOTQyNzAyLCJleHAiOjE2MjI1NDc1MDJ9.-SVSPe_DjBsAVs-sqZXdjxyt9aqo9n-S3H8Wx1TP2IM8Hw_MXAUM05AUV3ia5P3WHOHYbF6KM_kgz8SyD7niJg',
+             Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjI1NDg2NTcsImV4cCI6MTYyMzE1MzQ1N30.4l3KHe4LMAo1_flYRxjHF-bk9rQfSZRk-_kzsltM-2YYDAwKDHaKNlHm1qNYCIjk5W6zJUcJ-HsnZRW4yIuZIw',
         },
         data : formData,
         success: function(data, textStatus, jqXHR)
