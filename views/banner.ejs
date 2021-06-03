@@ -331,23 +331,23 @@ $("#bannerSubmit").on('click', function (e) {
                // alert(datak);
                 var dataResultp = JSON.parse(datak); 
                 // alert(dataResultp.title);
-                // alert("Your banner "+dataResultp.title+" was submitted successfully");
-                // window.location.reload("/banner?tokendata="+tokens); 
+                alert("Your banner "+dataResultp.title+" was submitted successfully");
+                window.location.reload("/banner?tokendata="+tokens); 
 
-                 fetch("https://apistest.tradetipsapp.com/api/adBannerSimple/disableAllOtherthanBannerById?adBannerId="+dataResultp.id, requestOptions1)
-                    .then(response => response.json())
-                    .then(results => {
+                 // fetch("https://apistest.tradetipsapp.com/api/adBannerSimple/disableAllOtherthanBannerById?adBannerId="+dataResultp.id, requestOptions1)
+                 //    .then(response => response.json())
+                 //    .then(results => {
                           
-                              var dataks = JSON.stringify(results);
-                             // alert(datak);
-                              var dataResultps = JSON.parse(dataks); 
-                              // alert(dataResultp.title);
-                              alert("Your banner "+dataResultp.title+" was submitted successfully");
-                              window.location.reload("/banner?tokendata="+tokens); 
+                 //              var dataks = JSON.stringify(results);
+                 //             // alert(datak);
+                 //              var dataResultps = JSON.parse(dataks); 
+                 //              // alert(dataResultp.title);
+                 //              alert("Your banner "+dataResultp.title+" was submitted successfully");
+                 //              window.location.reload("/banner?tokendata="+tokens); 
                          
                               
 
-                        })
+                 //        })
            
                 
 
