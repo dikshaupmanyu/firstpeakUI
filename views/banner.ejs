@@ -64,7 +64,7 @@
                   <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label"></label>
                     <div class="col-lg-9">
-                      <input class="btn btn-secondary" data-toggle="modal" data-target="#previewModal" type="button" value="Preview" id="bannerPreviewData">
+                      <input class="btn btn-secondary" type="button" value="Preview" id="bannerPreviewData">
                       <input class="btn btn-secondary" type="reset" value="Cancel"> 
                       <input class="btn btn-primary" type="button" value="Submit" id="bannerSubmit">
                      </div>
@@ -139,9 +139,9 @@
                 <div class=" text-center"> <img style="max-width: 200px;" src="https://www.freepnglogos.com/uploads/notebook-png/download-laptop-notebook-png-image-png-image-pngimg-2.png" id="previewImgSrc" class="card-img-top" alt="...">
                     <div class="card-body text-dark">
                         <div class="min-height-360">
-                        <h3 class="clearfix text-gray-900 mb-3 font-weight-bold" id="previewTitle">Add title here </h3>
-                        <h5 id="previewShortDescription">Lorem, ipsum dolor sit amet consectetur adipisicing elit. </h5>
-                        <p class="show-more-less-dec" style="display: none;" id="previewLongDescription">Lorem, ipsum dolor sit amet consectetur adipisicing elit. </p>
+                        <h3 class="clearfix text-gray-900 mb-3 font-weight-bold" id="previewTitle"></h3>
+                        <h5 id="previewShortDescription"></h5>
+                        <p class="show-more-less-dec" style="display: none;" id="previewLongDescription"> </p>
                         <a class="show-more-less-btn" href="javascript:void(0);">Show More</a>
                       </div>
                         <div class="text-center mt-4"> <a href="#" class="btn btn-primary btn-block btn-lg">Got It!</a> </div>
@@ -165,10 +165,8 @@
 
   <!-- Core plugin JavaScript-->
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ --><link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 <script type="text/javascript">
   $(document).ready(function () {
@@ -216,6 +214,7 @@ window.history.forward();
 
 $("#bannerPreviewData").on('click', function (e) {
 
+    
 
   var title = $('#titles').val();
   var shortDescription = $('#shortDescriptions').val();
@@ -246,6 +245,8 @@ $("#bannerPreviewData").on('click', function (e) {
   if(title == "" || shortDescription == ""  || longDescription == ""  || filename == ""){
     alert("Please fill all the field");
   }else {
+
+    $("#previewModal").modal('show');
 
       document.getElementById("previewTitle").innerHTML  = title;
       document.getElementById("previewShortDescription").innerHTML  = shortDescription;
