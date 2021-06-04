@@ -376,10 +376,10 @@ window.addEventListener("load", function() {
        var datak = JSON.stringify(data);
        var dataResult = JSON.parse(datak); 
         var len = dataResult.length;
-         var countdataa = dataResult.filter(function(s) { return s.isActive; });
+         // var countdataa = dataResult.filter(function(s) { return s.isActive; });
 
            $('#dataTables').dataTable( {
-            "aaData": countdataa, 
+            "aaData": dataResult, 
             "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
             "pageLength": 500,
             // "aaSorting": [[ 0, "desc" ]],

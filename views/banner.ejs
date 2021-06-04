@@ -129,34 +129,31 @@
 
   <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel"></h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body"><main>
-    <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
-        <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
-            <div class="col">
-                <div class="card h-100 shadow-sm"> <img src="https://www.freepnglogos.com/uploads/notebook-png/download-laptop-notebook-png-image-png-image-pngimg-2.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <div class="clearfix mb-3"><span style="display: block;margin: 0;" class="text-center my-4">12354.00€</span> </div>
-                        <h5>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam quidem eaque ut eveniet aut quis rerum. Asperiores accusamus harum ducimus velit odit ut. Saepe, iste optio laudantium sed aliquam sequi.</h5>
-                        <div class="text-center my-4"> <a href="#" class="btn btn-warning">Check offer</a> </div>
+      <div class="modal-content preview-phone">
+        <div class="modal-body preview-card-body p-0"><main>
+    <div class="pt-5" style="position: relative;">
+      <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+      
+                <div class=" text-center"> <img style="max-width: 200px;" src="https://www.freepnglogos.com/uploads/notebook-png/download-laptop-notebook-png-image-png-image-pngimg-2.png" id="previewImgSrc" class="card-img-top" alt="...">
+                    <div class="card-body text-dark">
+                        <div class="min-height-360">
+                        <h3 class="clearfix text-gray-900 mb-3 font-weight-bold" id="previewTitle">Add title here </h3>
+                        <h5 id="previewShortDescription">Lorem, ipsum dolor sit amet consectetur adipisicing elit. </h5>
+                        <p class="show-more-less-dec" style="display: none;" id="previewLongDescription">Lorem, ipsum dolor sit amet consectetur adipisicing elit. </p>
+                        <a class="show-more-less-btn" href="javascript:void(0);">Show More</a>
+                      </div>
+                        <div class="text-center mt-4"> <a href="#" class="btn btn-primary btn-block btn-lg">Got It!</a> </div>
                     </div>
                 </div>
-            </div>
-           
-            
-        </div>
+
     </div>
 </main></div>
-        <div class="modal-footer">
+        <!-- <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
           <a class="btn btn-primary" href="#">Submit</a>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -226,6 +223,7 @@ $("#bannerPreviewData").on('click', function (e) {
    // alert(imageDetails);
   var file = document.getElementById("imageDetailss").files[0];
   // alert(file);
+  // alert(readURLs(file));
   // if(file == undefined){
   //   readURLs(file);
   // }
@@ -234,11 +232,27 @@ $("#bannerPreviewData").on('click', function (e) {
   // alert(fullPath);   
   var filename = fullPath.replace(/^.*[\\\/]/, '');
   // alert(filename);
+   
 
+    var fr = new FileReader();
+    
+    fr.onload = function(ev2) {
+        console.dir(ev2);
+        $('#previewImgSrc').attr('src', ev2.target.result);
+    };
+    
+    fr.readAsDataURL(file);
   
   if(title == "" || shortDescription == ""  || longDescription == ""  || filename == ""){
     alert("Please fill all the field");
   }else {
+
+      document.getElementById("previewTitle").innerHTML  = title;
+      document.getElementById("previewShortDescription").innerHTML  = shortDescription;
+      document.getElementById("previewLongDescription").innerHTML  = longDescription;
+      // document.getElementById("previewImgSrc").src = filename;
+
+
 
   //    var formdata = new FormData();
   //   formdata.append("title", title);
@@ -441,6 +455,7 @@ $("#bannerSubmit").on('click', function (e) {
 // console.log(json);
    
 });
+
 
 var formdata = new FormData();
   formdata.append("offset", "0");
@@ -748,6 +763,20 @@ document.getElementById("TipLink").href = "/tipList?tokendata="+tokens;
    document.getElementById("AccountLink").href = "/account?tokendata="+tokens;  
 
 });
+</script>
+
+<script>
+   $(document).on("click", ".show-more-less-btn", function(e) {
+    if ($(".show-more-less-dec").is(":hidden")) {
+      $(this).text('Show Less');
+      $('.show-more-less-dec').slideDown();
+    }
+    else{
+      $(this).text('Show More');
+      $('.show-more-less-dec').slideUp();
+    }
+        
+    })
 </script>
 
 </body>
