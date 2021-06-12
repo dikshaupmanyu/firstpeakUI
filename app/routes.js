@@ -358,6 +358,32 @@ app.get('/editBanner', function(req, res) {
 
   });
 
+    app.get('/Seancapitalstatus', function (req, res , done) {
+   // console.log(res);
+    
+    var statusdata = req.query.status;
+    var timedata = req.query.currenttime;
+    // var tokenstatus = req.query.tokenval;        
+     var fs = require("fs");
+       let rawdata = fs.readFileSync('public/json/seanCapital.json');
+       let userdetail = JSON.parse(rawdata);
+        // let userdetailNew = JSON.parse(userdetail);
+        // console.log(userdetail);  
+        // console.log(userdetail.status);
+        var userdetailt = { status : statusdata , currenttime : timedata};
+
+        let data = JSON.stringify(userdetailt, null, 2);
+
+        fs.writeFile('public/json/seanCapital.json', data, (err) => {
+             if (err) throw err;
+             console.log(data);
+        });            
+        
+         // return res.redirect("/csvlist?tokendata="+tokenstatus);
+
+
+  });
+
 
    app.get('/bushwickBlackStatus', function (req, res , done) {
    // console.log(res);
@@ -384,6 +410,34 @@ app.get('/editBanner', function(req, res) {
 
 
   });
+
+
+    app.get('/Bushwickcapitalstatus', function (req, res , done) {
+   // console.log(res);
+    
+    var statusdata = req.query.status;
+    // var tokenstatus = req.query.tokenval;   
+    var timedata = req.query.currenttime;     
+     var fs = require("fs");
+       let rawdata = fs.readFileSync('public/json/bushwikCapital.json');
+       let userdetail = JSON.parse(rawdata);
+        // let userdetailNew = JSON.parse(userdetail);
+        // console.log(userdetail);  
+        // console.log(userdetail.status);
+        var userdetailt = { status : statusdata , currenttime :timedata};
+
+        let data = JSON.stringify(userdetailt, null, 2);
+
+        fs.writeFile('public/json/bushwikCapital.json', data, (err) => {
+             if (err) throw err;
+             console.log(data);
+        });            
+        
+         // return res.redirect("/csvlist?tokendata="+tokenstatus);
+
+
+  });
+
 
 
 
@@ -7485,6 +7539,46 @@ console.log(_id);
       });
 
   });
+
+
+       var fs =  require('fs');
+    var express = require('express');
+    var multer = require('multer');
+    var upload = multer({ dest: 'public/csv'});
+    app.post('/capital_symbols-upload', function(req, res) {
+
+       console.log(req.files);
+
+
+      var file = 'public/csv/' + req.files.avatar.originalFilename;
+
+      var passUrl = req.body.dataUrl;
+       
+      console.log(passUrl);
+
+      // var checkdataval = req.body.checkdata;
+         console.log(req.files.avatar.path);
+
+      fs.rename(req.files.avatar.path, file, function(err) {
+        if (err) {
+          console.log(err);
+          res.send(500);
+        } else {
+
+             var string = encodeURIComponent('something that would break');
+
+
+              return res.redirect("/csvlist?tokendata="+passUrl+"&msg="+string);
+
+        
+
+        }
+
+      });
+
+  });
+
+
 
 
 

@@ -700,6 +700,118 @@ input:checked + .slider:before {
                     <td> -- </td>
                     <td> -- </td>
                    </tr>
+                       <tr>
+                    <td>Capital_symbols.csv</td>
+                    <td>
+                      <a href="/csv/Capital_symbols.csv" download>Download CSV File</a>
+                    </td>
+                    <td> <label class="switch">
+                   <input type="checkbox" id="togBtncapital" onclick="show_nowcapital();">
+
+                  <span class="slider round"></span>
+              </label>
+              <div id="displaycapital"></div>
+
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+              <script type="text/javascript">
+                var switchStatus = false;
+                $("#togBtncapital").on('change', function() {
+                  // alert("diksha");
+                   var url_string = window.location.href; 
+                    var urls = new URL(url_string);
+                    var tokens = urls.searchParams.get("tokendata");
+                    var time = $("#displaycapital").text();
+                    // alert(time);
+                    if ($(this).is(':checked')) {
+                        switchStatus = $(this).is(':checked');
+                         // alert("HII" + switchStatus);// To verify                     
+                      $.ajax({
+                        type: 'GET',
+                        url: '/Seancapitalstatus',
+                        data: {status: switchStatus , tokenval : tokens ,currenttime : time},success:function(data){   
+                           var datakk = JSON.stringify(data);
+                            // alert(datakk);
+                           // alert("Your OTP is : " + data["Otpdata"]);
+                         
+                            // alert(JSON.Stringify(html));
+                          }
+                      });
+            
+                    }
+                    else {
+                       switchStatus = $(this).is(':checked');
+                       // alert("HELLO" + switchStatus);// To verify
+                       $.ajax({
+                        type: 'GET',
+                        url: '/Seancapitalstatus',
+                        data: {status: switchStatus, tokenval : tokens ,currenttime : time},   
+                          success:function(data){   
+                           var datakk = JSON.stringify(data);
+                            // alert(datakk);
+                           // alert("Your OTP is : " + data["Otpdata"]);
+                         
+                            // alert(JSON.Stringify(html));
+                          }
+                      });
+                    }
+                });
+              </script>
+            </td>
+              <td>
+               <label class="switch">
+                   <input type="checkbox" id="togBtncapital1" onclick="show_nowcapital1();">
+
+                  <span class="slider round"></span>
+              </label>
+              <div id=displaycapital1></div>
+
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+              <script type="text/javascript">
+                var switchStatus = false;
+                $("#togBtncapital1").on('change', function() {
+                  // alert("dik2");
+                   var url_string = window.location.href; 
+                    var urls = new URL(url_string);
+                    var tokens = urls.searchParams.get("tokendata");
+                    if ($(this).is(':checked')) {
+                        switchStatus = $(this).is(':checked');
+                         var time = $("#displaycapital1").text();
+                         // alert(time);
+                        // alert("HII" + switchStatus);// To verify                     
+                      $.ajax({
+                        type: 'GET',
+                        url: '/Bushwickcapitalstatus',
+                        data: {status: switchStatus , tokenval : tokens , currenttime : time},success:function(data){   
+                           var datakk = JSON.stringify(data);
+                           // alert(datakk);
+                           // alert("Your OTP is : " + data["Otpdata"]);
+                         
+                            // alert(JSON.Stringify(html));
+                          }
+                      });
+            
+                    }
+                    else {
+                       switchStatus = $(this).is(':checked');
+                       // alert("HELLO" + switchStatus);// To verify
+                       $.ajax({
+                        type: 'GET',
+                        url: '/Bushwickcapitalstatus',
+                        data: {status: switchStatus, tokenval : tokens , currenttime : time},   
+                          success:function(data){   
+                           var datakk = JSON.stringify(data);
+                           // alert(datakk);
+                           // alert("Your OTP is : " + data["Otpdata"]);
+                         
+                            // alert(JSON.Stringify(html));
+                          }
+                      });
+                    }
+                });
+              </script></td>
+                   </tr>
 
                   
                   </tbody>
@@ -719,6 +831,7 @@ input:checked + .slider:before {
                       <th>Upload TT STOCK SPLITS CSV</th>
                       <th>Upload SoicalMedia CSV</th>
                       <th>Upload Blacklist_SM CSV</th>
+                      <th>Upload Capital_symbols CSV</th>
                       <!-- <th>Please check the name who download the csv or upload the csv</th> -->
                    </tr>
                   </thead>
@@ -750,6 +863,12 @@ input:checked + .slider:before {
                        </form>
                     </td>
                      <td><form action="/blacklist_SM-upload" method="POST" enctype="multipart/form-data">
+                      <input type="file"  name="avatar" required="required">
+                      <input type="hidden" name="dataUrl" id="urlvalue">
+                       <input type="submit" value="Upload">
+                       </form>
+                    </td>
+                    <td><form action="/capital_symbols-upload" method="POST" enctype="multipart/form-data">
                       <input type="file"  name="avatar" required="required">
                       <input type="hidden" name="dataUrl" id="urlvalue">
                        <input type="submit" value="Upload">
@@ -899,6 +1018,29 @@ if(lfckv10 == true){
  document.getElementById('display10').innerHTML=my_time.toString().substring(0, 25);
 }else{
    document.getElementById('display10').innerHTML="";
+}
+}
+function show_nowcapital() { 
+  // alert("hii");
+var my_time = new Date();
+// alert(my_time.toString().substring(0, 25));
+var lfckvcapital = document.getElementById("togBtncapital").checked;
+// alert(lfckv);
+ if(lfckvcapital === true){
+  // alert("true calling");
+ document.getElementById('displaycapital').innerHTML=my_time.toString().substring(0, 25);
+}else {
+   document.getElementById('displaycapital').innerHTML="";
+}
+
+}
+function show_nowcapital1() { 
+var my_time = new Date();
+ var lfckvcapital1 = document.getElementById("togBtncapital1").checked;
+ if(lfckvcapital1 == true){
+ document.getElementById('displaycapital1').innerHTML=my_time.toString().substring(0, 25);
+}else{
+   document.getElementById('displaycapital1').innerHTML="";
 }
 }
 </script>
@@ -1253,6 +1395,31 @@ document.getElementById("NotifyLink").href = "/notification?tokendata="+tokens;
 
 ///////////////////////////////////////////////////////////////////
 
+$.getJSON( "json/seanCapital.json", function( data ) {
+
+       // alert(data.status);
+
+     if(data.status == "true"){
+      // alert("true");
+
+      document.getElementById("togBtncapital").checked = true;
+      document.getElementById("displaycapital").innerHTML  = data.currenttime;
+
+
+     }else {
+      // alert("false");
+
+      document.getElementById("togBtncapital").checked = false;
+      document.getElementById("displaycapital").innerHTML  = "";
+
+
+     }
+
+});
+
+
+///////////////////////////////////////////////////////////////////
+
 
  $.getJSON( "json/bushwickBlackListSM.json", function( data ) {
 
@@ -1278,6 +1445,33 @@ document.getElementById("NotifyLink").href = "/notification?tokendata="+tokens;
 
 
 ///////////////////////////////////////////////////////////////////
+
+$.getJSON( "json/bushwickCapital.json", function( data ) {
+
+       // alert(data.status);
+
+     if(data.status == "true"){
+      // alert("true");
+
+      document.getElementById("togBtncapital1").checked = true;
+      document.getElementById("displaycapital1").innerHTML  = data.currenttime;
+
+
+     }else {
+      // alert("false");
+
+      document.getElementById("togBtncapital1").checked = false;
+      document.getElementById("displaycapital1").innerHTML  = "";
+
+
+     }
+
+});
+
+
+///////////////////////////////////////////////////////////////////
+
+
 
 
  
