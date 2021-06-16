@@ -19,7 +19,7 @@
                 <table class="table table-bordered" id="dataTables" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <!-- <th>Id</th> -->
+                      <th>Id</th>
                       <th>UserName</th>
                       <th>Email</th>
                       <th>Mentor</th>
@@ -156,7 +156,7 @@ $.ajax({
             "orderable": false
             } ],
             "columns": [
-                // { "data": "id" },
+                { "data": "id" },
                 { "data": "userName" },
                 { "data": "email" },
                 // { "data": "isMentor" },
@@ -225,7 +225,7 @@ $.ajax({
                 "data":   "image",
                 render: function ( data, type, row ) {
                     if ( type === 'display' ) {
-                        return '<button type="button" class="imgbtn btn btn-info btn-lg" data-toggle="modal" data-target="#myModal'+row.id+'">Image</button><div class="modal fade" id="myModal'+row.id+'" role="dialog"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h4 class="modal-title">Image</h4></div><div class="modal-body" style="height:400px;"><a class="imgPhoto" href="#" id="'+row.id+'" style="text-align:center;display: block;">Delete Image</a><img src="" id="dishPhoto"  style="height: 500px"/></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div>';
+                        return '<button type="button" class="imgbtn btn btn-info btn-lg" data-toggle="modal" data-target="#myModal'+row.id+'">Image</button><div class="modal fade" id="myModal'+row.id+'" role="dialog"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h4 class="modal-title">Image</h4></div><div class="modal-body" style="height:400px;"><a class="imgPhoto" href="#" id="'+row.id+'" style="text-align:center;display: block;">Delete Image</a><img src="https://apis.tradetipsapp.com/api/appUser/getImageByAppUserId?appUserId='+ row.id+'" class="img-responsive" style="height:350px;width:100%;"/></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div>';
                        
                     }
                     return data;
@@ -496,33 +496,34 @@ $.ajax({
 
 
 
-    $('#dataTables').on('click', 'button.imgbtn', function () {
+   //  $('#dataTables').on('click', 'button.imgbtn', function () {
 
-    var table = $('#dataTables').DataTable();
-    var row = table.row(this.closest('tr')).data();
-    var userdata = row["userName"];
-    var formData = {appUserName:userdata};
-       $.ajax({
-        url : "https://apis.tradetipsapp.com/api/appUser/getUserImageByUserName",
-        type: "POST",
-        headers: {
-             Authorization: 'Bearer ' + tokens,
-        },
-        data : formData,
-        success: function(data)
-        {
-            var img = document.getElementById('dishPhoto');
-                img.src = 'data:image/png;base64,'+data;
+   //  var table = $('#dataTables').DataTable();
+   //  var row = table.row(this.closest('tr')).data();
+   //  var userdata = row["userName"];
+   //  var formData = {appUserName:userdata};
+   //  alert(formdata);
+   //     $.ajax({
+   //      url : "https://apis.tradetipsapp.com/api/appUser/getUserImageByUserName",
+   //      type: "POST",
+   //      headers: {
+   //           Authorization: 'Bearer ' + tokens,
+   //      },
+   //      data : formData,
+   //      success: function(data)
+   //      {
+   //          var img = document.getElementById('dishPhoto');
+   //              img.src = 'data:image/png;base64,'+data;
 
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-           alert("Not updated !!");
-        }
+   //      },
+   //      error: function (jqXHR, textStatus, errorThrown)
+   //      {
+   //         alert("Not updated !!");
+   //      }
 
-    });
+   //  });
 
-   });
+   // });
 
 
 
