@@ -7545,12 +7545,14 @@ console.log(_id);
     var express = require('express');
     var multer = require('multer');
     var upload = multer({ dest: 'public/csv'});
+        const mv = require('mv');
+
     app.post('/capital_symbols-upload', function(req, res) {
 
        console.log(req.files);
 
 
-      var file = 'public/csv/' + req.files.avatar.originalFilename;
+      var files = 'public/csv/' + req.files.avatar.originalFilename;
 
       var passUrl = req.body.dataUrl;
        
@@ -7559,7 +7561,7 @@ console.log(_id);
       // var checkdataval = req.body.checkdata;
          console.log(req.files.avatar.path);
 
-      fs.rename(req.files.avatar.path, file, function(err) {
+       mv(req.files.avatar.path, files, function(err) {
         if (err) {
           console.log(err);
           res.send(500);
