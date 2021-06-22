@@ -172,13 +172,13 @@ $("#bannerSubmit").on('click', function (e) {
     var requestOptions = {
       method: 'POST',
         headers: {
-              Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6InBhbmthanRlamF3YXRAZ21haWwuY29tIiwic3ViIjoiZDlhY2VkMjMtN2I4OS00YWJjLWJkNzEtNTUyM2FiODNhOThhIiwiaWF0IjoxNjIxOTQyNzAyLCJleHAiOjE2MjI1NDc1MDJ9.-SVSPe_DjBsAVs-sqZXdjxyt9aqo9n-S3H8Wx1TP2IM8Hw_MXAUM05AUV3ia5P3WHOHYbF6KM_kgz8SyD7niJg'
+              Authorization: 'Bearer '+ tokens,
             },
       body: formdata,
       redirect: 'follow'
     };
 
-    fetch("https://apistest.tradetipsapp.com/api/adBannerSimple/modifySimpleAdBanner", requestOptions)
+    fetch("https://apis.tradetipsapp.com/api/adBannerSimple/modifySimpleAdBanner", requestOptions)
       .then(response => response.json())
       .then(result => {
             
@@ -298,9 +298,9 @@ $("#bannerSubmit").on('click', function (e) {
   
          $.ajax({
               type: 'POST',
-              url: 'https://apistest.tradetipsapp.com/api/adBannerSimple/getSimpleAdBannerById',
+              url: 'https://apis.tradetipsapp.com/api/adBannerSimple/getSimpleAdBannerById',
                headers: {
-              Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6InBhbmthanRlamF3YXRAZ21haWwuY29tIiwic3ViIjoiZDlhY2VkMjMtN2I4OS00YWJjLWJkNzEtNTUyM2FiODNhOThhIiwiaWF0IjoxNjIxOTQyNzAyLCJleHAiOjE2MjI1NDc1MDJ9.-SVSPe_DjBsAVs-sqZXdjxyt9aqo9n-S3H8Wx1TP2IM8Hw_MXAUM05AUV3ia5P3WHOHYbF6KM_kgz8SyD7niJg'
+              Authorization: 'Bearer '+ tokens,
                  },
               data: {
                   adBannerId : bannerIdd,
@@ -313,7 +313,7 @@ $("#bannerSubmit").on('click', function (e) {
                   document.getElementById("shortDescriptions").value = dataResult.shortDescription;
                   document.getElementById("longDescriptions").value = dataResult.longDescription;
                 
-                  document.getElementById("newImage").src = "https://apistest.tradetipsapp.com"+dataResult.image;
+                  document.getElementById("newImage").src = "https://apis.tradetipsapp.com"+dataResult.image;
                    
                  
 
