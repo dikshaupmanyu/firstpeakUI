@@ -330,8 +330,8 @@ window.addEventListener("load", function() {
 
   var url_string = window.location.href; 
   var urls = new URL(url_string);
- var tokensn = urls.searchParams.get("tokendata");
- var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImphaW4uYWthc2hAbm92YXNvZnRjb3Jwcy5jb20iLCJzdWIiOiI3ZmM5MjRiNy05YTE4LTRhNDctYjJkMS01NDI4ZDNiYzE2MWQiLCJpYXQiOjE2MjQyNTY2MjIsImV4cCI6MTYyNDg2MTQyMn0.AWsU0aXz3BUjzh27Vos9zRYZzS4-4I7pYB6l3d6NlmN5Q_PAXso73odFXPMdXjLN4u1j5ZlJ77FS2iI_PBD7FQ";
+ var tokens = urls.searchParams.get("tokendata");
+ // var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImphaW4uYWthc2hAbm92YXNvZnRjb3Jwcy5jb20iLCJzdWIiOiI3ZmM5MjRiNy05YTE4LTRhNDctYjJkMS01NDI4ZDNiYzE2MWQiLCJpYXQiOjE2MjQyNTY2MjIsImV4cCI6MTYyNDg2MTQyMn0.AWsU0aXz3BUjzh27Vos9zRYZzS4-4I7pYB6l3d6NlmN5Q_PAXso73odFXPMdXjLN4u1j5ZlJ77FS2iI_PBD7FQ";
     
   var formdata = new FormData();
   formdata.append("offset", "0");
@@ -340,7 +340,7 @@ window.addEventListener("load", function() {
   var requestOptions = {
     method: 'POST',
     headers: {
-          Authorization: 'Bearer ' + tokensn,
+          Authorization: 'Bearer ' + tokens,
         },
     body: formdata,
     redirect: 'follow'
@@ -370,7 +370,7 @@ window.addEventListener("load", function() {
     redirect: 'follow'
   };
 
-  fetch("https://apistest.tradetipsapp.com/api/adBannerSimple/getAllSimpleAdBanner", requestOptions)
+  fetch("https://apis.tradetipsapp.com/api/adBannerSimple/getAllSimpleAdBanner", requestOptions)
   .then(resp => resp.json())
     .then(function(data) {
        var datak = JSON.stringify(data);
@@ -400,7 +400,7 @@ window.addEventListener("load", function() {
                 {
                    "data": "image",
                    "render": function (data) {
-                       return '<img src="https://apistest.tradetipsapp.com' + data + '" class="avatar" width="50" height="50"/>';
+                       return '<img src="https://apis.tradetipsapp.com' + data + '" class="avatar" width="50" height="50"/>';
                        }
                 },
             ],
@@ -428,7 +428,7 @@ window.addEventListener("load", function() {
 
   // alert(JSON.stringify(e));
 
-   var tokensss = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImphaW4uYWthc2hAbm92YXNvZnRjb3Jwcy5jb20iLCJzdWIiOiI3ZmM5MjRiNy05YTE4LTRhNDctYjJkMS01NDI4ZDNiYzE2MWQiLCJpYXQiOjE2MjQyNTY2MjIsImV4cCI6MTYyNDg2MTQyMn0.AWsU0aXz3BUjzh27Vos9zRYZzS4-4I7pYB6l3d6NlmN5Q_PAXso73odFXPMdXjLN4u1j5ZlJ77FS2iI_PBD7FQ";
+   // var tokensss = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImphaW4uYWthc2hAbm92YXNvZnRjb3Jwcy5jb20iLCJzdWIiOiI3ZmM5MjRiNy05YTE4LTRhNDctYjJkMS01NDI4ZDNiYzE2MWQiLCJpYXQiOjE2MjQyNTY2MjIsImV4cCI6MTYyNDg2MTQyMn0.AWsU0aXz3BUjzh27Vos9zRYZzS4-4I7pYB6l3d6NlmN5Q_PAXso73odFXPMdXjLN4u1j5ZlJ77FS2iI_PBD7FQ";
 
   var title = $('#titles').val();
   var description = $('#description').val();
@@ -469,13 +469,13 @@ window.addEventListener("load", function() {
     var requestOptions = {
       method: 'POST',
       headers: {
-              Authorization: 'Bearer '+ tokensss
+              Authorization: 'Bearer '+ tokens
             },
       body: formdata,
       redirect: 'follow'
     };
 
-    fetch("https://apistest.tradetipsapp.com/api/adBannerSimpleNotification/sendFCMNotificationForSimpleAdBannerWithUserType", requestOptions)
+    fetch("https://apis.tradetipsapp.com/api/adBannerSimpleNotification/sendFCMNotificationForSimpleAdBannerWithUserType", requestOptions)
       .then(response => response.json())
       .then(result => {
             
