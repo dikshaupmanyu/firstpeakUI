@@ -7545,7 +7545,6 @@ console.log(_id);
     var express = require('express');
     var multer = require('multer');
     var upload = multer({ dest: 'public/csv'});
-        const mv = require('mv');
 
     app.post('/capital_symbols-upload', function(req, res) {
 
@@ -7561,7 +7560,7 @@ console.log(_id);
       // var checkdataval = req.body.checkdata;
          console.log(req.files.avatar.path);
 
-       mv(req.files.avatar.path, files, function(err) {
+      fs.rename(req.files.avatar.path, files, function(err) {
         if (err) {
           console.log(err);
           res.send(500);
