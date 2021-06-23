@@ -1,7 +1,21 @@
            <%- include partials/header %>
+ <script src="https://cdn.jsdelivr.net/npm/emoji-button@0.6.0/dist/index.min.js"></script>
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+  EmojiButton(document.querySelector('#emoji-button'), function (emoji) {
+    document.querySelector('input').value += emoji;
+  });
+});
+</script>
+<style type="text/css">
+  .emoji-picker{
+    z-index: 111;
+  }
+  .emoji-picker__emojis {
+    height: 16rem !important;
+  }
+</style>
 
-
-       
         <div class="container-fluid">
 
            <!-- form user info -->
@@ -13,20 +27,24 @@
                 <form autocomplete="off" class="form" role="form" method="post">
                   <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label">Title</label>
-                    <div class="col-lg-9">
+                    <div class="col-lg-7">
                       <input type="text" class="form-control" id="titles" name="title" required />
+                    </div>
+                    <div class="col-lg-2">
+                      <button id="emoji-button">😀</button>
                     </div>
                   </div>
                    <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label">Short Description</label>
                     <div class="col-lg-9">
-                      <textarea class="form-control" id="shortDescriptions" name="shortDescription" required /></textarea>
+                      <textarea class="form-control" id="shortDescriptions" name="Short_text_editor" required /></textarea>                     
                     </div>
+                    
                   </div>
                    <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label">Long Description</label>
                     <div class="col-lg-9">
-                       <textarea class="form-control" id="longDescriptions" name="longDescription" required /></textarea>
+                       <textarea class="form-control" id="longDescriptions" name="Long_text_editor" required /></textarea>
                     </div>
                   </div>
                   <div class="form-group row">
@@ -168,6 +186,7 @@
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
  --><link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
 <script type="text/javascript">
   $(document).ready(function () {
 //change selectboxes to selectize mode to be searchable
@@ -175,6 +194,9 @@
 });
 </script>
 
+<!-- <script src="//cdn.ckeditor.com/4.5.9/standard/ckeditor.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.5.9/adapters/jquery.js"></script>
+ -->
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
 <script src="js/choosen.js"></script>
@@ -185,6 +207,27 @@
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
+<script src="https://cdn.tiny.cloud/1/it3ify0z40t5vo6kcajgeiy9u1wusf5nsuhp3h6j4a585vko/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+  <script type="text/javascript">
+tinymce.init({
+    selector: "textarea",
+    plugins: [
+        "advlist autolink lists link image charmap print preview anchor",
+        "searchreplace visualblocks code fullscreen",
+        "insertdatetime media table paste",
+    "emoticons"
+    ],
+  toolbar_location: "top",
+  menubar : "false",
+    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | emoticons"
+});
+
+</script>
+<style type="text/css">
+  span.tox-statusbar__branding {
+    display: none;
+}
+</style>
 
 
   <script type="text/javascript">
@@ -196,6 +239,8 @@ window.history.forward();
  var url_string = window.location.href; 
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
+
+
 
   // var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjAwMzIwMjcsImV4cCI6MTYyMDYzNjgyN30.BSmCDBqWEf4FKxTsTgVe7-zTjHqRr6HYjglEUvlyUHx03rUfrp9N75pedAre1LQsdYtF7eyViM-5xaempJ68Ew";
 
@@ -211,17 +256,55 @@ window.history.forward();
 //   console.log(obj)
 // })
 
+ // CKEDITOR.replace( 'Long_text_editor' );
+ // CKEDITOR.replace( 'Short_text_editor' );
+ // $('textarea[name="Short_text_editor"]').ckeditor({
+ //      // Define the toolbar groups as it is a more accessible solution.
+ //      toolbarGroups: [{
+ //          "name": "basicstyles",
+ //          "groups": ["basicstyles"]
+ //        },
+ //        {
+ //          "name": "links",
+ //          "groups": ["links"]
+ //        },
+ //        {
+ //          "name": "paragraph",
+ //          "groups": ["list", "blocks"]
+ //        },
+ //        {
+ //          "name": "document",
+ //          "groups": ["mode"]
+ //        },
+ //        {
+ //          "name": "insert",
+ //          "groups": ["insert"]
+ //        },
+ //        {
+ //          "name": "styles",
+ //          "groups": ["styles"]
+ //        },
+ //        {
+ //          "name": "about",
+ //          "groups": ["about"]
+ //        }
+ //      ],
+ //      // Remove the redundant buttons from toolbar groups defined above.
+ //      removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
+ //    });
 
+ // // $('textarea[name="Short_text_editor"]').ckeditor();
+ // $('textarea[name="Long_text_editor"]').ckeditor();
 $("#bannerPreviewData").on('click', function (e) {
 
-    
-
   var title = $('#titles').val();
-  var shortDescription = $('#shortDescriptions').val();
-  var longDescription = $('#longDescriptions').val();
-   // alert(imageDetails);
+  // alert(title);
+  var shortDescription = tinymce.get("shortDescriptions").getContent();
+  // alert(shortDescription);
+  var longDescription = tinymce.get("longDescriptions").getContent();
+  // alert(longDescription);
   var file = document.getElementById("imageDetailss").files[0];
-  // alert(file);
+  //alert(file);
   // alert(readURLs(file));
   // if(file == undefined){
   //   readURLs(file);
@@ -281,14 +364,20 @@ $("#bannerPreviewData").on('click', function (e) {
 
 ///////////////////////////////////////////////////////
 
+// $('textarea[name="Short_text_editor"]').ckeditor();
+//  $('textarea[name="Long_text_editor"]').ckeditor();
+
 $("#bannerSubmit").on('click', function (e) {
 
 
   var title = $('#titles').val();
-  var shortDescription = $('#shortDescriptions').val();
-  var longDescription = $('#longDescriptions').val();
-   // alert(imageDetails);
+  //alert(title);
+  var shortDescription = tinymce.get("shortDescriptions").getContent();
+  // alert(shortDescription);
+  var longDescription = tinymce.get("longDescriptions").getContent();
+  // alert(longDescriptions);
   var file = document.getElementById("imageDetailss").files[0];
+  //alert(file);
   // alert(file);
   // if(file == undefined){
   //   readURLs(file);
@@ -506,7 +595,7 @@ var formdata = new FormData();
 
                        if(data == true) {
 
-                           return '<button id="' + row.id + '" class="btn btn-success">Active</button>';
+                           return '<button id="' + row.id + '" class="deleteButtonsactive btn btn-success">Active</button>';
                         //   return '<a href="updateData?id='+row.id+'&username='+row.userName+'&tokendata='+tokens+'&status=1" id="userStatus">UnBlock</a>';
 
                         }else {
