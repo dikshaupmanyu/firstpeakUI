@@ -203,9 +203,15 @@ window.addEventListener("load", function() {
                 { "data": "appUser.userName" },
                 { 'data': null,
                  'render': function (data, type, row) {
-                       return '<button id="' + row.id + '" class="deleteButtons">Delete</button>'
+                      // alert(row.status);
+                      if(row.status == "deleted"){
+                       return '<button>Already deleted</button>'
+                      }else{
+                        return '<button id="' + row.id + '" class="deleteButtons">Delete</button>'
+
+                      }
                }
-              },               
+              },          
             ],
             "deferRender": true,
             rowCallback: function ( row, data ) {
@@ -241,7 +247,7 @@ window.addEventListener("load", function() {
             var dataResultp = JSON.parse(datak); 
             // alert(dataResultp);
             alert("Delete Sucessfully !!");
-            // window.location.reload();
+            window.location.reload();
 
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -339,7 +345,7 @@ $('#butSaveData').on('click', function() {
                 
                 { 'data': null,
                  'render': function (data, type, row) {
-
+                      // alert(row.status);
                       if(row.status == "deleted"){
                        return '<button>Already deleted</button>'
                       }else{
