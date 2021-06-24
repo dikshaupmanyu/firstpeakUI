@@ -330,7 +330,7 @@ window.addEventListener("load", function() {
 
   var url_string = window.location.href; 
   var urls = new URL(url_string);
- var tokens = urls.searchParams.get("tokendata");
+ var tokensn = urls.searchParams.get("tokendata");
  // var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImphaW4uYWthc2hAbm92YXNvZnRjb3Jwcy5jb20iLCJzdWIiOiI3ZmM5MjRiNy05YTE4LTRhNDctYjJkMS01NDI4ZDNiYzE2MWQiLCJpYXQiOjE2MjQyNTY2MjIsImV4cCI6MTYyNDg2MTQyMn0.AWsU0aXz3BUjzh27Vos9zRYZzS4-4I7pYB6l3d6NlmN5Q_PAXso73odFXPMdXjLN4u1j5ZlJ77FS2iI_PBD7FQ";
     
   var formdata = new FormData();
@@ -340,7 +340,7 @@ window.addEventListener("load", function() {
   var requestOptions = {
     method: 'POST',
     headers: {
-          Authorization: 'Bearer ' + tokens,
+          Authorization: 'Bearer ' + tokensn,
         },
     body: formdata,
     redirect: 'follow'
@@ -364,7 +364,7 @@ window.addEventListener("load", function() {
   var requestOptions = {
     method: 'POST',
     headers: {
-          Authorization: 'Bearer ' + tokens,
+          Authorization: 'Bearer ' + tokensn,
         },
     body: formdata,
     redirect: 'follow'
@@ -391,8 +391,8 @@ window.addEventListener("load", function() {
             "columns": [
                 {
                    "data": "id",
-                   "render": function (data) {
-                       return '<input type="checkbox" id="'+ data +'" checked/>';
+                   "render": function (data,row) {
+                       return '<input type="checkbox" id="'+ data +'" class="locationthemes" value="'+ data +'"/>';
                        }
                 },
                 { "data": "title" },
@@ -443,7 +443,8 @@ window.addEventListener("load", function() {
 
 
 
-  var bannerids = row.id;
+  var bannerids = $('.locationthemes:checked').val();
+  // alert(bannerids);
 
   if(title == "" || description == ""  || bannerids == ""){
     alert("Please fill all the field");
@@ -469,7 +470,7 @@ window.addEventListener("load", function() {
     var requestOptions = {
       method: 'POST',
       headers: {
-              Authorization: 'Bearer '+ tokens
+              Authorization: 'Bearer ' + tokensn,
             },
       body: formdata,
       redirect: 'follow'
@@ -492,7 +493,8 @@ window.addEventListener("load", function() {
 
 }
    
-});
+
+ });
 
   
 });  
