@@ -159,7 +159,7 @@
                         <div class="min-height-360">
                         <h3 class="clearfix text-gray-900 mb-3 font-weight-bold" id="previewTitle"></h3>
                         <h5 id="previewShortDescription"></h5>
-                        <p class="show-more-less-dec" style="display: none;" id="previewLongDescription"> </p>
+                        <h5 class="show-more-less-dec" style="display: none;" id="previewLongDescription"> </h5>
                         <a class="show-more-less-btn" href="javascript:void(0);">Show More</a>
                       </div>
                         <div class="text-center mt-4"> <a href="#" class="btn btn-primary btn-block btn-lg">Got It!</a> </div>
@@ -860,10 +860,12 @@ document.getElementById("TipLink").href = "/tipList?tokendata="+tokens;
     if ($(".show-more-less-dec").is(":hidden")) {
       $(this).text('Show Less');
       $('.show-more-less-dec').slideDown();
+      $("#previewShortDescription").css('display','none');
     }
     else{
       $(this).text('Show More');
       $('.show-more-less-dec').slideUp();
+      $("#previewShortDescription").css('display','block');
     }
         
     })
