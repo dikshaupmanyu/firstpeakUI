@@ -1,5 +1,21 @@
            <%- include partials/header %>
 
+<script src="https://cdn.jsdelivr.net/npm/emoji-button@0.6.0/dist/index.min.js"></script>
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+  EmojiButton(document.querySelector('#emoji-button'), function (emoji) {
+    document.querySelector('input').value += emoji;
+  });
+});
+</script>
+<style type="text/css">
+  .emoji-picker{
+    z-index: 111;
+  }
+  .emoji-picker__emojis {
+    height: 16rem !important;
+  }
+</style>
 
        
         <div class="container-fluid">
@@ -15,20 +31,23 @@
                       <input type="text" class="form-control" placeholder="Enter your title here" name="bannerId" id="bannerIds" value="<%= bannersId %>" style="display: none;">
 
                     <label class="col-lg-3 col-form-label form-control-label">Title</label>
-                    <div class="col-lg-9">
-                      <input type="text" class="form-control" id="titles" name="title" required="required">
+                     <div class="col-lg-7">
+                      <input type="text" class="form-control" id="titles" name="title" required />
+                    </div>
+                    <div class="col-lg-2">
+                      <button id="emoji-button">😀</button>
                     </div>
                   </div>
                    <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label">Description One</label>
                     <div class="col-lg-9">
-                      <textarea class="form-control" id="shortDescriptions" name="shortDescription"></textarea>
+                      <textarea class="form-control" id="shortDescriptions" name="Short_text_editor"></textarea>
                     </div>
                   </div>
                    <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label">Description Two</label>
                     <div class="col-lg-9">
-                       <textarea class="form-control" id="longDescriptions" name="longDescription"></textarea>
+                       <textarea class="form-control" id="longDescriptions" name="Long_text_editor"></textarea>
                     </div>
                   </div>
                   <div class="form-group row">
@@ -121,6 +140,28 @@
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
+<script src="https://cdn.tiny.cloud/1/it3ify0z40t5vo6kcajgeiy9u1wusf5nsuhp3h6j4a585vko/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+  <script type="text/javascript">
+tinymce.init({
+    selector: "textarea",
+    plugins: [
+        "advlist autolink lists link image charmap print preview anchor",
+        "searchreplace visualblocks code fullscreen",
+        "insertdatetime media table paste",
+    "emoticons"
+    ],
+  toolbar_location: "top",
+  menubar : "false",
+    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | emoticons"
+});
+
+</script>
+<style type="text/css">
+  span.tox-statusbar__branding {
+    display: none;
+}
+</style>
+
 
 
   <script type="text/javascript">
@@ -139,17 +180,19 @@ $("#bannerSubmit").on('click', function (e) {
 
   var ids = $('#bannerIds').val();
   var title = $('#titles').val();
-  var shortDescription = $('#shortDescriptions').val();
-  var longDescription = $('#longDescriptions').val();
-   // alert(imageDetails);
+  // alert(title);
+  var shortDescription = tinymce.get("shortDescriptions").getContent();
+  // alert(shortDescription);
+  var longDescription = tinymce.get("longDescriptions").getContent();
+  // alert(longDescription);
   var file = document.getElementById("imageDetailss").files[0];
- 
+  // alert(file);
   var fullPath = $("#imageDetailss").val();
   // alert(fullPath);   
   var filename = fullPath.replace(/^.*[\\\/]/, '');
   // alert(filename);
 
-  if(title == "" || shortDescription == ""  || longDescription == ""  || filename == ""){
+  if(title == "" || shortDescription == ""  || longDescription == "" ){
     alert("Please fill all the field");
   }else {
 
@@ -187,7 +230,9 @@ $("#bannerSubmit").on('click', function (e) {
                 var dataResultp = JSON.parse(datak); 
                 // alert(dataResultp.title);
                 alert("Your banner "+dataResultp.title+" Updated successfully");
-                window.location.reload("/banner?tokendata="+tokens); 
+
+                window.location.href = "/banner?tokendata="+tokens; 
+                // window.location.reload("/banner?tokendata="+tokens); 
               // $(".successmsg").html('<spa>"Your banner '+dataResultp.title+' was submitted successfully"</span>');
               //  setTimeout(function(){$(".successmsg").empty()}, 2000);
               //  //window.location.reload();
@@ -306,12 +351,15 @@ $("#bannerSubmit").on('click', function (e) {
                   adBannerId : bannerIdd,
                 },
             success: function(data) {
-               const dataResult = data;
-                 
-
+               const dataResult = data;              
+                  // alert(JSON.stringify(dataResult));
                   document.getElementById("titles").value = dataResult.title;
-                  document.getElementById("shortDescriptions").value = dataResult.shortDescription;
-                  document.getElementById("longDescriptions").value = dataResult.longDescription;
+                  // var s = document.getElementById("shortDescriptions").value; 
+                  // alert(s);
+                  tinymce.get("shortDescriptions").setContent(dataResult.shortDescription);
+                  tinymce.get("longDescriptions").setContent(dataResult.longDescription);
+                  // document.getElementById("shortDescriptions").text = dataResult.shortDescription;
+                  // document.getElementById("longDescriptions").text = dataResult.longDescription;
                 
                   document.getElementById("newImage").src = "https://apis.tradetipsapp.com"+dataResult.image;
                    
