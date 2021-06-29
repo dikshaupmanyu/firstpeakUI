@@ -16,8 +16,9 @@
                     <tr>
                      <!--  <th>Id</th>
                       <th>Reason</th> -->
-                      <th>Username</th>
+                      <th>Commentor name</th>
                       <th>Comment</th>
+                      <th>User Who Flagged</th>
                       <th>Flag Status</th>
                       <th>Date</th>
                       <!-- <th>Action</th> -->
@@ -129,6 +130,7 @@ fetch(url, {
             "columns": [
                 { "data": "userName"},
                 { "data": "commentDetails" },
+                { "data": "flagCreatedBy" },
                 {
                 "data":   "isFlag",
                 render: function ( data, type, row ) {
