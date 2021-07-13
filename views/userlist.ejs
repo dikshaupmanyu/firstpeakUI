@@ -28,21 +28,31 @@
                       <th>Image</th>
                       <th>Status</th>
                       <!-- <th>Action</th> -->
- <!--                       <th>Authenticate by Email</th>
+ <!--                       <th>Authenticate by Email</th>-->
                     </tr>
                   </thead>
-                  <tfoot>
+                  <tbody>
+                    <div id='loader' style="display: none;">
+  <img src='/img/Reload-Image-Gif-1.gif' width='32px' height='32px'>
+</div>
+                  </tbody>
+                 <!--  <tfoot>
                     <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
+                      <th>Id</th>
+                      <th>UserName</th>
+                      <th>Email</th>
+                      <th>Mentor</th>
+                      <th>Subscription</th>
+                      <th>Date</th>
+                      <th>Image</th>
+                      <th>Status</th>
+
                     </tr>
                   </tfoot> -->
                  <!--  <tbody id="showData">
                   </tbody> -->
+
+
                 </table>
               </div>
             </div>
@@ -133,6 +143,8 @@ window.addEventListener("load", function() {
 // const Limit = "1000";
 // const formdata = {offset : Offset , limit : Limit};
 // alert(JSON.stringify(formdata));
+
+
 $.ajax({
         type: 'POST',
         // url: 'https://apis.tradetipsapp.com/api/appUserWebModify/getAllAppUsersPagination',
@@ -140,7 +152,13 @@ $.ajax({
         headers: {
           Authorization: 'Bearer '+ tokens
         },
+        async:false,
         // data: formdata,
+        beforeSend: function(){
+        // Show image container
+        // alert("hii");
+        $("#loader").show();
+       },
       success: function(data) {
        var datak = JSON.stringify(data);
        var dataResult = JSON.parse(datak); 
@@ -148,7 +166,7 @@ $.ajax({
         var len = dataResult.length;
            $('#dataTables').dataTable( {
             "aaData": data,   
-            "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
+            "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ,8000,10000,12000,15000 ],
             "pageLength": 500,
             "aaSorting": [[ 4, "desc" ]],
             "columnDefs": [ {
@@ -266,8 +284,12 @@ $.ajax({
 
             $('input.editor-activesubscibe', row).prop( 'checked', data.internalSubscribedUser == true );
 
-          }
-       
+          },
+           complete:function(data){
+            // Hide image container
+            $("#loader").hide();
+           }
+               
   });
  }
 
