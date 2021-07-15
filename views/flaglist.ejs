@@ -135,7 +135,7 @@ fetch(url, {
                 "data":   "isFlag",
                 render: function ( data, type, row ) {
                     if ( type === 'display' ) {
-                        return '<input id="' + row.id + '" type="checkbox" class="editor-active">';
+                        return '<input id="' + row.id + '" type="checkbox" class="editor-active" data-id="'+ data +'">';
                     }
                     return data;
                   }
@@ -235,7 +235,13 @@ fetch(url, {
 
     var id = $(this).attr('id');
     // alert(id);
-    var table = $('#dataTables').DataTable();
+    var flag = $(this).attr('data-id');
+    // alert(flag);
+    if(flag == "false"){
+      alert("Comment is already Flagged !!");
+      window.location.reload();
+    }else{
+          var table = $('#dataTables').DataTable();
     var row = table.row(this.closest('tr')).data();
     var result = confirm("Are you sure you want to unflag the comment?");
     if(result){
@@ -252,8 +258,12 @@ fetch(url, {
         success: function(data, textStatus, jqXHR)
         {
             //data - response from server
+
             var datak = JSON.stringify(data);
+            // alert(datak);       
             var dataResultp = JSON.parse(datak); 
+            // alert(dataResultp.isFlag);
+
             alert("Comment Unflag Sucessfully !!");
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -265,6 +275,8 @@ fetch(url, {
     } else {
 
        window.location.reload();
+
+    }
 
     }
 
