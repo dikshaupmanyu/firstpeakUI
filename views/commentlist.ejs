@@ -230,7 +230,7 @@ window.addEventListener("load", function() {
       // alert("fff");
 
       var id = $(this).attr('id');
-      // alert(id);
+      alert(id);
 
       var url ;
       var result = confirm("Are you sure you want to delete?");
@@ -572,7 +572,9 @@ document.getElementById("TipLink").href = "/tipList?tokendata="+tokens;
     document.getElementById("BannerLink").href = "/banner?tokendata="+tokens;
 document.getElementById("NotifyLink").href = "/notification?tokendata="+tokens;
    document.getElementById("changePassLink").href = "/changePassword?tokendata="+tokens;  
-       document.getElementById("AccountLink").href = "/account?tokendata="+tokens;  
+       document.getElementById("AccountLink").href = "/account?tokendata="+tokens; 
+          document.getElementById("NotifyListLink").href = "/notificationlist?tokendata="+tokens;
+ 
 
 });
 </script>

@@ -28,6 +28,7 @@
                               <label class="col-lg-2 col-form-label form-control-label">Choose Mentor</label>
                               <div class="col-lg-6">
                                 <select class="choosen form-control" id="sel_user" placeholder="Pick a User" style="background-color: #fff;" required="required">
+
                                 </select>
                               </div>
                               <div class="col-lg-4">
@@ -248,9 +249,11 @@ fetch(url, {
         var len = dataResult.length;
           $("#sel_user").empty();
            $("#sel_mentor").empty();
+            $("#sel_mentor").prepend("<option value='All'>All</option>");
+             $("#sel_user").prepend("<option value='All'>All</option>");
                 for( var i = 0; i<len; i++){
                    var id = dataResult[i]['id'];
-                    var name = dataResult[i]['userName'];
+                    var name = dataResult[i]['userName'];                   
                     $("#sel_mentor").append("<option value='"+id+"'>"+name+"</option>");
 
                     if(data[i].isMentor == true){
@@ -285,6 +288,8 @@ fetch(url, {
 document.getElementById("NotifyLink").href = "/notification?tokendata="+tokens;
    document.getElementById("changePassLink").href = "/changePassword?tokendata="+tokens;  
    document.getElementById("AccountLink").href = "/account?tokendata="+tokens;  
+      document.getElementById("NotifyListLink").href = "/notificationlist?tokendata="+tokens;
+
 
     
 });

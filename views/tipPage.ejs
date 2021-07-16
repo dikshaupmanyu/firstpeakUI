@@ -170,11 +170,23 @@ function logout() {
   var tokens = urls.searchParams.get("tokendata");
   var username = urls.searchParams.get("uname");
   var userid = urls.searchParams.get("id");
-  document.getElementById("dashboardLink").href = "/tipPage?tokendata="+tokens+"&uname="+username+"&id="+userid;
- document.getElementById("HomeLink").href = "/tipPage?tokendata="+tokens+"&uname="+username+"&id="+userid;
-  document.getElementById("UserLink").href = "/addMentor?tokendata="+tokens+"&uname="+username+"&id="+userid;
-  document.getElementById("TipLink").href = "/tipList?tokendata="+tokens+"&uname="+username+"&id="+userid;
-     document.getElementById("AccountLink").href = "/account?tokendata="+tokens;  
+  
+
+   document.getElementById("dashboardLink").href = "/home?tokendata="+tokens+"&uname="+username+"&id="+userid;
+document.getElementById("TipLink").href = "/tipList?tokendata="+tokens+"&uname="+username+"&id="+userid;
+  
+   document.getElementById("HomeLink").href = "/home?tokendata="+tokens+"&uname="+username+"&id="+userid;
+  document.getElementById("UserLink").href = "/userlist?tokendata="+tokens+"&uname="+username+"&id="+userid;
+  // document.getElementById("UserCallLink").href = "/userlist?tokendata="+tokens;
+   document.getElementById("CommentLink").href = "/commentlist?tokendata="+tokens+"&uname="+username+"&id="+userid;
+   document.getElementById("CSVLink").href = "/csvlist?tokendata="+tokens+"&uname="+username+"&id="+userid;
+ document.getElementById("FlagCallLink").href = "/flaglist?tokendata="+tokens+"&uname="+username+"&id="+userid;
+       document.getElementById("BannerLink").href = "/banner?tokendata="+tokens+"&uname="+username+"&id="+userid;
+ document.getElementById("NotifyLink").href = "/notification?tokendata="+tokens+"&uname="+username+"&id="+userid;
+    document.getElementById("changePassLink").href = "/changePassword?tokendata="+tokens+"&uname="+username+"&id="+userid;  
+   document.getElementById("AccountLink").href = "/account?tokendata="+tokens+"&uname="+username+"&id="+userid;  
+      document.getElementById("NotifyListLink").href = "/notificationlist?tokendata="+tokens+"&uname="+username+"&id="+userid;
+
 
     
 });

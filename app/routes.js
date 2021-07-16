@@ -12,6 +12,12 @@ module.exports = function(app, passport) {
     res.render('commentlist.ejs');
   });
 
+  app.get('/notificationlist', function(req, res) {
+
+    res.render('notificationlist.ejs');
+  });
+
+
    app.get('/account', function(req, res) {
 
     res.render('account.ejs');

@@ -21,8 +21,8 @@
                       <th>User Who Flagged</th>
                       <th>Flag Status</th>
                       <th>Date</th>
-                      <!-- <th>Action</th> -->
-                     <!--  <th>Status</th> -->
+                      <th>Action</th>
+                      <th>Status</th>
                     </tr>
                   </thead>
                  <!--  <tfoot>
@@ -156,29 +156,31 @@ fetch(url, {
                   return data;
                 }
                },
-               // { 'data': null,
-               //   'render': function (data, type, row) {
+                 { 'data': null,
+                 'render': function (data, type, row) {
+                      // alert(row.status);
+                      if(row.status == "deleted"){
+                       return '<button>Already Block</button>'
+                      }else{
+                        return '<button id="' + row.commentId + '" class="deleteButtons">Block</button>'
 
-               //    if ( type === 'display' ) {
-               //         return '<button id="' + row.id + '" class="deleteButton">Delete</button>'
-               //    }
-               //  return data;
-               //  }  
-               // },  
-               // { "data": "status",
-               //   'render': function (data, type, row) {
+                      }
+               }
+              },      
+               { "data": "status",
+                 'render': function (data, type, row) {
 
-               //    if ( type === 'display' ) {
+                  if ( type === 'display' ) {
 
-               //        if(data == "approved"){
-               //         return '<button id="' + row.id + '" class="approveStatus">Approved</button>'
-               //        }else{
-               //          return '<button id="' + row.id + '" class="approveStatus">Pending</button>'
-               //        }
-               //    }
-               //  return data;
-               //  }  
-               // },               
+                      if(data == "approved"){
+                       return '<button id="' + row.id + '" class="approveStatus">Approved</button>'
+                      }else{
+                        return '<button id="' + row.id + '" class="approveStatus">Pending</button>'
+                      }
+                  }
+                return data;
+                }  
+               },               
               ],
             "deferRender": true,
             rowCallback: function ( row, data ) {
@@ -188,7 +190,7 @@ fetch(url, {
 
         });
 
-    // $('#dataTables').on('click', 'button.deleteButton', function () {
+    // $('#dataTables').on('click', 'button.deleteButtons', function () {
 
     //   var id = $(this).attr('id');
     //   // alert(id);
@@ -230,6 +232,51 @@ fetch(url, {
     //   }
 
     //   });
+
+    $('#dataTables').on('click', 'button.deleteButtons', function () {
+
+      // alert("fff");
+
+      var id = $(this).attr('id');
+      alert(id);
+
+      var url ;
+      var result = confirm("Are you sure you want to delete?");
+      if(result){
+      var formData = {commentId:id};
+       url = "https://apis.tradetipsapp.com/api/comment/deleteCommentByCommentId";
+      $.ajax({
+        url : url,
+        type: "POST",
+        headers: {
+             Authorization: 'Bearer ' + tokens,
+        },
+        data : formData,
+        success: function(data, textStatus, jqXHR)
+        {
+            //data - response from server
+            var datak = JSON.stringify(data);
+            var dataResultp = JSON.parse(datak); 
+            // alert(dataResultp);
+            alert("Block Sucessfully !!");
+            window.location.reload();
+
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+           alert("Not updated !!");
+        }
+
+       });
+      
+
+      } else {
+
+          window.location.reload();
+
+      }
+
+      });
 
     $('#dataTables').on('click', 'input.editor-active', function () {
 
@@ -358,6 +405,8 @@ fetch(url, {
 document.getElementById("NotifyLink").href = "/notification?tokendata="+tokens;
    document.getElementById("changePassLink").href = "/changePassword?tokendata="+tokens;  
    document.getElementById("AccountLink").href = "/account?tokendata="+tokens;  
+      document.getElementById("NotifyListLink").href = "/notificationlist?tokendata="+tokens;
+
 
     
 });
