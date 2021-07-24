@@ -331,7 +331,7 @@ window.addEventListener("load", function() {
   var url_string = window.location.href; 
   var urls = new URL(url_string);
  var tokensn = urls.searchParams.get("tokendata");
- // var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImphaW4uYWthc2hAbm92YXNvZnRjb3Jwcy5jb20iLCJzdWIiOiI3ZmM5MjRiNy05YTE4LTRhNDctYjJkMS01NDI4ZDNiYzE2MWQiLCJpYXQiOjE2MjQyNTY2MjIsImV4cCI6MTYyNDg2MTQyMn0.AWsU0aXz3BUjzh27Vos9zRYZzS4-4I7pYB6l3d6NlmN5Q_PAXso73odFXPMdXjLN4u1j5ZlJ77FS2iI_PBD7FQ";
+ // var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkaXRpLm5vdmFzb2Z0Y29ycHNAZ21haWwuY29tIiwic3ViIjoiZTE3NzBjMDgtZTJlYy00MGY4LTlhOTgtNjZhNGVmZmJkNjZiIiwiaWF0IjoxNjI3MDI5MzYyLCJleHAiOjE2Mjc2MzQxNjJ9.uIMzROuof1MocMhV42xbA8K4WOSpqTvSaJjJ9kuYrzp6JbqqpfRRQGmaWOXioscPUdd-hlTCqeHVcN4MuRKp5Q";
     
   var formdata = new FormData();
   formdata.append("offset", "0");
@@ -470,7 +470,7 @@ window.addEventListener("load", function() {
     var requestOptions = {
       method: 'POST',
       headers: {
-              Authorization: 'Bearer ' + tokensn,
+              Authorization: 'Bearer ' + tokens,
             },
       body: formdata,
       redirect: 'follow'
@@ -528,7 +528,8 @@ document.getElementById("TipLink").href = "/tipList?tokendata="+tokens;
  document.getElementById("NotifyLink").href = "/notification?tokendata="+tokens;
     document.getElementById("changePassLink").href = "/changePassword?tokendata="+tokens;  
    document.getElementById("AccountLink").href = "/account?tokendata="+tokens;  
- document.getElementById("NotifyListLink").href = "/notificationlist?tokendata=eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImphaW4uYWthc2hAbm92YXNvZnRjb3Jwcy5jb20iLCJzdWIiOiI3ZmM5MjRiNy05YTE4LTRhNDctYjJkMS01NDI4ZDNiYzE2MWQiLCJpYXQiOjE2MjYzNTM3NzYsImV4cCI6MTYyNjk1ODU3Nn0.2BAt3y3aK8B89qGq_KriWQ7f2aTSFkTZYI4nTxMAKeFsTNHrAYiIv1MQ6Aj3mKIecAMUkn6bJhsSxq0sZKfpIw";
+    document.getElementById("NotifyListLink").href = "/notificationlist?tokendata="+tokens;
+
 
 
 });

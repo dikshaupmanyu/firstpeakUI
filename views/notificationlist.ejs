@@ -14,9 +14,10 @@
                   <thead>
                     <tr>
                       <th>Title</th>
-                      <th>Username</th>
+                      <th>Usertype</th>
                       <th>Description</th>
                       <th>Date</th>
+                      <th>Publish</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -97,16 +98,16 @@ window.addEventListener("load", function() {
 
   var url_string = window.location.href; 
   var urls = new URL(url_string);
-  // var tokens = urls.searchParams.get("tokendata");
+  var tokens = urls.searchParams.get("tokendata");
   // alert(tokens);
 
-  var tokens= 'eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImphaW4uYWthc2hAbm92YXNvZnRjb3Jwcy5jb20iLCJzdWIiOiI3ZmM5MjRiNy05YTE4LTRhNDctYjJkMS01NDI4ZDNiYzE2MWQiLCJpYXQiOjE2MjYzNTM3NzYsImV4cCI6MTYyNjk1ODU3Nn0.2BAt3y3aK8B89qGq_KriWQ7f2aTSFkTZYI4nTxMAKeFsTNHrAYiIv1MQ6Aj3mKIecAMUkn6bJhsSxq0sZKfpIw';
+  var tokenst= 'eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkaXRpLm5vdmFzb2Z0Y29ycHNAZ21haWwuY29tIiwic3ViIjoiZTE3NzBjMDgtZTJlYy00MGY4LTlhOTgtNjZhNGVmZmJkNjZiIiwiaWF0IjoxNjI3MDI5MzYyLCJleHAiOjE2Mjc2MzQxNjJ9.uIMzROuof1MocMhV42xbA8K4WOSpqTvSaJjJ9kuYrzp6JbqqpfRRQGmaWOXioscPUdd-hlTCqeHVcN4MuRKp5Q';
 
 const url = "https://apistest.tradetipsapp.com/api/adBannerUserNotificationListDetails/getAllAdBannerUserList";
 fetch(url, {
   method: "POST",
   headers: {
-          Authorization: 'Bearer ' + tokens,
+          Authorization: 'Bearer ' + tokenst,
         },
 })
   .then(resp => resp.json())
@@ -115,7 +116,7 @@ fetch(url, {
             "aaData": data, 
             "columns": [
                 { "data": "title"},
-                { "data": "userName" },
+                { "data": "userType" },
                 { "data": "description" },
                 { 
                 "data": "createdOn",
@@ -133,24 +134,80 @@ fetch(url, {
                   return data;
                 }
                },
+               { 'data': null,
+                 'render': function (data, type, row) {
+                       return '<button id="' + row.adBannerId + '" data-title="'+row.title+'" data-description="'+row.description+'" data-userType="'+row.userType+'" class="sendNotifyagain">Send Again</button>'
+               }
+              },    
                       
               ],
             "deferRender": true,
-            rowCallback: function ( row, data ) {
-            // Set the checked state of the checkbox in the table
-            $('input.editor-active', row).prop( 'checked', data.isFlag == true );
-        }
 
         });
 
     
-  })
- 
-  .catch(function(error) {
+  }).catch(function(error) {
     console.log(error);
   });  
 
+   $('#dataTables').on('click', 'button.sendNotifyagain', function (e) {
+ 
+  var table = $('#dataTables').DataTable();
+  var row = table.row(this.closest('tr')).data();
+  var bannerids = $(this).attr('id');
+  // alert(bannerids);
+  var title = $(this).attr('data-title');
+  // alert(title);
+  var description = $(this).attr('data-description');
+  // alert(description);
+  var filterUser = $(this).attr('data-userType');
+  // alert(filterUser);
+
+  if(title == "" || description == ""  || bannerids == ""){
+    alert("Please fill all the field");
+  }else {
+   
+  var formdata = new FormData();
+    formdata.append("title", title);
+    formdata.append("description", description);
+    formdata.append("addBannerSimpleIds" , bannerids);
+    formdata.append("userType" , filterUser);
+
+    var requestOptions = {
+      method: 'POST',
+      headers: {
+              Authorization: 'Bearer ' + tokens,
+            },
+      body: formdata,
+      redirect: 'follow'
+    };
+
+    fetch("https://apis.tradetipsapp.com/api/adBannerSimpleNotification/sendFCMNotificationForSimpleAdBannerWithUserType", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+            
+                var datak = JSON.stringify(result);
+               // alert(datak);
+                var dataResultp = JSON.parse(datak); 
+                // alert(dataResultp.title);
+                alert("Notification has been sent");
+                // window.location.reload("/notification?tokendata="+tokens); 
+          
+
+       })
+      .catch(error => console.log('error', error));
+
+}
+   
+
+ });
+
 });
+
+
+
+
+
  </script>
  <script type="text/javascript">
   window.addEventListener("load", function() {

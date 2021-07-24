@@ -34,6 +34,8 @@
                               <div class="col-lg-4">
                                 <span style="margin-left: 20px;" class="containeruser"></span>
                                 <span class="containertrade"></span>
+                                <span style="margin-left: 20px;" class="containeruserall"></span>
+                                <span class="containertradeall"></span>
                               </div>
                             </div>
                             <div class="form-row">                        
@@ -125,7 +127,7 @@
                               </div>
                               <div class="col-lg-3">
                                 <span style="margin-left: 20px;" class="containerk"></span>
-
+                                <span style="margin-left: 20px;" class="containerkall"></span>
                               </div>
                            </div>
                          
@@ -288,7 +290,9 @@ fetch(url, {
 document.getElementById("NotifyLink").href = "/notification?tokendata="+tokens;
    document.getElementById("changePassLink").href = "/changePassword?tokendata="+tokens;  
    document.getElementById("AccountLink").href = "/account?tokendata="+tokens;  
-      document.getElementById("NotifyListLink").href = "/notificationlist?tokendata=eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImphaW4uYWthc2hAbm92YXNvZnRjb3Jwcy5jb20iLCJzdWIiOiI3ZmM5MjRiNy05YTE4LTRhNDctYjJkMS01NDI4ZDNiYzE2MWQiLCJpYXQiOjE2MjYzNTM3NzYsImV4cCI6MTYyNjk1ODU3Nn0.2BAt3y3aK8B89qGq_KriWQ7f2aTSFkTZYI4nTxMAKeFsTNHrAYiIv1MQ6Aj3mKIecAMUkn6bJhsSxq0sZKfpIw";
+   document.getElementById("NotifyListLink").href = "/notificationlist?tokendata="+tokens;
+
+      // document.getElementById("NotifyListLink").href = "/notificationlist?tokendata=eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImphaW4uYWthc2hAbm92YXNvZnRjb3Jwcy5jb20iLCJzdWIiOiI3ZmM5MjRiNy05YTE4LTRhNDctYjJkMS01NDI4ZDNiYzE2MWQiLCJpYXQiOjE2MjYzNTM3NzYsImV4cCI6MTYyNjk1ODU3Nn0.2BAt3y3aK8B89qGq_KriWQ7f2aTSFkTZYI4nTxMAKeFsTNHrAYiIv1MQ6Aj3mKIecAMUkn6bJhsSxq0sZKfpIw";
 
 
     
@@ -303,15 +307,153 @@ document.getElementById("NotifyLink").href = "/notification?tokendata="+tokens;
 <script type="text/javascript">
   $('#MentorBtnData').on('click', function() {
     var UserSelect = $('#sel_user').val();
+    // alert("Mentor is " + UserSelect);
     var startDates = $('#start_date').val();
-    // alert(startDates);
     var endDates = $('#end_date').val();
-    // alert(endDates);
-    // var formdata = {userName : UserSelect};
-    var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImphaW4uYWthc2hAbm92YXNvZnRjb3Jwcy5jb20iLCJzdWIiOiI3ZmM5MjRiNy05YTE4LTRhNDctYjJkMS01NDI4ZDNiYzE2MWQiLCJpYXQiOjE2MjMzMTI0ODAsImV4cCI6MTYyMzkxNzI4MH0.xyQVU5Qs9lX3MP7FE0wCW-vf2YtQ_rppCVbrBn_EydlawagF-8f-W10ThlyubVPfD8nSlQSwNIoDdX3YU62I1Q";
+     var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkaXRpLm5vdmFzb2Z0Y29ycHNAZ21haWwuY29tIiwic3ViIjoiZTE3NzBjMDgtZTJlYy00MGY4LTlhOTgtNjZhNGVmZmJkNjZiIiwiaWF0IjoxNjI2OTM5MTQ2LCJleHAiOjE2Mjc1NDM5NDZ9.4RZZmTIKn41DZalI_VJ5vA-83hNWbpVrGExB67JbI-UozLYZgscCT63d6LwxW3QVISX-vL5X5_nYn6kN6JyTVQ";
 
     var formdata = {mentorId : UserSelect,startDate : startDates , endDate : endDates};
-    if(UserSelect!=""){
+    if(UserSelect == "All"){
+    $.ajax({
+        type: 'POST',
+        url: 'https://apistest.tradetipsapp.com/api/stripe/getAllInvoicesForAllUsers',
+        headers: {
+          Authorization: 'Bearer '+ tokens
+        },
+        data: formdata,
+        success: function(data, textStatus, jqXHR)
+        {
+          // alert(data);
+          var datak = JSON.stringify(data);
+          var dataResultp = JSON.parse(datak); 
+          // if($('#dataTablesf').is(':empty'))
+          // alert(dataResultp);
+          var len = dataResultp.length;
+          // // alert(len);
+          if(len > 0){
+          
+              $('#dataTablesf').empty();
+
+             if ( $.fn.DataTable.isDataTable('#dataTablesf') ) {
+                 $('#dataTablesf').DataTable().destroy();
+                 $('.containeruserall').empty();
+                 $('.containertradeall').empty();
+                }
+
+            }
+           
+           $('#dataTablesf').dataTable({
+                "aaData": data,   
+                "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
+                "pageLength": 500,
+                "columns": [
+                
+                    { "data": "serviceSubscription.userName",
+                      "title":"Username",
+                       "render": function(data, type, full, meta){
+                        return data;
+                    }
+                    },
+                     { "data": "serviceSubscription.serviceSubscriptionPlan.mentorName",
+                      "title":"Mentorname",
+                       "render": function(data, type, full, meta){
+                        return data;
+                    }
+                    },
+                    { 
+                      "data": "createdOn",
+                       "name":"date",
+                       "visible":true,
+                       "title":"Date Created",
+                       "render": function(data, type, full, meta){
+                        if(type == "display"){
+                                var date = new Date(data);
+                                var options = {year: "numeric", month: "long", day: "numeric"};
+
+                                var sdates =  date.toUTCString('en-US', options);
+                                var fstring = sdates.substring(0,16);
+                                return fstring;
+                        }
+
+                        return data;
+                      }
+                    },
+                    { "data": "serviceSubscription.serviceSubscriptionPlan.stripeProductName",
+                      "title":"Subscription ",
+                       "render": function(data, type, full, meta){
+                        return data;
+                    }
+                    },
+                     { "data": "serviceSubscription.serviceSubscriptionPlan.serviceTypeMaster.serviceType",
+                      "title":"Service Type ",
+                       "render": function(data, type, full, meta){
+                        return data;
+                    }
+                    },
+                    {
+                      "data": "amountPaid" ,
+                      "title": "Price",                  
+                      render: function (data, type, row, meta) {
+                         if(type === 'display'){
+                            var symbol = "$";
+
+                            var num = $.fn.dataTable.render.number(',', '.', 2, symbol).display(data);              
+                            return num ;           
+                         } else {           
+                            return data;
+                         }
+                      }
+                  },
+                  {
+                      "data": "amountPaid" , "sClass": "pricessMentorAll", "title": "Mentor Share", 
+                      render: function (data, type, row, meta) {
+                         if(type === 'display'){
+                            var num = "$" + data * 20/100;              
+                            return num ;           
+                         } else {           
+                            return data;
+                         }
+                      }
+                  },
+                    {
+                      "data": "amountPaid" , "sClass": "pricessTradetipsAll" , "title": "TradeTips Share",
+                      render: function (data, type, row, meta) {
+                         if(type === 'display'){
+                            var num = "$" + data * 80/100;              
+                            return num ;           
+                         } else {           
+                            return data;
+                         }
+                      }
+                  },          
+                ],
+                "deferRender": true,
+                rowCallback: function ( row, data ) {
+                // Set the checked state of the checkbox in the table
+                // $('input.editor-active', row).prop( 'checked', data.isFlag == true );
+              }
+
+           });
+
+           var totalfall = 0;
+           var totalftall = 0;
+
+            $("td.pricessMentorAll").each(function() {
+               totalfall += parseInt($(this).text().replace(/[$,]/g, ''));
+            });
+
+            $("td.pricessTradetipsAll").each(function() {
+              totalftall += parseInt($(this).text().replace(/[$,]/g, ''));            
+            });
+            
+            $('.containeruserall').append("<b>Total Mentor Share<b> :<b><span> $" + totalfall + "</span></b>");
+            $('.containertradeall').append("<b>Total TradeTips Share<b> :<b><span> $" + totalftall + "</span></b>");  
+
+        }
+
+      });
+
+    }else{
       $.ajax({
         type: 'POST',
         url: 'https://apistest.tradetipsapp.com/api/stripe/getAllInvoicesByMentorId',
@@ -500,6 +642,7 @@ document.getElementById("NotifyLink").href = "/notification?tokendata="+tokens;
 
            var totalf = 0;
            var totalft = 0;
+         
       $("td.pricessMentor").each(function() {
         // parseInt(num.replace(/[$,]/g, ''))
        // alert("hii");
@@ -515,9 +658,10 @@ document.getElementById("NotifyLink").href = "/notification?tokendata="+tokens;
       
       });
 
+
        $('.containeruser').append("<b>Total Mentor Share<b> :<b><span> $" + totalf + "</span></b>");
        $('.containertrade').append("<b>Total TradeTips Share<b> :<b><span> $" + totalft + "</span></b>");
-        
+
     
        
 
@@ -535,22 +679,149 @@ document.getElementById("NotifyLink").href = "/notification?tokendata="+tokens;
 
       
     }
-    else{
-      alert('Please fill all the field !');
-    }
 
   
   
   });
 
+  /////////////////////////////////////////////////////////////////////////////////////
+
+
    $('#UserbutSaveData').on('click', function() {
     var UserSelect = $('#sel_mentor').val();
-    // alert(UserSelect);
+    // alert("User is " + UserSelect);
     // var formdata = {userName : UserSelect};
-    var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImphaW4uYWthc2hAbm92YXNvZnRjb3Jwcy5jb20iLCJzdWIiOiI3ZmM5MjRiNy05YTE4LTRhNDctYjJkMS01NDI4ZDNiYzE2MWQiLCJpYXQiOjE2MjMzMTI0ODAsImV4cCI6MTYyMzkxNzI4MH0.xyQVU5Qs9lX3MP7FE0wCW-vf2YtQ_rppCVbrBn_EydlawagF-8f-W10ThlyubVPfD8nSlQSwNIoDdX3YU62I1Q";
+    var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkaXRpLm5vdmFzb2Z0Y29ycHNAZ21haWwuY29tIiwic3ViIjoiZTE3NzBjMDgtZTJlYy00MGY4LTlhOTgtNjZhNGVmZmJkNjZiIiwiaWF0IjoxNjI2OTM5MTQ2LCJleHAiOjE2Mjc1NDM5NDZ9.4RZZmTIKn41DZalI_VJ5vA-83hNWbpVrGExB67JbI-UozLYZgscCT63d6LwxW3QVISX-vL5X5_nYn6kN6JyTVQ";
 
     var formdata = {userId : UserSelect};
-    if(UserSelect!=""){
+    if(UserSelect == "All"){
+         $.ajax({
+        type: 'POST',
+        url: 'https://apistest.tradetipsapp.com/api/stripe/getAllInvoicesForAllUsers',
+        headers: {
+          Authorization: 'Bearer '+ tokens
+        },
+        data: formdata,
+        success: function(data, textStatus, jqXHR)
+        {
+          // alert(data);
+          var datak = JSON.stringify(data);
+          // alert(datak);
+          // console.log(datak);
+          var dataResultp = JSON.parse(datak); 
+          
+          var len = dataResultp.length;
+           // $('#dataTabless').empty();
+
+           // if ( $.fn.DataTable.isDataTable('#dataTables') ) {
+           //     $('#dataTabless').DataTable().destroy();
+           //    }
+
+          //    var serviceDatas = dataResultp.filter(function(s) { return s.productSubscription == null });
+
+          // var productDatas = dataResultp.filter(function(s) { return s.serviceSubscription == null });
+           if(len > 0){
+          $('#dataTabless').empty();
+
+           if ( $.fn.DataTable.isDataTable('#dataTabless') ) {
+               $('#dataTabless').DataTable().destroy();
+               $('.containerk').empty();
+               $('.containerkall').empty();
+              }
+
+          }
+         
+
+           $('#dataTabless').dataTable( {
+            "aaData": data,   
+            "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
+            "pageLength": 500,
+            // "aaSorting": [[ 0, "desc" ]],
+            // "columnDefs": [ {
+            // "targets": 4,
+            // "orderable": false
+            // } ],
+            "columns": [
+            
+                // { "data": "productSubscription.userId" },
+                // { "data": "serviceSubscription.userName" },
+                 { "data": "productSubscription.userName",
+                  "title":"Username",
+                   "render": function(data, type, full, meta){
+                    return data;
+                  }
+                },
+                { "data": "createdOn",
+                   "name":"date",
+                   "visible":true,
+                   "title":"Date Created",
+                   "render": function(data, type, full, meta){
+                    if(type == "display"){
+                            var date = new Date(data);
+                            var options = {year: "numeric", month: "long", day: "numeric"};
+
+                            return date.toLocaleDateString('en-US', options);
+                    }
+
+                    return data;
+                  }
+                },  
+                { "data": "productSubscription.subscriptionPlan.subscriptionType",
+                      "title":"Subscription",
+                       "render": function(data, type, full, meta){
+                        return data;
+                      }
+                    },
+                     { "data": "stripeSubscriptionId",
+                      "title":"Service Type",
+                       "render": function(data, type, full, meta){
+                        return data;
+                      }
+                    },
+                    {
+                      "data": "amountPaid" , "sClass": "priceAll", "title":"Price",
+                      render: function (data, type, row, meta) {
+                         if(type === 'display'){
+                            var symbol = "$";
+
+                            var num = $.fn.dataTable.render.number(',', '.', 2, symbol).display(data);              
+                            return num ;           
+                         } else {           
+                            return data;
+                         }
+                      }
+                  },
+
+
+              // { "data" : "percentOff"},
+              // { "data" : "amountPaid" * "percentOff" / 100},              
+            ], 
+           
+            "deferRender": true,
+            rowCallback: function ( row, data ) {
+            // Set the checked state of the checkbox in the table
+            // $('input.editor-active', row).prop( 'checked', data.isFlag == true );
+        }
+
+
+
+        });
+
+        var totalAll = 0;
+        $('td.priceAll').each(function() {
+          // parseInt(num.replace(/[$,]/g, ''))
+
+          totalAll += parseInt($(this).text().replace(/[$,]/g, ''));
+          // alert(total);
+        });
+        $('.containerkall').append("<div class='sum' style='text-align:end;line-height:0px;'><b>Total<b> :<b><span> $" + totalAll + "</span></b></div>");
+              
+
+      }
+
+      });
+
+    } else {
       $.ajax({
         type: 'POST',
         url: 'https://apistest.tradetipsapp.com/api/stripe/getAllInvoicesByUserId',
@@ -663,12 +934,15 @@ document.getElementById("NotifyLink").href = "/notification?tokendata="+tokens;
         });
 
 var total = 0;
+
+
 $('td.price').each(function() {
   // parseInt(num.replace(/[$,]/g, ''))
 
   total += parseInt($(this).text().replace(/[$,]/g, ''));
   // alert(total);
 });
+
 $('.containerk').append("<div class='sum' style='text-align:end;line-height:0px;'><b>Total<b> :<b><span> $" + total + "</span></b></div>");
 // alert(total);
 
@@ -682,14 +956,7 @@ $('.containerk').append("<div class='sum' style='text-align:end;line-height:0px;
 
 
       });
-
-
-
-
       
-    }
-    else{
-      alert('Please fill all the field !');
     }
   
   
