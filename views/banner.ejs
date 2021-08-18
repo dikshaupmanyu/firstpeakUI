@@ -15,6 +15,86 @@
     height: 16rem !important;
   }
 </style>
+<style type="text/css">
+  .content {
+  width: 80%;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.centerplease {
+  margin: 0 auto;
+  max-width: 270px;
+  font-size: 40px;
+}
+
+/*Question*/
+.question {
+  position: relative;
+  background: #f9f9f9;
+  margin: 0;
+  padding: 10px 10px 10px 50px;
+  display: block;
+  width:100%;
+  cursor: pointer;
+}
+/*Answer*/
+.answers {
+  padding: 0px 15px;
+  margin: 5px 0;
+  width:100%!important;
+  height: 0;
+  overflow: hidden;
+  z-index: -1;
+  position: relative;
+  opacity: 0;
+  -webkit-transition: .3s ease;
+  -moz-transition: .3s ease;
+  -o-transition: .3s ease;
+  transition: .3s ease;
+}
+
+.questions:checked ~ .answers{
+  height: auto;
+  opacity: 0;
+  padding: 15px;
+  display: contents;
+  
+}
+
+/*FAQ Toggle*/
+.plus {
+  position: absolute;
+  margin-left: 10px;
+  z-index: 5;
+  font-size: 2em;
+  line-height: 100%;
+  -webkit-user-select: none;    
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  -webkit-transition: .3s ease;
+  -moz-transition: .3s ease;
+  -o-transition: .3s ease;
+  transition: .3s ease;
+
+}
+
+.questions:checked ~ .plus {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+
+}
+
+.questions {
+  display: none;
+  
+}
+
+</style>
 
         <div class="container-fluid">
 
@@ -47,6 +127,9 @@
                        <textarea class="form-control" id="longDescriptions" name="Long_text_editor" required /></textarea>
                     </div>
                   </div>
+
+                  <div id="character_count"></div><br />
+
                   <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label">Image</label>
                     <div class="col-lg-9">
@@ -94,8 +177,8 @@
                       <tr>
                       
                         <th>Title</th>
-                        <th>Short Description</th>
-                        <th>Long Description</th>
+                        <th>Description</th>
+                        <!-- <th>Long Description</th> -->
                         <th>Image</th>
                         <th>Status</th>
                         <th>Action</th>
@@ -208,9 +291,16 @@
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
 <script src="https://cdn.tiny.cloud/1/it3ify0z40t5vo6kcajgeiy9u1wusf5nsuhp3h6j4a585vko/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
   <script type="text/javascript">
 tinymce.init({
     selector: "textarea",
+    setup: function (ed) {
+              ed.on('keyup', function (e) { 
+                  var count = CountCharacters();
+                  document.getElementById("character_count").innerHTML = " <b>Word Count: " + count + " </b> " ;
+              });
+          },
     plugins: [
         "advlist autolink lists link image charmap print preview anchor",
         "searchreplace visualblocks code fullscreen",
@@ -223,8 +313,26 @@ tinymce.init({
   content_style:
     "body { background: #fff; color: #000; font-size: 14pt; font-family: sans-serif; }" ,
   font_formats:
-    "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Terminal=terminal,monaco; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; Wingdings=wingdings,zapf dingbats",
+    "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Terminal=terminal,monaco; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; Wingdings=wingdings,zapf dingbats"
+  
 });
+
+function CountCharacters() {
+        var body = tinymce.get("longDescriptions").getBody();
+        var content = tinymce.trim(body.innerText || body.textContent);
+        // alert(content.length);
+
+        return content.length;
+    };
+    // function ValidateCharacterLength() {
+    //     var max = 20;
+    //     var count = CountCharacters();
+    //     if (count > max) {
+    //         alert("Maximum " + max + " characters allowed.")
+    //         return false;
+    //     }
+    //     return;
+    // }
 
 </script>
 <style type="text/css">
@@ -421,6 +529,12 @@ $("#bannerSubmit").on('click', function (e) {
       redirect: 'follow'
     };
 
+        var max = 1000;
+        var count = CountCharacters();
+        if (count > max) {
+            alert("Maximum " + max + " characters allowed.")
+            return false;
+        }else{
 
     // var requestOptions1 = {
     //   method: 'POST',
@@ -464,7 +578,7 @@ $("#bannerSubmit").on('click', function (e) {
 
   }
  
-
+}
 
 
 // // set values for demo
@@ -579,8 +693,14 @@ var formdata = new FormData();
             "columns": [
                 
                 { "data": "title" },
-                { "data": "shortDescription" },
-                { "data": "longDescription" },
+                { "data": "",
+                   "render" : function(data , type, row){
+                    // return ' <div class="accordion" id="faqExample"><div class="card"><div class="card-header p-2" id="heading' + row.id + '"><h5 class="mb-0"><button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">'+ data +'</button></h5></div><div id="collapseOne" class="collapse show" aria-labelledby="heading' + row.id + '" data-parent="#faqExample"><div class="card-body">'+ row.longDescription +'</div></div></div></div>'
+                    return '<div><input type="checkbox" id="' + row.id + '" name="q"  class="questions"><div class="plus">+</div><label for="' + row.id + '" class="question">'+ row.shortDescription +'</label><div class="answers">'+ row.longDescription +'</div></div>'
+                    // return '<div> <input type="checkbox" id="question' + row.id + '" name="q" class="questions"><div class="plus">+</div><label for="question' + row.id + '" class="question">Keep answers short. But in case of...If the question is long, the text wraps.  </label><div class="answers">This is the answer!</div></div>'
+                   }
+                 },
+                // { "data": "longDescription" },
                 {
                    "data": "image",
                    "render": function (data) {
