@@ -50,6 +50,9 @@
                        <textarea class="form-control" id="longDescriptions" name="Long_text_editor"></textarea>
                     </div>
                   </div>
+
+                  <div id="character_count"></div><br />
+                  
                   <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label">Image</label>
                     <div class="col-lg-9">
@@ -144,6 +147,12 @@
   <script type="text/javascript">
 tinymce.init({
     selector: "textarea",
+    setup: function (ed) {
+              ed.on('keyup', function (e) { 
+                  var count = CountCharacters();
+                  document.getElementById("character_count").innerHTML = " <b>Word Count: " + count + " </b> ";
+              });
+          },
     plugins: [
         "advlist autolink lists link image charmap print preview anchor",
         "searchreplace visualblocks code fullscreen",
@@ -158,6 +167,23 @@ tinymce.init({
   font_formats:
     "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Terminal=terminal,monaco; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; Wingdings=wingdings,zapf dingbats",
 });
+
+function CountCharacters() {
+        var body = tinymce.get("longDescriptions").getBody();
+        var content = tinymce.trim(body.innerText || body.textContent);
+        // alert(content.length);
+
+        return content.length;
+    };
+    // function ValidateCharacterLength() {
+    //     var max = 20;
+    //     var count = CountCharacters();
+    //     if (count > max) {
+    //         alert("Maximum " + max + " characters allowed.")
+    //         return false;
+    //     }
+    //     return;
+    // }
 
 </script>
 <style type="text/css">
@@ -225,6 +251,13 @@ $("#bannerSubmit").on('click', function (e) {
       redirect: 'follow'
     };
 
+    var max = 1000;
+    var count = CountCharacters();
+    if (count > max) {
+        alert("Maximum " + max + " characters allowed.")
+        return false;
+    }else{
+
     fetch("https://apis.tradetipsapp.com/api/adBannerSimple/modifySimpleAdBanner", requestOptions)
       .then(response => response.json())
       .then(result => {
@@ -251,6 +284,7 @@ $("#bannerSubmit").on('click', function (e) {
 
  }
 
+}
 // // set values for demo
  // setDemoValues()
 // // get data based on above values
