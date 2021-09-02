@@ -39,19 +39,19 @@
                     </div>
                   </div>
                    <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label">Description One</label>
+                    <label class="col-lg-3 col-form-label form-control-label">Short Description</label>
                     <div class="col-lg-9">
                       <textarea class="form-control" id="shortDescriptions" name="Short_text_editor"></textarea>
+                      <div id="character_count_short"></div><br /> 
                     </div>
                   </div>
                    <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label">Description Two</label>
+                    <label class="col-lg-3 col-form-label form-control-label">Long Description</label>
                     <div class="col-lg-9">
                        <textarea class="form-control" id="longDescriptions" name="Long_text_editor"></textarea>
+                       <div id="character_count"></div><br />
                     </div>
                   </div>
-
-                  <div id="character_count"></div><br />
                   
                   <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label">Image</label>
@@ -144,15 +144,48 @@
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
 <script src="https://cdn.tiny.cloud/1/it3ify0z40t5vo6kcajgeiy9u1wusf5nsuhp3h6j4a585vko/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-  <script type="text/javascript">
-tinymce.init({
-    selector: "textarea",
-    setup: function (ed) {
-              ed.on('keyup', function (e) { 
-                  var count = CountCharacters();
-                  document.getElementById("character_count").innerHTML = " <b>Word Count: " + count + " </b> ";
+<script type="text/javascript">
+  tinymce.init({
+    selector: "textarea[name='Short_text_editor']",
+    setup: function (eds) {
+               eds.on('keyup', function (e) { 
+                  var count = CountCharactersShort();
+                  // alert(count);
+                   if(count > 975){
+                        return false;
+                    }
+                
+                 document.getElementById("character_count_short").innerHTML = "Remaining characters : " +(975 - count) + "/975";
               });
           },
+    menubar : "false",
+    toolbar: "insertfile undo redo | fontselect | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | emoticons | forecolor backcolor",
+    plugins: [
+        "advlist autolink lists link image charmap print preview anchor",
+        "searchreplace visualblocks code fullscreen",
+        "insertdatetime media table paste",
+    "emoticons" , "textcolor"
+    ],
+  content_style:
+    "body { background: #fff; color: #000; font-size: 14pt; font-family: sans-serif; }" ,
+      });
+</script>
+
+  <script type="text/javascript">
+tinymce.init({
+    selector: "textarea[name='Long_text_editor']",
+    setup: function (ed) {
+               ed.on('keypress', function (e) { 
+                  var count = CountCharacters();
+                  // alert(count);
+                   if(count > 975){
+                        return false;
+                    }
+                
+                 document.getElementById("character_count").innerHTML = "Remaining characters : " +(975 - count) + "/975";
+              });
+          },
+    selector : "textarea",
     plugins: [
         "advlist autolink lists link image charmap print preview anchor",
         "searchreplace visualblocks code fullscreen",
@@ -170,6 +203,14 @@ tinymce.init({
 
 function CountCharacters() {
         var body = tinymce.get("longDescriptions").getBody();
+        var content = tinymce.trim(body.innerText || body.textContent);
+        // alert(content.length);
+
+        return content.length;
+    };
+
+    function CountCharactersShort() {
+        var body = tinymce.get("shortDescriptions").getBody();
         var content = tinymce.trim(body.innerText || body.textContent);
         // alert(content.length);
 
