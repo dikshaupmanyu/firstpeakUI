@@ -149,13 +149,8 @@
     selector: "textarea[name='Short_text_editor']",
     setup: function (eds) {
                eds.on('keyup', function (e) { 
-                  var count = CountCharactersShort();
-                  // alert(count);
-                   if(count > 975){
-                        return false;
-                    }
-                
-                 document.getElementById("character_count_short").innerHTML = "Remaining characters : " +(975 - count) + "/975";
+                 var count = CountCharactersShort();
+                 document.getElementById("character_count_short").innerHTML = "Remaining characters : " +count + "/200";
               });
           },
     menubar : "false",
@@ -175,14 +170,9 @@
 tinymce.init({
     selector: "textarea[name='Long_text_editor']",
     setup: function (ed) {
-               ed.on('keypress', function (e) { 
+               ed.on('keyup', function (e) { 
                   var count = CountCharacters();
-                  // alert(count);
-                   if(count > 975){
-                        return false;
-                    }
-                
-                 document.getElementById("character_count").innerHTML = "Remaining characters : " +(975 - count) + "/975";
+                 document.getElementById("character_count").innerHTML = "Remaining characters : " +count + "/900";
               });
           },
     selector : "textarea",
@@ -202,19 +192,37 @@ tinymce.init({
 });
 
 function CountCharacters() {
+        var text_max = 950;
         var body = tinymce.get("longDescriptions").getBody();
         var content = tinymce.trim(body.innerText || body.textContent);
         // alert(content.length);
 
-        return content.length;
+        // return content.length;
+         var text_length = content.length;
+        // if(text_length > 200){
+        //   return;
+        // }
+        var text_remaining = text_max - text_length;
+        // alert(text_remaining);
+        return text_remaining;
     };
 
     function CountCharactersShort() {
+        var text_max = 200;
         var body = tinymce.get("shortDescriptions").getBody();
         var content = tinymce.trim(body.innerText || body.textContent);
         // alert(content.length);
 
-        return content.length;
+        // return content.length;
+
+        var text_length = content.length;
+        // if(text_length > 200){
+        //   return;
+        // }
+        var text_remaining = text_max - text_length;
+        // alert(text_remaining);
+        return text_remaining;
+
     };
     // function ValidateCharacterLength() {
     //     var max = 20;
