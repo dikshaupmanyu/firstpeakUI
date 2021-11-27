@@ -442,10 +442,11 @@ $("#bannerSubmit").on('click', function (e) {
                    // alert(JSON.stringify(dataResult));
                     // alert(dataResult.shortDescription);
                    // alert(dataResult.longDescription);
+                   
                   document.getElementById("titles").value = dataResult.title;
                   // var s = document.getElementById("shortDescriptions").value; 
 
-                    $('#shortDescriptions').html(dataResult.shortDescription);
+                  $('#shortDescriptions').html(dataResult.shortDescription);
                   $('#longDescriptions').html(dataResult.longDescription);
 
                   // alert(s);
