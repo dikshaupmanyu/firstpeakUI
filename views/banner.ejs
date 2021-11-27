@@ -1,5 +1,6 @@
            <%- include partials/header %>
  <script src="https://cdn.jsdelivr.net/npm/emoji-button@0.6.0/dist/index.min.js"></script>
+
     <script>
       window.addEventListener('DOMContentLoaded', () => {
   EmojiButton(document.querySelector('#emoji-button'), function (emoji) {
@@ -7,6 +8,7 @@
   });
 });
 </script>
+
 <style type="text/css">
   .emoji-picker{
     z-index: 111;
@@ -103,6 +105,29 @@
               <div class="card-header">
                 <h3 class="mb-0">Add Banner</h3>
               </div>
+             <!--  <br>
+               <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Slider 1</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Slider 2</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Slider 3</a>
+                </li>
+                </ul>
+                <div class="tab-content">
+                <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                  <p>First Panel</p>
+                </div>
+                <div class="tab-pane" id="tabs-2" role="tabpanel">
+                  <p>Second Panel</p>
+                </div>
+                <div class="tab-pane" id="tabs-3" role="tabpanel">
+                  <p>Third Panel</p>
+                </div>
+                </div> -->
               <div class="card-body">
                 <form autocomplete="off" class="form" role="form" method="post">
                   <div class="form-group row">
@@ -129,9 +154,6 @@
                        <div id="character_count"></div><br />
                     </div>
                   </div>
-
-                  
-
                   <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label">Image</label>
                     <div class="col-lg-9">
@@ -321,7 +343,7 @@ tinymce.init({
     setup: function (ed) {
                ed.on('keyup', function (e) { 
                   var count = CountCharacters();
-                 document.getElementById("character_count").innerHTML = "Remaining characters : " +count + "/900";
+                 document.getElementById("character_count").innerHTML = "Remaining characters : " +count + "/950";
               });
           },
     

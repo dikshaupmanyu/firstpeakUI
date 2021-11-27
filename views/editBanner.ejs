@@ -172,7 +172,7 @@ tinymce.init({
     setup: function (ed) {
                ed.on('keyup', function (e) { 
                   var count = CountCharacters();
-                 document.getElementById("character_count").innerHTML = "Remaining characters : " +count + "/900";
+                 document.getElementById("character_count").innerHTML = "Remaining characters : " +count + "/950";
               });
           },
     selector : "textarea",
@@ -442,7 +442,7 @@ $("#bannerSubmit").on('click', function (e) {
                    // alert(JSON.stringify(dataResult));
                     // alert(dataResult.shortDescription);
                    // alert(dataResult.longDescription);
-                   
+
                   document.getElementById("titles").value = dataResult.title;
                   // var s = document.getElementById("shortDescriptions").value; 
 
