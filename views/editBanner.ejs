@@ -439,12 +439,18 @@ $("#bannerSubmit").on('click', function (e) {
                 },
             success: function(data) {
                const dataResult = data;              
-                  // alert(JSON.stringify(dataResult));
+                   // alert(JSON.stringify(dataResult));
+                    // alert(dataResult.shortDescription);
+                   // alert(dataResult.longDescription);
                   document.getElementById("titles").value = dataResult.title;
                   // var s = document.getElementById("shortDescriptions").value; 
+
+                    $('#shortDescriptions').html(dataResult.shortDescription);
+                  $('#longDescriptions').html(dataResult.longDescription);
+
                   // alert(s);
-                  tinymce.get("shortDescriptions").setContent(dataResult.shortDescription);
-                  tinymce.get("longDescriptions").setContent(dataResult.longDescription);
+                  // tinymce.get("shortDescriptions").setContent(dataResult.shortDescription);
+                  // tinymce.get("longDescriptions").setContent(dataResult.longDescription);
                   // document.getElementById("shortDescriptions").text = dataResult.shortDescription;
                   // document.getElementById("longDescriptions").text = dataResult.longDescription;
                 
