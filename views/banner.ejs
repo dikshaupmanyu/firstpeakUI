@@ -563,7 +563,7 @@ $("#bannerSubmit").on('click', function (e) {
   var shortDescription = tinymce.get("shortDescriptions").getContent();
   // alert(shortDescription);
   var longDescription = tinymce.get("longDescriptions").getContent();
-  // alert(longDescriptions);
+  // alert(longDescription);
   var file = document.getElementById("imageDetailss").files[0];
   //alert(file);
   // alert(file);
@@ -612,14 +612,14 @@ $("#bannerSubmit").on('click', function (e) {
             return false;
         }else{
 
-    // var requestOptions1 = {
-    //   method: 'POST',
-    //   headers: {
-    //           Authorization: 'Bearer '+ tokens
-    //         },
-    //   // body: formdata,
-    //   redirect: 'follow'
-    // };
+    var requestOptions1 = {
+      method: 'POST',
+      headers: {
+              Authorization: 'Bearer '+ tokens
+            },
+      // body: formdata,
+      redirect: 'follow'
+    };
 
     fetch("https://apis.tradetipsapp.com/api/adBannerSimple/addSimpleAdBanner", requestOptions)
       .then(response => response.json())
