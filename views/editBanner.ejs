@@ -172,7 +172,7 @@ tinymce.init({
     setup: function (ed) {
                ed.on('keyup', function (e) { 
                   var count = CountCharacters();
-                 document.getElementById("character_count").innerHTML = "Remaining characters : " +count + "/950";
+                 document.getElementById("character_count").innerHTML = "Remaining characters : " +count + "/900";
               });
           },
     selector : "textarea",
@@ -192,7 +192,7 @@ tinymce.init({
 });
 
 function CountCharacters() {
-        var text_max = 950;
+        var text_max = 900;
         var body = tinymce.get("longDescriptions").getBody();
         var content = tinymce.trim(body.innerText || body.textContent);
         // alert(content.length);
