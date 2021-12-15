@@ -1,3 +1,4 @@
+AMC,AMC Entertainment Holdings Inc
 ATVI,Activision Blizzard Inc
 AMD,Advanced Micro Devices Inc
 ADBE,Adobe Inc.
@@ -42,6 +43,7 @@ FB,Facebook
 FISV,Fiserv Inc
 FOX,Fox Corp. Class B
 FOXA,Fox Corp. Class A
+GME,Gamestop Corporation
 GILD,Gilead Sciences Inc
 GOOG,Alphabet Class C
 GOOGL,Alphabet Class A
@@ -90,7 +92,6 @@ SWKS,Skyworks Solutions Inc
 SBUX,Starbucks Corp
 SNPS,Synopsys Inc
 TCOM,Trip.com Group Ltd
-TSLA,Tesla Inc
 TXN,Texas Instruments Inc
 TMUS,T-Mobile US Inc
 VRSN,Verisign Inc
@@ -535,3 +536,10 @@ YUM,Yum! Brands Inc
 ZBH,Zimmer Biomet Holdings
 ZION,Zions Bancorp
 ZTS,Zoetis
+SPY,S&P 500
+IWM,Russell 2000
+QQQ,Nasdaq 100
+DJI,Dow Jones
+TSLA,Tesla
+ETH,Ethereum
+NAKD,Naked Brand Group Ltd.
