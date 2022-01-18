@@ -1,3 +1,4 @@
+
 module.exports = function(app, passport) {
 
 // normal routes ===============================================================
@@ -11,6 +12,32 @@ module.exports = function(app, passport) {
     res.render('commentlist.ejs');
   });
 
+  app.get('/stocklist', function(req, res) {
+
+    res.render('stocklist.ejs');
+  });
+
+  app.get('/alltipByDate', function(req, res) {
+
+    res.render('alltipByDate.ejs');
+  });
+
+
+  app.get('/aiSearchByDate', function(req, res) {
+
+    res.render('aiSearchByDate.ejs');
+  });
+
+  app.get('/soicalSearchByDate', function(req, res) {
+
+    res.render('soicalSearchByDate.ejs');
+  });
+
+  app.get('/searchStock', function(req, res) {
+
+    res.render('searchStock.ejs');
+  });
+  
   app.get('/notificationlist', function(req, res) {
 
     res.render('notificationlist.ejs');

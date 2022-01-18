@@ -20,6 +20,54 @@
 
 </head>
 
+<style type="text/css">
+  .bg-gradient-primary{
+    background-color: black;
+    background-image: none;
+  }
+  *{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+
+<<<<<<< HEAD
+=======
+.sidebar ul li{
+    position:relative;
+    top:10px;
+    margin-left:0.5px;
+}
+.sidebar ul li:hover ul{
+    display:initial;
+}
+
+sidebar .nav-item .nav-link i{
+  margin-right:0.50rem
+}
+
+.far{
+  color:#fff;
+ font-weight:bold;
+ margin-left: 80px;
+}
+
+
+@media only screen and (max-width: 770px) {
+  .sidebar ul li ul{
+    left:104px;
+    width:130px;
+    font-size:10px ;
+  }
+  .sidebar ul li ul:hover{
+    width:130px;
+  }
+
+}
+>>>>>>> 0b691337800b6158b1bd39066735e27ca26df478
+</style>
+
 <body id="page-top">
 
   <!-- Page Wrapper -->
@@ -40,58 +88,105 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" id="HomeLink">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" id="UserLink">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>UserList</span></a>
-      </li>
-       <li class="nav-item active">
-        <a class="nav-link" id="CommentLink">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Comment List</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" id="CSVLink">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>CSV List</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" id="TipLink">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Tips Management</span></a>
-      </li>
+      <nav class="sidebar">
+        <ul>
+          <li class="nav-item active">
+            <a class="nav-link"  id="HomeLink">
+              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <span>Dashboard</span>
+          </a>
+        </li>
         <li class="nav-item active">
-        <a class="nav-link" id="NotifyLink">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Notification Management</span></a>
-      </li>
-         <li class="nav-item active">
-        <a class="nav-link" id="NotifyListLink">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Send Notification List</span></a>
-      </li>
-       <li class="nav-item active">
-        <a class="nav-link" id="BannerLink">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Banner Management</span></a>
-      </li>
-    
+          <a class="nav-link" id="UserLink">
+            <i class="fas fa-fw fa-tachometer-alt"></i> 
+            <span>UserList</span>
+          </a>
+        </li>
         <li class="nav-item active">
-        <a class="nav-link" id="FlagCallLink">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Flag Comment List</span></a>
-      </li>
-       <li class="nav-item active">
-        <a class="nav-link" id="AccountLink">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Account Management</span></a>
-      </li>
-
+          <a class="nav-link" id="WaitingLink">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Waiting List</span>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" id="StockLink">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Analytics</span>
+             <!--  <span><i class="far fa-greater-than"></i></span> -->
+          </a>
+          <!--   <ul class="nav flex-column" id="nav_accordion">
+              <li class="nav-item">
+                <a class="nav-link" id="StockLink">Search Stock By User </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="StockSearchLink"> Search Stock By Date </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="TipSearchLink"> Search Tip By Date </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="AISearchLink"> Search AI Count By Date</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="SoicalSearchLink"> Search Soical Chat Count By Date</a>
+              </li>
+            </ul> -->
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" id="CommentLink">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Comment List</span>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" id="CSVLink">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>CSV List</span>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" id="TipLink">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Tips Management</span>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" id="NotifyLink">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Notification Management</span>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" id="NotifyListLink">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Send Notification List</span>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" id="BannerLink">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Banner Management</span>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" id="FlagCallLink">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Flag Comment List</span>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link"  id="FlagChatLink">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Flag Chat Messages</span>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" id="AccountLink">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Account Management</span>
+          </a>
+        </li>
+        
       <!-- Divider -->
       <!-- <hr class="sidebar-divider"> -->
 
@@ -176,11 +271,14 @@
  -->
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
-
+    </ul>
+  </nav>
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
       </div>
+
+   
 
     </ul>
     <!-- End of Sidebar -->
@@ -216,8 +314,8 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">admin</span>
-                <img class="img-profile rounded-circle" src="/img/logo.png">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Test admin</span>
+                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
