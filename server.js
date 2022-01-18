@@ -17,7 +17,7 @@ var redis = require('redis');
 var cors = require('cors');
 var request = require('request');
 var http = require('http');
-// var https = require('https');
+var https = require('https');
 var privateKey  = fs.readFileSync('sslcert/server.key', 'utf8');
 var certificate = fs.readFileSync('sslcert/server.crt', 'utf8');
 var credentials = {key: privateKey, cert: certificate};
@@ -58,10 +58,10 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 
 // launch ======================================================================
 // app.listen(port);
-var httpServer = http.createServer(app);
-// var httpsServer = https.createServer(credentials, app);
+//var httpServer = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(5555);
-// httpsServer.listen(5555);
+//httpServer.listen(5555);
+httpsServer.listen(5555);
 
 console.log('The magic happens on port ');

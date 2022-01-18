@@ -79,6 +79,23 @@
               </div>
             </div>
 
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <a id="UserCallLink"><div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Active Session User Count</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><span id="toatlliveCount"></span></div>
+                    </div></a>
+                    <div class="col-auto">
+                      <i class="fas fa-user fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
 
             <!-- Earnings (Monthly) Card Example -->
            <!--  <div class="col-xl-3 col-md-6 mb-4">
@@ -268,6 +285,27 @@ fetch(url1, {
     console.log(error);
   });
 
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const urlds = "https://apis.tradetipsapp.com/api/dataAnalytics/getLiveUserCount";
+fetch(urlds, {
+  method: "POST",
+  headers: {
+          Authorization: 'Bearer ' + tokens,
+        },
+})
+  .then(resp => resp.json())
+    .then(function(data) {
+     
+        $('#toatlliveCount').html(data);
+
+
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
+
 // $.ajax({
 //         type: 'POST',
 //         url: 'https://apis.tradetipsapp.com/api/appUser/getAllAppUsers',
@@ -308,39 +346,20 @@ function logout() {
   window.location.href = "/";
 }
  </script>
-<script type="text/javascript">
-  window.addEventListener("load", function() {
+ <%- include partials/commonlink %>
+ <script type="text/javascript">
+     window.addEventListener("load", function() {
   var url_string = window.location.href; 
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
-document.getElementById("dashboardLink").href = "/home?tokendata="+tokens;
-   document.getElementById("HomeLink").href = "/home?tokendata="+tokens;
-  document.getElementById("UserLink").href = "/userlist?tokendata="+tokens;
-  document.getElementById("UserCallLink").href = "/userlist?tokendata="+tokens;
+   document.getElementById("UserCallLink").href = "/userlist?tokendata="+tokens;
   document.getElementById("VerifyUserCallLink").href = "/verifyuserlist?tokendata="+tokens;
    document.getElementById("NonVerifyUserCallLink").href = "/nonverifyuserlist?tokendata="+tokens;
-   document.getElementById("TipLink").href = "/tipList?tokendata="+tokens;
-   document.getElementById("BannerLink").href = "/banner?tokendata="+tokens;
-   document.getElementById("CommentLink").href = "/commentlist?tokendata="+tokens;
-   document.getElementById("CSVLink").href = "/csvlist?tokendata="+tokens;
-
-  document.getElementById("FlagCallLink").href = "/flaglist?tokendata="+tokens;
+document.getElementById("dashboardLink").href = "/home?tokendata="+tokens;
   document.getElementById("FlagCallsLink").href = "/flaglist?tokendata="+tokens;
-  document.getElementById("NotifyLink").href = "/notification?tokendata="+tokens;
-    document.getElementById("NotifyListLink").href = "/notificationlist?tokendata="+tokens;
 
-   document.getElementById("changePassLink").href = "/changePassword?tokendata="+tokens; 
-   document.getElementById("AccountLink").href = "/account?tokendata="+tokens; 
-  //  document.getElementById("NotifyListLink").href = "/notificationlist?tokendata="+tokens;
-  document.getElementById("WaitingLink").href = "/waitinglist?tokendata="+tokens;
-document.getElementById("StockLink").href = "/stocklist?tokendata="+tokens;
-   document.getElementById("StockSearchLink").href = "/searchStock?tokendata="+tokens;
-   document.getElementById("TipSearchLink").href = "/alltipByDate?tokendata="+tokens;
- document.getElementById("AISearchLink").href = "/aiSearchByDate?tokendata="+tokens;
-document.getElementById("SoicalSearchLink").href = "/soicalSearchByDate?tokendata="+tokens;
-  
-});
-</script>
+ });
+ </script>
 </body>
 
 </html>

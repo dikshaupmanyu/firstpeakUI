@@ -1,29 +1,14 @@
-           
-
-           <%- include partials/header %>
+ <%- include partials/header %>
 
            <style type="text/css">
-           
-           .sidebar li .submenu{ 
-             list-style: none; 
-             margin: 0; 
-             padding: 0; 
-             padding-left: 1rem; 
-             padding-right: 1rem;
-           }
-           .sidebar .nav-link {
-               font-weight: 500;
-               color: var(--bs-dark);
-           }
-           .sidebar .nav-link:hover {
-               color: var(--bs-primary);
-           }
-           li.nav-item.active {
-             background: black;
+       
+           li.nav-item.sidebars.active {
+             background: #b7b9cc;
              color: white;
            }
-           li.nav-item {
+           li.nav-item.sidebars {
                color: white;
+               background: #b7b9cc;
            }
            
            </style>
@@ -36,22 +21,22 @@
              <div class="row">
                 <aside class="col-lg-3"> 
            <!-- ============= COMPONENT ============== -->
-                 <nav class="sidebar card py-2 mb-4" style="background: grey;color: black;border: grey;margin-left: -15px;">
+                 <nav class="sidebar card py-2 mb-4" style="background: #b7b9cc;border: grey;margin-left: -15px;">
                    <h2 style="color: white;margin-left: 10px;">Analytics</h2> 
                    <ul class="nav flex-column" id="nav_accordion">
-                   <li class="nav-item active">
-                     <a class="nav-link" id="StockLinks">Stocks User Search </a>
+                   <li class="nav-item sidebars active">
+                     <a class="nav-link" id="StockLinks">Stock User Searched </a>
                    </li>
-                   <li class="nav-item">
+                   <li class="nav-item sidebars">
                      <a class="nav-link" id="StockSearchLink"> Stock By Date </a>
                    </li>
-                   <li class="nav-item">
-                     <a class="nav-link" id="TipSearchLink"> Tip By Date </a>
+                   <li class="nav-item sidebars">
+                     <a class="nav-link" id="TipSearchLink">Mentor Tip By Date </a>
                    </li>
-                   <li class="nav-item">
-                     <a class="nav-link" id="AISearchLink"> AI Count By Date</a>
+                   <li class="nav-item sidebars">
+                     <a class="nav-link" id="AISearchLink"> AI Tip Count By Date</a>
                    </li>
-                   <li class="nav-item">
+                   <li class="nav-item sidebars">
                      <a class="nav-link" id="SoicalSearchLink"> Soical Chat Count By Date</a>
                    </li>
                  </ul>
@@ -60,7 +45,7 @@
                </aside>
              
                <main class="col-lg-9">
-                         <h4>Search Stock By User</h4> 
+                         <h4>Stock User Searched</h4> 
                          <div class="card-body">
                            <form autocomplete="off" class="form" role="form">
                              <div class="form-group row">
@@ -250,7 +235,7 @@
              var urls = new URL(url_string);
              var tokens = urls.searchParams.get("tokendata");
             
-           const url = "https://apistest.tradetipsapp.com/api/appUserWebModify/getAllAppUsers";
+           const url = "https://apis.tradetipsapp.com/api/appUserWebModify/getAllAppUsers";
            fetch(url, {
              method: "POST",
              headers: {
@@ -281,7 +266,7 @@
                if(UserSelect!=""){
                  $.ajax({
                    type: 'POST',
-                   url: 'https://apistest.tradetipsapp.com/api/dataAnalytics/getAllSearchStockOfUserByUserName',
+                   url: 'https://apis.tradetipsapp.com/api/dataAnalytics/getAllSearchStockOfUserByUserName',
                    headers: {
                      Authorization: 'Bearer '+ tokens
                    },
@@ -347,29 +332,16 @@
            
            
             </script>
+
+              <%- include partials/commonlink %>
+
             
             <script type="text/javascript">
              window.addEventListener("load", function() {
              var url_string = window.location.href; 
              var urls = new URL(url_string);
              var tokens = urls.searchParams.get("tokendata");
-             document.getElementById("dashboardLink").href = "/home?tokendata="+tokens;
-           document.getElementById("TipLink").href = "/tipList?tokendata="+tokens;
-                 document.getElementById("WaitingLink").href = "/waitinglist?tokendata="+tokens;
            
-              document.getElementById("HomeLink").href = "/home?tokendata="+tokens;
-             document.getElementById("UserLink").href = "/userlist?tokendata="+tokens;
-             // document.getElementById("UserCallLink").href = "/userlist?tokendata="+tokens;
-              document.getElementById("CommentLink").href = "/commentlist?tokendata="+tokens;
-              document.getElementById("CSVLink").href = "/csvlist?tokendata="+tokens;
-            document.getElementById("FlagCallLink").href = "/flaglist?tokendata="+tokens;
-               document.getElementById("BannerLink").href = "/banner?tokendata="+tokens;
-           document.getElementById("NotifyLink").href = "/notification?tokendata="+tokens;
-              document.getElementById("changePassLink").href = "/changePassword?tokendata="+tokens;  
-                  document.getElementById("AccountLink").href = "/account?tokendata="+tokens;  
-                      document.getElementById("NotifyListLink").href = "/notificationlist?tokendata="+tokens;
-             document.getElementById("FlagChatLink").href = "/flagChatlist?tokendata="+tokens;
-              document.getElementById("StockLink").href = "/stocklist?tokendata="+tokens;
                  document.getElementById("StockLinks").href = "/stocklist?tokendata="+tokens;
               document.getElementById("StockSearchLink").href = "/searchStock?tokendata="+tokens;
               document.getElementById("TipSearchLink").href = "/alltipByDate?tokendata="+tokens;

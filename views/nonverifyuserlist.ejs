@@ -466,36 +466,8 @@ $.ajax({
 
    
  </script>
- <script type="text/javascript">
-  window.addEventListener("load", function() {
-  var url_string = window.location.href; 
-  var urls = new URL(url_string);
-  var tokens = urls.searchParams.get("tokendata");
- document.getElementById("dashboardLink").href = "/home?tokendata="+tokens;
-document.getElementById("TipLink").href = "/tipList?tokendata="+tokens;
-  
-   document.getElementById("HomeLink").href = "/home?tokendata="+tokens;
-  document.getElementById("UserLink").href = "/userlist?tokendata="+tokens;
-  // document.getElementById("UserCallLink").href = "/userlist?tokendata="+tokens;
-   document.getElementById("CommentLink").href = "/commentlist?tokendata="+tokens;
-   document.getElementById("CSVLink").href = "/csvlist?tokendata="+tokens;
- document.getElementById("FlagCallLink").href = "/flaglist?tokendata="+tokens;
-       document.getElementById("BannerLink").href = "/banner?tokendata="+tokens;
- document.getElementById("NotifyLink").href = "/notification?tokendata="+tokens;
-    document.getElementById("changePassLink").href = "/changePassword?tokendata="+tokens;  
-   document.getElementById("AccountLink").href = "/account?tokendata="+tokens;  
-    document.getElementById("NotifyListLink").href = "/notificationlist?tokendata="+tokens;
+  <%- include partials/commonlink %>
 
-
-    document.getElementById("StockLink").href = "/stocklist?tokendata="+tokens;
-   document.getElementById("StockSearchLink").href = "/searchStock?tokendata="+tokens;
-   document.getElementById("StockLinks").href = "/stocklist?tokendata="+tokens;
-        document.getElementById("NotifyListLink").href = "/notificationlist?tokendata="+tokens;
-   document.getElementById("TipSearchLink").href = "/alltipByDate?tokendata="+tokens;
- document.getElementById("AISearchLink").href = "/aiSearchByDate?tokendata="+tokens;
-document.getElementById("SoicalSearchLink").href = "/soicalSearchByDate?tokendata="+tokens;
-});
-</script>
 
 </body>
 
