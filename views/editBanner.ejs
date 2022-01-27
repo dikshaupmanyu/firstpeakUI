@@ -1,12 +1,13 @@
-           <%- include partials/header %>
+<%- include partials/header %>
 
 <script src="https://cdn.jsdelivr.net/npm/emoji-button@0.6.0/dist/index.min.js"></script>
     <script>
       window.addEventListener('DOMContentLoaded', () => {
   EmojiButton(document.querySelector('#emoji-button'), function (emoji) {
-    document.querySelector('input').value += emoji;
+    document.querySelector('#titles').value += emoji;
   });
 });
+</script>
 </script>
 <script>
   window.addEventListener('DOMContentLoaded', () => {
@@ -36,6 +37,8 @@ document.querySelector('#titlesss3').value += emoji3;
   .emoji-picker__emojis {
     height: 16rem !important;
   }
+
+
 
   body {
     background: #eee
@@ -162,222 +165,223 @@ button:hover {
   border-radius: 0 3px 3px 0;
   user-select: none;
 }
+
 </style>
 
        
-<div class="container-fluid">
+        <div class="container-fluid">
 
-  <!-- form user info -->
-   <div class="card card-outline-secondary">
-     <div class="card-header">
-       <h3 class="mb-0">Edit Banner</h3>
-     </div>
-      <div class="card-body">
-     <br>
-      
-       <br>
-       <div class="tab-content">
-      
-       <div class="tab-pane" id="tabs-banner1" role="tabpanel">
-         <ul class="nav nav-tabs" role="tablist">
-           <li class="nav-item">
-             <a class="nav-link banner1 active" id="banner1" data-toggle="tab" href="#tabs-banner1" role="tab">Banner 1</a>
-           </li>
-           <!-- <li class="nav-item">
-             <a class="nav-link banner2" id="banner2" data-toggle="tab" href="#tabs-banner2" role="tab">Banner 2</a>
-           </li> -->
-           </ul>
-         <form autocomplete="off" class="form" role="form" method="post">
-         <div class="form-group row">
-              <input type="text" class="form-control" placeholder="Enter your title here" name="bannerId" id="bannerIds" value="<%= bannersId %>" style="display: none;">
-           <label class="col-lg-3 col-form-label form-control-label">Title</label>
-           <div class="col-lg-7">
-             <input type="text" class="form-control" id="titles" name="title" required />
-           </div>
-           <div class="col-lg-2">
-             <button id="emoji-button">😀</button>
-           </div>
-         </div>
-         <div class="form-group row">
-           <label class="col-lg-3 col-form-label form-control-label">Short Description</label>
-           <div class="col-lg-9">
-             <textarea class="form-control" id="shortDescriptions" name="Short_text_editor" required /></textarea>                     
-           </div>                    
-         </div>
-         <div class="form-group row">
-           <label class="col-lg-3 col-form-label form-control-label">Long Description</label>
-           <div class="col-lg-9">
-              <textarea class="form-control" id="longDescriptions" name="Long_text_editor" required /></textarea>
-           </div>
-         </div>
-         <div class="form-group row">
-           <label class="col-lg-3 col-form-label form-control-label">Image</label>
-           <div class="col-lg-9">
-             <img id="newImage">
-             <input type="file" id="imageDetailss" name="imageDetails"/>
-           </div>
-         </div>
-         <div class="form-group row">
-           <label class="col-lg-3 col-form-label form-control-label"></label>
-           <div class="col-lg-9">
-             <input class="btn btn-secondary" type="button" value="Preview" id="bannerPreviewDataone">
-             <input class="btn btn-secondary" type="reset" value="Cancel"> 
-             <input class="btn btn-primary" type="button" value="Submit" id="bannerSubmit">
-            </div>
-         </div>
-        </form>
-       </div>
-
-       <!--  -->
-
-       <div class="tab-pane" id="tabs-banner2" role="tabpanel">
-         <ul class="nav nav-tabs" role="tablist">
-           <li class="nav-item">
-             <a class="nav-link banner2" id="banner2" data-toggle="tab" href="#tabs-banner2" role="tab">Banner 2</a>
-           </li>
-           </ul>
-             <div class="tab-content">
-                 <form id="regForm">
-                     <div class="all-steps" id="all-steps"> <span class="step">Slider 1</span> <span class="step">Slider 2</span> <span class="step">Slider 3</span>  </div>
-                     <div class="tab">
-                       <div class="form-group row">
-                         <label class="col-lg-3 col-form-label form-control-label">Title 1</label>
-                         <div class="col-lg-7">
-                           <input type="text" class="form-control" id="titles1" name="title" required />
-                         </div>
-                         <div class="col-lg-2">
-                           <button id="emoji-button1">😀</button>
-                         </div>
-                       </div>
-                       <div class="form-group row">
-                         <label class="col-lg-3 col-form-label form-control-label">Short Description 1</label>
-                         <div class="col-lg-9">
-                         <textarea class="form-control" id="shortDescriptions1" name="Short_text_editor" required /></textarea>                     
-                         </div>
+           <!-- form user info -->
+            <div class="card card-outline-secondary">
+              <div class="card-header">
+                <h3 class="mb-0">Edit Banner</h3>
+              </div>
+               <div class="card-body">
+              <br>
+               
+                <br>
+                <div class="tab-content">
+               
+                <div class="tab-pane" id="tabs-banner1" role="tabpanel">
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link banner1 active" id="banner1" data-toggle="tab" href="#tabs-banner1" role="tab">Banner 1</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                      <a class="nav-link banner2" id="banner2" data-toggle="tab" href="#tabs-banner2" role="tab">Banner 2</a>
+                    </li> -->
+                    </ul>
+                  <form autocomplete="off" class="form" role="form" method="post">
+                  <div class="form-group row">
+                       <input type="text" class="form-control" placeholder="Enter your title here" name="bannerId" id="bannerIds" value="<%= bannersId %>" style="display: none;">
+                    <label class="col-lg-3 col-form-label form-control-label">Title</label>
+                    <div class="col-lg-7">
+                      <input type="text" class="form-control" id="titles" name="title" required />
+                    </div>
+                    <div class="col-lg-2">
+                      <button id="emoji-button">😀</button>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label">Short Description</label>
+                    <div class="col-lg-9">
+                      <textarea class="form-control" id="shortDescriptions" name="Short_text_editor" required /></textarea>                     
+                    </div>                    
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label">Long Description</label>
+                    <div class="col-lg-9">
+                       <textarea class="form-control" id="longDescriptions" name="Long_text_editor" required /></textarea>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label">Image</label>
+                    <div class="col-lg-9">
+                      <img id="newImage">
+                      <input type="file" id="imageDetailss" name="imageDetails"/>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label"></label>
+                    <div class="col-lg-9">
+                     <!--  <input class="btn btn-secondary" type="button" value="Preview" id="bannerPreviewDataone"> -->
+                      <input class="btn btn-secondary" type="reset" value="Cancel"> 
+                      <input class="btn btn-primary" type="button" value="Submit" id="bannerSubmit">
                      </div>
-                     <div class="form-group row">
-                       <label class="col-lg-3 col-form-label form-control-label">Long Description 1</label>
-                       <div class="col-lg-9">
-                          <textarea class="form-control" id="longDescriptions1" name="Long_text_editor" required /></textarea>
-                       </div>
-                     </div>
-                     <div class="form-group row">
-                       <label class="col-lg-3 col-form-label form-control-label">Image 1</label>
-                       <div class="col-lg-9">
-                         <img id="newImage1">
-                         <input type="file" id="imageDetailss1" name="imageDetails" accept="image/*"/>
-                       </div>
-                     </div>
-                     <br>
-                     <div class="form-group row">
-                       <label class="col-lg-3 col-form-label form-control-label"></label>
-                       <div class="col-lg-9">
-                         <!-- <input class="btn btn-secondary" type="reset" value="Cancel">  -->
-                         <!-- <input class="btn btn-secondary" type="button" value="Preview" id="bannerPreviewData1"> -->
-                         <button type="button" class="btn btn-primary"id="nextBtn" onclick="nextPrev(1)">Next</button> 
-                       </div>
-                     </div>
-                     </div>
-                     <div class="tab">
-                       <div class="form-group row">
-                         <label class="col-lg-3 col-form-label form-control-label">Title 2</label>
-                         <div class="col-lg-7">
-                           <input type="text" class="form-control" id="titless2" name="title" required />
-                         </div>
-                         <div class="col-lg-2">
-                           <button id="emoji-button2">😀</button>
-                         </div>
-                       </div>
-                       <div class="form-group row">
-                         <label class="col-lg-3 col-form-label form-control-label">Short Description 2</label>
-                         <div class="col-lg-9">
-                           <textarea class="form-control" id="shortDescriptionss2" name="Short_text_editor" required /></textarea>                     
-                         </div>                      
-                       </div>
-                       <div class="form-group row">
-                         <label class="col-lg-3 col-form-label form-control-label">Long Description 2</label>
-                         <div class="col-lg-9">
-                            <textarea class="form-control" id="longDescriptionss2" name="Long_text_editor" required /></textarea>
-                         </div>
-                       </div>
-                       <div class="form-group row">
-                         <label class="col-lg-3 col-form-label form-control-label">Image 2</label>
-                         <div class="col-lg-9">
-                           <img id="newImage2">
-                           <input type="file" id="imageDetailss2" name="imageDetailss" accept="image/*" />
-                         </div>
-                       </div>
-                       <br>
-                       <div class="form-group row">
-                         <label class="col-lg-3 col-form-label form-control-label"></label>
-                         <div class="col-lg-9">
-                           <button type="button" class="btn btn-secondary"id="prevBtn" onclick="nextPrev(-1)">Previous</button> 
-                           <!-- <input class="btn btn-secondary" type="reset" value="Cancel">  -->
-                           <!-- <input class="btn btn-secondary" type="button" value="Preview" id="bannerPreviewData2"> -->
-                           <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextPrev(1)">Next</button> 
-                         </div>
-                       </div>
-                     </div>
-                     <div class="tab">
-                       <div class="form-group row">
-                         <label class="col-lg-3 col-form-label form-control-label">Title 3</label>
-                         <div class="col-lg-7">
-                           <input type="text" class="form-control" id="titlesss3" name="title" required />
-                         </div>
-                         <div class="col-lg-2">
-                           <button id="emoji-button3">😀</button>
-                         </div>
-                       </div>
-                       <div class="form-group row">
-                         <label class="col-lg-3 col-form-label form-control-label">Short Description 3</label>
-                         <div class="col-lg-9">
-                           <textarea class="form-control" id="shortDescriptionsss3" name="Short_text_editor" required /></textarea>                     
-                         </div>
-                       </div>
-                       <div class="form-group row">
-                         <label class="col-lg-3 col-form-label form-control-label">Long Description 3</label>
-                         <div class="col-lg-9">
-                            <textarea class="form-control" id="longDescriptionsss3" name="Long_text_editor" required /></textarea>
-                         </div>
-                       </div>
-                       <div class="form-group row">
-                         <label class="col-lg-3 col-form-label form-control-label">Image 3</label>
-                         <div class="col-lg-9">
-                           <img id="newImage3">
-                           <input type="file" id="imageDetailssss3" name="imageDetailss" accept="image/*" />
-                         </div>
-                       </div>
-                       <br>
-                       <div class="form-group row">
-                         <label class="col-lg-3 col-form-label form-control-label"></label>
-                         <div class="col-lg-9">
-                           <button type="button" class="btn btn-secondary"id="prevBtn" onclick="nextPrev(-1)">Previous</button> 
-                           <!-- <input class="btn btn-secondary" type="reset" value="Cancel"> -->
-                           <input class="btn btn-secondary" type="button" value="Preview" id="bannerPreviewData">
-                           <input class="btn btn-primary" type="button" value="Submit" id="bannerSubmitbannerone">
-                         </div>
-                       </div>
-                     </div>
+                  </div>
                  </form>
-               </div>
-     </div>
+                </div>
 
-       <!--  -->
-   </div><!-- /form user info -->
+                <!--  -->
+
+                <div class="tab-pane" id="tabs-banner2" role="tabpanel">
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link banner2" id="banner2" data-toggle="tab" href="#tabs-banner2" role="tab">Banner 2</a>
+                    </li>
+                    </ul>
+                      <div class="tab-content">
+                          <form id="regForm">
+                              <div class="all-steps" id="all-steps"> <span class="step">Slider 1</span> <span class="step">Slider 2</span> <span class="step">Slider 3</span>  </div>
+                              <div class="tab">
+                                <div class="form-group row">
+                                  <label class="col-lg-3 col-form-label form-control-label">Title 1</label>
+                                  <div class="col-lg-7">
+                                    <input type="text" class="form-control" id="titles1" name="title" required />
+                                  </div>
+                                  <div class="col-lg-2">
+                                    <button id="emoji-button1">😀</button>
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label class="col-lg-3 col-form-label form-control-label">Short Description 1</label>
+                                  <div class="col-lg-9">
+                                  <textarea class="form-control" id="shortDescriptions1" name="Short_text_editor" required /></textarea>                     
+                                  </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Long Description 1</label>
+                                <div class="col-lg-9">
+                                   <textarea class="form-control" id="longDescriptions1" name="Long_text_editor" required /></textarea>
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Image 1</label>
+                                <div class="col-lg-9">
+                                  <img id="newImage1">
+                                  <input type="file" id="imageDetailss1" name="imageDetails" accept="image/*"/>
+                                </div>
+                              </div>
+                              <br>
+                              <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label"></label>
+                                <div class="col-lg-9">
+                                  <!-- <input class="btn btn-secondary" type="reset" value="Cancel">  -->
+                                  <!-- <input class="btn btn-secondary" type="button" value="Preview" id="bannerPreviewData1"> -->
+                                  <button type="button" class="btn btn-primary"id="nextBtn" onclick="nextPrev(1)">Next</button> 
+                                </div>
+                              </div>
+                              </div>
+                              <div class="tab">
+                                <div class="form-group row">
+                                  <label class="col-lg-3 col-form-label form-control-label">Title 2</label>
+                                  <div class="col-lg-7">
+                                    <input type="text" class="form-control" id="titless2" name="title" required />
+                                  </div>
+                                  <div class="col-lg-2">
+                                    <button id="emoji-button2">😀</button>
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label class="col-lg-3 col-form-label form-control-label">Short Description 2</label>
+                                  <div class="col-lg-9">
+                                    <textarea class="form-control" id="shortDescriptionss2" name="Short_text_editor" required /></textarea>                     
+                                  </div>                      
+                                </div>
+                                <div class="form-group row">
+                                  <label class="col-lg-3 col-form-label form-control-label">Long Description 2</label>
+                                  <div class="col-lg-9">
+                                     <textarea class="form-control" id="longDescriptionss2" name="Long_text_editor" required /></textarea>
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label class="col-lg-3 col-form-label form-control-label">Image 2</label>
+                                  <div class="col-lg-9">
+                                    <img id="newImage2">
+                                    <input type="file" id="imageDetailss2" name="imageDetailss" accept="image/*" />
+                                  </div>
+                                </div>
+                                <br>
+                                <div class="form-group row">
+                                  <label class="col-lg-3 col-form-label form-control-label"></label>
+                                  <div class="col-lg-9">
+                                    <button type="button" class="btn btn-secondary"id="prevBtn" onclick="nextPrev(-1)">Previous</button> 
+                                    <!-- <input class="btn btn-secondary" type="reset" value="Cancel">  -->
+                                    <!-- <input class="btn btn-secondary" type="button" value="Preview" id="bannerPreviewData2"> -->
+                                    <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextPrev(1)">Next</button> 
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="tab">
+                                <div class="form-group row">
+                                  <label class="col-lg-3 col-form-label form-control-label">Title 3</label>
+                                  <div class="col-lg-7">
+                                    <input type="text" class="form-control" id="titlesss3" name="title" required />
+                                  </div>
+                                  <div class="col-lg-2">
+                                    <button id="emoji-button3">😀</button>
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label class="col-lg-3 col-form-label form-control-label">Short Description 3</label>
+                                  <div class="col-lg-9">
+                                    <textarea class="form-control" id="shortDescriptionsss3" name="Short_text_editor" required /></textarea>                     
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label class="col-lg-3 col-form-label form-control-label">Long Description 3</label>
+                                  <div class="col-lg-9">
+                                     <textarea class="form-control" id="longDescriptionsss3" name="Long_text_editor" required /></textarea>
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label class="col-lg-3 col-form-label form-control-label">Image 3</label>
+                                  <div class="col-lg-9">
+                                    <img id="newImage3">
+                                    <input type="file" id="imageDetailssss3" name="imageDetailss" accept="image/*" />
+                                  </div>
+                                </div>
+                                <br>
+                                <div class="form-group row">
+                                  <label class="col-lg-3 col-form-label form-control-label"></label>
+                                  <div class="col-lg-9">
+                                    <button type="button" class="btn btn-secondary"id="prevBtn" onclick="nextPrev(-1)">Previous</button> 
+                                    <!-- <input class="btn btn-secondary" type="reset" value="Cancel"> -->
+                                   <!--  <input class="btn btn-secondary" type="button" value="Preview" id="bannerPreviewData"> -->
+                                    <input class="btn btn-primary" type="button" value="Submit" id="bannerSubmitbannerone">
+                                  </div>
+                                </div>
+                              </div>
+                          </form>
+                        </div>
+              </div>
+
+                <!--  -->
+            </div><!-- /form user info -->
+
+        
+        </div>
+
+      </div>
+      <!-- End of Main Content -->
 
 
-</div>
-
-</div>
-<!-- End of Main Content -->
 
 
+                 <%- include partials/footer %>
 
 
-        <%- include partials/footer %>
-
-
-</div>
+    </div>
     <!-- End of Content Wrapper -->
 
   </div>
@@ -439,59 +443,62 @@ button:hover {
     </div>
   </div>
 
-    <!-- ///////////////// PREVIEW 1 BANNER 2 -->
-    <div class="modal fade" id="previewModals" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content preview-phone">
-          <div class="modal-body preview-card-body p-0"><main>
-      <div class="pt-5" style="position: relative;">
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-        <!-- <div class="all-steps1"> <span class="step"></span> <span class="step"></span> <span class="step"></span> <span class="step"></span> </div> -->
-                  <div class="text-center">
-                    <div>
-                      <button type="button" class="prev-slide w3-light-grey" id="prevPrev"  onclick="plusSlides(-1)">❮ Prev</button>
-                      <button type="button" class="next-slide w3-light-grey" id="nextPrev"  onclick="plusSlides(1)">Next ❯</button>
-                    </div>
-                       <div class="card-body text-dark">
-                           <div class="mySlides min-height-360">
-                             <!-- <span>Slider 1</span> -->
-                             <img style="max-width: 200px;" id="previewImgSrc1" class="card-img-top" alt="..."></br>
-                             <h3 class="clearfix text-gray-900 mb-3 font-weight-bold" id="previewTitle1"></h3>
-                             <h5 id="previewShortDescription1"></h5>
-                             <h5 class="show-more-less-dec" style="display: none;" id="previewLongDescription1"> </h5>
-                             <a class="show-more-less-btn" href="javascript:void(0);">Show More</a>
-                           </div>
-                           <div class="mySlides min-height-360">
-                             <!-- <span>Slider 2</span> -->
-                             <img style="max-width: 200px;"  id="previewImgSrc2" class="card-img-top" alt="..."></br>
-                             <h3 class="clearfix text-gray-900 mb-3 font-weight-bold" id="previewTitle2"></h3>
-                             <h5 id="previewShortDescription2"></h5>
-                             <h5 class="show-more-less-dec" style="display: none;" id="previewLongDescription2"> </h5>
-                             <a class="show-more-less-btn" href="javascript:void(0);">Show More</a>
-                           </div>
-                           <div class="mySlides min-height-360">
-                             <!-- <span>Slider 3</span> -->
-                             <img style="max-width: 200px;"  id="previewImgSrc3" class="card-img-top" alt="..."></br>
-                             <h3 class="clearfix text-gray-900 mb-3 font-weight-bold" id="previewTitle3"></h3>
-                             <h5 id="previewShortDescription3"></h5>
-                             <h5 class="show-more-less-dec" style="display: none;" id="previewLongDescription3"> </h5>
-                             <a class="show-more-less-btn" href="javascript:void(0);">Show More</a>
-                           </div>
-                          <div class="text-center mt-4"> <a href="#" class="btn btn-primary btn-block btn-lg">Got It!</a> </div>
-                      </div>
+
+  <!-- ///////////////// PREVIEW 1 BANNER 2 -->
+  <div class="modal fade" id="previewModals" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content preview-phone">
+        <div class="modal-body preview-card-body p-0"><main>
+    <div class="pt-5" style="position: relative;">
+      <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+      <!-- <div class="all-steps1"> <span class="step"></span> <span class="step"></span> <span class="step"></span> <span class="step"></span> </div> -->
+                <div class="text-center">
+                  <div>
+                    <button type="button" class="prev-slide w3-light-grey" id="prevPrev"  onclick="plusSlides(-1)">❮ Prev</button>
+                    <button type="button" class="next-slide w3-light-grey" id="nextPrev"  onclick="plusSlides(1)">Next ❯</button>
                   </div>
-   
-      </div>
-   </main></div>
-          <!-- <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="#">Submit</a>
-          </div> -->
-        </div>
+                     <div class="card-body text-dark">
+                         <div class="mySlides min-height-360">
+                           <!-- <span>Slider 1</span> -->
+                           <img style="max-width: 200px;" id="previewImgSrc1" class="card-img-top" alt="..."></br>
+                           <h3 class="clearfix text-gray-900 mb-3 font-weight-bold" id="previewTitle1"></h3>
+                           <h5 id="previewShortDescription1"></h5>
+                           <h5 class="show-more-less-dec" style="display: none;" id="previewLongDescription1"> </h5>
+                           <a class="show-more-less-btn" href="javascript:void(0);">Show More</a>
+                         </div>
+                         <div class="mySlides min-height-360">
+                           <!-- <span>Slider 2</span> -->
+                           <img style="max-width: 200px;"  id="previewImgSrc2" class="card-img-top" alt="..."></br>
+                           <h3 class="clearfix text-gray-900 mb-3 font-weight-bold" id="previewTitle2"></h3>
+                           <h5 id="previewShortDescription2"></h5>
+                           <h5 class="show-more-less-dec" style="display: none;" id="previewLongDescription2"> </h5>
+                           <a class="show-more-less-btn" href="javascript:void(0);">Show More</a>
+                         </div>
+                         <div class="mySlides min-height-360">
+                           <!-- <span>Slider 3</span> -->
+                           <img style="max-width: 200px;"  id="previewImgSrc3" class="card-img-top" alt="..."></br>
+                           <h3 class="clearfix text-gray-900 mb-3 font-weight-bold" id="previewTitle3"></h3>
+                           <h5 id="previewShortDescription3"></h5>
+                           <h5 class="show-more-less-dec" style="display: none;" id="previewLongDescription3"> </h5>
+                           <a class="show-more-less-btn" href="javascript:void(0);">Show More</a>
+                         </div>
+                        <div class="text-center mt-4"> <a href="#" class="btn btn-primary btn-block btn-lg">Got It!</a> </div>
+                    </div>
+                </div>
+ 
+    </div>
+ </main></div>
+        <!-- <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="#">Submit</a>
+        </div> -->
       </div>
     </div>
+  </div>
+
+
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -499,11 +506,16 @@ button:hover {
 
   <!-- Core plugin JavaScript-->
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></link>
+
+
 <script type="text/javascript">
   $(document).ready(function () {
 //change selectboxes to selectize mode to be searchable
@@ -522,96 +534,19 @@ button:hover {
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
 <script src="https://cdn.tiny.cloud/1/it3ify0z40t5vo6kcajgeiy9u1wusf5nsuhp3h6j4a585vko/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-<script type="text/javascript">
-  tinymce.init({
-    selector: "textarea[name='Short_text_editor']",
-    setup: function (eds) {
-               eds.on('keyup', function (e) { 
-                 var count = CountCharactersShort();
-                 document.getElementById("character_count_short").innerHTML = "Remaining characters : " +count + "/200";
-              });
-          },
-    menubar : "false",
-    toolbar: "insertfile undo redo | fontselect | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | emoticons | forecolor backcolor",
-    plugins: [
-        "advlist autolink lists link image charmap print preview anchor",
-        "searchreplace visualblocks code fullscreen",
-        "insertdatetime media table paste",
-    "emoticons" , "textcolor"
-    ],
-  content_style:
-    "body { background: #fff; color: #000; font-size: 14pt; font-family: sans-serif; }" ,
-      });
-</script>
-
   <script type="text/javascript">
 tinymce.init({
-    selector: "textarea[name='Long_text_editor']",
-    setup: function (ed) {
-               ed.on('keyup', function (e) { 
-                  var count = CountCharacters();
-                 document.getElementById("character_count").innerHTML = "Remaining characters : " +count + "/900";
-              });
-          },
-    selector : "textarea",
+    selector: "textarea",
     plugins: [
         "advlist autolink lists link image charmap print preview anchor",
         "searchreplace visualblocks code fullscreen",
         "insertdatetime media table paste",
-    "emoticons" , "textcolor"
+    "emoticons"
     ],
   toolbar_location: "top",
   menubar : "false",
-    toolbar: "insertfile undo redo | fontselect | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | emoticons | forecolor backcolor",
-  content_style:
-    "body { background: #fff; color: #000; font-size: 14pt; font-family: sans-serif; }" ,
-  font_formats:
-    "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Terminal=terminal,monaco; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; Wingdings=wingdings,zapf dingbats",
+    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | emoticons"
 });
-
-function CountCharacters() {
-        var text_max = 900;
-        var body = tinymce.get("longDescriptions").getBody();
-        var content = tinymce.trim(body.innerText || body.textContent);
-        // alert(content.length);
-
-        // return content.length;
-         var text_length = content.length;
-        // if(text_length > 200){
-        //   return;
-        // }
-        var text_remaining = text_max - text_length;
-        // alert(text_remaining);
-        return text_remaining;
-    };
-
-    function CountCharactersShort() {
-        var text_max = 200;
-        var body = tinymce.get("shortDescriptions").getBody();
-        var content = tinymce.trim(body.innerText || body.textContent);
-        // alert(content.length);
-
-        // return content.length;
-
-        var text_length = content.length;
-        // if(text_length > 200){
-        //   return;
-        // }
-        var text_remaining = text_max - text_length;
-        // alert(text_remaining);
-        return text_remaining;
-
-    };
-    // function ValidateCharacterLength() {
-    //     var max = 20;
-    //     var count = CountCharacters();
-    //     if (count > max) {
-    //         alert("Maximum " + max + " characters allowed.")
-    //         return false;
-    //     }
-    //     return;
-    // }
-
 </script>
 <style type="text/css">
   span.tox-statusbar__branding {
@@ -620,235 +555,594 @@ function CountCharacters() {
 </style>
 
 <script>
-  var slideIndex = 1;
-  showSlides(slideIndex);
-  
-  function plusSlides(n) {
-    showSlides(slideIndex += n);
-  }
-  
-  function currentSlide(n) {
-    showSlides(slideIndex = n);
-  }
-  
-  function showSlides(n) {
-    var i;
-    var slides = document.getElementsByClassName("mySlides");
-  
-    if (n > slides.length) {slideIndex = 1}    
-    if (n < 1) {slideIndex = slides.length}
-    for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";  
-    }
-   
-    slides[slideIndex-1].style.display = "block";  
-  }
-  
-  
-  </script>
+var slideIndex = 1;
+showSlides(slideIndex);
 
-<script type="text/javascript">
-  window.history.forward(); 
-          function noBack() { 
-              window.history.forward(); 
-          } 
-   var url_string = window.location.href; 
-    var urls = new URL(url_string);
-    var tokens = urls.searchParams.get("tokendata");
-    // var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjAwMzIwMjcsImV4cCI6MTYyMDYzNjgyN30.BSmCDBqWEf4FKxTsTgVe7-zTjHqRr6HYjglEUvlyUHx03rUfrp9N75pedAre1LQsdYtF7eyViM-5xaempJ68Ew";
-  
-  $("#bannerPreviewDataone").on('click', function (e) {
-  
-  var title = $('#titles').val();
-  // alert(title);
-  var shortDescription = tinymce.get("shortDescriptions").getContent();
-  // alert(shortDescription);
-  var longDescription = tinymce.get("longDescriptions").getContent();
-  // alert(longDescription);
-  var file = document.getElementById("imageDetailss").files[0];
-  // alert(file);
-  // alert(readURLs(file));
-  // if(file == undefined){
-  //   readURLs(file);
-  // }
-  
-  
-  var fullPath = $("#imageDetailss").val();
-  // var fullPath = $("#newImage").val();
-  // alert(fullPath);   
-  var filename = fullPath.replace(/^.*[\\\/]/, '');
-  // alert(filename);
-   
-  
-   
-  
-  if(title == "" || shortDescription == ""  || longDescription == "" ){
-  
-    alert("Please fill all the field");
-  }else {
-  
-    
-    var fr = new FileReader();
-    
-    fr.onload = function(ev2) {
-        console.dir(ev2);
-        $('#previewImgSrcone').attr('src', ev2.target.result);
-    };
-    
-    fr.readAsDataURL(file);
-    
-    $("#previewModal").modal('show');
-  
-      document.getElementById("previewTitles").innerHTML  = title;
-      document.getElementById("previewShortDescriptions").innerHTML  = shortDescription;
-      document.getElementById("previewLongDescriptions").innerHTML  = longDescription;
-      // document.getElementById("previewImgSrc").src = filename;
-  
-  
-  
-  //    var formdata = new FormData();
-  //   formdata.append("title", title);
-  //   formdata.append("shortDescription", shortDescription);
-  //   formdata.append("longDescription", longDescription);
-  
-  // if(filename == ""){
-  //   // alert("null");
-  //     formdata.append("imageDetails", "");
-  
-  //   }else{
-  //   // alert("not null");
-  //     formdata.append("imageDetails", file , filename);
-  
-  //   }
-  
-   //alert(title);
-   //alert(shortDescription);
-   //alert(longDescription);
-  
-  }
-    
-  });
-  
-  //  PREVIEW FRO MULTIPLE BANNER
-  $("#bannerPreviewData").on('click', function (e) {
-    var title1 = $('#titles1').val();
-    //  alert(title1);
-    var shortDescription1 = tinymce.get("shortDescriptions1").getContent();
-    //  alert(shortDescription1);
-    var longDescription1 = tinymce.get("longDescriptions1").getContent();
-    //  alert(longDescriptions1);
-    var file1 = document.getElementById("imageDetailss1").files[0];
-  
-    var fullPath1 = $("#imageDetailss1").val();
-    var filename1 = fullPath1.replace(/^.*[\\\/]/, '');
-  
-  
-    var idxDot1 = filename1.lastIndexOf(".") + 1;
-    var extFile1 = filename1.substr(idxDot1, filename1.length).toLowerCase();
-  
-    var title2 = $('#titless2').val();
-    //  alert(title2);
-    var shortDescription2 = tinymce.get("shortDescriptionss2").getContent();
-    // alert(shortDescription);
-    var longDescription2 = tinymce.get("longDescriptionss2").getContent();
-    // alert(longDescriptions);
-    var file2 = document.getElementById("imageDetailss2").files[0];
-    var fullPath2 = $("#imageDetailss2").val();
-    // alert(fullPath2);
-    var filename2 = fullPath2.replace(/^.*[\\\/]/, '');
-  
-  
-    var idxDot2 = filename2.lastIndexOf(".") + 1;
-    var extFile2 = filename2.substr(idxDot2, filename2.length).toLowerCase();
-  
-    var title3 = $('#titlesss3').val();
-    // alert(title3);
-    var shortDescription3 = tinymce.get("shortDescriptionsss3").getContent();
-    // alert(shortDescription);
-    var longDescription3 = tinymce.get("longDescriptionsss3").getContent();
-    // alert(longDescriptions);
-    var file3 = document.getElementById("imageDetailssss3").files[0];
-    var fullPath3 = $("#imageDetailssss3").val();
-    var filename3 = fullPath3.replace(/^.*[\\\/]/, '');
-  
-    var idxDot3 = filename3.lastIndexOf(".") + 1;
-    var extFile3 = filename3.substr(idxDot3, filename3.length).toLowerCase();
-  
-  
-    
-  if(title1){
-    // alert('title 1')
-     var fr = new FileReader();
-     
-     fr.onload = function(ev2) {
-         console.dir(ev2);
-         $('#previewImgSrc1').attr('src', ev2.target.result);
-     };
-     
-     fr.readAsDataURL(file1);
-  
-     if(title1 == "" || shortDescription1 == ""  || longDescription1 == ""){
-        alert("Please fill all the field");
-      }else {
-  
-        $("#previewModals").modal('show');
-  
-          document.getElementById("previewTitle1").innerHTML  = title1;
-          document.getElementById("previewShortDescription1").innerHTML  = shortDescription1;
-          document.getElementById("previewLongDescription1").innerHTML  = longDescription1;
-          // document.getElementById("previewImgSrc").src = filename;
-      }
-  
-      var fr = new FileReader();
-     
-     fr.onload = function(ev2) {
-         console.dir(ev2);
-         $('#previewImgSrc2').attr('src', ev2.target.result);
-     };
-    //  alert(previewImgSrc2)
-     fr.readAsDataURL(file2);
-  
-     if(title2 == "" || shortDescription2 == ""  || longDescription2 == ""){
-        alert("Please fill all the field");
-      }else {
-  
-        $("#previewModals").modal('show');
-  
-          document.getElementById("previewTitle2").innerHTML  = title2;
-          document.getElementById("previewShortDescription2").innerHTML  = shortDescription2;
-          document.getElementById("previewLongDescription2").innerHTML  = longDescription2;
-          // document.getElementById("previewImgSrc").src = filename;
-    }
-  
-    var fr = new FileReader();
-     
-     fr.onload = function(ev2) {
-         console.dir(ev2);1 
-         $('#previewImgSrc3').attr('src', ev2.target.result);
-     };
-  
-     fr.readAsDataURL(file3);
-  
-     if(title3 == "" || shortDescription3 == ""  || longDescription3 == "" ){
-        alert("Please fill all the field");
-      }else {
-  
-        $("#previewModals").modal('show');
-  
-          document.getElementById("previewTitle3").innerHTML  = title3;
-          document.getElementById("previewShortDescription3").innerHTML  = shortDescription3;
-          document.getElementById("previewLongDescription3").innerHTML  = longDescription3;
-          // document.getElementById("previewImgSrc").src = filename;
-      }
-    }
-  
-  
-  });
-  
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
 
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+  }
+ 
+  slides[slideIndex-1].style.display = "block";  
+}
+
+
+</script>
+
+
+
+
+  <script type="text/javascript">
+window.history.forward(); 
+        function noBack() { 
+            window.history.forward(); 
+        } 
+ var url_string = window.location.href; 
+  var urls = new URL(url_string);
+  var tokens = urls.searchParams.get("tokendata");
   // var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjAwMzIwMjcsImV4cCI6MTYyMDYzNjgyN30.BSmCDBqWEf4FKxTsTgVe7-zTjHqRr6HYjglEUvlyUHx03rUfrp9N75pedAre1LQsdYtF7eyViM-5xaempJ68Ew";
 
-  $("#bannerSubmit").on('click', function (e) {
+$("#bannerPreviewDataone").on('click', function (e) {
+
+var title = $('#titles').val();
+// alert(title);
+var shortDescription = tinymce.get("shortDescriptions").getContent();
+// alert(shortDescription);
+var longDescription = tinymce.get("longDescriptions").getContent();
+// alert(longDescription);
+var file = document.getElementById("imageDetailss").files[0];
+// alert(file);
+// alert(readURLs(file));
+// if(file == undefined){
+//   readURLs(file);
+// }
+
+
+var fullPath = $("#imageDetailss").val();
+// var fullPath = $("#newImage").val();
+// alert(fullPath);   
+var filename = fullPath.replace(/^.*[\\\/]/, '');
+// alert(filename);
+ 
+
+ 
+
+if(title == "" || shortDescription == ""  || longDescription == "" ){
+
+  alert("Please fill all the field");
+}else {
+
+  
+  var fr = new FileReader();
+  
+  fr.onload = function(ev2) {
+      console.dir(ev2);
+      $('#previewImgSrcone').attr('src', ev2.target.result);
+  };
+  
+  fr.readAsDataURL(file);
+  
+  $("#previewModal").modal('show');
+
+    document.getElementById("previewTitles").innerHTML  = title;
+    document.getElementById("previewShortDescriptions").innerHTML  = shortDescription;
+    document.getElementById("previewLongDescriptions").innerHTML  = longDescription;
+    // document.getElementById("previewImgSrc").src = filename;
+
+
+
+//    var formdata = new FormData();
+//   formdata.append("title", title);
+//   formdata.append("shortDescription", shortDescription);
+//   formdata.append("longDescription", longDescription);
+
+// if(filename == ""){
+//   // alert("null");
+//     formdata.append("imageDetails", "");
+
+//   }else{
+//   // alert("not null");
+//     formdata.append("imageDetails", file , filename);
+
+//   }
+
+ //alert(title);
+ //alert(shortDescription);
+ //alert(longDescription);
+
+}
+  
+});
+
+//  PREVIEW FRO MULTIPLE BANNER
+$("#bannerPreviewData").on('click', function (e) {
+  var title1 = $('#titles1').val();
+  //  alert(title1);
+  var shortDescription1 = tinymce.get("shortDescriptions1").getContent();
+  //  alert(shortDescription1);
+  var longDescription1 = tinymce.get("longDescriptions1").getContent();
+  //  alert(longDescriptions1);
+  var file1 = document.getElementById("imageDetailss1").files[0];
+
+  var fullPath1 = $("#imageDetailss1").val();
+  var filename1 = fullPath1.replace(/^.*[\\\/]/, '');
+
+
+  var idxDot1 = filename1.lastIndexOf(".") + 1;
+  var extFile1 = filename1.substr(idxDot1, filename1.length).toLowerCase();
+
+  var title2 = $('#titless2').val();
+  //  alert(title2);
+  var shortDescription2 = tinymce.get("shortDescriptionss2").getContent();
+  // alert(shortDescription);
+  var longDescription2 = tinymce.get("longDescriptionss2").getContent();
+  // alert(longDescriptions);
+  var file2 = document.getElementById("imageDetailss2").files[0];
+  var fullPath2 = $("#imageDetailss2").val();
+  // alert(fullPath2);
+  var filename2 = fullPath2.replace(/^.*[\\\/]/, '');
+
+
+  var idxDot2 = filename2.lastIndexOf(".") + 1;
+  var extFile2 = filename2.substr(idxDot2, filename2.length).toLowerCase();
+
+  var title3 = $('#titlesss3').val();
+  // alert(title3);
+  var shortDescription3 = tinymce.get("shortDescriptionsss3").getContent();
+  // alert(shortDescription);
+  var longDescription3 = tinymce.get("longDescriptionsss3").getContent();
+  // alert(longDescriptions);
+  var file3 = document.getElementById("imageDetailssss3").files[0];
+  var fullPath3 = $("#imageDetailssss3").val();
+  var filename3 = fullPath3.replace(/^.*[\\\/]/, '');
+
+  var idxDot3 = filename3.lastIndexOf(".") + 1;
+  var extFile3 = filename3.substr(idxDot3, filename3.length).toLowerCase();
+
+
+
+//   if(title1 == "" || shortDescription1 == ""  || longDescription1 == "" || title2 == "" || shortDescription2 == ""  || longDescription2 == "" || title3 == "" || shortDescription3 == ""  || longDescription3 == "" ){
+//    alert("Please fill all the field")
+//   }else{
+//     var fr = new FileReader();
+
+// fr.onload = function(ev2){
+//   console.dir(ev2);
+//   $('#previewImgSrc1').attr('src', ev2.target.result);
+// };
+
+// fr.readAsDataURL(file1);
+
+// fr.onload = function(ev2) {
+//    console.dir(ev2);
+//    $('#previewImgSrc2').attr('src', ev2.target.result);
+// };
+// //  alert(previewImgSrc2)
+// fr.readAsDataURL(file2);
+
+
+// fr.onload = function(ev2) {
+//    console.dir(ev2);1 
+//    $('#previewImgSrc3').attr('src', ev2.target.result);
+// };
+
+// fr.readAsDataURL(file3);
+
+// $("#previewModal1").modal('show');
+
+//     document.getElementById("previewTitle1").innerHTML  = title1;
+//     document.getElementById("previewShortDescription1").innerHTML  = shortDescription1;
+//     document.getElementById("previewLongDescription1").innerHTML  = longDescription1;
+
+// // var fr = new FileReader();
+
+
+
+
+//   // $("#previewModal1").modal('show');
+
+//     document.getElementById("previewTitle2").innerHTML  = title2;
+//     document.getElementById("previewShortDescription2").innerHTML  = shortDescription2;
+//     document.getElementById("previewLongDescription2").innerHTML  = longDescription2;
+
+//     // var fr = new FileReader();
+
+
+
+//   // $("#previewModal1").modal('show');
+
+//     document.getElementById("previewTitle3").innerHTML  = title3;
+//     document.getElementById("previewShortDescription3").innerHTML  = shortDescription3;
+//     document.getElementById("previewLongDescription3").innerHTML  = longDescription3;
+//     // document.getElementById("previewImgSrc").src = filename;
+//   }
+
+  
+if(title1){
+  // alert('title 1')
+   var fr = new FileReader();
+   
+   fr.onload = function(ev2) {
+       console.dir(ev2);
+       $('#previewImgSrc1').attr('src', ev2.target.result);
+   };
+   
+   fr.readAsDataURL(file1);
+
+   if(title1 == "" || shortDescription1 == ""  || longDescription1 == ""){
+      alert("Please fill all the field");
+    }else {
+
+      $("#previewModals").modal('show');
+
+        document.getElementById("previewTitle1").innerHTML  = title1;
+        document.getElementById("previewShortDescription1").innerHTML  = shortDescription1;
+        document.getElementById("previewLongDescription1").innerHTML  = longDescription1;
+        // document.getElementById("previewImgSrc").src = filename;
+    }
+
+    var fr = new FileReader();
+   
+   fr.onload = function(ev2) {
+       console.dir(ev2);
+       $('#previewImgSrc2').attr('src', ev2.target.result);
+   };
+  //  alert(previewImgSrc2)
+   fr.readAsDataURL(file2);
+
+   if(title2 == "" || shortDescription2 == ""  || longDescription2 == ""){
+      alert("Please fill all the field");
+    }else {
+
+      $("#previewModals").modal('show');
+
+        document.getElementById("previewTitle2").innerHTML  = title2;
+        document.getElementById("previewShortDescription2").innerHTML  = shortDescription2;
+        document.getElementById("previewLongDescription2").innerHTML  = longDescription2;
+        // document.getElementById("previewImgSrc").src = filename;
+  }
+
+  var fr = new FileReader();
+   
+   fr.onload = function(ev2) {
+       console.dir(ev2);1 
+       $('#previewImgSrc3').attr('src', ev2.target.result);
+   };
+
+   fr.readAsDataURL(file3);
+
+   if(title3 == "" || shortDescription3 == ""  || longDescription3 == "" ){
+      alert("Please fill all the field");
+    }else {
+
+      $("#previewModals").modal('show');
+
+        document.getElementById("previewTitle3").innerHTML  = title3;
+        document.getElementById("previewShortDescription3").innerHTML  = shortDescription3;
+        document.getElementById("previewLongDescription3").innerHTML  = longDescription3;
+        // document.getElementById("previewImgSrc").src = filename;
+    }
+  }
+
+
+});
+
+
+
+$("#bannerSubmitbannerone").on('click', function (e) {
+  var ids = $('#bannerIds').val();
+  var title1 = $('#titles1').val();
+  var title2 = $('#titless2').val();
+  var title3 = $('#titlesss3').val();
+  // alert(title3);
+  var shortDescription1 = tinymce.get("shortDescriptions1").getContent();
+  var shortDescription2 = tinymce.get("shortDescriptionss2").getContent();
+  var shortDescription3 = tinymce.get("shortDescriptionsss3").getContent();
+//  alert(shortDescription1);
+  var longDescription1 = tinymce.get("longDescriptions1").getContent();
+  var longDescription2 = tinymce.get("longDescriptionss2").getContent();
+  var longDescription3 = tinymce.get("longDescriptionsss3").getContent();
+  var file1 = document.getElementById("imageDetailss1").files[0];
+  // var youtubeimcsrc = $('#newImage1').attr('src');
+  // alert(youtubeimcsrc);
+  var fullPath1 = $("#imageDetailss1").val();
+  // alert(fullPath);   
+  var filename1 = fullPath1.replace(/^.*[\\\/]/, '');
+  // alert(filename1);
+  var idxDot1 = filename1.lastIndexOf(".") + 1;
+  var extFile1 = filename1.substr(idxDot1, filename1.length).toLowerCase();
+  // alert(extFile1);
+   
+  
+  var file2 = document.getElementById("imageDetailss2").files[0];
+  // alert(file);
+  var fullPath2 = $("#imageDetailss2").val();
+  // alert(fullPath2);   
+  var filename2 = fullPath2.replace(/^.*[\\\/]/, '');
+  // alert(filename2);
+  var idxDot2 = filename2.lastIndexOf(".") + 1;
+  var extFile2 = filename2.substr(idxDot2, filename2.length).toLowerCase();
+  // alert(extFile2);
+    
+  var file3 = document.getElementById("imageDetailssss3").files[0];
+  // alert(file);
+  var fullPath3 = $("#imageDetailssss3").val();
+  // alert(fullPath);   
+  var filename3 = fullPath3.replace(/^.*[\\\/]/, '');
+  // alert(filename3);
+  var idxDot3 = filename3.lastIndexOf(".") + 1;
+  var extFile3 = filename3.substr(idxDot3, filename3.length).toLowerCase();
+  // alert(extFile3);
+
+
+    // if(title1 == "" || shortDescription1 == ""  || longDescription1 == "" || title2 == "" || shortDescription2 == ""  || longDescription2 == "" ||  title3 == "" || shortDescription3 == ""  || longDescription3 == ""){
+    //   alert("Please fill all the field")
+    // }else{
+    //   var formdata = new FormData();
+    //     formdata.append("adBannerId", ids);
+    //     formdata.append("title1", title1);
+    //     formdata.append("shortDescription1", shortDescription1);
+    //     formdata.append("longDescription1", longDescription1);
+    //     formdata.append("singleBanner" , "false");
+    //     // var formdata = new FormData();
+    //       // formdata.append("adBannerId", ids);
+    //       formdata.append("title2", title2);
+    //       formdata.append("shortDescription2", shortDescription2);
+    //       formdata.append("longDescription2", longDescription2);
+    //       formdata.append("singleBanner" , "false");
+    //     //   var formdata = new FormData();
+    //     // formdata.append("adBannerId", ids);
+    //     formdata.append("title3", title3);
+    //     formdata.append("shortDescription3", shortDescription3);
+    //     formdata.append("longDescription3", longDescription3);
+
+    //     formdata.append("singleBanner" , "false");
+    //     if(filename1 == "" || filename2 == "" || filename3 == ""){
+    //       formdata.append("image1", "");
+    //       formdata.append("image2", "");
+    //       formdata.append("image3", "");
+    //     }else{
+    //       formdata.append("image1", file1 , filename1);
+    //       formdata.append("image2", file2 , filename2);
+    //       formdata.append("image3", file3 , filename3);
+    //     }
+
+    //     var requestOptions = {
+    //           method: 'POST',
+    //             headers: {
+    //                   Authorization: 'Bearer '+ tokens,
+    //                 },
+    //           body: formdata,
+    //           redirect: 'follow'
+    //         };
+
+    //         fetch("https://apis.tradetipsapp.com/api/adBannerSimple/modifySimpleAdBanner", requestOptions)
+    //         .then(response => response.json())
+    //         .then(result => {
+                  
+    //                   var datak = JSON.stringify(result);
+    //                   // alert(datak);
+    //                   var dataResultp = JSON.parse(datak); 
+    //                   // alert(dataResultp.title);
+    //                   alert("Your multiple banner Updated successfully");
+    //                   window.location.href = "/banner?tokendata="+tokens;        
+    //         })
+    //         .catch(error => console.log('error', error));
+
+    // }
+
+    if( title1 == "" || shortDescription1 == ""  || longDescription1 == "" || title2 == "" || shortDescription2 == ""  || longDescription2 == "" || title3 == "" || shortDescription3 == ""  || longDescription3 == ""){
+      alert("Please fill all the field")
+         
+      }else{
+        var formdata = new FormData();
+        formdata.append("adBannerId", ids);
+        
+        formdata.append("title1", title1);
+        formdata.append("shortDescription1", shortDescription1);
+        formdata.append("longDescription1", longDescription1);
+        if(filename1 == ""){
+          formdata.append("image1", "");
+        }else{
+          if(extFile1 =="jpg" || extFile1 == "jpeg" || extFile1 == "png"){
+            formdata.append("image1", file1 , filename1);
+          }else{
+            alert("Only jpg/jpeg and png files are allowed!")
+          }
+        }
+        formdata.append("singleBanner" , "false");
+
+        // var formdata = new FormData();
+          // formdata.append("adBannerId", ids);
+          formdata.append("title2", title2);
+          formdata.append("shortDescription2", shortDescription2);
+          formdata.append("longDescription2", longDescription2);
+          if(filename2 == ""){
+          formdata.append("image2", "");
+        }else{
+          if(extFile2 =="jpg" || extFile2 == "jpeg" || extFile2 == "png"){
+            formdata.append("image2", file2 , filename2);
+          }else{
+            alert("Only jpg/jpeg and png files are allowed!")
+          }
+        }
+          formdata.append("singleBanner" , "false");
+
+
+          formdata.append("title3", title3);
+        formdata.append("shortDescription3", shortDescription3);
+        formdata.append("longDescription3", longDescription3);
+        if(filename3 == ""){
+          formdata.append("image3", "");
+        }else{
+          if(extFile3 =="jpg" || extFile3 == "jpeg" || extFile3 == "png"){
+            formdata.append("image3", file3 , filename3);
+          }else{
+            alert("Only jpg/jpeg and png files are allowed!")
+          }
+        }
+        formdata.append("singleBanner" , "false");
+
+        var requestOptions = {
+                method: 'POST',
+                  headers: {
+                        Authorization: 'Bearer '+ tokens,
+                      },
+                body: formdata,
+                redirect: 'follow'
+                };
+                fetch("https://apis.tradetipsapp.com/api/adBannerSimple/modifySimpleAdBanner", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                      
+                          var datak = JSON.stringify(result);
+                          // alert(datak);
+                          var dataResultp = JSON.parse(datak); 
+                          // alert(dataResultp.title);
+                          alert("Your Multiple Banner Updated Successfully");
+                          window.location.href = "/banner?tokendata="+tokens; 
+                        
+                })
+                .catch(error => console.log('error', error)); 
+
+        // if(filename1 != ""){
+        //   if(extFile1 =="jpg" || extFile1 == "jpeg" || extFile1 == "png"){
+        //     formdata.append("image1", file1 , filename1);
+        //     formdata.append("image2", file2 , filename2); 
+        //     formdata.append("image3", file3 , filename3);  
+        //       var requestOptions = {
+        //         method: 'POST',
+        //           headers: {
+        //                 Authorization: 'Bearer '+ tokens,
+        //               },
+        //         body: formdata,
+        //         redirect: 'follow'
+        //         };
+        //         fetch("https://apis.tradetipsapp.com/api/adBannerSimple/modifySimpleAdBanner", requestOptions)
+        //         .then(response => response.json())
+        //         .then(result => {
+                      
+        //                   var datak = JSON.stringify(result);
+        //                   // alert(datak);
+        //                   var dataResultp = JSON.parse(datak); 
+        //                   // alert(dataResultp.title);
+        //                   alert("Your Multiple Banner Updated Successfully");
+        //                   window.location.href = "/banner?tokendata="+tokens; 
+                        
+        //         })
+        //         .catch(error => console.log('error', error));    
+           
+
+        //   }else{alert("Only jpg/jpeg and png files are allowed!")}
+        // }else{
+        //   formdata.append("image1", "");
+        //   formdata.append("image2", "");
+        //   formdata.append("image3", "");
+
+        //   var requestOptions = {
+        //   method: 'POST',
+        //     headers: {
+        //           Authorization: 'Bearer '+ tokens,
+        //         },
+        //   body: formdata,
+        //   redirect: 'follow'
+        //   };
+        //   fetch("https://apis.tradetipsapp.com/api/adBannerSimple/modifySimpleAdBanner", requestOptions)
+        //   .then(response => response.json())
+        //   .then(result => {
+                
+        //             var datak = JSON.stringify(result);
+        //             // alert(datak);
+        //             var dataResultp = JSON.parse(datak); 
+        //             // alert(dataResultp.title);
+        //             alert("Your Multiple Banner Updated Successfully");
+        //             window.location.href = "/banner?tokendata="+tokens; 
+                  
+        //   })
+        //   .catch(error => console.log('error', error));
+        // } 
+      };
+    
+   
+// // set values for demo
+//  setDemoValues()
+// // get data based on above values
+// var res = {};
+// $('.slot_subclass').each(function() {
+//   var $inputs = $(this).find('.slot');      
+//   res[$inputs[0].value] = $inputs[1].value;      
+// })
+// console.log(res)
+// function setDemoValues() {
+//   $('.slot_subclass').each(function(i) {
+//     $(this).find('.slot').val(function() {
+//       return this.name + (i + 1);
+//     })
+//   });
+// }
+// var details = $('.item_name').map(function() {
+//   var name = $(this).val();
+//   var vales =  $(this).next('.item_qty').val(); 
+//   return {
+     
+//      // name: $(this).val(),
+//     // qty: $(this).next('.item_qty').val()
+//      name : $(this).next('.item_qty').val()
+//     // qty: $(this).next('.item_qty').val()
+//   };
+// }).get();
+// console.log(details);
+// var val = $("input.item_name").map(function(){
+// obj = {}
+// obj[$(this).val()] = $(this).next("input.item_qty").val();
+// return obj;
+// // console.log(obj)
+// }).get()
+//  console.log(val.length)
+//  function myCustomMerge() {
+//     var return_obj = {};
+//     for (i in arguments) {
+//         obj = arguments[i];
+//         for (j in obj) {
+//             if (return_obj[j] == undefined) {
+//                 return_obj[j] = [obj[j]];
+//             } else {
+//                 return_obj[j].push(obj[j]);
+//             }
+//         }
+//     }
+//     return return_obj;
+// }
+// var merged_obj = myCustomMerge(val);
+// console.log(merged_obj);
+// var arr = $('.slot_subclass').map(function() {
+//   var obj = {};
+//   $(this).find('.slot').each(function() {
+//     obj[this.name] = this.value;
+//   });
+//   return obj;
+// }).get();
+// console.log(arr);
+// var json = JSON.stringify(arr);
+// console.log(json);
+   
+});
+
+
+$("#bannerSubmit").on('click', function (e) {
   var ids = $('#bannerIds').val();
   var title = $('#titles').val();
   var shortDescription = tinymce.get("shortDescriptions").getContent();
@@ -888,14 +1182,6 @@ function CountCharacters() {
       body: formdata,
       redirect: 'follow'
     };
-
-    var max = 1000;
-    var count = CountCharacters();
-    if (count > max) {
-        alert("Maximum " + max + " characters allowed.")
-        return false;
-    }else{
-
     fetch("https://apis.tradetipsapp.com/api/adBannerSimple/modifySimpleAdBanner", requestOptions)
       .then(response => response.json())
       .then(result => {
@@ -905,7 +1191,6 @@ function CountCharacters() {
                 var dataResultp = JSON.parse(datak); 
                 // alert(dataResultp.title);
                 alert("Your banner "+dataResultp.title+" Updated successfully");
-
                 window.location.href = "/banner?tokendata="+tokens; 
                 // window.location.reload("/banner?tokendata="+tokens); 
               // $(".successmsg").html('<spa>"Your banner '+dataResultp.title+' was submitted successfully"</span>');
@@ -916,57 +1201,42 @@ function CountCharacters() {
               //  window.location.href = "/banner"; 
               //  }, 2000);
                 
-
        })
       .catch(error => console.log('error', error));
-
- }
 
     }else{ 
         // alert("not null");
         if(extFile=="jpg" || extFile=="jpeg" || extFile=="png" ){
         formdata.append("imageDetails", file , filename);
         var requestOptions = {
-      method: 'POST',
-        headers: {
-              Authorization: 'Bearer '+ tokens,
-            },
-      body: formdata,
-      redirect: 'follow'
-    };
-
-    var max = 1000;
-    var count = CountCharacters();
-    if (count > max) {
-        alert("Maximum " + max + " characters allowed.")
-        return false;
-    }else{
-
-    fetch("https://apis.tradetipsapp.com/api/adBannerSimple/modifySimpleAdBanner", requestOptions)
-      .then(response => response.json())
-      .then(result => {
-            
-                var datak = JSON.stringify(result);
-                // alert(datak);
-                var dataResultp = JSON.parse(datak); 
-                // alert(dataResultp.title);
-                alert("Your banner "+dataResultp.title+" Updated successfully");
-
-                window.location.href = "/banner?tokendata="+tokens; 
-                // window.location.reload("/banner?tokendata="+tokens); 
-              // $(".successmsg").html('<spa>"Your banner '+dataResultp.title+' was submitted successfully"</span>');
-              //  setTimeout(function(){$(".successmsg").empty()}, 2000);
-              //  //window.location.reload();
-              //  setTimeout(function(){
-              //  // window.location.reload(1);
-              //  window.location.href = "/banner"; 
-              //  }, 2000);
+          method: 'POST',
+            headers: {
+                  Authorization: 'Bearer '+ tokens,
+                },
+          body: formdata,
+          redirect: 'follow'
+        };
+        fetch("https://apis.tradetipsapp.com/api/adBannerSimple/modifySimpleAdBanner", requestOptions)
+          .then(response => response.json())
+          .then(result => {
                 
-
-       })
-      .catch(error => console.log('error', error));
-
- }
+                    var datak = JSON.stringify(result);
+                    // alert(datak);
+                    var dataResultp = JSON.parse(datak); 
+                    // alert(dataResultp.title);
+                    alert("Your banner "+dataResultp.title+" Updated successfully");
+                    window.location.href = "/banner?tokendata="+tokens; 
+                    // window.location.reload("/banner?tokendata="+tokens); 
+                  // $(".successmsg").html('<spa>"Your banner '+dataResultp.title+' was submitted successfully"</span>');
+                  //  setTimeout(function(){$(".successmsg").empty()}, 2000);
+                  //  //window.location.reload();
+                  //  setTimeout(function(){
+                  //  // window.location.reload(1);
+                  //  window.location.href = "/banner"; 
+                  //  }, 2000);
+                    
+        })
+          .catch(error => console.log('error', error));  
         }else{
                   alert("Only jpg/jpeg and png files are allowed!");
         }
@@ -1043,204 +1313,17 @@ function CountCharacters() {
    
 });
 
-$("#bannerSubmitbannerone").on('click', function (e) {
-  var ids = $('#bannerIds').val();
-  var title1 = $('#titles1').val();
-  var title2 = $('#titless2').val();
-  var title3 = $('#titlesss3').val();
-  // alert(title3);
-  var shortDescription1 = tinymce.get("shortDescriptions1").getContent();
-  var shortDescription2 = tinymce.get("shortDescriptionss2").getContent();
-  var shortDescription3 = tinymce.get("shortDescriptionsss3").getContent();
-//  alert(shortDescription1);
-  var longDescription1 = tinymce.get("longDescriptions1").getContent();
-  var longDescription2 = tinymce.get("longDescriptionss2").getContent();
-  var longDescription3 = tinymce.get("longDescriptionsss3").getContent();
-  var file1 = document.getElementById("imageDetailss1").files[0];
-  // var youtubeimcsrc = $('#newImage1').attr('src');
-  // alert(youtubeimcsrc);
-  var fullPath1 = $("#imageDetailss1").val();
-  // alert(fullPath);   
-  var filename1 = fullPath1.replace(/^.*[\\\/]/, '');
-  // alert(filename1);
-  var idxDot1 = filename1.lastIndexOf(".") + 1;
-  var extFile1 = filename1.substr(idxDot1, filename1.length).toLowerCase();
-  // alert(extFile1);
-   
-  
-  var file2 = document.getElementById("imageDetailss2").files[0];
-  // alert(file);
-  var fullPath2 = $("#imageDetailss2").val();
-  // alert(fullPath2);   
-  var filename2 = fullPath2.replace(/^.*[\\\/]/, '');
-  // alert(filename2);
-  var idxDot2 = filename2.lastIndexOf(".") + 1;
-  var extFile2 = filename2.substr(idxDot2, filename2.length).toLowerCase();
-  // alert(extFile2);
-    
-  var file3 = document.getElementById("imageDetailssss3").files[0];
-  // alert(file);
-  var fullPath3 = $("#imageDetailssss3").val();
-  // alert(fullPath);   
-  var filename3 = fullPath3.replace(/^.*[\\\/]/, '');
-  // alert(filename3);
-  var idxDot3 = filename3.lastIndexOf(".") + 1;
-  var extFile3 = filename3.substr(idxDot3, filename3.length).toLowerCase();
-  // alert(extFile3);
-
-
-    if( title1 == "" || shortDescription1 == ""  || longDescription1 == "" || title2 == "" || shortDescription2 == ""  || longDescription2 == "" || title3 == "" || shortDescription3 == ""  || longDescription3 == ""){
-      alert("Please fill all the field")
-         
-      }else{
-        var formdata = new FormData();
-        formdata.append("adBannerId", ids);
-        
-        formdata.append("title1", title1);
-        formdata.append("shortDescription1", shortDescription1);
-        formdata.append("longDescription1", longDescription1);
-        if(filename1 == ""){
-          formdata.append("image1", "");
-        }else{
-          if(extFile1 =="jpg" || extFile1 == "jpeg" || extFile1 == "png"){
-            formdata.append("image1", file1 , filename1);
-          }else{
-            alert("Only jpg/jpeg and png files are allowed!")
-          }
-        }
-        formdata.append("singleBanner" , "false");
-
-        // var formdata = new FormData();
-          // formdata.append("adBannerId", ids);
-          formdata.append("title2", title2);
-          formdata.append("shortDescription2", shortDescription2);
-          formdata.append("longDescription2", longDescription2);
-          if(filename2 == ""){
-          formdata.append("image2", "");
-        }else{
-          if(extFile2 =="jpg" || extFile2 == "jpeg" || extFile2 == "png"){
-            formdata.append("image2", file2 , filename2);
-          }else{
-            alert("Only jpg/jpeg and png files are allowed!")
-          }
-        }
-          formdata.append("singleBanner" , "false");
-
-
-          formdata.append("title3", title3);
-        formdata.append("shortDescription3", shortDescription3);
-        formdata.append("longDescription3", longDescription3);
-        if(filename3 == ""){
-          formdata.append("image3", "");
-        }else{
-          if(extFile3 =="jpg" || extFile3 == "jpeg" || extFile3 == "png"){
-            formdata.append("image3", file3 , filename3);
-          }else{
-            alert("Only jpg/jpeg and png files are allowed!")
-          }
-        }
-        formdata.append("singleBanner" , "false");
-
-        var requestOptions = {
-                method: 'POST',
-                  headers: {
-                        Authorization: 'Bearer '+ tokens,
-                      },
-                body: formdata,
-                redirect: 'follow'
-                };
-                fetch("https://apistest.tradetipsapp.com/api/adBannerSimple/modifySimpleAdBanner", requestOptions)
-                .then(response => response.json())
-                .then(result => {
-                      
-                          var datak = JSON.stringify(result);
-                          // alert(datak);
-                          var dataResultp = JSON.parse(datak); 
-                          // alert(dataResultp.title);
-                          alert("Your Multiple Banner Updated Successfully");
-                          window.location.href = "/banner?tokendata="+tokens; 
-                        
-                })
-                .catch(error => console.log('error', error)); 
-      };
-    
-   
-// // set values for demo
-//  setDemoValues()
-// // get data based on above values
-// var res = {};
-// $('.slot_subclass').each(function() {
-//   var $inputs = $(this).find('.slot');      
-//   res[$inputs[0].value] = $inputs[1].value;      
-// })
-// console.log(res)
-// function setDemoValues() {
-//   $('.slot_subclass').each(function(i) {
-//     $(this).find('.slot').val(function() {
-//       return this.name + (i + 1);
-//     })
-//   });
-// }
-// var details = $('.item_name').map(function() {
-//   var name = $(this).val();
-//   var vales =  $(this).next('.item_qty').val(); 
-//   return {
-     
-//      // name: $(this).val(),
-//     // qty: $(this).next('.item_qty').val()
-//      name : $(this).next('.item_qty').val()
-//     // qty: $(this).next('.item_qty').val()
-//   };
-// }).get();
-// console.log(details);
-// var val = $("input.item_name").map(function(){
-// obj = {}
-// obj[$(this).val()] = $(this).next("input.item_qty").val();
-// return obj;
-// // console.log(obj)
-// }).get()
-//  console.log(val.length)
-//  function myCustomMerge() {
-//     var return_obj = {};
-//     for (i in arguments) {
-//         obj = arguments[i];
-//         for (j in obj) {
-//             if (return_obj[j] == undefined) {
-//                 return_obj[j] = [obj[j]];
-//             } else {
-//                 return_obj[j].push(obj[j]);
-//             }
-//         }
-//     }
-//     return return_obj;
-// }
-// var merged_obj = myCustomMerge(val);
-// console.log(merged_obj);
-// var arr = $('.slot_subclass').map(function() {
-//   var obj = {};
-//   $(this).find('.slot').each(function() {
-//     obj[this.name] = this.value;
-//   });
-//   return obj;
-// }).get();
-// console.log(arr);
-// var json = JSON.stringify(arr);
-// console.log(json);
-   
-});
-
 
   $(function(){
   // $("input[name='onlynumbers']").on('input', function (e) {
   //     $(this).val($(this).val().replace(/[^0-9]/g, ''));
   //   });
-
     var bannerIdd = $('#bannerIds').val();
     // alert(bannerIdd);
   
-    $.ajax({
+         $.ajax({
               type: 'POST',
-              url: 'https://apistest.tradetipsapp.com/api/adBannerSimple/getSimpleAdBannerById',
+              url: 'https://apis.tradetipsapp.com/api/adBannerSimple/getSimpleAdBannerById',
                headers: {
               Authorization: 'Bearer '+ tokens,
                  },
@@ -1265,7 +1348,7 @@ $("#bannerSubmitbannerone").on('click', function (e) {
                 
                   // alert(dataResult.longDescription1);
                   document.getElementById("titles").value = dataResult.title;
-                  document.getElementById("newImage").src = "https://apistest.tradetipsapp.com"+dataResult.image;
+                  document.getElementById("newImage").src = "https://apis.tradetipsapp.com"+dataResult.image;
                   $('#shortDescriptions').html(dataResult.shortDescription);
                   $('#longDescriptions').html(dataResult.longDescription);
                   // tinymce.get("shortDescriptions").setContent(dataResult.shortDescription);
@@ -1293,26 +1376,17 @@ $("#bannerSubmitbannerone").on('click', function (e) {
                    
                 
                  
-                  document.getElementById("newImage1").src = "https://apistest.tradetipsapp.com"+dataResult.image1;
-                  document.getElementById("newImage2").src = "https://apistest.tradetipsapp.com"+dataResult.image2;                   
-                  document.getElementById("newImage3").src = "https://apistest.tradetipsapp.com"+dataResult.image3;
+                  document.getElementById("newImage1").src = "https://apis.tradetipsapp.com"+dataResult.image1;
+                  document.getElementById("newImage2").src = "https://apis.tradetipsapp.com"+dataResult.image2;                   
+                  document.getElementById("newImage3").src = "https://apis.tradetipsapp.com"+dataResult.image3;
                  
-
               }
-
             });
-
-
   });
-
-
-
-
  //   $(document).ready(function() {
  //    var max_fields = 50;
  //    var wrapper = $(".slot_subclass");
  //    var add_button = $(".add_form_field");
-
  //    var x = 1;
  //    $(add_button).click(function(e) {
  //        e.preventDefault();
@@ -1323,7 +1397,6 @@ $("#bannerSubmitbannerone").on('click', function (e) {
  //            alert('You Reached the limits')
  //        }
  //    });
-
  //    $(wrapper).on("click", ".delete", function(e) {
  //        e.preventDefault();
  //        $(this).parent('div').remove();
@@ -1331,7 +1404,32 @@ $("#bannerSubmitbannerone").on('click', function (e) {
  //    })
  // });
  </script>
- <%- include partials/commonlink %>
+ 
+ 
+ <script type="text/javascript">
+  window.addEventListener("load", function() {
+  var url_string = window.location.href; 
+  var urls = new URL(url_string);
+  var tokens = urls.searchParams.get("tokendata");
+  document.getElementById("dashboardLink").href = "/home?tokendata="+tokens;
+document.getElementById("TipLink").href = "/tipList?tokendata="+tokens;
+  
+   document.getElementById("HomeLink").href = "/home?tokendata="+tokens;
+  document.getElementById("UserLink").href = "/userlist?tokendata="+tokens;
+  // document.getElementById("UserCallLink").href = "/userlist?tokendata="+tokens;
+   document.getElementById("CommentLink").href = "/commentlist?tokendata="+tokens;
+   document.getElementById("CSVLink").href = "/csvlist?tokendata="+tokens;
+ document.getElementById("FlagCallLink").href = "/flaglist?tokendata="+tokens;
+       document.getElementById("BannerLink").href = "/banner?tokendata="+tokens;
+        document.getElementById("NotifyLink").href = "/notification?tokendata="+tokens;
+           document.getElementById("changePassLink").href = "/changePassword?tokendata="+tokens;  
+   document.getElementById("AccountLink").href = "/account?tokendata="+tokens;  
+    document.getElementById("NotifyListLink").href = "/notificationlist?tokendata="+tokens;
+  
+        document.getElementById("NotifyListLink").href = "/notificationlist?tokendata="+tokens;
+ 
+});
+</script>
 
 <script>
   var currentTab = 0;

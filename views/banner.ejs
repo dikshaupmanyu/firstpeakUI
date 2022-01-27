@@ -267,13 +267,15 @@ button:hover {
          <div class="form-group row">
            <label class="col-lg-3 col-form-label form-control-label">Short Description</label>
            <div class="col-lg-9">
-             <textarea class="form-control" id="shortDescription" name="Short_text_editor" required /></textarea>                     
+             <textarea class="form-control" id="shortDescription" name="Short_text_editor" required /></textarea>  
+              <div id="character_count_short"></div><br />                   
            </div>                    
          </div>
          <div class="form-group row">
            <label class="col-lg-3 col-form-label form-control-label">Long Description</label>
            <div class="col-lg-9">
               <textarea class="form-control" id="longDescription" name="Long_text_editor" required /></textarea>
+             <div id="character_count"></div><br />
            </div>
          </div>
          <div class="form-group row">
@@ -349,7 +351,8 @@ button:hover {
                       <div class="form-group row">
                           <label class="col-lg-3 col-form-label form-control-label">Short Description 1</label>
                           <div class="col-lg-9">
-                          <textarea class="form-control" id="shortDescriptions1" name="Short_text_editor" required /></textarea>                     
+                          <textarea class="form-control" id="shortDescriptions1" name="Short_text_editor" required /></textarea>  
+                                      
                           </div>
                       </div>
                       <div class="form-group row">
@@ -694,7 +697,7 @@ tinymce.init({
 
 function CountCharacters() {
         var text_max = 900;
-        var body = tinymce.get("longDescriptions").getBody();
+        var body = tinymce.get("longDescription").getBody();
         var content = tinymce.trim(body.innerText || body.textContent);
         // alert(content.length);
 
@@ -710,7 +713,7 @@ function CountCharacters() {
     };
 function CountCharactersShort() {
         var text_max = 200;
-        var body = tinymce.get("shortDescriptions").getBody();
+        var body = tinymce.get("shortDescription").getBody();
         var content = tinymce.trim(body.innerText || body.textContent);
         // alert(content.length);
 
@@ -886,60 +889,6 @@ window.history.forward();
   var tokens = urls.searchParams.get("tokendata");
 
 
-
-  // var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjAwMzIwMjcsImV4cCI6MTYyMDYzNjgyN30.BSmCDBqWEf4FKxTsTgVe7-zTjHqRr6HYjglEUvlyUHx03rUfrp9N75pedAre1LQsdYtF7eyViM-5xaempJ68Ew";
-
-// $('.test').on('click', function() {
-//   var obj = {}
-  
-//   $(".slot_subclass").each(function() {
-//     var $slots = $(this).find('.slot');
-
-//     obj[$slots.eq(0).val()] = $slots.eq(1).val()
-//   })
-  
-//   console.log(obj)
-// })
-
- // CKEDITOR.replace( 'Long_text_editor' );
- // CKEDITOR.replace( 'Short_text_editor' );
- // $('textarea[name="Short_text_editor"]').ckeditor({
- //      // Define the toolbar groups as it is a more accessible solution.
- //      toolbarGroups: [{
- //          "name": "basicstyles",
- //          "groups": ["basicstyles"]
- //        },
- //        {
- //          "name": "links",
- //          "groups": ["links"]
- //        },
- //        {
- //          "name": "paragraph",
- //          "groups": ["list", "blocks"]
- //        },
- //        {
- //          "name": "document",
- //          "groups": ["mode"]
- //        },
- //        {
- //          "name": "insert",
- //          "groups": ["insert"]
- //        },
- //        {
- //          "name": "styles",
- //          "groups": ["styles"]
- //        },
- //        {
- //          "name": "about",
- //          "groups": ["about"]
- //        }
- //      ],
- //      // Remove the redundant buttons from toolbar groups defined above.
- //      removeButtons: 'Underline,Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
- //    });
-
- // // $('textarea[name="Short_text_editor"]').ckeditor();
- // $('textarea[name="Long_text_editor"]').ckeditor();
  $("#bannerPreviewDataone").on('click', function (e) {
 
 var title = $('#title').val();
@@ -1155,6 +1104,7 @@ $("#bannerSubmitbannerone").on('click', function (e) {
     formdata.append("title", title);
     formdata.append("shortDescription", shortDescription);
     formdata.append("longDescription", longDescription);
+    formdata.append("singleBanner" , "true");
 
   if(filename == ""){
     // alert("null");
@@ -1182,16 +1132,7 @@ $("#bannerSubmitbannerone").on('click', function (e) {
             return false;
         }else{
 
-    var requestOptions1 = {
-      method: 'POST',
-      headers: {
-              Authorization: 'Bearer '+ tokens
-            },
-      // body: formdata,
-      redirect: 'follow'
-    };
-
-    fetch("https://apis.tradetipsapp.com/api/adBannerSimple/addSimpleAdBanner", requestOptions)
+      fetch("https://apis.tradetipsapp.com/api/adBannerSimple/addSimpleAdBanner", requestOptions)
       .then(response => response.json())
       .then(result => {
             
@@ -1429,7 +1370,7 @@ var idxDot3 = filename3.lastIndexOf(".") + 1;
    //   // body: formdata,
    //   redirect: 'follow'
    // };
-   fetch("https://apistest.tradetipsapp.com/api/adBannerSimple/addSimpleAdBanner", requestOptions)
+   fetch("https://apis.tradetipsapp.com/api/adBannerSimple/addSimpleAdBanner", requestOptions)
      .then(response => response.json())
      .then(result => {
            
@@ -1489,75 +1430,87 @@ var formdata = new FormData();
     redirect: 'follow'
   };
 
-  fetch("https://apis.tradetipsapp.com/api/adBannerSimple/getAllSimpleAdBanner", requestOptions)
-  .then(resp => resp.json())
-    .then(function(data) {
-           $('#dataTablesone').dataTable( {
-            "aaData": data, 
-            "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
-            "pageLength": 500,
-            // "aaSorting": [[ 0, "desc" ]],
-            // "columnDefs": [ {
-            // "targets": 4,
-            // "orderable": false
-            // } ],
-            "columns": [
-                
-                { "data": "title" },
-                { "data": "",
-                   "render" : function(data , type, row){
-                    // return ' <div class="accordion" id="faqExample"><div class="card"><div class="card-header p-2" id="heading' + row.id + '"><h5 class="mb-0"><button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">'+ data +'</button></h5></div><div id="collapseOne" class="collapse show" aria-labelledby="heading' + row.id + '" data-parent="#faqExample"><div class="card-body">'+ row.longDescription +'</div></div></div></div>'
+ fetch("https://apis.tradetipsapp.com/api/adBannerSimple/getAllSimpleAdBanner", requestOptions)
+ .then(resp => resp.json())
+   .then(function(data) {
+    var datak = JSON.stringify(data);
+    var data_Results = JSON.parse(datak);
+     var countdataa = data_Results.filter(function(s) { return s.isSingleBanner == true } ); 
+          $('#dataTablesone').dataTable( {
+           "aaData": countdataa, 
+           "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
+           "pageLength": 500,
+           // "aaSorting": [[ 0, "desc" ]],
+           // "columnDefs": [ {
+           // "targets": 4,
+           // "orderable": false
+           // } ],
+             "columns": [
+               
+               { "data": "title",
+               render: function(data, type, row) {
+
+                 // alert(row.title1);
+                 if(type === "display"){
+                  return row.title
+                 }
+                 return data;
+                }
+
+                },
+
+               { "data": "",
+                  "render" : function(data , type, row){
                     return '<div><input type="checkbox" id="' + row.id + '" name="q"  class="questions"><div class="plus">+</div><label for="' + row.id + '" class="question">'+ row.shortDescription +'</label><div class="answers">'+ row.longDescription +'</div></div>'
-                    // return '<div> <input type="checkbox" id="question' + row.id + '" name="q" class="questions"><div class="plus">+</div><label for="question' + row.id + '" class="question">Keep answers short. But in case of...If the question is long, the text wraps.  </label><div class="answers">This is the answer!</div></div>'
-                   }
-                 },
-                // { "data": "longDescription" },
-                {
-                   "data": "image",
-                   "render": function (data) {
-                       return '<img src="https://apis.tradetipsapp.com' + data + '" class="avatar" width="50" height="50"/>';
-                       }
+                  }
                 },
-              //   { 'data': null,
-              //    'render': function (data, type, row) {
-              //          return '<button id="' + row.id + '" class="deleteButtons">Delete</button>'
-              //  }
-              // },  
+               // { "data": "longDescription" },
                {
-                "data":   "isActive",
-                render: function ( data, type, row ) {
-                    if ( type === 'display' ) {
+                  "data": "image",
+                  "render": function (data,type,row) {
+                   return '<img src="https://apis.tradetipsapp.com' + row.image + '" class="avatar" width="50" height="50"/>';  
+                  }
+               },
+             //   { 'data': null,
+             //    'render': function (data, type, row) {
+             //          return '<button id="' + row.id + '" class="deleteButtons">Delete</button>'
+             //  }
+             // },  
+              {
+               "data":   "isActive",
+               render: function ( data, type, row ) {
+                   if ( type === 'display' ) {
 
-                       if(data == true) {
+                      if(data == true) {
 
-                           return '<button id="' + row.id + '" class="deleteButtonsactive btn btn-success">Active</button>';
-                        //   return '<a href="updateData?id='+row.id+'&username='+row.userName+'&tokendata='+tokens+'&status=1" id="userStatus">UnBlock</a>';
+                          return '<button id="' + row.id + '" class="deleteButtonsactive btn btn-success">Active</button>';
+                       //   return '<a href="updateData?id='+row.id+'&username='+row.userName+'&tokendata='+tokens+'&status=1" id="userStatus">UnBlock</a>';
 
-                        }else {
-                        //   return '<a href="updateData?id='+row.id+'&username='+row.userName+'&tokendata='+tokens+'&status=0" id="userStatus">Block</a>';
-                          return '<button id="' + row.id + '" class="deleteButtonsdeactive btn btn-danger">Deactive</button>';
+                       }else {
+                       //   return '<a href="updateData?id='+row.id+'&username='+row.userName+'&tokendata='+tokens+'&status=0" id="userStatus">Block</a>';
+                         return '<button id="' + row.id + '" class="deleteButtonsdeactive btn btn-danger">Deactive</button>';
 
-                        }
-                       
-                    }
-                    return data;
-                },
+                       }
+                      
+                   }
+                   return data;
+               },
 
-              },
-              { 'data': null,
-                 'render': function (data, type, row) {
-                        return '<a href="editBanner?id='+row.id+'&tokendata='+tokens+'"><button>Edit</button></a> | <button id="' + row.id + '" class="deleteButtonsBanner">Delete</button>';
-               }
-              }              
-            ],
-            "deferRender": true,
-            rowCallback: function ( row, data ) {
-            
-        }
+             },
+             { 'data': null,
+                'render': function (data, type, row) {
+                       return '<a href="editBanner?id='+row.id+'&tokendata='+tokens+'"><button>Edit</button></a> | <button id="' + row.id + '" class="deleteButtonsBanner">Delete</button> | <a href="viewBannerDetail?id='+row.id+'&tokendata='+tokens+'"><button>View</button></a>';
+              }
+             }              
+           ],
+           "deferRender": true,
+           rowCallback: function ( row, data ) {
+           
+       }
 
-        });
+       });
 
-      $('#dataTablesone').on('click', 'button.deleteButtonsactive', function () {
+     $('#dataTablesone').on('click', 'button.deleteButtonsactive', function () {
 
       // alert("fff");
 
@@ -1760,12 +1713,12 @@ var formdata = new FormData();
    redirect: 'follow'
  };
 
- fetch("https://apistest.tradetipsapp.com/api/adBannerSimple/getAllSimpleAdBanner", requestOptions)
+ fetch("https://apis.tradetipsapp.com/api/adBannerSimple/getAllSimpleAdBanner", requestOptions)
  .then(resp => resp.json())
    .then(function(data) {
     var datak = JSON.stringify(data);
     var data_Result = JSON.parse(datak);
-     var countdataa = data_Result.filter(function(s) { return s.isSingleBanner == false } ); 
+      var countdataa = data_Result.filter(function(s) { return s.isSingleBanner == false  } ); 
           $('#dataTablesMultiple').dataTable( {
            "aaData": countdataa, 
            "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
@@ -1817,11 +1770,11 @@ var formdata = new FormData();
 
                    // alert(row.image1);
                    if(row.title1 != null){
-                    return '<img src="https://apistest.tradetipsapp.com' + row.image1 + '" class="avatar" width="50" height="50"/>';
+                    return '<img src="https://apis.tradetipsapp.com' + row.image1 + '" class="avatar" width="50" height="50"/>';
                   }else if(row.title2 != null){
-                    return '<img src="https://apistest.tradetipsapp.com' + row.image2 + '" class="avatar" width="50" height="50"/>';
+                    return '<img src="https://apis.tradetipsapp.com' + row.image2 + '" class="avatar" width="50" height="50"/>';
                   }else{
-                    return '<img src="https://apistest.tradetipsapp.com' + row.image3 + '" class="avatar" width="50" height="50"/>';
+                    return '<img src="https://apis.tradetipsapp.com' + row.image3 + '" class="avatar" width="50" height="50"/>';
                   }
                    
                      
@@ -1878,7 +1831,7 @@ var formdata = new FormData();
      if(result){
      // alert(result);
      var formData = {adBannerId:id};
-      url = "https://apistest.tradetipsapp.com/api/adBannerSimple/disableSimpleAdBannerById";
+      url = "https://apis.tradetipsapp.com/api/adBannerSimple/disableSimpleAdBannerById";
      $.ajax({
        url : url,
        type: "POST",
@@ -1974,7 +1927,7 @@ var formdata = new FormData();
                // body: formdata,
                redirect: 'follow'
              };
-              fetch("https://apistest.tradetipsapp.com/api/adBannerSimple/disableAllOtherthanBannerById?adBannerId="+id, requestOptions1)
+              fetch("https://apis.tradetipsapp.com/api/adBannerSimple/disableAllOtherthanBannerById?adBannerId="+id, requestOptions1)
                    .then(response => response.json())
                   .then(results => {
                             // alert("hiii calll");
@@ -2016,7 +1969,7 @@ var formdata = new FormData();
      if(result){
      // alert(result);
      var formData = {adBannerId:id};
-      url = "https://apistest.tradetipsapp.com/api/adBannerSimple/deleteSimpleAdBannerById";
+      url = "https://apis.tradetipsapp.com/api/adBannerSimple/deleteSimpleAdBannerById";
      $.ajax({
        url : url,
        type: "POST",
