@@ -1435,7 +1435,7 @@ var formdata = new FormData();
    .then(function(data) {
     var datak = JSON.stringify(data);
     var data_Results = JSON.parse(datak);
-     var countdataa = data_Results.filter(function(s) { return s.isSingleBanner == true } ); 
+     var countdataa = data_Results.filter(function(s) { return s.isSingleBanner == null || s.isSingleBanner == true } ); 
           $('#dataTablesone').dataTable( {
            "aaData": countdataa, 
            "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
