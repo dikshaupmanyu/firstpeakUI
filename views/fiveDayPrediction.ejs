@@ -1,10 +1,10 @@
 <%- include partials/header %>
-<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
- --><!--   <link rel="stylesheet" href="/resources/demos/style.css">
- -->  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-         <style type="text/css">
+       <style type="text/css">
        
            li.nav-item.sidebars.active {
              background: #b7b9cc;
@@ -40,10 +40,10 @@
                    <li class="nav-item sidebars">
                      <a class="nav-link" id="AISearchLink"> AI Tip Count By Date</a>
                    </li>
-                   <li class="nav-item sidebars active">
+                   <li class="nav-item sidebars">
                      <a class="nav-link" id="SoicalSearchLink"> Soical Chat Count By Date</a>
                    </li>
-                    <li class="nav-item sidebars">
+                    <li class="nav-item sidebars active">
                       <a class="nav-link" id="PredictionLink"> 5-Day Prediction</a>
                     </li>
                  </ul>
@@ -51,48 +51,65 @@
            <!-- ============= COMPONENT END// ============== --> 
                </aside>
     <main class="col-lg-9">
-            <h4>Soical Chat Count By Date</h4> 
+              <h4>5-Day Prediction by Date </h4> 
+             
               <div class="card-body">
-                  <form autocomplete="off" class="form" role="form">
-                            <div class="form-row">                        
-                                <label class="col-lg-2 col-form-label form-control-label">Start Date</label>
-                                <div class="col-lg-3">
-                                  <input class="form-control" type="date" id="start_dates" min="1997-01-01" max="2030-12-31" placeholder="yyyy-mm-dd">
-                                </div>
+              <ul class="nav nav-tabs" role="tablist">
+               <li class="nav-item">
+                 <a class="nav-link active" data-toggle="tab" href="#tabs-banner1" role="tab">Prediction by Date</a>
+               </li>
+               <li class="nav-item">
+                 <a class="nav-link" data-toggle="tab" href="#tabs-banner2" role="tab">Prediction by Count</a>
+               </li>
+               </ul>
+               <div class="tab-content">
+              
+               <div class="tab-pane active" id="tabs-banner1" role="tabpanel">
+                <br>
+                <h5>Prediction by Date</h5>
+                <table class="table"  id="dataTableone">
+                    <thead>
+                      <tr>
+                        <th scope="col">Symbol</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                     
+                    </tbody>
+                  </table>
+               </div>
+               <div class="tab-pane" id="tabs-banner2" role="tabpanel">
+                <br>
+                <h5>Prediction by Count</h5>
+                <table class="table" id="dataTabletwo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Stock Symbol</th>
+                      <th scope="col">Count</th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                  
+                  </tbody>
+                </table>
+               </div>
+             </div>
+              </div>
 
-                                 <div class="col-lg-2">
-                                </div>
-                              
-                                 <label class="col-lg-2 col-form-label form-control-label">End Date</label>
-                                <div class="col-lg-3">
-                                  <input class="form-control" type="date" id="end_dates" min="1997-01-01" max="2030-12-31" placeholder="yyyy-mm-dd">
-                                </div>
-                            </div>
-                            <br>
-                            <div class="form-group row">
-                              <label class="col-lg-3 col-form-label form-control-label"></label>
-                              <div class="col-lg-9">
-                                <input class="btn btn-secondary" type="reset" value="Cancel"> 
-                                <input class="btn btn-primary" type="button" value="Get Count of Soical Chat" id="MentorBtnChatData">
-                               </div>
-                            </div>
-                          </form>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Total Counts : <span id="countChatData">0</span></div>
-                        
-                          
-                 </div>
     </main>
   </div>
 </section>
 
 </div><!-- container //  -->
 
-
       </div>
       <!-- End of Main Content -->
 
                  <%- include partials/footer %>
-
 
 
     </div>
@@ -154,16 +171,123 @@
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
 
+
   <script type="text/javascript">
 
-    window.history.forward(); 
+window.history.forward(); 
         function noBack() { 
             window.history.forward(); 
         } 
 
+window.addEventListener("load", function() {
+
+  var url_string = window.location.href; 
+  var urls = new URL(url_string);
+  var tokens = urls.searchParams.get("tokendata");
+  var form = new FormData();
+form.append("limit", "500");
+form.append("offset", "0");
+
+var settings = {
+  "url": "https://apis.tradetipsapp.com/api/stockNonDefaultCountRecord/getStockNonDefaultCountRecordByDate",
+  "method": "POST",
+  "headers": {
+    "authorization": 'Bearer ' + tokens,
+  },
+  "processData": false,
+  "contentType": false,
+  "mimeType": "multipart/form-data",
+  "data": form
+}
+
+$.ajax(settings).done(function (response) {
+       var dataResultsdetail = JSON.parse(response); 
+           $('#dataTabletwo').dataTable({
+           "aaData": dataResultsdetail, 
+           "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
+           "pageLength": 500,
+             "columns": [
+               
+               { "data": "stockSymbol"},
+               { "data": "count"}               
+           ],
+           "deferRender": true,
+           rowCallback: function ( row, data ) {
+           
+       }
+
+      });
+});
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+ var form1 = new FormData();
+  form1.append("limit", "500");
+  form1.append("offset", "0");
+
+const url1 = "https://apis.tradetipsapp.com/api/stockNonDefaultDateRecord/getAllStockNonDefaultDateRecord";
+fetch(url1, {
+  method: "POST",
+  headers: {
+          Authorization: 'Bearer ' + tokens,
+        },
+  data:form1
+})
+  .then(resp => resp.json())
+    .then(function(data) {
+      // alert(data);
+       var datak = JSON.stringify(data);
+       var dataResults = JSON.parse(datak); 
+          $('#dataTableone').dataTable( {
+           "aaData": dataResults, 
+           "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
+           "pageLength": 500,
+             "columns": [
+               
+               { "data": "stockSymbol"},
+               { "data": "userName"},
+               { "data": "createdOn",
+               "name":"date",
+               "visible":true,
+               "title":"Date Created",
+               "render": function(data, type, full, meta){
+                if(type == "display"){
+                        var date = new Date(data);
+                        var options = {year: "numeric", month: "long", day: "numeric"};
+
+                        return date.toLocaleDateString('en-US', options);
+                }
+
+                return data;
+              }
+
+            }
+
+               
+           ],
+           "deferRender": true,
+           rowCallback: function ( row, data ) {
+           
+       }
+
+       });
+
+
+       
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
+
+  
+
+});
+
 
  </script>
-     <%- include partials/commonlink %>
+ 
+  <%- include partials/commonlink %>
 
             
             <script type="text/javascript">
@@ -181,53 +305,6 @@
 
            });
            </script>
-<script src="https://momentjs.com/downloads/moment.js"></script>
-
-<script type="text/javascript">
-  var url_string = window.location.href; 
-  var urls = new URL(url_string);
-  var tokens = urls.searchParams.get("tokendata");
-    $('#MentorBtnChatData').on('click', function() {
-    var startDates = $('#start_dates').val();
-    var finalstartdate = moment(startDates).format("YYYY-MM-DD HH:mm:ss");
-    // alert(finalstartdate);
-    var endDates = $('#end_dates').val();
-    var finalenddate = moment(endDates).format("YYYY-MM-DD HH:mm:ss");
-    // alert(finalenddate);
-    var formdata = {fromDate : finalstartdate , toDate : finalenddate};
-    // alert(JSON.stringify(formdata));
-      $.ajax({
-        type: 'POST',
-        url: 'https://apis.tradetipsapp.com/api/dataAnalytics/getSocialChatCountByDate',
-        headers: {
-          Authorization: 'Bearer '+ tokens
-        },
-        data: formdata,
-        success: function(data, textStatus, jqXHR)
-        {
-          $("#countChatData").text(data);
-          // alert(data);
-          // var datak = JSON.stringify(data);
-          // var dataResultp = JSON.parse(datak); 
-          // var len = dataResultp.length;
-          // // alert(len);
-
-        },
-
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-           $("#countChatData").text('0');
-           // alert("No data");
-        }
-
-
-      });
-  
-  });
-
-
- 
-</script>
 
 </body>
 

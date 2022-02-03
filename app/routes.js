@@ -28,6 +28,10 @@ module.exports = function(app, passport) {
 
     res.render('alltipByDate.ejs');
   });
+  app.get('/fiveDayPrediction', function(req, res) {
+
+    res.render('fiveDayPrediction.ejs');
+  });
 
 
   app.get('/aiSearchByDate', function(req, res) {
