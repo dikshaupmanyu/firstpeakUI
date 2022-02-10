@@ -183,40 +183,40 @@ window.addEventListener("load", function() {
   var url_string = window.location.href; 
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
-//   var form = new FormData();
-// form.append("limit", "500");
-// form.append("offset", "0");
+  var form = new FormData();
+form.append("limit", "500");
+form.append("offset", "0");
 
-// var settings = {
-//   "url": "https://apis.tradetipsapp.com/api/stockNonDefaultCountRecord/getStockNonDefaultCountRecordByDate",
-//   "method": "POST",
-//   "headers": {
-//     "authorization": 'Bearer ' + tokens,
-//   },
-//   "processData": false,
-//   "contentType": false,
-//   "mimeType": "multipart/form-data",
-//   "data": form
-// }
+var settings = {
+  "url": "https://apis.tradetipsapp.com/api/stockNonDefaultCountRecord/getStockNonDefaultCountRecordByDate",
+  "method": "POST",
+  "headers": {
+    "authorization": 'Bearer ' + tokens,
+  },
+  "processData": false,
+  "contentType": false,
+  "mimeType": "multipart/form-data",
+  "data": form
+}
 
-// $.ajax(settings).done(function (response) {
-//        var dataResultsdetail = JSON.parse(response); 
-//            $('#dataTabletwo').dataTable({
-//            "aaData": dataResultsdetail, 
-//            "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
-//            "pageLength": 500,
-//              "columns": [
+$.ajax(settings).done(function (response) {
+       var dataResultsdetail = JSON.parse(response); 
+           $('#dataTabletwo').dataTable({
+           "aaData": dataResultsdetail, 
+           "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
+           "pageLength": 500,
+             "columns": [
                
-//                { "data": "stockSymbol"},
-//                { "data": "count"}               
-//            ],
-//            "deferRender": true,
-//            rowCallback: function ( row, data ) {
+               { "data": "stockSymbol"},
+               { "data": "count"}               
+           ],
+           "deferRender": true,
+           rowCallback: function ( row, data ) {
            
-//        }
+       }
 
-//       });
-// });
+      });
+});
 
 
 ////////////////////////////////////////////////////////////////////////////////
