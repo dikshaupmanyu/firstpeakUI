@@ -1,6 +1,5 @@
 <%- include partials/header %>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
@@ -41,7 +40,7 @@
                      <a class="nav-link" id="AISearchLink"> AI Tip Count By Date</a>
                    </li>
                    <li class="nav-item sidebars">
-                     <a class="nav-link" id="SoicalSearchLink"> Soical Chat Count By Date</a>
+                     <a class="nav-link" id="SoicalSearchLink"> Social Chat Count By Date</a>
                    </li>
                     <li class="nav-item sidebars active">
                       <a class="nav-link" id="PredictionLink"> 5-Day Prediction</a>
@@ -184,40 +183,40 @@ window.addEventListener("load", function() {
   var url_string = window.location.href; 
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
-  var form = new FormData();
-form.append("limit", "500");
-form.append("offset", "0");
+//   var form = new FormData();
+// form.append("limit", "500");
+// form.append("offset", "0");
 
-var settings = {
-  "url": "https://apis.tradetipsapp.com/api/stockNonDefaultCountRecord/getStockNonDefaultCountRecordByDate",
-  "method": "POST",
-  "headers": {
-    "authorization": 'Bearer ' + tokens,
-  },
-  "processData": false,
-  "contentType": false,
-  "mimeType": "multipart/form-data",
-  "data": form
-}
+// var settings = {
+//   "url": "https://apis.tradetipsapp.com/api/stockNonDefaultCountRecord/getStockNonDefaultCountRecordByDate",
+//   "method": "POST",
+//   "headers": {
+//     "authorization": 'Bearer ' + tokens,
+//   },
+//   "processData": false,
+//   "contentType": false,
+//   "mimeType": "multipart/form-data",
+//   "data": form
+// }
 
-$.ajax(settings).done(function (response) {
-       var dataResultsdetail = JSON.parse(response); 
-           $('#dataTabletwo').dataTable({
-           "aaData": dataResultsdetail, 
-           "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
-           "pageLength": 500,
-             "columns": [
+// $.ajax(settings).done(function (response) {
+//        var dataResultsdetail = JSON.parse(response); 
+//            $('#dataTabletwo').dataTable({
+//            "aaData": dataResultsdetail, 
+//            "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
+//            "pageLength": 500,
+//              "columns": [
                
-               { "data": "stockSymbol"},
-               { "data": "count"}               
-           ],
-           "deferRender": true,
-           rowCallback: function ( row, data ) {
+//                { "data": "stockSymbol"},
+//                { "data": "count"}               
+//            ],
+//            "deferRender": true,
+//            rowCallback: function ( row, data ) {
            
-       }
+//        }
 
-      });
-});
+//       });
+// });
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -282,6 +281,12 @@ fetch(url1, {
 
   
 
+                 document.getElementById("StockLinks").href = "/stocklist?tokendata="+tokens;
+              document.getElementById("StockSearchLink").href = "/searchStock?tokendata="+tokens;
+              document.getElementById("TipSearchLink").href = "/alltipByDate?tokendata="+tokens;
+              document.getElementById("AISearchLink").href = "/aiSearchByDate?tokendata="+tokens;
+           document.getElementById("SoicalSearchLink").href = "/soicalSearchByDate?tokendata="+tokens;
+           document.getElementById("PredictionLink").href = "/fiveDayPrediction?tokendata="+tokens;
 });
 
 
@@ -289,23 +294,7 @@ fetch(url1, {
  
   <%- include partials/commonlink %>
 
-            
-            <script type="text/javascript">
-             window.addEventListener("load", function() {
-             var url_string = window.location.href; 
-             var urls = new URL(url_string);
-             var tokens = urls.searchParams.get("tokendata");
-           
-                 document.getElementById("StockLinks").href = "/stocklist?tokendata="+tokens;
-              document.getElementById("StockSearchLink").href = "/searchStock?tokendata="+tokens;
-              document.getElementById("TipSearchLink").href = "/alltipByDate?tokendata="+tokens;
-              document.getElementById("AISearchLink").href = "/aiSearchByDate?tokendata="+tokens;
-           document.getElementById("SoicalSearchLink").href = "/soicalSearchByDate?tokendata="+tokens;
-           document.getElementById("PredictionLink").href = "/fiveDayPrediction?tokendata="+tokens;
-
-           });
-           </script>
-
+          
 </body>
 
 </html>
