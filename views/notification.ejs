@@ -119,6 +119,99 @@ input:checked + .slider .off
   transition: .4s;
   border-radius: 50%;
 }
+
+.col-lg-90{
+  flex:0 0 100%;max-width:100%
+}
+
+/*Question*/
+.question {
+ position: relative;
+ background: #f9f9f9;
+ margin: 0;
+ padding: 10px 10px 10px 50px;
+ display: block;
+ width:100%;
+ cursor: pointer;
+}
+/*Answer*/
+.answers {
+ padding: 0px 15px;
+ margin: 5px 0;
+ width:100%!important;
+ height: 0;
+ overflow: hidden;
+ z-index: -1;
+ position: relative;
+ opacity: 0;
+ -webkit-transition: .3s ease;
+ -moz-transition: .3s ease;
+ -o-transition: .3s ease;
+ transition: .3s ease;
+}
+
+.questions:checked ~ .answers{
+ height: auto;
+ opacity: 0;
+ padding: 15px;
+ display: contents;
+ 
+}
+
+.btn{
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid transparent;
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
+  font-size:1rem;
+  line-height: 1.5;
+  border-radius:0.35rem;
+  transition:color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+input{
+  overflow:visible;
+  margin:0;
+}
+
+
+/*FAQ Toggle*/
+.plus {
+ position: absolute;
+ margin-left: 10px;
+ z-index: 5;
+ font-size: 2em;
+ line-height: 100%;
+ -webkit-user-select: none;    
+ -moz-user-select: none;
+ -ms-user-select: none;
+ -o-user-select: none;
+ user-select: none;
+ -webkit-transition: .3s ease;
+ -moz-transition: .3s ease;
+ -o-transition: .3s ease;
+ transition: .3s ease;
+
+}
+
+.questions:checked ~ .plus {
+ -webkit-transform: rotate(45deg);
+ -moz-transform: rotate(45deg);
+ -o-transform: rotate(45deg);
+ transform: rotate(45deg);
+
+}
+
+.questions {
+ display: none;
+ 
+}
 </style>
 
 
@@ -209,23 +302,53 @@ input:checked + .slider .off
 
                  <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label">Select Banner</label>
-                    <div class="col-lg-9">
+                    <ul class="nav nav-tabs" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#tabs-banner1" role="tab">Banner 1</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#tabs-banner2" role="tab">Banner 2</a>
+                      </li>
+                    </ul>
+                    <br>
+                    <div class="col-lg-90">
                       
-                       <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTables" width="100%" cellspacing="0">
+                      <div class="tab-content">
+                        <div class="tab-pane active" id="tabs-banner1" role="tabpanel">
+                          <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTables" width="100%" cellspacing="0">
+                                  <thead>
+                                    <tr>
+                                      <th></th>
+                                      <th>Title</th>
+                                      <th>Short Description</th>
+                                      <th>Image</th>
+                                      <!-- <th>View</th> -->
+                                      <!-- <th>Action</th> -->
+                                  <tbody>
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+                     <br>
+                     <div class="tab-pane " id="tabs-banner2" role="tabpanel">
+                      <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTablesOne" width="100%" cellspacing="0">
                               <thead>
                                 <tr>
                                   <th></th>
                                   <th>Title</th>
                                   <th>Short Description</th>
                                   <th>Image</th>
-                                <!--   <th>Status</th> -->
+                                  <!-- <th>View</th> -->
                                   <!-- <th>Action</th> -->
                               <tbody>
                               </tbody>
                             </table>
-                          </div>
-                      
+                        </div>
+                    </div>
+                      </div>
+
                     </div>
                   </div>
        
@@ -377,9 +500,10 @@ window.addEventListener("load", function() {
        var dataResult = JSON.parse(datak); 
         var len = dataResult.length;
          // var countdataa = dataResult.filter(function(s) { return s.isActive; });
+         var countdataa = dataResult.filter(function(s) { return s.isSingleBanner; });
 
            $('#dataTables').dataTable( {
-            "aaData": dataResult, 
+            "aaData": countdataa, 
             "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
             "pageLength": 500,
             // "aaSorting": [[ 0, "desc" ]],
@@ -403,6 +527,11 @@ window.addEventListener("load", function() {
                        return '<img src="https://apis.tradetipsapp.com' + data + '" class="avatar" width="50" height="50"/>';
                        }
                 },
+                // { 'data': null,
+                // 'render': function (data, type, row) {
+                //        return ' <a href="viewNotificationDetail?id='+row.id+'&tokendata='+tokensn+'"><button>View</button></a>';
+                //   }
+                // },
             ],
             "deferRender": true,
             rowCallback: function ( row, data ) {
@@ -423,6 +552,108 @@ window.addEventListener("load", function() {
     // alert(id);
    
    });
+
+
+  //  DATA TABLE 2'
+
+  var formdata = new FormData();
+  formdata.append("offset", "0");
+  formdata.append("limit", "500");
+
+  var requestOptions = {
+    method: 'POST',
+    headers: {
+          Authorization: 'Bearer ' + tokensn,
+        },
+    body: formdata,
+    redirect: 'follow'
+  };
+
+  fetch("https://apis.tradetipsapp.com/api/adBannerSimple/getAllSimpleAdBanner", requestOptions)
+  .then(resp => resp.json())
+    .then(function(data) {
+       var datak = JSON.stringify(data);
+       var dataResult = JSON.parse(datak); 
+        var len = dataResult.length;
+         // var countdataa = dataResult.filter(function(s) { return s.isActive; });
+         var countdataa = dataResult.filter(function(s) { return s.isSingleBanner == false; });
+           $('#dataTablesOne').dataTable( {
+            "aaData": countdataa, 
+            "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
+            "pageLength": 500,
+            // "aaSorting": [[ 0, "desc" ]],
+            // "columnDefs": [ {
+            // "targets": 4,
+            // "orderable": false
+            // } ],
+
+            "columns": [
+                {
+                   "data": "id",
+                   "render": function (data,row) {
+                         return '<input type="radio" name="selectBanner" id="'+ data +'" class="locationthemes" value="'+ data +'" />';
+                       }
+                },
+                { "data": "title", 
+                    render: function(data, type, row) {
+
+                      // alert(row.title1);
+                      if(row.title1 != null){
+                        return row.title1
+                      }else if(row.title2 != null){
+                        return row.title2
+                      }else{
+                        return row.title3
+                      }
+
+                      }
+                },
+                { "data": "" ,
+                "render" : function(data , type, row){
+                    // return '<div><input type="checkbox" id="' + row.id + '" name="q"  class="questions"><div class="plus">+</div><label for="' + row.id + '" class="question">'+ row.shortDescription +'</label><div class="answers">'+ row.longDescription +'</div></div>'
+                   if(row.shortDescription1 != null){
+                     return '<div><input type="checkbox" id="' + row.id + '" name="q"  class="questions"><div class="plus">+</div><label for="' + row.id + '" class="question">'+ row.shortDescription1 +'</label><div class="answers">'+ row.longDescription1 +'</div></div>'
+                   }else if(row.shortDescription2 != null){
+                     return '<div><input type="checkbox" id="' + row.id + '" name="q"  class="questions"><div class="plus">+</div><label for="' + row.id + '" class="question">'+ row.shortDescription2 +'</label><div class="answers">'+ row.longDescription2 +'</div></div>'
+                   }else{
+                    return '<div><input type="checkbox" id="' + row.id + '" name="q"  class="questions"><div class="plus">+</div><label for="' + row.id + '" class="question">'+ row.shortDescription3 +'</label><div class="answers">'+ row.longDescription3 +'</div></div>'
+                   }
+                  
+                  }
+                },
+                {
+                   "data": "image",
+                   "render": function (data,type, row) {
+                       return '<img src="https://apis.tradetipsapp.com' + row.image1 + '" class="avatar" width="50" height="50"/>';
+                       }
+                },
+                // { 'data': null,
+                // 'render': function (data, type, row) {
+                //        return ' <a href="viewNotificationDetail?id='+row.id+'&tokendata='+tokensn+'"><button>View</button></a>';
+                //   }
+                // },
+            ],
+            "deferRender": true,
+            rowCallback: function ( row, data ) {
+            
+        }
+
+        });
+
+     
+   var data = new Object();
+  
+  var table = $('#dataTablesOne').DataTable();
+  
+  $('#dataTablesOne').on('change', ':checkbox', function () {
+    data[table.row($(this).parents('tr').get(0)).index()] = this.checked;
+
+    var id = $(this).attr('id');
+    // alert(id);
+   
+   });
+  
+  });
 
   $("#notifySubmit").on('click', function (e) {
 

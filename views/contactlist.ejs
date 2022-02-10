@@ -1,0 +1,436 @@
+<%- include partials/header %>
+<style type="text/css">
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 90px;
+  height: 34px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ca2222;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #4e73df;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(55px);
+  -ms-transform: translateX(55px);
+  transform: translateX(55px);
+}
+
+/*------ ADDED CSS ---------*/
+.on
+{
+  display: none;
+}
+
+#offss{
+  left: 65%;
+}
+
+.on, .off
+{
+  color: white;
+  position: absolute;
+  transform: translate(-50%,-50%);
+  top: 50%;
+  left: 50%;
+  font-size: 10px;
+  font-family: Verdana, sans-serif;
+}
+
+input:checked+ .slider .on
+{display: block;}
+
+input:checked + .slider .off
+{display: none;}
+
+/*--------- END --------*/
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;}
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 90px;
+  height: 34px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #4e73df;
+  -webkit-transition: .4s;
+  transition: .4s;
+   border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+.col-lg-90{
+  flex:0 0 100%;max-width:100%
+}
+</style>
+
+
+       
+        <div class="container-fluid">
+
+           <!-- form user info -->
+            <div class="card card-outline-secondary">
+              <div class="card-header">
+                <h3 class="mb-0">Trade Tips Management</h3>
+              </div>
+              <div class="card-body">
+                <form autocomplete="off" class="form" role="form">
+                <div class="form-group row">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                          <a class="nav-link active" data-toggle="tab" href="#tabs-banner1" role="tab">Contact User List</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" data-toggle="tab" href="#tabs-banner2" role="tab">Signup User List</a>
+                        </li>
+                      </ul>
+                      <br>
+                 
+                
+                    
+                    <div class="col-lg-90">
+                      <div class="tab-content">
+                          <br>
+                          <div class="tab-pane active" id="tabs-banner1" role="tabpanel">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTables" width="100%" cellspacing="0">
+                                  <thead>
+                                    <tr>
+                                      <!-- <th></th> -->
+                                      <th>FirstName</th>
+                                      <th>LastName</th>
+                                      <th>Email</th>
+                                      <th>Phone</th>
+                                      <th>Comment</th>
+                                  <tbody>
+                                  </tbody>
+                                </table>
+                              </div>
+                          </div>  
+                          <br>
+                          <div class="tab-pane" id="tabs-banner2" role="tabpanel">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTablesOne" width="100%" cellspacing="0">
+                                  <thead>
+                                    <tr>
+                                    <th>Email</th>
+                                  <tbody>
+                                  </tbody>
+                                </table>
+                              </div>
+                          </div>  
+                        
+                      
+                      </div>
+                       
+                    </div>
+                  </div>
+       
+               
+                </form>
+              </div>
+            </div><!-- /form user info -->
+
+        
+        </div>
+
+      </div>
+      <!-- End of Main Content -->
+
+                 <%- include partials/footer %>
+<!-- <script type="text/javascript">
+  $('select[multiple]').multiselect({
+  columns: 4,
+  placeholder: 'Select User'
+});
+</script> -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="/">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+//change selectboxes to selectize mode to be searchable
+   $("select").select2();
+});
+</script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin-2.min.js"></script>
+<script src="js/choosen.js"></script>
+
+ <!-- Page level plugins -->
+  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="js/demo/datatables-demo.js"></script>
+
+
+  <script type="text/javascript">
+
+window.history.forward(); 
+        function noBack() { 
+            window.history.forward(); 
+        } 
+function test(a) {
+    var x = (a.value || a.options[a.selectedIndex].value);  //crossbrowser solution =)
+    // alert(x);
+}
+window.addEventListener("load", function() {
+
+
+  var url_string = window.location.href; 
+  var urls = new URL(url_string);
+ var tokensc = urls.searchParams.get("tokendata");
+ // var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkaXRpLm5vdmFzb2Z0Y29ycHNAZ21haWwuY29tIiwic3ViIjoiZTE3NzBjMDgtZTJlYy00MGY4LTlhOTgtNjZhNGVmZmJkNjZiIiwiaWF0IjoxNjI3MDI5MzYyLCJleHAiOjE2Mjc2MzQxNjJ9.uIMzROuof1MocMhV42xbA8K4WOSpqTvSaJjJ9kuYrzp6JbqqpfRRQGmaWOXioscPUdd-hlTCqeHVcN4MuRKp5Q";
+    
+
+  var formdata = new FormData();
+  formdata.append("offset", "0");
+  formdata.append("limit", "500");
+
+  var requestOptions = {
+    method: 'POST',
+    headers: {
+          Authorization: 'Bearer ' + tokensc
+        },
+    body: formdata,
+    redirect: 'follow'
+  };
+
+  fetch("https://apistest.tradetipsapp.com/api/indiaUserContactInformation/getAllIndiaUserContactInformation", requestOptions)
+  .then(resp => resp.json())
+    .then(function(data) {
+       var datak = JSON.stringify(data);
+       var dataResult = JSON.parse(datak); 
+        var len = dataResult.length;
+              
+         // var countdataa = dataResult.filter(function(s) { return s.isActive; });
+
+           $('#dataTables').dataTable( {
+            "aaData": dataResult, 
+            "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
+            "pageLength": 500,
+            // "aaSorting": [[ 0, "desc" ]],
+            // "columnDefs": [ {
+            // "targets": 4,
+            // "orderable": false
+            // } ],
+
+            "columns": [
+            { "data": "firstName"},
+                { "data": "lastName" },
+                { "data": "email" },
+                { "data": "phone" },
+                { "data": "comment" },
+                
+            ],
+            "deferRender": true,
+            rowCallback: function ( row, data ) {
+            
+        }
+
+        });
+
+     
+   var data = new Object();
+  
+  var table = $('#dataTables').DataTable();
+  
+  $('#dataTables').on('change', ':checkbox', function () {
+    data[table.row($(this).parents('tr').get(0)).index()] = this.checked;
+
+    var id = $(this).attr('id');
+    // alert(id);
+   
+   });
+
+
+
+  
+});  
+
+
+//  datatable 2
+
+var formdata = new FormData();
+  formdata.append("offset", "0");
+  formdata.append("limit", "500");
+
+  var requestOptions = {
+    method: 'POST',
+    headers: {
+          Authorization: 'Bearer ' + tokensc,
+        },
+    body: formdata,
+    redirect: 'follow'
+  };
+
+  fetch("https://apistest.tradetipsapp.com/api/indiaUserContactInformation/getAllIndiaUserEmailDetails", requestOptions)
+  .then(resp => resp.json())
+    .then(function(data) {
+       var datak = JSON.stringify(data);
+       var dataResult = JSON.parse(datak); 
+        var len = dataResult.length;
+         // var countdataa = dataResult.filter(function(s) { return s.isActive; });
+
+           $('#dataTablesOne').dataTable( {
+            "aaData": dataResult, 
+            "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
+            "pageLength": 500,
+            // "aaSorting": [[ 0, "desc" ]],
+            // "columnDefs": [ {
+            // "targets": 4,
+            // "orderable": false
+            // } ],
+
+            "columns": [
+            {
+                   "data": "email",
+                   render: function(data, type, row) {
+ 
+                         return row.email
+                    }
+                   
+                },
+            ],
+            "deferRender": true,
+            rowCallback: function ( row, data ) {
+            
+        }
+
+        });
+
+     
+   var data = new Object();
+  
+  var table = $('#dataTablesOne').DataTable();
+  
+  $('#dataTablesOne').on('change', ':checkbox', function () {
+    data[table.row($(this).parents('tr').get(0)).index()] = this.checked;
+
+    var id = $(this).attr('id');
+    // alert(id);
+   
+   });
+
+
+
+  
+});  
+
+
+
+
+
+
+ });   
+   
+ </script>
+ <%- include partials/commonlink %>
+
+
+</body>
+
+</html>

@@ -12,6 +12,11 @@ module.exports = function(app, passport) {
     res.render('commentlist.ejs');
   });
 
+  app.get('/contactlist', function(req, res) {
+
+    res.render('contactlist.ejs');
+  });
+
   app.get('/viewBannerDetail', function(req, res) {
 
       var bannerId = req.query.id;
