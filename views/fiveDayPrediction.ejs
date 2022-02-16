@@ -3,6 +3,7 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+
        <style type="text/css">
        
            li.nav-item.sidebars.active {
@@ -12,6 +13,10 @@
            li.nav-item.sidebars {
                color: white;
                background: #b7b9cc;
+           }
+
+           #dataTabletwo{
+             display:content;
            }
            
            </style>
@@ -53,6 +58,31 @@
               <h4>5-Day Prediction by Date </h4> 
              
               <div class="card-body">
+                <form autocomplete="off" class="form" role="form">
+                  <div class="form-row">                        
+                      <label class="col-lg-2 col-form-label form-control-label">Start Date</label>
+                      <div class="col-lg-3">
+                        <input class="form-control" type="date" id="start_date" min="1997-01-01" max="2030-12-31" placeholder="yyyy-mm-dd">
+                      </div>
+
+                       <div class="col-lg-2">
+                      </div>
+                    
+                       <label class="col-lg-2 col-form-label form-control-label">End Date</label>
+                      <div class="col-lg-3">
+                        <input class="form-control" type="date" id="end_date" min="1997-01-01" max="2030-12-31" placeholder="yyyy-mm-dd">
+                      </div>
+                  </div>
+                  <br>
+                  <div class="form-group row">
+                    <label class="col-lg-3 col-form-label form-control-label"></label>
+                    <div class="col-lg-9">
+                      <input class="btn btn-secondary" type="reset" value="Cancel"> 
+                      <input class="btn btn-primary" type="button" value="Search" id="MentorBtnData">
+                     </div>
+                  </div>
+                </form>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800">Total Counts : <span id="countTipData">0</span></div> 
               <ul class="nav nav-tabs" role="tablist">
                <li class="nav-item">
                  <a class="nav-link active" data-toggle="tab" href="#tabs-banner1" role="tab">Prediction by Date</a>
@@ -159,17 +189,33 @@
 });
 </script>
 
+
+ <!-- jQuery -->
+ <script type="text/javascript" 
+ src="https://code.jquery.com/jquery-3.5.1.js">
+</script>
+
+<!-- DataTables CSS -->
+<link rel="stylesheet"
+href=
+"https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
+
+<!-- DataTables JS -->
+<script src=
+"https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js">
+</script>
+
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
 <script src="js/choosen.js"></script>
 
  <!-- Page level plugins -->
-  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+  <!-- <script src="vendor/datatables/jquery.dataTables.min.js"></script> -->
+  <!-- <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script> -->
 
   <!-- Page level custom scripts -->
-  <script src="js/demo/datatables-demo.js"></script>
-
+  <!-- <script src="js/demo/datatables-demo.js"></script> -->
+  <script src="https://momentjs.com/downloads/moment.js"></script>
 
   <script type="text/javascript">
 
@@ -183,6 +229,99 @@ window.addEventListener("load", function() {
   var url_string = window.location.href; 
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
+  $('#MentorBtnData').on('click', function() {
+    var startDates = $('#start_date').val();
+    // alert(moment(startDates).format("YYYY-MM-DD HH:mm:ss"));
+    var finalstartdate = moment(startDates).format("YYYY-MM-DD HH:mm:ss");
+    var endDates = $('#end_date').val();
+    var finalenddate = moment(endDates).format("YYYY-MM-DD HH:mm:ss");
+    var formdata = {fromDate : finalstartdate , toDate : finalenddate , limit:"100000" , offset :"0"};
+    // $(document).ready(function () {
+    //   $('#dataTablesf').DataTable({
+  
+    //     // Set the 3rd column of the
+    //     // DataTable to ascending order
+    //     order: [[2, 'asc']]
+    //   });
+    // }); 
+      $.ajax({
+        type: 'POST',
+        url: 'https://apis.tradetipsapp.com/api/stockNonDefaultDateRecord/getStockNonDefaultDateRecordByDateFilter',
+        headers: {
+          Authorization: 'Bearer '+ tokens
+        },
+        data: formdata,
+        success: function(data, textStatus, jqXHR)
+        {
+          // alert(data);
+          var datak = JSON.stringify(data);
+          var dataResultp = JSON.parse(datak); 
+          var len = dataResultp.length;
+          // // alert(len);
+          if(len > 0){
+          $('#dataTableone').empty();
+
+          $("#countTipData").text("0");
+
+
+           if ( $.fn.DataTable.isDataTable('#dataTableone') ) {
+               $('#dataTableone').DataTable().destroy();
+               
+              }
+            
+          }
+
+
+          $("#countTipData").text(len);
+
+         
+            $('#dataTableone').dataTable( {
+            "aaData": data,   
+            "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
+            "pageLength": 500,
+            // "ordering": true,
+            "columns": [
+            
+                { "data": "stockSymbol"},
+               { "data": "userName"},
+               { "data": "createdOn",
+               "name":"date",
+               "visible":true,
+               "title":"Date Created",
+               "render": function(data, type, full, meta){
+                if(type == "display"){
+                        var date = new Date(data);
+                        var options = {year: "numeric", month: "long", day: "numeric"};
+
+                        return date.toLocaleDateString('en-US', options);
+                }
+
+                return data;
+              }
+
+            }
+            ], 
+            "deferRender": true,
+            rowCallback: function ( row, data ) {
+          
+        }
+
+
+
+        });
+
+
+        },
+
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+           alert("No data");
+        }
+
+
+      });
+  
+  });
   var form = new FormData();
 form.append("limit", "500");
 form.append("offset", "0");
@@ -205,6 +344,7 @@ $.ajax(settings).done(function (response) {
            "aaData": dataResultsdetail, 
            "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
            "pageLength": 500,
+           "order": [[ 1, "desc" ]],
              "columns": [
                
                { "data": "stockSymbol"},
@@ -238,10 +378,14 @@ fetch(url1, {
       // alert(data);
        var datak = JSON.stringify(data);
        var dataResults = JSON.parse(datak); 
+       var totalds = dataResults.length;
+
+        $("#countTipData").text(totalds);   
           $('#dataTableone').dataTable( {
            "aaData": dataResults, 
            "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
            "pageLength": 500,
+           "order": [[ 2, "desc" ]],
              "columns": [
                
                { "data": "stockSymbol"},

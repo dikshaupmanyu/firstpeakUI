@@ -95,9 +95,9 @@
                                  <table class="data display table table-bordered" id="dataTables" width="100%" cellspacing="0">
                                    <thead>
                                      <tr>
-                                       <th>Id <i class="fa fa-sort" aria-hidden="true"></i></th>
-                                       <th>Stock Symbol <i class="fa fa-sort" aria-hidden="true"></i></th>
-                                       <th>Stock Name <i class="fa fa-sort" aria-hidden="true"></i></th>
+                                       <th>Id</i></th>
+                                       <th>Stock Symbol </th>
+                                       <th>Stock Name </th>
                                       </tr>
                                      <tbody>
                                    </tbody>
@@ -212,17 +212,22 @@
               $("select").select2();
            });
            </script>
-           
-             <!-- Custom scripts for all pages-->
-             <script src="js/sb-admin-2.min.js"></script>
-           <script src="js/choosen.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="js/sb-admin-2.min.js"></script>
+<script src="js/choosen.js"></script>
+
+<!-- !-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
            
             <!-- Page level plugins -->
-             <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-             <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-           
-             <!-- Page level custom scripts -->
-             <script src="js/demo/datatables-demo.js"></script>
+  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+  <!-- <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script> -->
+
+  <!-- Page level custom scripts -->
+  <script src="js/demo/datatables-demo.js"></script>
+
+
            
            
              <script type="text/javascript">
@@ -251,6 +256,7 @@
                   var dataResult = JSON.parse(datak); 
                    var len = dataResult.length;
                      $("#sel_user").empty();
+                     $("#sel_user").prepend("<option value='ALL'>ALL</option>");
                            for( var i = 0; i<len; i++){
                                var id = dataResult[i]['id'];
                                var name = dataResult[i]['userName'];
@@ -265,8 +271,11 @@
            
            $('#butSaveData').on('click', function() {
                var UserSelect = $('#sel_user').val();
-               var formdata = {userName : UserSelect};
                if(UserSelect!=""){
+               var formdata = {userName : UserSelect,limit:"1000000",offset:"0"};
+               alert(formdata.userName)
+               if(formdata.userName == "ALL"){
+                 var formdata = {limit:"1000000",offset:"0"};
                  $.ajax({
                    type: 'POST',
                    url: 'https://apis.tradetipsapp.com/api/dataAnalytics/getAllSearchStockOfUserByUserName',
@@ -325,7 +334,69 @@
            
                });
            
+               }else{
+                var formdata = {userName : UserSelect,limit:"1000000",offset:"0"};
+                
+                 $.ajax({
+                   type: 'POST',
+                   url: 'https://apis.tradetipsapp.com/api/dataAnalytics/getAllSearchStockOfUserByUserName',
+                   headers: {
+                     Authorization: 'Bearer '+ tokens
+                   },
+                   data: formdata,
+                   success: function(data, textStatus, jqXHR){
+                     var datak = JSON.stringify(data);
+                     var dataResultp = JSON.parse(datak); 
+                     var len = dataResultp.length;
+                      $('#dataTables').empty();
+           
+                      $("#countStockListData").text(len);
+           
+                      if ( $.fn.DataTable.isDataTable('#dataTables') ) {
+                          $('#dataTables').DataTable().destroy();
+                         }
+           
+                      $('#dataTables').dataTable( {
+                           "aaData": data,   
+                           "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
+                           "pageLength": 500,
+                           "oLanguage": {
+                             "sSearch": "<span>Search Stocks</span> _INPUT_" //search
+                           },
+                           "columns": [
+                               { "data": "id" ,
+                                 "title" : "Id",
+                                "render": function(data, type, full, meta){
+                                 return data;
+                               }
+                               },
+                               { "data": "stockSymbol" ,
+                                 "title" : "Stock Symbol",
+                                  "render": function(data, type, full, meta){
+                                   return data;
+                                 }
+                                },
+                               { "data": "stockName" ,
+                               "title" : "Stock Name",
+                              "render": function(data, type, full, meta){
+                               return data;
+                               }
+                              },             
+                           ],
+                           "deferRender": true,
+                           rowCallback: function ( row, data ) {
+                           // Set the checked state of the checkbox in the table
+                           // $('input.editor-active', row).prop( 'checked', data.isFlag == true );
+                           }
+           
+                     });
+           
+                   }
+           
+               });
                }
+
+              }
            
                });
            
