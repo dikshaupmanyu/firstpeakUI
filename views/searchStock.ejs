@@ -235,6 +235,101 @@ href=
   var url_string = window.location.href; 
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
+
+    var finalstartdate = "2020-01-01 00:00:00";
+    var endDates = new Date();
+    var finalenddate = moment(endDates).format("YYYY-MM-DD HH:mm:ss");
+    var formdata = {fromDate : finalstartdate , toDate : finalenddate};
+      $.ajax({
+        type: 'POST',
+        url: 'https://apis.tradetipsapp.com/api/dataAnalytics/getAllSearchStockByDate',
+        headers: {
+          Authorization: 'Bearer '+ tokens
+        },
+        data: formdata,
+        success: function(data, textStatus, jqXHR)
+        {
+          // alert(data);
+          var datak = JSON.stringify(data);
+          var dataResultp = JSON.parse(datak); 
+          var len = dataResultp.length;
+          // // alert(len);
+          if(len > 0){
+
+           $("#countStockData").text("0");
+
+          $('#dataTablesf').empty();
+
+           if ( $.fn.DataTable.isDataTable('#dataTablesf') ) {
+               $('#dataTablesf').DataTable().destroy();
+               $('.containeruser').empty();
+               $('.containertrade').empty();
+              }
+
+          }
+
+           $("#countStockData").text(len);
+
+         
+            $('#dataTablesf').dataTable( {
+            "aaData": data,   
+            "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
+            "pageLength": 500,
+            "bDestroy": true,
+            // "ordering": false,
+            "order": [[ 2, "desc" ]],
+            "columns": [
+            
+                { "data": "stockName",
+                   "title" : "Stock Name",
+                   "render": function(data, type, full, meta){
+                    return data;
+                }
+                },
+                 { "data": "stockSymbol",
+                   "title" : "Stock Symbol",
+                   "render": function(data, type, full, meta){
+                    return data;
+                }
+                },
+                { 
+                  "data": "createdOn",
+                   "name":"date",
+                   "visible":true,
+                   "title":"Date Created",
+                   "render": function(data, type, full, meta){
+                    if(type == "display"){
+                            var date = new Date(data);
+                            var options = {year: "numeric", month: "long", day: "numeric"};
+
+                            var sdates =  date.toUTCString('en-US', options);
+                            var fstring = sdates.substring(0,16);
+                            return fstring;
+                    }
+
+                    return data;
+                  }
+                },
+            ], 
+            "deferRender": true,
+            rowCallback: function ( row, data ) {
+          
+        }
+
+
+
+        });
+
+
+        },
+
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+           alert("No data");
+        }
+
+
+      });
   $('#MentorBtnData').on('click', function() {
     var startDates = $('#start_date').val();
     // alert(moment(startDates).format("YYYY-MM-DD HH:mm:ss"));

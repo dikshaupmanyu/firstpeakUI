@@ -187,6 +187,36 @@
   var url_string = window.location.href; 
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
+    var finalstartdate = "2020-01-01 00:00:00";
+    var endDates = new Date();
+    var finalenddate = moment(endDates).format("YYYY-MM-DD HH:mm:ss");
+    var formdata = {fromDate : finalstartdate , toDate : finalenddate};
+      $.ajax({
+        type: 'POST',
+        url: 'https://apis.tradetipsapp.com/api/dataAnalytics/getSocialChatCountByDate',
+        headers: {
+          Authorization: 'Bearer '+ tokens
+        },
+        data: formdata,
+        success: function(data, textStatus, jqXHR)
+        {
+          $("#countChatData").text(data);
+          // alert(data);
+          // var datak = JSON.stringify(data);
+          // var dataResultp = JSON.parse(datak); 
+          // var len = dataResultp.length;
+          // // alert(len);
+
+        },
+
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+           $("#countChatData").text('0');
+           // alert("No data");
+        }
+
+
+      });
     $('#MentorBtnChatData').on('click', function() {
     var startDates = $('#start_dates').val();
     var finalstartdate = moment(startDates).format("YYYY-MM-DD HH:mm:ss");

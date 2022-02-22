@@ -186,6 +186,36 @@
   var url_string = window.location.href; 
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
+   var finalstartdate = "2020-01-01 00:00:00";
+    var endDates = new Date();
+    var finalenddate = moment(endDates).format("YYYY-MM-DD HH:mm:ss");
+    var formdata = {fromDate : finalstartdate , toDate : finalenddate};
+      $.ajax({
+        type: 'POST',
+        url: 'https://apis.tradetipsapp.com/api/dataAnalytics/getAITipsCountByDate',
+        headers: {
+          Authorization: 'Bearer '+ tokens
+        },
+        data: formdata,
+        success: function(data, textStatus, jqXHR)
+        {
+          $("#countAIData").text(data);
+          // alert(data);
+          // var datak = JSON.stringify(data);
+          // var dataResultp = JSON.parse(datak); 
+          // var len = dataResultp.length;
+          // // alert(len);
+
+        },
+
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+           $("#countAIData").text('0');
+           // alert("No data");
+        }
+
+
+      });
   $('#MentorBtnData').on('click', function() {
     var startDates = $('#start_date').val();
     var finalstartdate = moment(startDates).format("YYYY-MM-DD HH:mm:ss");

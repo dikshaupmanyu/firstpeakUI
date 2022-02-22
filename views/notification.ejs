@@ -533,7 +533,7 @@ window.addEventListener("load", function() {
       for( var i = 0; i< data.length; i++){
           var userid = data[i]['id'];
           var username = data[i]['userName'];
-          $("#userFull").append("<option value='"+username+"'>"+username+"</option>");
+          $("#userFull").append("<option value='"+userid+"'>"+username+"</option>");
        }         
   });
 
@@ -723,7 +723,7 @@ window.addEventListener("load", function() {
   // var filterUser = switchStatus;
   var filterdata = $('#userFull option:selected')
                 .toArray().map(item => item.value);
-  // alert(filterdata);
+  alert(filterdata);
   var filterUser = $('input[name="optradio"]:checked').val();
   // alert(filterUser);
   // alert(filterUser);
