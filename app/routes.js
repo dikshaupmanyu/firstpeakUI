@@ -1402,6 +1402,119 @@ app.get('/backmale', isLoggedIn, function(req, res) {
     
   });
 
+     app.get('/flagChatlist',  function(req, res) {
+    
+    const admin = require('firebase-admin');
+    const db = admin.firestore();
+    const docRef = db.collection("/openGroups/roomOne/messages/");
+       docRef.orderBy("createdDate", "desc").onSnapshot(function(snapshot) {
+
+        var arr2 = [];
+        snapshot.docChanges().forEach(function(change) {
+          // if(change.doc.data().messageFlag == "true"){
+            // console.log(change.doc.data().messageFlag);
+
+             arr2.push({"data" : change.doc.data(), "ids" : change.doc.id});
+          // }
+        });
+
+        var countdataa = arr2.filter(function(s) { return s.data.flag  });
+
+        console.log(countdataa);
+        
+        res.render('flagChatlist.ejs' ,{chatdata : countdataa});
+
+        // res.render('flagChatlist.ejs');
+
+    });
+
+      }); 
+
+   app.get('/flagChatdetail',  function(req, res) {
+        var id = req.query.id;
+
+        const admin = require('firebase-admin');
+        const db = admin.firestore();
+        const docRef = db.collection("/openGroups/roomOne/messages/");
+
+        docRef.doc(id).get().then(function(doc) {
+  
+        // console.log(doc.id, " => ", doc.data());
+
+          console.log(doc.data());
+
+         res.render('flagChatdetail.ejs' , {flagid : id , flagValue : doc.data().flag , username : doc.data().userName ,message : doc.data().message });
+
+
+    });
+
+
+        
+    });
+
+
+  //   app.post('/flagData',  function(req, res) {
+    
+  //   const admin = require('firebase-admin');
+  //   const db = admin.firestore();
+  //   const docRef = db.collection("/openGroups/demoOpenGroup1/messages/");
+  //      docRef.orderBy("createdDate", "desc").onSnapshot(function(snapshot) {
+
+  //       var arr2 = [];
+  //       // var idns = [];
+  //       snapshot.docChanges().forEach(function(change) {
+  //          // if(change.doc.data().messageFlag == "true"){
+  //            // console.log(change.doc.messageSocialReferenceId);
+  //           // idns.push(change.doc.id);
+  //           arr2.push({"data" : change.doc.data(), "ids" : change.doc.id});
+            
+
+  //          // }
+  //       });
+  //        // console.log(arr2);
+  //       // console.log(idns);
+  //       // return arr2;
+  //       res.send(arr2);
+
+
+  //   });
+  
+  // });
+
+
+
+    app.post('/editflagData', function(req, res) {
+
+      // console.log(req.body);
+
+    var messageId = req.body.id;
+    
+    const admin = require('firebase-admin');
+    const db = admin.firestore();
+  
+    const docRef = db.collection("/openGroups/roomOne/messages/");
+
+        docRef.doc(messageId).get().then(function(doc) {
+  
+        // console.log(doc.id, " => ", doc.data());
+
+        var Arr = doc.data().flag;
+        Arr.forEach((item) => item.messageFlag = false);
+        // console.log(Arr);
+
+        const cityRef = docRef.doc(messageId);
+
+       const arr2s = cityRef.update({flag: Arr});
+
+
+
+    });
+
+      res.send(docRef);
+
+        
+  });
+
 
     app.get('/ConsultById/:userid', function(req, res) {
      // console.log(req.params.userid);
