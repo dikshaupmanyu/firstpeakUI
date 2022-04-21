@@ -1404,31 +1404,29 @@ app.get('/backmale', isLoggedIn, function(req, res) {
 
      app.get('/flagChatlist',  function(req, res) {
     
-    // const admin = require('firebase-admin');
-    // const db = admin.firestore();
-    // const docRef = db.collection("/openGroups/roomOne/messages/");
-    //    docRef.orderBy("createdDate", "desc").onSnapshot(function(snapshot) {
+    const admin = require('firebase-admin');
+    const db = admin.firestore();
+    const docRef = db.collection("/openGroups/roomOne/messages/");
+       docRef.orderBy("createdDate", "desc").onSnapshot(function(snapshot) {
 
-    //     var arr2 = [];
-    //     snapshot.docChanges().forEach(function(change) {
-    //       // if(change.doc.data().messageFlag == "true"){
-    //         // console.log(change.doc.data().messageFlag);
+        var arr2 = [];
+        snapshot.docChanges().forEach(function(change) {
+          // if(change.doc.data().messageFlag == "true"){
+            // console.log(change.doc.data().messageFlag);
 
-    //          arr2.push({"data" : change.doc.data(), "ids" : change.doc.id});
-    //       // }
-    //     });
+             arr2.push({"data" : change.doc.data(), "ids" : change.doc.id});
+          // }
+        });
 
-    //     var countdataa = arr2.filter(function(s) { return s.data.flag  });
+        var countdataa = arr2.filter(function(s) { return s.data.flag  });
 
-    //     console.log(countdataa);
-
-        var countdataa = null;
+        console.log(countdataa);
         
         res.render('flagChatlist.ejs' ,{chatdata : countdataa});
 
         // res.render('flagChatlist.ejs');
 
-    // });
+    });
 
       }); 
 
