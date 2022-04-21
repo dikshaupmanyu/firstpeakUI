@@ -35,26 +35,7 @@
                       <th>Salary</th>
                     </tr>
                   </tfoot> -->
-                  <tbody>
-                      <% for (var i = 0; i < chatdata.length; i++) { %>
-                      <tr>
-                      <td><%= chatdata[i].data.userName %></td>
-                      <td><%= chatdata[i].data.message %></td>
-                      <td><% if(chatdata[i].data.flag[0].messageFlag == true) { %> <input id="<%= chatdata[i].ids %>" type="checkbox" class="editor-active" checked="checked"> <% } else { %><input type="checkbox" class="editor-active" id="<%= chatdata[i].ids %>"> <% } %></td>
-                       <td><script type="text/javascript">
-                          window.addEventListener("load", function() {
-  var url_string = window.location.href; 
-  var urls = new URL(url_string);
-  var tokens = urls.searchParams.get("tokendata");
- document.getElementById("flagChatdetaillink"+"<%= chatdata[i].ids %>").href = "/flagChatdetail?id=<%= chatdata[i].ids %>&tokendata="+tokens;
-});
-                       </script><a id="flagChatdetaillink<%= chatdata[i].ids %>"><%= chatdata[i].data.flag.length %> People</a> </td>
-                      <td><%= new Date(chatdata[i].data.createdDate).toLocaleDateString('en-US',{year: "numeric", month: "long", day: "numeric"}) %></td>
-                      
-                    </tr>
-                   <% } %>
-                   
-                  </tbody>
+                
                 </table>
               </div>
             </div>
@@ -98,7 +79,7 @@
     </div>
   </div>
 
- <!-- Bootstrap core JavaScript-->
+  <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -115,6 +96,7 @@
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
+  
 
   <script type="text/javascript">
 

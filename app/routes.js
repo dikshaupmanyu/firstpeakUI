@@ -1404,32 +1404,32 @@ app.get('/backmale', isLoggedIn, function(req, res) {
 
      app.get('/flagChatlist',  function(req, res) {
     
-    const {Firestore} = require('@google-cloud/firestore');
-    const firestore = new Firestore();
-    const admin = require('firebase-admin');
-    const db = admin.firestore();
-    const docRef = db.collection("/openGroups/roomOne/messages/");
-       docRef.orderBy("createdDate", "desc").onSnapshot(function(snapshot) {
+    // const {Firestore} = require('@google-cloud/firestore');
+    // const firestore = new Firestore();
+    // const admin = require('firebase-admin');
+    // const db = admin.firestore();
+    // const docRef = db.collection("/openGroups/roomOne/messages/");
+    //    docRef.orderBy("createdDate", "desc").onSnapshot(function(snapshot) {
 
-        var arr2 = [];
-        snapshot.docChanges().forEach(function(change) {
-          // if(change.doc.data().messageFlag == "true"){
-            // console.log(change.doc.data().messageFlag);
+    //     var arr2 = [];
+    //     snapshot.docChanges().forEach(function(change) {
+    //       // if(change.doc.data().messageFlag == "true"){
+    //         // console.log(change.doc.data().messageFlag);
 
-             arr2.push({"data" : change.doc.data(), "ids" : change.doc.id});
-             console.log("chat array   " + arr2);
-          // }
-        });
+    //          arr2.push({"data" : change.doc.data(), "ids" : change.doc.id});
+    //          console.log("chat array   " + arr2);
+    //       // }
+    //     });
 
-        var countdataa = arr2.filter(function(s) { return s.data.flag  });
+    //     var countdataa = arr2.filter(function(s) { return s.data.flag  });
 
-        console.log(countdataa);
+    //     console.log(countdataa);
         
-        res.render('flagChatlist.ejs' ,{chatdata : countdataa});
+    //     res.render('flagChatlist.ejs' ,{chatdata : countdataa});
 
-        // res.render('flagChatlist.ejs');
+         res.render('flagChatlist.ejs');
 
-    });
+    // });
 
       }); 
 
