@@ -119,18 +119,18 @@
         } 
 
 
-window.addEventListener("load", function() {
+// window.addEventListener("load", function() {
 
-   // alert(window.location.href);
+//    // alert(window.location.href);
 
-  var url_string = window.location.href; 
-  var urls = new URL(url_string);
-  var tokens = urls.searchParams.get("tokendata");
-  // alert(tokens);
+//   var url_string = window.location.href; 
+//   var urls = new URL(url_string);
+//   var tokens = urls.searchParams.get("tokendata");
+//   // alert(tokens);
 
   
 
-});
+// });
 
    $('#dataTables').on('click', 'input.editor-active', function () {
 
@@ -171,39 +171,7 @@ window.addEventListener("load", function() {
 
    });
  </script>
- <script type="text/javascript">
-  window.addEventListener("load", function() {
-  var url_string = window.location.href; 
-  var urls = new URL(url_string);
-  var tokens = urls.searchParams.get("tokendata");
- document.getElementById("dashboardLink").href = "/home?tokendata="+tokens;
-
-  // alert(tokens);
-   document.getElementById("HomeLink").href = "/home?tokendata="+tokens;
-  document.getElementById("UserLink").href = "/userlist?tokendata="+tokens;
-  // document.getElementById("UserCallLink").href = "/userlist?tokendata="+tokens;
-  document.getElementById("TipLink").href = "/tipList?tokendata="+tokens;
-  
-   document.getElementById("CommentLink").href = "/commentlist?tokendata="+tokens;
-   document.getElementById("ContactLink").href = "/contactlist?tokendata="+tokens;
-  document.getElementById("CSVLink").href = "/csvlist?tokendata="+tokens;
-  document.getElementById("FlagCallLink").href = "/flaglist?tokendata="+tokens;
-   document.getElementById("BannerLink").href = "/banner?tokendata="+tokens;
-document.getElementById("NotifyLink").href = "/notification?tokendata="+tokens;
-   document.getElementById("changePassLink").href = "/changePassword?tokendata="+tokens;  
-   document.getElementById("AccountLink").href = "/account?tokendata="+tokens;  
-    document.getElementById("NotifyListLink").href = "/notificationlist?tokendata="+tokens;
-  document.getElementById("FlagChatLink").href = "/flagChatlist?tokendata="+tokens;
-     document.getElementById("StockLink").href = "/stocklist?tokendata="+tokens;
-       document.getElementById("FlagChatLinkdata").href = "/flagChatlist?tokendata="+tokens;
-
-
-        document.getElementById("NotifyListLink").href = "/notificationlist?tokendata="+tokens;
-   
-    
-});
-</script>
-
+   <%- include partials/commonlink %>
 </body>
 
 </html>
