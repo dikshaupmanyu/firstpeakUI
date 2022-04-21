@@ -1404,6 +1404,8 @@ app.get('/backmale', isLoggedIn, function(req, res) {
 
      app.get('/flagChatlist',  function(req, res) {
     
+    const {Firestore} = require('@google-cloud/firestore');
+    const firestore = new Firestore();
     const admin = require('firebase-admin');
     const db = admin.firestore();
     const docRef = db.collection("/openGroups/roomOne/messages/");
@@ -1432,7 +1434,8 @@ app.get('/backmale', isLoggedIn, function(req, res) {
 
    app.get('/flagChatdetail',  function(req, res) {
         var id = req.query.id;
-
+        const {Firestore} = require('@google-cloud/firestore');
+        const firestore = new Firestore();
         const admin = require('firebase-admin');
         const db = admin.firestore();
         const docRef = db.collection("/openGroups/roomOne/messages/");
