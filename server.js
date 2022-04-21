@@ -24,6 +24,17 @@ var credentials = {key: privateKey, cert: certificate};
 var Base64 = require('Base64');
 var expressJwt = require('express-jwt');
 var jwt = require('jsonwebtoken');
+const admin = require('firebase-admin');
+const serviceAccount = require('./serviceAccountKey.json');
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://tradetips-9baa3.firebaseio.com"
+
+});
+
+
+
+const db = admin.firestore();
 
 require('./config/passport')(passport); // pass passport for configuration
 
@@ -57,11 +68,11 @@ app.configure(function() {
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 // launch ======================================================================
-// app.listen(port);
+app.listen(5555);
 //var httpServer = http.createServer(app);
-var httpsServer = https.createServer(credentials, app);
+// var httpsServer = https.createServer(credentials, app);
 
 //httpServer.listen(5555);
-httpsServer.listen(5555);
+// httpsServer.listen(5555);
 
 console.log('The magic happens on port ');
