@@ -1421,10 +1421,12 @@ app.get('/backmale', isLoggedIn, function(req, res) {
     //     var countdataa = arr2.filter(function(s) { return s.data.flag  });
 
     //     console.log(countdataa);
-        
-    //     res.render('flagChatlist.ejs' ,{chatdata : countdataa});
 
-        res.render('flagChatlist.ejs');
+        var countdataa = null;
+        
+        res.render('flagChatlist.ejs' ,{chatdata : countdataa});
+
+        // res.render('flagChatlist.ejs');
 
     // });
 
