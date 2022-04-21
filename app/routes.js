@@ -1417,6 +1417,7 @@ app.get('/backmale', isLoggedIn, function(req, res) {
             // console.log(change.doc.data().messageFlag);
 
              arr2.push({"data" : change.doc.data(), "ids" : change.doc.id});
+             console.log("chat array   " + arr2);
           // }
         });
 
