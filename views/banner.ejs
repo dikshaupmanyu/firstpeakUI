@@ -1,5 +1,7 @@
            <%- include partials/header %>
  <script src="https://cdn.jsdelivr.net/npm/emoji-button@0.6.0/dist/index.min.js"></script>
+ <link href="css/flash-main.css" rel="stylesheet" type="text/css">
+ <script src="/js/flash-main.js"></script>
 
     <script>
       window.addEventListener('DOMContentLoaded', () => {
@@ -851,14 +853,21 @@ x = document.getElementsByClassName("tab");
 // }
 
 if( title1 == "" || shortDescription1 == ""  || longDescription1 == ""  || filename1 == ""){
-  alert("Please fill all the fields of Slider 1"); valid = false;
+  // alert("Please fill all the fields of Slider 1"); valid = false;
+  window.FlashMessage.error('Please fill all the field of Slider 1', {
+                  timeout: 3000,
+                }); valid = false;
 
 }else{
 
 if (extFile1 =="jpg" || extFile1=="jpeg" || extFile1=="png"){
   valid = true;
 }else{
-  alert("Only jpg/jpeg and png files are allowed!"); valid = false;
+  // alert("Only jpg/jpeg and png files are allowed!"); valid = false;
+
+  window.FlashMessage.error('Only jpg/jpeg and png files are allowed!', {
+                  timeout: 3000,
+                }); vslid = false;
 }
 }
 
@@ -921,7 +930,10 @@ var filename = fullPath.replace(/^.*[\\\/]/, '');
   fr.readAsDataURL(file);
 
 if(title == "" || shortDescription == ""  || longDescription == ""  || filename == ""){
-  alert("Please fill all the fields");
+  // alert("Please fill all the fields");
+  window.FlashMessage.error('Please fill all the fields', {
+                  timeout: 5000,
+                });
 }else {
 
   $("#previewModal").modal('show');
@@ -1014,7 +1026,10 @@ if(title1){
    fr.readAsDataURL(file1);
 
    if(title1 == "" || shortDescription1 == ""  || longDescription1 == ""  || filename1 == ""){
-      alert("Please fill all the fields of Slider 1");
+      // alert("Please fill all the fields of Slider 1");
+      window.FlashMessage.error('Please fill all the field of Slider 1', {
+                  timeout: 3000,
+                }); 
     }else {
 
       $("#previewModals").modal('show');
@@ -1035,7 +1050,10 @@ if(title1){
    fr.readAsDataURL(file2);
 
    if(title2 == "" || shortDescription2 == ""  || longDescription2 == ""  || filename2 == ""){
-      alert("Please fill all the fields of Slider 2");
+      // alert("Please fill all the fields of Slider 2");
+      window.FlashMessage.error('Please fill all the field of Slider 2', {
+                  timeout: 3000,
+                });
     }else {
 
       $("#previewModals").modal('show');
@@ -1056,7 +1074,10 @@ if(title1){
    fr.readAsDataURL(file3);
 
    if(title3 == "" || shortDescription3 == ""  || longDescription3 == ""  || filename3 == ""){
-      alert("Please fill all the fields of Slider 3");
+      // alert("Please fill all the fields of Slider 3");
+      window.FlashMessage.error('Please fill all the field of Slider 3', {
+                  timeout: 3000,
+                });
     }else {
 
       $("#previewModals").modal('show');
@@ -1097,7 +1118,10 @@ $("#bannerSubmitbannerone").on('click', function (e) {
 
   
   if(title == "" || shortDescription == ""  || longDescription == ""  || filename == ""){
-    alert("Please fill all the field");
+    // alert("Please fill all the field");
+    window.FlashMessage.error('Please fill all the field', {
+                  timeout: 3000,
+                }); 
   }else {
 
      var formdata = new FormData();
@@ -1128,7 +1152,10 @@ $("#bannerSubmitbannerone").on('click', function (e) {
         var max = 1000;
         var count = CountCharacters();
         if (count > max) {
-            alert("Maximum " + max + " characters allowed.")
+            // alert("Maximum " + max + " characters allowed.")
+            window.FlashMessage.error('Maximum ' + max + " characters allowed ", {
+                  timeout: 3000,
+                }); 
             return false;
         }else{
 
@@ -1140,8 +1167,12 @@ $("#bannerSubmitbannerone").on('click', function (e) {
                // alert(datak);
                 var dataResultp = JSON.parse(datak); 
                 // alert(dataResultp.title);
-                alert("Your banner "+dataResultp.title+" was submitted successfully");
-                window.location.reload("/banner?tokendata="+tokens); 
+                // alert("Your banner "+dataResultp.title+" was submitted successfully");
+                window.FlashMessage.success("Your banner "+dataResultp.title+" was submitted successfully", {
+                  timeout: 5000,
+                }); 
+                // window.location.reload("/banner?tokendata="+tokens); 
+                setTimeout(()=> { window.location.reload("/banner?tokendata=0"+tokens)},3500)
 
                  // fetch("https://apis.tradetipsapp.com/api/adBannerSimple/disableAllOtherthanBannerById?adBannerId="+dataResultp.id, requestOptions1)
                  //    .then(response => response.json())
@@ -1165,7 +1196,12 @@ $("#bannerSubmitbannerone").on('click', function (e) {
         }
 
         }else{
-          alert("Only jpg/jpeg and png files are allowed!");
+          // alert("Only jpg/jpeg and png files are allowed!");
+
+          window.FlashMessage.error('Only jpg/jpeg and png files are allowed!', {
+                  timeout: 5000,
+                }); 
+
           // window.location.reload("/banner?tokendata="+tokens);
         }
 
@@ -1319,7 +1355,10 @@ var idxDot3 = filename3.lastIndexOf(".") + 1;
 // if (extFile1=="jpg" || extFile1=="jpeg" || extFile1=="png" || extFile2=="jpg" || extFile2=="jpeg" || extFile2=="png" || extFile3=="jpg" || extFile3=="jpeg" || extFile3=="png" ){
  
  if(title1 == "" || shortDescription1 == ""  || longDescription1 == ""  || filename1 == "" || title2 == "" || shortDescription2 == ""  || longDescription2 == ""  || filename2 == "" || title3 == "" || shortDescription3 == ""  || longDescription3 == ""  || filename3 == ""){
-   alert("Please fill all the field");
+  //  alert("Please fill all the field");
+  window.FlashMessage.error('Please fill all the field', {
+                  timeout: 5000,
+                });
  }else {
    
    formdata.append("title1", title1);
@@ -1378,10 +1417,14 @@ var idxDot3 = filename3.lastIndexOf(".") + 1;
               // alert(datak);
                var dataResultp = JSON.parse(datak); 
                // alert(dataResultp.title);
-               alert("Your Multiple Banner was submitted successfully");
+              //  alert("Your Multiple Banner was submitted successfully");
+              window.FlashMessage.success('Your Multiple Banner was submitted successfully', {
+                  timeout: 3000,
+                });
 
                 // location.reload("#tabs-banner2")
-               window.location.reload("/banner?tokendata="+tokens);         
+              //  window.location.reload("/banner?tokendata="+tokens);     
+              setTimeout(()=> { window.location.reload("/banner?tokendata="+tokens); },3500)    
       })
      .catch(error => console.log('error', error));
  }
@@ -1410,7 +1453,10 @@ var longDescription2 = tinymce.get("longDescriptionss2").getContent();
  if(title2){
 
    if(title2 == "" || shortDescription2 == ""  || longDescription2 == ""  || filename2 == ""){
-      alert("Please fill all the field of title 2");
+      // alert("Please fill all the field of title 2");
+      window.FlashMessage.error('Please fill all the field of title 2', {
+                  timeout: 5000,
+                }); 
     }else {}
  }
 })
@@ -1556,13 +1602,19 @@ var formdata = new FormData();
               //                 // alert(dataResultp.title);
               //       })
             
-            alert("Status Updated Successfully !!");
-            window.location.reload();
+            // alert("Status Updated Successfully !!");
+            window.FlashMessage.success('Status Updated Successfully !!', {
+                  timeout: 3000,
+                }); 
+                setTimeout(()=> { window.location.reload()},3500)
 
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-           alert("Not updated !!");
+          //  alert("Not updated !!");
+          window.FlashMessage.error('Not Updated !!', {
+                  timeout: 3000,
+                }); 
         }
 
        });
@@ -1626,8 +1678,11 @@ var formdata = new FormData();
                                // alert(datak);
                               var dataResultps = JSON.parse(dataks); 
                               // alert(dataResultp.title);
-                              alert("Status Updated Successfully !!");
-                              window.location.reload();
+                              // alert("Status Updated Successfully !!");
+                              window.FlashMessage.success('Status Updated Successfully !!', {
+                  timeout: 3000,
+                }); 
+                setTimeout(()=> { window.location.reload()},3500)
                     });
                  // window.location.reload();
     
@@ -1675,13 +1730,19 @@ var formdata = new FormData();
             // alert(datak);
             var dataResultp = JSON.parse(datak); 
             // alert(dataResultp);
-            alert("Delete Successfully !!");
-            window.location.reload();
+            // alert("Delete Successfully !!");
+            window.FlashMessage.success('Delete Successfully !!', {
+                  timeout: 3000,
+                }); 
+                setTimeout(()=> { window.location.reload()},3500)
 
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-           alert("Not updated !!");
+          //  alert("Not updated !!");
+          window.FlashMessage.error('Not Updated !!', {
+                  timeout: 3000,
+                }); 
         }
 
        });
@@ -1865,13 +1926,19 @@ var formdata = new FormData();
              //                 // alert(dataResultp.title);
              //       })
            
-           alert("Status Updated Successfully !!");
-           window.location.reload();
+          //  alert("Status Updated Successfully !!");
+          window.FlashMessage.success('Status Updated Successfully !!', {
+                  timeout: 3000,
+                }); 
+                setTimeout(()=> { window.location.reload()},3500)
 
        },
        error: function (jqXHR, textStatus, errorThrown)
        {
-          alert("Not updated !!");
+          // alert("Not updated !!");
+          window.FlashMessage.error('Not Updated !!', {
+                  timeout: 3000,
+                }); 
        }
 
       });
@@ -1984,13 +2051,20 @@ var formdata = new FormData();
            // alert(datak);
            var dataResultp = JSON.parse(datak); 
            // alert(dataResultp);
-           alert("Delete Successfully !!");
-           window.location.reload();
+          //  alert("Delete Successfully !!");
+          window.FlashMessage.success('Delete Successfully !!', {
+                  timeout: 3000,
+                }); 
+
+                setTimeout(()=> { window.location.reload()},3500)
 
        },
        error: function (jqXHR, textStatus, errorThrown)
        {
-          alert("Not updated !!");
+          // alert("Not updated !!");
+          window.FlashMessage.error('Not Updated !!', {
+                  timeout: 3000,
+                }); 
        }
 
       });
@@ -2018,7 +2092,10 @@ var formdata = new FormData();
             x++;
             $(wrapper).append('<div class="item"><input type="text" name="key" class="item_name"/>&nbsp;<input type="text" name="value" class="item_qty"/><a href="#" class="delete">Delete</a></div>'); //add input box
         } else {
-            alert('You Reached the limits')
+            // alert('You Reached the limits')
+            window.FlashMessage.error('You Reached the limits', {
+                  timeout: 3000,
+                });
         }
     });
 

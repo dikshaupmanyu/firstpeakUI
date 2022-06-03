@@ -1,5 +1,8 @@
  <%- include partials/header %>
 
+
+ <link href="css/flash-main.css" rel="stylesheet" type="text/css">
+ <script src="/js/flash-main.js"></script>
            <style type="text/css">
        
            li.nav-item.sidebars.active {
@@ -568,7 +571,8 @@ fetch(url, {
              // });
 $('#butSaveData').on('click', function() {
     var UserSelect = $('#sel_user').val();
-    alert("It will take few seconds to load data Loading...");
+    // alert("It will take few seconds to load data Loading...");
+    window.FlashMessage.info(" It will take few seconds to load data Loading....", {timeout: 5000,});
     if(UserSelect!=""){
        var formdata = {userName : UserSelect,limit:"1000000",offset:"0"};
        // alert(formdata.userName);

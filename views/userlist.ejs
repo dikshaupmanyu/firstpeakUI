@@ -1,6 +1,7 @@
            <%- include partials/header %>
 
-
+           <link href="css/flash-main.css" rel="stylesheet" type="text/css">
+           <script src="/js/flash-main.js"></script>
        
         <div class="container-fluid">
 
@@ -322,12 +323,15 @@ $.ajax({
           // alert(data);
           var datak = JSON.stringify(data);
           var dataResultp = JSON.parse(datak); 
-          alert("Image deleted Sucessfully !!");
-          window.location.reload();
+          // alert("Image deleted Sucessfully !!");
+          window.FlashMessage.success(" Image deleted Sucessfully !!", {timeout: 3000,});
+          // window.location.reload();
+          setTimeout(()=> { window.location.reload()},3500)
       },
       error: function (jqXHR, textStatus, errorThrown)
       {
-         alert("Not updated !!");
+        //  alert("Not updated !!");
+        window.FlashMessage.error(" Not updated !! ", {timeout: 5000,});
       }
 
     });
@@ -377,12 +381,16 @@ $.ajax({
             //data - response from server
             var datak = JSON.stringify(data);
             var dataResultp = JSON.parse(datak); 
-            alert("User updated Sucessfully !!");
-            window.location.reload();
+            // alert("User updated Sucessfully !!");
+            window.FlashMessage.success(" User updated Sucessfully !!", {timeout: 3000,});
+            // window.location.reload();
+            setTimeout(()=> { window.location.reload()},3500)            
+
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-           alert("Not updated !!");
+          //  alert("Not updated !!");
+          window.FlashMessage.error(" Not updated !!", {timeout: 5000,});
         }
 
     });
@@ -431,13 +439,17 @@ $.ajax({
             //data - response from server
             var datak = JSON.stringify(data);
             var dataResultp = JSON.parse(datak); 
-            alert("User updated Sucessfully !!");
-            window.location.reload();
+            // alert("User updated Sucessfully !!");
+            window.FlashMessage.success(" User updated Sucessfully !!", {timeout: 3000,});
+            // window.location.reload();
+            setTimeout(()=> { window.location.reload()},3500)
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-           alert("Not updated !!");
+          //  alert("Not updated !!");
+          window.FlashMessage.error(" Not updated !!", {timeout: 5000,});
         }
+
 
     });
     } else {
@@ -498,12 +510,15 @@ $.ajax({
             //data - response from server
             var datak = JSON.stringify(data);
             var dataResultp = JSON.parse(datak); 
-            alert("Status updated Sucessfully !!");
-            window.location.reload();
+            // alert("Status updated Sucessfully !!");
+            window.FlashMessage.success(" Status Updated Successfully !!", {timeout: 3000,});
+            // window.location.reload();
+            setTimeout(()=> { window.location.reload()},3500)
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-           alert("Not updated !!");
+          //  alert("Not updated !!");
+          window.FlashMessage.error(" Not updated !!", {timeout: 5000,});
         }
 
     });

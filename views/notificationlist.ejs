@@ -1,6 +1,7 @@
            <%- include partials/header %>
 
-
+           <link href="css/flash-main.css" rel="stylesheet" type="text/css">
+           <script src="/js/flash-main.js"></script>
        
         <div class="container-fluid">
 
@@ -162,7 +163,9 @@ fetch(url, {
   // alert(filterUser);
 
   if(title == "" || description == ""  || bannerids == ""){
-    alert("Please fill all the field");
+    // alert("Please fill all the field");
+    window.FlashMessage.error(" Please fill all the field", {timeout: 5000,});
+
   }else {
    
   var formdata = new FormData();
@@ -188,7 +191,8 @@ fetch(url, {
                // alert(datak);
                 var dataResultp = JSON.parse(datak); 
                 // alert(dataResultp.title);
-                alert("Notification has been sent");
+                // alert("Notification has been sent");
+                window.FlashMessage.success(" Notification has been sent", {timeout: 5000,});
                 // window.location.reload("/notification?tokendata="+tokens); 
           
 

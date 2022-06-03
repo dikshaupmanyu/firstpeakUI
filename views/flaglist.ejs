@@ -1,6 +1,7 @@
            <%- include partials/header %>
 
-
+           <link href="css/flash-main.css" rel="stylesheet" type="text/css">
+           <script src="/js/flash-main.js"></script>
        
         <div class="container-fluid">
 
@@ -258,13 +259,16 @@ fetch(url, {
             var datak = JSON.stringify(data);
             var dataResultp = JSON.parse(datak); 
             // alert(dataResultp);
-            alert("Block Sucessfully !!");
-            window.location.reload();
+            // alert("Block Sucessfully !!");
+            window.FlashMessage.success(" Block Sucessfully !!", {timeout: 3000,});
+            // window.location.reload();
+            setTimeout(()=> { window.location.reload()},3500)
 
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-           alert("Not updated !!");
+          //  alert("Not updated !!");
+          window.FlashMessage.error("Not updated !!", {timeout: 5000,});
         }
 
        });
@@ -285,8 +289,10 @@ fetch(url, {
     var flag = $(this).attr('data-id');
     // alert(flag);
     if(flag == "false"){
-      alert("Comment is already Flagged !!");
-      window.location.reload();
+      // alert("Comment is already Flagged !!");
+      window.FlashMessage.error(" Comment is already Flagged !!", {timeout: 3000,});
+      // window.location.reload();
+      setTimeout(()=> { window.location.reload()},3500)
     }else{
           var table = $('#dataTables').DataTable();
     var row = table.row(this.closest('tr')).data();
@@ -311,11 +317,13 @@ fetch(url, {
             var dataResultp = JSON.parse(datak); 
             // alert(dataResultp.isFlag);
 
-            alert("Comment Unflag Sucessfully !!");
+            // alert("Comment Unflag Sucessfully !!");
+            window.FlashMessage.success(" Comment Unflag Sucessfully !!", {timeout: 3000,});
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-           alert("Not updated !!");
+          //  alert("Not updated !!");
+          window.FlashMessage.error(" Not updated !!", {timeout: 5000,});
         }
 
     });

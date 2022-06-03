@@ -1,6 +1,7 @@
            <%- include partials/header %>
 
-
+           <link href="css/flash-main.css" rel="stylesheet" type="text/css">
+           <script src="/js/flash-main.js"></script>
        
         <div class="container-fluid">
 
@@ -230,6 +231,7 @@ window.addEventListener("load", function() {
         error: function (jqXHR, textStatus, errorThrown)
         {
            alert("Not updated !!");
+           window.FlashMessage.error(" Not updated !!", {timeout: 5000,});
         }
 
     });

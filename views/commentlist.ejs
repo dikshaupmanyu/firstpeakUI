@@ -1,5 +1,7 @@
            <%- include partials/header %>
 
+           <link href="css/flash-main.css" rel="stylesheet" type="text/css">
+           <script src="/js/flash-main.js"></script>
 
        
         <div class="container-fluid">
@@ -250,13 +252,20 @@ window.addEventListener("load", function() {
             var datak = JSON.stringify(data);
             var dataResultp = JSON.parse(datak); 
             // alert(dataResultp);
-            alert("Delete Sucessfully !!");
-            window.location.reload();
+            // alert("Delete Sucessfully !!");
+            window.FlashMessage.success('Delete Successfully !!', {
+                  timeout: 3000,
+                }); 
+            // window.location.reload();
+            setTimeout(()=> { window.location.reload()},3500)
 
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-           alert("Not updated !!");
+          //  alert("Not updated !!");
+          window.FlashMessage.error('Not Updated !!', {
+                  timeout: 3000,
+                }); 
         }
 
        });
@@ -397,13 +406,20 @@ $('#butSaveData').on('click', function() {
             var datak = JSON.stringify(data);
             var dataResultp = JSON.parse(datak); 
             // alert(dataResultp);
-            alert("Delete Sucessfully !!");
-            window.location.reload();
+            // alert("Delete Sucessfully !!");
+            window.FlashMessage.success('Delete Successfully !!', {
+                  timeout: 3000,
+                }); 
+            // window.location.reload();
+            setTimeout(()=> { window.location.reload()},3500)
 
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-           alert("Not updated !!");
+          //  alert("Not updated !!");
+          window.FlashMessage.error('Not Updated !!', {
+                  timeout: 3000,
+                }); 
         }
 
        });
@@ -421,7 +437,10 @@ $('#butSaveData').on('click', function() {
 
         error: function (jqXHR, textStatus, errorThrown)
         {
-           alert("No data");
+          //  alert("No data");
+          window.FlashMessage.error('No Data !!', {
+                  timeout: 3000,
+                }); 
         }
 
 
@@ -432,7 +451,8 @@ $('#butSaveData').on('click', function() {
       
     }
     else{
-      alert('Please fill all the field !');
+      // alert('Please fill all the field !');
+      window.FlashMessage.error('Please fill all the field', {timeout: 3000,}); 
     }
 
   
@@ -477,12 +497,15 @@ $('#butSaveData').on('click', function() {
             var datak = JSON.stringify(data);
             // alert(datak);
             var dataResultp = JSON.parse(datak); 
-            alert("Comment status updated Sucessfully !!");
-            window.location.reload();
+            // alert("Comment status updated Sucessfully !!");
+            window.FlashMessage.sucess('Comment status updated Sucessfully !!', {timeout: 3000,}); 
+            // window.location.reload();
+            setTimeout(()=> { window.location.reload()},3500)
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-           alert("Not updated !!");
+          //  alert("Not updated !!");
+          window.FlashMessage.error('Not updated !!', {timeout: 3000,}); 
         }
 
     });
@@ -546,7 +569,9 @@ $("#btn_").on('click', function () {
                  });
                } 
              } 
-             alert("Comment deleted Sucessfully !!");      
+            //  alert("Comment deleted Sucessfully !!");   
+            window.FlashMessage.success('Comment deleted Sucessfully !!', {timeout: 5000,}); 
+
         }
   });
 
