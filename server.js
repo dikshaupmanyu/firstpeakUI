@@ -69,10 +69,10 @@ require('./app/routes.js')(app, passport); // load our routes and pass in our ap
 
 // launch ======================================================================
 // app.listen(5555);
-//var httpServer = http.createServer(app);
+// var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
-//httpServer.listen(5555);
+// httpServer.listen(5555);
 httpsServer.listen(5555);
 
 console.log('The magic happens on port ');
