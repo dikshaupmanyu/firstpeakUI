@@ -18,6 +18,9 @@
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
+  <link href="css/flash-main.css" rel="stylesheet" type="text/css">
+  <script src="/js/flash-main.js"></script>
+
 </head>
 
 
@@ -209,7 +212,10 @@ $(document).ready(function(){
 
   if(entryPoint == exitPoint || entryPoint == stopPoint){
 
-      alert("Your entryPoint or exitPoint will not be same");
+      // alert("Your entryPoint or exitPoint will not be same");
+      window.FlashMessage.error('Your entryPoint or exitPoint will not be same', {
+                  timeout: 5000,
+                });
 
 
   }else{
@@ -277,8 +283,12 @@ $(document).ready(function(){
                 // alert(datak);
                 var dataResultp = JSON.parse(datak); 
                 // alert(dataResultp.stockName);
-                alert("Your tip for "+dataResultp.stockName+" was submitted successfully");
-                window.location.reload();
+                // alert("Your tip for "+dataResultp.stockName+" was submitted successfully");
+                window.FlashMessage.success('Your tip for "+dataResultp.stockName+" was submitted successfully', {
+                  timeout: 3000,
+                });
+                // window.location.reload();
+                setTimeout(()=> { window.location.reload()},3500)
 
        })
       .catch(error => console.log('error', error));

@@ -6,6 +6,7 @@
     "aws-ses-mail": "^2.1.1",
     "Base64": "^1.1.0",
     "bcrypt-nodejs": "latest",
+    "bytes": "^3.1.2",
     "compression": "^1.7.4",
     "connect-flash": "~0.1.1",
     "cors": "^2.8.5",

@@ -9,11 +9,16 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
+
   <title>TradeTips UI</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!--  -->
+  <link href="css/flash-main.css" rel="stylesheet" type="text/css">
+  <script src="/js/flash-main.js"></script>
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -192,8 +197,10 @@ window.addEventListener("load", function() {
 
                 }else{
 
-                  alert('Invalid Username or Password !!!');
-                  window.location.href = "/"; 
+                  // alert('Invalid Username or Password !!!');
+                  window.FlashMessage.info(" Invalid Username or Password !!!", {timeout: 3000,});
+                  // window.location.href = "/"; 
+                  setTimeout(()=> { window.location.href="/"},3500)
                 }                     
               }
               else if(dataResult.statusCode==201){
@@ -202,8 +209,10 @@ window.addEventListener("load", function() {
                 $('#error').html('Invalid Username or Password !!!');
 
               } else {
-                alert('Invalid Username or Password !!!');
-                window.location.href = "/"; 
+                // alert('Invalid Username or Password !!!');
+                window.FlashMessage.info(" Invalid Username or Password !!!", {timeout: 3000,});
+                // window.location.href = "/"; 
+                setTimeout(()=> { window.location.href="/"},3500)
 
               }
               
@@ -214,7 +223,8 @@ window.addEventListener("load", function() {
           });
         }
         else{
-          alert('Please fill all the field !');
+          // alert('Please fill all the field !');
+          window.FlashMessage.info(" Please fill all the fields !", {timeout: 3000,});
         }
       });
 

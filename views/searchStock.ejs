@@ -4,6 +4,9 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+  <link href="css/flash-main.css" rel="stylesheet" type="text/css">
+  <script src="/js/flash-main.js"></script>
+
         <style type="text/css">
        
            li.nav-item.sidebars.active {
@@ -419,7 +422,8 @@ href=
 
         error: function (jqXHR, textStatus, errorThrown)
         {
-           alert("No data");
+          //  alert("No data");
+          window.FlashMessage.error(" No data", {timeout: 5000,});
         }
 
 
