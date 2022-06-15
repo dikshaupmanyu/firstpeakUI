@@ -1,7 +1,8 @@
 <%- include partials/header %>
 <link href="css/flash-main.css" rel="stylesheet" type="text/css">
 <script src="/js/flash-main.js"></script>
-
+<link href="css/confirmMsg.css" rel="stylesheet" type="text/css">
+<script src="/js/confirmMsg.js"></script>
 
 <div class="container-fluid">
 
@@ -138,18 +139,11 @@ $('#dataTables').on('click', 'a.updateStatusdata', function () {
     var formData;
     var result ;
     if(vals == "Active"){
-      result = confirm("Are you sure you want to Active?");
-      url = "https://apis.tradetipsapp.com/api/serviceMentorSubscriptionPlan/disableServiceSubscriptionPlanById";
-      formData = {serviceSubscriptionPlanId : id};
-
-    }
-    if(vals == "Inactive"){
-      result = confirm("Are you sure you want to Inactive?");
-      url = "https://apis.tradetipsapp.com/api/serviceMentorSubscriptionPlan/enableServiceSubscriptionPlanById";
-      formData = {serviceSubscriptionPlanId : id};
-
-    }
-    if(result){
+      result = Confirm.open({
+      title: 'Active Confirm',
+      message: 'Are you sure you want to change it to Inactive?',
+      onok: () => {
+        if(vals == "Active"){
        $.ajax({
         url : url,
         type: "POST",
@@ -178,11 +172,62 @@ $('#dataTables').on('click', 'a.updateStatusdata', function () {
         }
 
     });
-    } else {
+    }
+      },
+      oncancel:  () => {
+                  window.FlashMessage.error( " Not updated !!", { timeout: 3000,});          
+      }
+      });
 
-      setTimeout(()=> { window.location.reload()},3500)
+      url = "https://apis.tradetipsapp.com/api/serviceMentorSubscriptionPlan/disableServiceSubscriptionPlanById";
+      formData = {serviceSubscriptionPlanId : id};
 
     }
+    if(vals == "Inactive"){
+      result = Confirm.open({
+      title: 'Inactive Confirm',
+      message: 'Are you sure you want to change it to active?',
+      onok: () => {
+        if(vals == "Inactive"){
+       $.ajax({
+        url : url,
+        type: "POST",
+        headers: {
+             Authorization: 'Bearer ' + tokens,
+        },
+        data : formData,
+        success: function(data, textStatus, jqXHR)
+        {
+            // alert("success");
+            //data - response from server
+            var datak = JSON.stringify(data);
+            var dataResultp = JSON.parse(datak); 
+            alert("Status updated Sucessfully !!");
+            window.location.reload();
+            // window.FlashMessage.status( " Status updated Sucessfully !!", { timeout: 3000,});
+            // setTimeout(()=> { window.location.reload()},3500)
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+          // alert("fail");
+          alert("Not updated !!");
+          window.location.reload();
+
+          // window.FlashMessage.error( " Not updated !!", { timeout: 3000,});
+        }
+
+    });
+    }
+      },
+      oncancel:  () => {
+                  window.FlashMessage.error( " Not updated !!", { timeout: 3000,});          
+      }
+      });
+      url = "https://apis.tradetipsapp.com/api/serviceMentorSubscriptionPlan/enableServiceSubscriptionPlanById";
+      formData = {serviceSubscriptionPlanId : id};
+
+    }
+
 
 
 

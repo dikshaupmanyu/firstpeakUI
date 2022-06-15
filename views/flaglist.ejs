@@ -2,7 +2,8 @@
 
            <link href="css/flash-main.css" rel="stylesheet" type="text/css">
            <script src="/js/flash-main.js"></script>
-       
+           <link href="css/confirmMsg.css" rel="stylesheet" type="text/css">
+           <script src="/js/confirmMsg.js"></script>
         <div class="container-fluid">
 
 
@@ -242,8 +243,11 @@ fetch(url, {
       alert(id);
 
       var url ;
-      var result = confirm("Are you sure you want to delete?");
-      if(result){
+      var result = Confirm.open({
+  title: 'Unflag Comments',
+  message: 'Are you sure you want to delete?',
+  onok: () => {
+    // if(result){
       var formData = {commentId:id};
        url = "https://apis.tradetipsapp.com/api/comment/deleteCommentByCommentId";
       $.ajax({
@@ -260,25 +264,28 @@ fetch(url, {
             var dataResultp = JSON.parse(datak); 
             // alert(dataResultp);
             // alert("Block Sucessfully !!");
-            window.FlashMessage.success(" Block Sucessfully !!", {timeout: 3000,});
+            window.FlashMessage.success(" Block Sucessfully !!", {timeout: 2000,});
             // window.location.reload();
-            setTimeout(()=> { window.location.reload()},3500)
+            setTimeout(()=> { window.location.reload()},2100)
 
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
           //  alert("Not updated !!");
-          window.FlashMessage.error("Not updated !!", {timeout: 5000,});
+          window.FlashMessage.error("Not updated !!", {timeout: 2000,});
         }
 
        });
       
 
-      } else {
+      // } 
+  },
+  oncancel:()=>{
+    setTimeout(()=> { window.location.reload()},500)
+  }
+      });
 
-          window.location.reload();
 
-      }
 
       });
 
@@ -290,13 +297,16 @@ fetch(url, {
     // alert(flag);
     if(flag == "false"){
       // alert("Comment is already Flagged !!");
-      window.FlashMessage.error(" Comment is already Flagged !!", {timeout: 3000,});
+      window.FlashMessage.error(" Comment is already Flagged !!", {timeout: 2000,});
       // window.location.reload();
-      setTimeout(()=> { window.location.reload()},3500)
+      setTimeout(()=> { window.location.reload()},2100)
     }else{
           var table = $('#dataTables').DataTable();
     var row = table.row(this.closest('tr')).data();
-    var result = confirm("Are you sure you want to unflag the comment?");
+    var result = Confirm.open({
+  title: 'Unflag Comments',
+  message: 'Are you sure you want to unflag this comment?',
+  onok: () => {
     if(result){
     var ids = row["id"];
     var reason = row["flagReason"];
@@ -318,20 +328,25 @@ fetch(url, {
             // alert(dataResultp.isFlag);
 
             // alert("Comment Unflag Sucessfully !!");
-            window.FlashMessage.success(" Comment Unflag Sucessfully !!", {timeout: 3000,});
+            window.FlashMessage.success(" Comment Unflag Sucessfully !!", {timeout: 2000,});
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
           //  alert("Not updated !!");
-          window.FlashMessage.error(" Not updated !!", {timeout: 5000,});
+          window.FlashMessage.error(" Not updated !!", {timeout: 2000,});
         }
 
     });
-    } else {
-
-       window.location.reload();
-
     }
+  },
+  oncancel:  () => {
+    window.FlashMessage.error( " Not updated !!", { timeout: 2000,});
+    setTimeout(()=> { window.location.reload()},3100)
+  }
+    });
+
+
+
 
     }
 

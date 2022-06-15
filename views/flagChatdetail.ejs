@@ -2,6 +2,8 @@
 
            <link href="css/flash-main.css" rel="stylesheet" type="text/css">
            <script src="/js/flash-main.js"></script>
+           <link href="css/confirmMsg.css" rel="stylesheet" type="text/css">
+           <script src="/js/confirmMsg.js"></script>
        
         <div class="container-fluid">
 
@@ -140,7 +142,10 @@
     alert(avls);
     var table = $('#dataTables').DataTable();
     var row = table.row(this.closest('tr')).data();
-    var result = confirm("Are you sure you want to unflag the comment?");
+    var result =onfirm.open({
+  title: 'Unflag Comment',
+  message: 'Are you sure you want to unflag the comment?',
+  onok: () => {
     if(result){
     var ids = id;
     // alert(ids);
@@ -160,15 +165,18 @@
         error: function (jqXHR, textStatus, errorThrown)
         {
           //  alert("Not updated !!");
-          window.FlashMessage.error("Not updated !!", {timeout: 5000,});
+          window.FlashMessage.error("Not updated !!", {timeout: 2000,});
         }
 
     });
-    } else {
+  }
+},
+oncancle: ()=>{
+  setTimeout(()=> { window.location.reload()},500)
+}
+    });
 
-       window.location.reload();
 
-    }
 
    });
  </script>
