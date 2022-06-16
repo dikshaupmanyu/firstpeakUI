@@ -157,18 +157,19 @@ $('#dataTables').on('click', 'a.updateStatusdata', function () {
             //data - response from server
             var datak = JSON.stringify(data);
             var dataResultp = JSON.parse(datak); 
-            alert("Status updated Sucessfully !!");
-            window.location.reload();
-            // window.FlashMessage.status( " Status updated Sucessfully !!", { timeout: 3000,});
-            // setTimeout(()=> { window.location.reload()},3500)
+            // alert("Status updated Sucessfully !!");
+            // window.location.reload();
+            window.FlashMessage.status( " Status updated Sucessfully !!", { timeout: 3000,});
+            setTimeout(()=> { window.location.reload()},3100)
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
           // alert("fail");
-          alert("Not updated !!");
-          window.location.reload();
+          // alert("Not updated !!");
+          // window.location.reload();
 
-          // window.FlashMessage.error( " Not updated !!", { timeout: 3000,});
+          window.FlashMessage.error( " Not updated !!", { timeout: 3000,});
+          setTimeout(()=> { window.location.reload()},3100)
         }
 
     });
@@ -202,18 +203,19 @@ $('#dataTables').on('click', 'a.updateStatusdata', function () {
             //data - response from server
             var datak = JSON.stringify(data);
             var dataResultp = JSON.parse(datak); 
-            alert("Status updated Sucessfully !!");
-            window.location.reload();
-            // window.FlashMessage.status( " Status updated Sucessfully !!", { timeout: 3000,});
-            // setTimeout(()=> { window.location.reload()},3500)
+            // alert("Status updated Sucessfully !!");
+            // window.location.reload();
+            window.FlashMessage.status( " Status updated Sucessfully !!", { timeout: 3000,});
+            setTimeout(()=> { window.location.reload()},3100)
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
           // alert("fail");
-          alert("Not updated !!");
-          window.location.reload();
+          // alert("Not updated !!");
+          // window.location.reload();
 
-          // window.FlashMessage.error( " Not updated !!", { timeout: 3000,});
+          window.FlashMessage.error( " Not updated !!", { timeout: 3000,});
+          setTimeout(()=> { window.location.reload()},3500)
         }
 
     });
