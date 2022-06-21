@@ -159,7 +159,7 @@ $('#dataTables').on('click', 'a.updateStatusdata', function () {
             var dataResultp = JSON.parse(datak); 
             // alert("Status updated Sucessfully !!");
             // window.location.reload();
-            window.FlashMessage.status( " Status updated Sucessfully !!", { timeout: 3000,});
+            window.FlashMessage.success( " Status updated Sucessfully !!", { timeout: 3000,});
             setTimeout(()=> { window.location.reload()},3100)
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -205,7 +205,7 @@ $('#dataTables').on('click', 'a.updateStatusdata', function () {
             var dataResultp = JSON.parse(datak); 
             // alert("Status updated Sucessfully !!");
             // window.location.reload();
-            window.FlashMessage.status( " Status updated Sucessfully !!", { timeout: 3000,});
+            window.FlashMessage.success( " Status updated Sucessfully !!", { timeout: 3000,});
             setTimeout(()=> { window.location.reload()},3100)
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -328,7 +328,7 @@ $('#dataTables').on('click', 'a.updateStatusdata', function () {
 
                  function checksubscribeStatus(){   
                    var datastatus ;
-                    if(dataResult.serviceSubscriptionMyMentorPlans[i].isActive == null || dataResult.serviceSubscriptionMyMentorPlans[i].isActive == true) {datastatus = '<a id="'+dataResult.serviceSubscriptionMyMentorPlans[i].id+'" class="updateStatusdata btn btn-primary" value="Active" style="color:white;">Active</a>'; }else{datastatus = '<a  class="updateStatusdata btn btn-primary" id="'+dataResult.serviceSubscriptionMyMentorPlans[i].id+'" value="Inactive" style="color:white;">Inactive</a>';}
+                    if(dataResult.serviceSubscriptionMyMentorPlans[i].isActive == null || dataResult.serviceSubscriptionMyMentorPlans[i].isActive == true) {datastatus = '<a id="'+dataResult.serviceSubscriptionMyMentorPlans[i].id+'" class="updateStatusdata btn btn-success" value="Active" style="color:white;">Active</a>'; }else{datastatus = '<a  class="updateStatusdata btn btn-danger" id="'+dataResult.serviceSubscriptionMyMentorPlans[i].id+'" value="Inactive" style="color:white;">Inactive</a>';}
 
                     return datastatus;
                   }
