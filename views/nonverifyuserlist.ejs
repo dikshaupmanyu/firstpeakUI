@@ -335,7 +335,7 @@ $.ajax({
   title: 'Confirm Update',
   message: 'Are you sure you want to update?',
   onok: () => {
-    if(result){
+    // if(result){
         // Delete logic goes here
     var userdata = row["userName"];
     var formData = {appUserName:userdata};
@@ -372,7 +372,7 @@ $.ajax({
         }
 
     });
-    }
+    // }
   },
   oncancel:  () => {
     window.FlashMessage.error(" Not updated !!", { timeout: 2000, });
@@ -401,7 +401,7 @@ $.ajax({
               title: 'Block Confirm',
               message: 'Are you sure you want to Block?',
               onok: () => {
-                if(result){
+                // if(result){
         // Delete logic goes here
     var userdata = row["userName"];
     var useremail = row["email"];
@@ -444,7 +444,7 @@ $.ajax({
         }
 
     });
-    } 
+    // } 
               }
       });
 
@@ -454,7 +454,7 @@ $.ajax({
               title: 'Release Confirm',
               message: 'Are you sure you want to Release?',
               onok: () => {
-      if(result){
+      // if(result){
         // Delete logic goes here
     var userdata = row["userName"];
     var useremail = row["email"];
@@ -497,7 +497,7 @@ $.ajax({
         }
 
     });
-    } 
+    // } 
   },oncancel:()=>{
     setTimeout(()=> { window.location.reload()},2100)
   }
