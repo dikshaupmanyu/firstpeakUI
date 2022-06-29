@@ -2,7 +2,9 @@
 
            <link href="css/flash-main.css" rel="stylesheet" type="text/css">
            <script src="/js/flash-main.js"></script>
-       
+           <link href="css/confirmMsg.css" rel="stylesheet" type="text/css">
+           <script src="/js/confirmMsg.js"></script>
+           
         <div class="container-fluid">
 
           <!-- Page Heading -->
@@ -304,8 +306,11 @@ $.ajax({
     //alert(id);
     var table = $('#dataTables').DataTable();
     var row = table.row(this.closest('tr')).data();
-    var result = confirm("Are you sure you want to delete?");
-    if(result){
+    var result =   Confirm.open({
+  title: 'Delete Confirm',
+  message: "Are you sure you want to delete ?",
+  onok: () => {
+     // if(result){
         // Delete logic goes here
     // var ids = row["id"];
     var formData = {appuserid:id};
@@ -335,11 +340,13 @@ $.ajax({
       }
 
     });
-    } else {
-
-       window.location.reload();
-
-    }
+    // } 
+  },
+  oncancel: ()=>{ 
+    setTimeout(()=> { window.location.reload()},500)
+  }
+    });
+   
            // $('#dataTables').DataTable().ajax.reload();
 
 
@@ -355,10 +362,13 @@ $.ajax({
     var table = $('#dataTables').DataTable();
     var row = table.row(this.closest('tr')).data();
     var url ;
-    var result = confirm("Are you sure you want to update?");
-    if(result){
+    var result =   Confirm.open({
+  title: 'Update Confirm',
+  message: 'Are you sure you want to update?',
+  onok: () => {
+        // if(result){
         // Delete logic goes here
-    var userdata = row["userName"];
+        var userdata = row["userName"];
     var formData = {appUserName:userdata};
     var mentordata = row["isMentor"];
     // alert(mentordata);
@@ -394,11 +404,14 @@ $.ajax({
         }
 
     });
-    } else {
+    // } 
+  },
+  oncancel: ()=>{
+    setTimeout(()=> { window.location.reload()},500)
+  }
+    });
 
-       window.location.reload();
 
-    }
            // $('#dataTables').DataTable().ajax.reload();
 
 
@@ -413,10 +426,13 @@ $.ajax({
     var table = $('#dataTables').DataTable();
     var row = table.row(this.closest('tr')).data();
     var url ;
-    var result = confirm("Are you sure you want to update?");
-    if(result){
+    var result =   Confirm.open({
+  title: 'Update Confirm',
+  message: 'Are you sure you want to update ?',
+  onok: () => {
+        // if(result){
         // Delete logic goes here
-    var userdata = row["id"];
+        var userdata = row["id"];
     var formData = {appuserid:userdata};
     var subscribedata = row["internalSubscribedUser"];
     // alert(mentordata);
@@ -452,11 +468,14 @@ $.ajax({
 
 
     });
-    } else {
+    
+  },
+  oncancel: ()=>{
+    setTimeout(()=> { window.location.reload()},500)
+  }
+    });
 
-       window.location.reload();
 
-    }
            // $('#dataTables').DataTable().ajax.reload();
 
 
@@ -474,14 +493,13 @@ $.ajax({
     var formData;
     var result ;
     if(vals == "Block"){
-      result = confirm("Are you sure you want to Block?");
-    }
-    if(vals == "Release"){
-      result = confirm("Are you sure you want to Release?");
-    }
-    if(result){
+      result =   Confirm.open({
+  title: 'Block Confirm',
+  message: 'Are you sure you want to Block?',
+  onok: () => {
+        // if(result){
         // Delete logic goes here
-    var userdata = row["userName"];
+        var userdata = row["userName"];
     var useremail = row["email"];
     var userpass = row["password"];
     var userId = row["id"];
@@ -522,12 +540,72 @@ $.ajax({
         }
 
     });
-    } else {
+    // } 
+  },
+  oncancel: ()=>{
+    setTimeout(()=> { window.location.reload()},500)
 
-       window.location.reload();
+  }
+      });
+    }
+    if(vals == "Release"){
+      result =   Confirm.open({
+  title: 'Release Confirm',
+  message: 'Are you sure you want to Release',
+  onok: () => {
+      // if(result){
+        // Delete logic goes here
+        var userdata = row["userName"];
+    var useremail = row["email"];
+    var userpass = row["password"];
+    var userId = row["id"];
+    var usertypeof = row["userType"];
+    var statusdata = row["status"];
+     // alert(statusdata);
+    if(statusdata == "Block") {
+          url = "https://apis.tradetipsapp.com/api/appUserWebModify/appUserUpdateByUserName";
+         formData = {appUserName:userdata,appuserid:userId,userName:userdata,email:useremail,password:userpass,status:"Enable",firstName:"",middleName:"",lastName:"",gender:"",imageDetails:"",userLocation:"",userType:usertypeof,saved_stocks:"",savedMentors:"",description:""};
+      } else if(statusdata == "Enable") {
+          url = "https://apis.tradetipsapp.com/api/appUserWebModify/appUserUpdateByUserName";
+          formData = {appUserName:userdata,appuserid:userId,userName:userdata,email:useremail,password:userpass,status:"Block",firstName:"",middleName:"",lastName:"",gender:"",imageDetails:"",userLocation:"",userType:usertypeof,saved_stocks:"",savedMentors:"",description:""};
+      } else if(statusdata == null) {
+          url = "https://apis.tradetipsapp.com/api/appUserWebModify/appUserUpdateByUserName";
+          formData = {appUserName:userdata,appuserid:userId,userName:userdata,email:useremail,password:userpass,status:"Enable",firstName:"",middleName:"",lastName:"",gender:"",imageDetails:"",userLocation:"",userType:usertypeof,saved_stocks:"",savedMentors:"",description:""};
+      }
+       $.ajax({
+        url : url,
+        type: "POST",
+        headers: {
+             Authorization: 'Bearer ' + tokens,
+        },
+        data : formData,
+        success: function(data, textStatus, jqXHR)
+        {
+            //data - response from server
+            var datak = JSON.stringify(data);
+            var dataResultp = JSON.parse(datak); 
+            // alert("Status updated Sucessfully !!");
+            window.FlashMessage.success(" Status Updated Successfully !!", {timeout: 3000,});
+            // window.location.reload();
+            setTimeout(()=> { window.location.reload()},3500)
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+          //  alert("Not updated !!");
+          window.FlashMessage.error(" Not updated !!", {timeout: 5000,});
+        }
+
+    });
+    // } 
+
+  },
+  oncancel: ()=>{
+    setTimeout(()=> { window.location.reload()},500)
+  }
+      });
 
     }
-
+  
 
    });
 

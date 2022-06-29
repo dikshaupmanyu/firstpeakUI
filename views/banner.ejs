@@ -2,7 +2,8 @@
  <script src="https://cdn.jsdelivr.net/npm/emoji-button@0.6.0/dist/index.min.js"></script>
  <link href="css/flash-main.css" rel="stylesheet" type="text/css">
  <script src="/js/flash-main.js"></script>
-
+ <link href="css/confirmMsg.css" rel="stylesheet" type="text/css">
+ <script src="/js/confirmMsg.js"></script>
     <script>
       window.addEventListener('DOMContentLoaded', () => {
   EmojiButton(document.querySelector('#emoji-button'), function (emoji) {
@@ -855,7 +856,7 @@ x = document.getElementsByClassName("tab");
 if( title1 == "" || shortDescription1 == ""  || longDescription1 == ""  || filename1 == ""){
   // alert("Please fill all the fields of Slider 1"); valid = false;
   window.FlashMessage.error('Please fill all the field of Slider 1', {
-                  timeout: 3000,
+                  timeout: 2000,
                 }); valid = false;
 
 }else{
@@ -866,7 +867,7 @@ if (extFile1 =="jpg" || extFile1=="jpeg" || extFile1=="png"){
   // alert("Only jpg/jpeg and png files are allowed!"); valid = false;
 
   window.FlashMessage.error('Only jpg/jpeg and png files are allowed!', {
-                  timeout: 3000,
+                  timeout: 2000,
                 }); vslid = false;
 }
 }
@@ -1028,7 +1029,7 @@ if(title1){
    if(title1 == "" || shortDescription1 == ""  || longDescription1 == ""  || filename1 == ""){
       // alert("Please fill all the fields of Slider 1");
       window.FlashMessage.error('Please fill all the field of Slider 1', {
-                  timeout: 3000,
+                  timeout: 2000,
                 }); 
     }else {
 
@@ -1052,7 +1053,7 @@ if(title1){
    if(title2 == "" || shortDescription2 == ""  || longDescription2 == ""  || filename2 == ""){
       // alert("Please fill all the fields of Slider 2");
       window.FlashMessage.error('Please fill all the field of Slider 2', {
-                  timeout: 3000,
+                  timeout: 2000,
                 });
     }else {
 
@@ -1076,7 +1077,7 @@ if(title1){
    if(title3 == "" || shortDescription3 == ""  || longDescription3 == ""  || filename3 == ""){
       // alert("Please fill all the fields of Slider 3");
       window.FlashMessage.error('Please fill all the field of Slider 3', {
-                  timeout: 3000,
+                  timeout: 2000,
                 });
     }else {
 
@@ -1120,7 +1121,7 @@ $("#bannerSubmitbannerone").on('click', function (e) {
   if(title == "" || shortDescription == ""  || longDescription == ""  || filename == ""){
     // alert("Please fill all the field");
     window.FlashMessage.error('Please fill all the field', {
-                  timeout: 3000,
+                  timeout: 2000,
                 }); 
   }else {
 
@@ -1154,7 +1155,7 @@ $("#bannerSubmitbannerone").on('click', function (e) {
         if (count > max) {
             // alert("Maximum " + max + " characters allowed.")
             window.FlashMessage.error('Maximum ' + max + " characters allowed ", {
-                  timeout: 3000,
+                  timeout: 2000,
                 }); 
             return false;
         }else{
@@ -1172,7 +1173,7 @@ $("#bannerSubmitbannerone").on('click', function (e) {
                   timeout: 5000,
                 }); 
                 // window.location.reload("/banner?tokendata="+tokens); 
-                setTimeout(()=> { window.location.reload("/banner?tokendata=0"+tokens)},3500)
+                setTimeout(()=> { window.location.reload("/banner?tokendata=0"+tokens)},2100)
 
                  // fetch("https://apis.tradetipsapp.com/api/adBannerSimple/disableAllOtherthanBannerById?adBannerId="+dataResultp.id, requestOptions1)
                  //    .then(response => response.json())
@@ -1419,12 +1420,12 @@ var idxDot3 = filename3.lastIndexOf(".") + 1;
                // alert(dataResultp.title);
               //  alert("Your Multiple Banner was submitted successfully");
               window.FlashMessage.success('Your Multiple Banner was submitted successfully', {
-                  timeout: 3000,
+                  timeout: 2000,
                 });
 
                 // location.reload("#tabs-banner2")
               //  window.location.reload("/banner?tokendata="+tokens);     
-              setTimeout(()=> { window.location.reload("/banner?tokendata="+tokens); },3500)    
+              setTimeout(()=> { window.location.reload("/banner?tokendata="+tokens); },2100)    
       })
      .catch(error => console.log('error', error));
  }
@@ -1484,7 +1485,7 @@ var formdata = new FormData();
      var countdataa = data_Results.filter(function(s) { return s.isSingleBanner == null || s.isSingleBanner == true } ); 
           $('#dataTablesone').dataTable( {
            "aaData": countdataa, 
-           "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
+           "lengthMenu": [ 500, 1000, 2000, 2000, 4000, 5000 ],
            "pageLength": 500,
            // "aaSorting": [[ 0, "desc" ]],
            // "columnDefs": [ {
@@ -1564,10 +1565,13 @@ var formdata = new FormData();
       // alert(id);
 
       var url ;
-      var result = confirm("Are you sure you want to Update?");
-      if(result){
-      // alert(result);
-      var formData = {adBannerId:id};
+      var result = 
+      Confirm.open({
+  title: 'Succcess Update',
+  message: 'Are you sure you want to Update?',
+  onok: () => {
+    
+    var formData = {adBannerId:id};
        url = "https://apis.tradetipsapp.com/api/adBannerSimple/disableSimpleAdBannerById";
       $.ajax({
         url : url,
@@ -1604,27 +1608,27 @@ var formdata = new FormData();
             
             // alert("Status Updated Successfully !!");
             window.FlashMessage.success('Status Updated Successfully !!', {
-                  timeout: 3000,
+                  timeout: 2000,
                 }); 
-                setTimeout(()=> { window.location.reload()},3500)
+                setTimeout(()=> { window.location.reload()},2100)
 
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
           //  alert("Not updated !!");
           window.FlashMessage.error('Not Updated !!', {
-                  timeout: 3000,
+                  timeout: 2000,
                 }); 
         }
 
        });
-      
+  },
+  oncancel:() => {
+    setTimeout(()=> { window.location.reload()},500)
+  }
+})
 
-      } else {
-
-          window.location.reload();
-
-      }
+    
 
       });  
 
@@ -1637,8 +1641,11 @@ var formdata = new FormData();
       // alert(id);
 
       // var url ;
-      var result = confirm("Are you sure you want to Update?");
-      if(result){
+      var result =  Confirm.open({
+              title: 'Status Update',
+              message: 'Are you sure you want to Update?',
+              onok: () =>{
+                    
       // //alert(result);
       // var formData = {adBannerId:id};
       //  url = "https://apis.tradetipsapp.com/api/adBannerSimple/activeSimpleAdBannerById";
@@ -1680,26 +1687,15 @@ var formdata = new FormData();
                               // alert(dataResultp.title);
                               // alert("Status Updated Successfully !!");
                               window.FlashMessage.success('Status Updated Successfully !!', {
-                  timeout: 3000,
+                  timeout: 2000,
                 }); 
-                setTimeout(()=> { window.location.reload()},3500)
+                setTimeout(()=> { window.location.reload()},2100)
                     });
-                 // window.location.reload();
-    
-        // },
-        // error: function (jqXHR, textStatus, errorThrown)
-        // {
-        //    alert("Not updated !!");
-        // }
-
-       // });
-      
-
-      } else {
-
-          window.location.reload();
-
-      }
+              },
+              oncancel: () => {
+                setTimeout(()=> { window.location.reload()},500)
+              }
+      });
 
       });
 
@@ -1711,10 +1707,11 @@ var formdata = new FormData();
       // alert(id);
 
       var url ;
-      var result = confirm("Are you sure you want to Delete?");
-      if(result){
-      // alert(result);
-      var formData = {adBannerId:id};
+      var result =  Confirm.open({
+              title: 'Delete Update',
+              message: 'Are you sure you want to Delete?',
+              onok: () => {
+                var formData = {adBannerId:id};
        url = "https://apis.tradetipsapp.com/api/adBannerSimple/deleteSimpleAdBannerById";
       $.ajax({
         url : url,
@@ -1732,27 +1729,29 @@ var formdata = new FormData();
             // alert(dataResultp);
             // alert("Delete Successfully !!");
             window.FlashMessage.success('Delete Successfully !!', {
-                  timeout: 3000,
+                  timeout: 2000,
                 }); 
-                setTimeout(()=> { window.location.reload()},3500)
+                setTimeout(()=> { window.location.reload()},2100)
 
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
           //  alert("Not updated !!");
           window.FlashMessage.error('Not Updated !!', {
-                  timeout: 3000,
+                  timeout: 2000,
                 }); 
         }
 
        });
+              },
+              oncancel: ()=>{
+                setTimeout(()=> { window.location.reload()},500)
+              }
+      });
+
+
+
       
-
-      } else {
-
-          window.location.reload();
-
-      }
 
       });
 
@@ -1782,7 +1781,7 @@ var formdata = new FormData();
       var countdataa = data_Result.filter(function(s) { return s.isSingleBanner == false  } ); 
           $('#dataTablesMultiple').dataTable( {
            "aaData": countdataa, 
-           "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
+           "lengthMenu": [ 500, 1000, 2000, 2000, 4000, 5000 ],
            "pageLength": 500,
            // "aaSorting": [[ 0, "desc" ]],
            // "columnDefs": [ {
@@ -1888,10 +1887,11 @@ var formdata = new FormData();
      // alert(id);
 
      var url ;
-     var result = confirm("Are you sure you want to Update?");
-     if(result){
-     // alert(result);
-     var formData = {adBannerId:id};
+     var result =  Confirm.open({
+              title: 'Successfull Update',
+              message: 'Are you sure you want to Update?',
+              onok: () => {
+                var formData = {adBannerId:id};
       url = "https://apis.tradetipsapp.com/api/adBannerSimple/disableSimpleAdBannerById";
      $.ajax({
        url : url,
@@ -1928,28 +1928,31 @@ var formdata = new FormData();
            
           //  alert("Status Updated Successfully !!");
           window.FlashMessage.success('Status Updated Successfully !!', {
-                  timeout: 3000,
+                  timeout: 2000,
                 }); 
-                setTimeout(()=> { window.location.reload()},3500)
+                setTimeout(()=> { window.location.reload()},2100)
 
        },
        error: function (jqXHR, textStatus, errorThrown)
        {
           // alert("Not updated !!");
           window.FlashMessage.error('Not Updated !!', {
-                  timeout: 3000,
+                  timeout: 2000,
                 }); 
        }
 
       });
      
 
-     } else {
+              },
+              oncancel:()=>{
+                setTimeout(()=> { window.location.reload()},500)
+              }
+     });
 
-         window.location.reload();
 
-     }
 
+  
      });  
 
 
@@ -1961,32 +1964,11 @@ var formdata = new FormData();
      // alert(id);
 
      // var url ;
-     var result = confirm("Are you sure you want to Update?");
-     if(result){
-     // //alert(result);
-     // var formData = {adBannerId:id};
-     //  url = "https://apistest.tradetipsapp.com/api/adBannerSimple/activeSimpleAdBannerById";
-     // $.ajax({
-     //   url : url,
-     //   type: "POST",
-     //    headers: {
-     //        Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6Im1haGVzaHdhcmkwNmdvdmluZEBnbWFpbC5jb20iLCJzdWIiOiJmMTQ4NmIzMy03YTM0LTQ1MDYtYWFhMS1kM2Y0YmYzOGQzNjYiLCJpYXQiOjE2MjAyODE4MTYsImV4cCI6MTYyMDg4NjYxNn0.wRkAckmjXoCvRtVLzmSz_6EnvtOTwxKj3Q05Bzf7NVamW9wDB6CAZ-2p6gfeSwvXEevAHkVXMoocsZWwWciLzA',
-     //   },
-     //   data : formData,
-     //   success: function(data, textStatus, jqXHR)
-     //   {
-
-
-     //       //data - response from server
-     //       var datak = JSON.stringify(data);
-     //       // alert(datak);
-     //       var dataResultp = JSON.parse(datak); 
-     //        // alert(dataResultp);
-            
-          
-     //       alert("Status Updated Successfully !!");
-          
-              var requestOptions1 = {
+     var result = Confirm.open({
+              title: 'Success Update',
+              message: 'Are you sure you want to Update?',
+              onok: () => {
+                var requestOptions1 = {
                method: 'POST',
                headers: {
                        Authorization: 'Bearer '+ tokens
@@ -2002,25 +1984,19 @@ var formdata = new FormData();
                               // alert(datak);
                              var dataResultps = JSON.parse(dataks); 
                              // alert(dataResultp.title);
-                             alert("Status Updated Successfully !!");
-                             window.location.reload();
+                             window.FlashMessage.success(' Status Updated Successfully !!', { timeout: 2000, });
+                      setTimeout(() => { window.location.reload("#tabs-banner2") }, 2100)
                    });
-                // window.location.reload();
-   
-       // },
-       // error: function (jqXHR, textStatus, errorThrown)
-       // {
-       //    alert("Not updated !!");
-       // }
 
-      // });
-     
+              },
+              oncancel:()=>{
+                setTimeout(() => { window.location.reload("#tabs-banner2") }, 500)
+              }
+     });
 
-     } else {
 
-         window.location.reload();
+          
 
-     }
 
      });
 
@@ -2032,10 +2008,11 @@ var formdata = new FormData();
      // alert(id);
 
      var url ;
-     var result = confirm("Are you sure you want to Delete?");
-     if(result){
-     // alert(result);
-     var formData = {adBannerId:id};
+     var result = Confirm.open({
+              title: 'Delete Update',
+              message: 'Are you sure you want to Delete?',
+              onok: () => {
+                var formData = {adBannerId:id};
       url = "https://apis.tradetipsapp.com/api/adBannerSimple/deleteSimpleAdBannerById";
      $.ajax({
        url : url,
@@ -2053,28 +2030,31 @@ var formdata = new FormData();
            // alert(dataResultp);
           //  alert("Delete Successfully !!");
           window.FlashMessage.success('Delete Successfully !!', {
-                  timeout: 3000,
+                  timeout: 2000,
                 }); 
 
-                setTimeout(()=> { window.location.reload()},3500)
+                setTimeout(()=> { window.location.reload()},2100)
 
        },
        error: function (jqXHR, textStatus, errorThrown)
        {
           // alert("Not updated !!");
           window.FlashMessage.error('Not Updated !!', {
-                  timeout: 3000,
+                  timeout: 2000,
                 }); 
        }
 
       });
+              },
+              oncancle:()=>{
+                setTimeout(()=> { window.location.reload()},500)
+              }
+     });
+  
+     // alert(result);
+
      
 
-     } else {
-
-         window.location.reload();
-
-     }
 
      });
 
@@ -2094,7 +2074,7 @@ var formdata = new FormData();
         } else {
             // alert('You Reached the limits')
             window.FlashMessage.error('You Reached the limits', {
-                  timeout: 3000,
+                  timeout: 2000,
                 });
         }
     });

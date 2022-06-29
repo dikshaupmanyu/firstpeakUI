@@ -2,6 +2,8 @@
 
            <link href="css/flash-main.css" rel="stylesheet" type="text/css">
            <script src="/js/flash-main.js"></script>
+           <link href="css/confirmMsg.css" rel="stylesheet" type="text/css">
+           <script src="/js/confirmMsg.js"></script>
        
         <div class="container-fluid">
 
@@ -125,17 +127,16 @@
             window.history.forward(); 
         } 
 
-
-
-   <%- include partials/commonlink %>
-<script type="text/javascript">
  $('#dataTables').on('click', 'input.editor-active', function () {
 
     var id = $(this).attr('id');
     alert(id);
     var table = $('#dataTables').DataTable();
     var row = table.row(this.closest('tr')).data();
-    var result = confirm("Are you sure you want to unflag the comment?");
+    var result =  Confirm.open({
+  title: 'Unflag Comment',
+  message: 'Are you sure you want to unflag the comment?',
+  onok: () => {
     if(result){
     var ids = id;
     // alert(ids);
@@ -149,26 +150,30 @@
             //data - response from server
             var datak = JSON.stringify(data);
             var dataResultp = JSON.parse(datak); 
-            alert("Comment Unflag Sucessfully !!");
-            // window.location.reload();
+            window.FlashMessage.success( " Comment Unflag Sucessfully !!", { timeout: 3000,});
+           setTimeout(()=> { window.location.reload()},3100)
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-           alert("Not updated !!");
-           window.FlashMessage.error(" Not updated !!", {timeout: 5000,});
+          window.FlashMessage.error( " Not updated !!", { timeout: 3000,});
+          setTimeout(()=> { window.location.reload()},3100)
         }
 
     });
-    } else {
-
-       window.location.reload();
-
     }
+  },
+ 
+    oncancel:  () => { window.FlashMessage.error( " Not updated !!", { timeout: 3000,});
+  setTimeout(()=> { window.location.reload()},3100)
+  }
+    });
+
+ 
 
    });
-    
-
-</script>
+   
+   </script>
+   <%- include partials/commonlink %>
 </body>
 
 </html>
