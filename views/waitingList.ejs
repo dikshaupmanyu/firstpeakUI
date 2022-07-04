@@ -1,316 +1,655 @@
 <%- include partials/header %>
-<script src="https://cdn.jsdelivr.net/npm/emoji-button@0.6.0/dist/index.min.js"></script>
-   <script>
-     window.addEventListener('DOMContentLoaded', () => {
- EmojiButton(document.querySelector('#emoji-button'), function (emoji) {
-   document.querySelector('input').value += emoji;
- });
-});
-</script>
-<style type="text/css">
- .emoji-picker{
-   z-index: 111;
- }
- .emoji-picker__emojis {
-   height: 16rem !important;
- }
-</style>
-<style type="text/css">
- .content {
- width: 80%;
- padding: 0;
- margin: 0 auto;
-}
 
-.centerplease {
- margin: 0 auto;
- max-width: 270px;
- font-size: 40px;
-}
+<link href="css/flash-main.css" rel="stylesheet" type="text/css">
+<script src="/js/flash-main.js"></script>
+<link href="css/confirmMsg.css" rel="stylesheet" type="text/css">
+<script src="/js/confirmMsg.js"></script>
 
-/*Question*/
-.question {
- position: relative;
- background: #f9f9f9;
- margin: 0;
- padding: 10px 10px 10px 50px;
- display: block;
- width:100%;
- cursor: pointer;
-}
-/*Answer*/
-.answers {
- padding: 0px 15px;
- margin: 5px 0;
- width:100%!important;
- height: 0;
- overflow: hidden;
- z-index: -1;
- position: relative;
- opacity: 0;
- -webkit-transition: .3s ease;
- -moz-transition: .3s ease;
- -o-transition: .3s ease;
- transition: .3s ease;
-}
+<div class="container-fluid">
 
-.questions:checked ~ .answers{
- height: auto;
- opacity: 0;
- padding: 15px;
- display: contents;
- 
-}
-
-/*FAQ Toggle*/
-.plus {
- position: absolute;
- margin-left: 10px;
- z-index: 5;
- font-size: 2em;
- line-height: 100%;
- -webkit-user-select: none;    
- -moz-user-select: none;
- -ms-user-select: none;
- -o-user-select: none;
- user-select: none;
- -webkit-transition: .3s ease;
- -moz-transition: .3s ease;
- -o-transition: .3s ease;
- transition: .3s ease;
-
-}
-
-.questions:checked ~ .plus {
- -webkit-transform: rotate(45deg);
- -moz-transform: rotate(45deg);
- -o-transform: rotate(45deg);
- transform: rotate(45deg);
-
-}
-
-.questions {
- display: none;
- 
-}
-
-</style>
-
-       <div class="container-fluid">
-
-          <!-- form user info -->
-           <div class="card card-outline-secondary">
-             <div class="card-header">
-               <h3 class="mb-0">Waiting List</h3>
-             </div>
-             <div class="card-body">
-             <br>
-              <ul class="nav nav-tabs" role="tablist">
-               <li class="nav-item">
-                 <a class="nav-link active" data-toggle="tab" href="#tabs-chatroom1" role="tab">Chat Room 1</a>
-               </li>
-               <li class="nav-item">
-                 <a class="nav-link" data-toggle="tab" href="#tabs-chatroom2" role="tab">Chat Room 2</a>
-               </li>
-                <li class="nav-item">
-                 <a class="nav-link" data-toggle="tab" href="#tabs-chatroom3" role="tab">Chat Room 3</a>
-               </li>
-               </ul>
-               <br>
-               <div class="tab-content">
-              
-               <div class="tab-pane active" id="tabs-chatroom1" role="tabpanel">
-                 <p>Total Users : 100 </p>
-                  <div class="table-responsive">
-                   <table class="table table-bordered" id="dataTables" width="100%" cellspacing="0">
-                     <thead>
-                       <tr>
-                         <th>Username</th>
-                         <th>Date & Time</th>
-                       </tr>
-                     <tbody>
-                       <td>Diksha</td>
-                       <td>December 8 , 2021 at 10:43 PM</td>
-                     </tbody>
-                   </table>
-                </div>
-               </div>
-               <div class="tab-pane" id="tabs-chatroom2" role="tabpanel">
-                 <p>Total Users : 200 </p>
-                 <div class="table-responsive">
-                   <table class="table table-bordered" id="dataTables" width="100%" cellspacing="0">
-                     <thead>
-                       <tr>
-                         <th>Username</th>
-                         <th>Date & Time</th>
-                       </tr>
-                     <tbody>
-                       <td>Diksha</td>
-                       <td>December 8 , 2021 at 10:43 PM</td>
-                     </tbody>
-                   </table>
-               </div>
-               </div>       
-               <div class="tab-pane" id="tabs-chatroom3" role="tabpanel">
-                <p>Total Users : 300 </p>
-                <div class="table-responsive">
-                   <table class="table table-bordered" id="dataTables" width="100%" cellspacing="0">
-                     <thead>
-                       <tr>
-                         <th>Username</th>
-                         <th>Date & Time</th>
-                       </tr>
-                     <tbody>
-                       <td>Diksha</td>
-                       <td>December 8 , 2021 at 10:43 PM</td>
-                     </tbody>
-                   </table>
-                </div>
-               </div>
-               <br>
-             </div>
-         
-           </div><!-- /form user info -->
-
-       
-       </div>
-
-     </div>
-     <!-- End of Main Content -->
-                <%- include partials/footer %>
-
-
-   </div>
-   <!-- End of Content Wrapper -->
-
- </div>
- <!-- End of Page Wrapper -->
-
- <!-- Scroll to Top Button-->
- <a class="scroll-to-top rounded" href="#page-top">
-   <i class="fas fa-angle-up"></i>
- </a>
-
- <!-- Logout Modal-->
- <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-   <div class="modal-dialog" role="document">
-     <div class="modal-content">
-       <div class="modal-header">
-         <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-           <span aria-hidden="true">×</span>
-         </button>
-       </div>
-       <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-       <div class="modal-footer">
-         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-         <a class="btn btn-primary" href="/">Logout</a>
-       </div>
-     </div>
-   </div>
- </div>
-
- <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-   <div class="modal-dialog" role="document">
-     <div class="modal-content preview-phone">
-       <div class="modal-body preview-card-body p-0"><main>
-   <div class="pt-5" style="position: relative;">
-     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-       <span aria-hidden="true">×</span>
-     </button>
-     
-               <div class=" text-center"> <img style="max-width: 200px;" src="https://www.freepnglogos.com/uploads/notebook-png/download-laptop-notebook-png-image-png-image-pngimg-2.png" id="previewImgSrc" class="card-img-top" alt="...">
-                   <div class="card-body text-dark">
-                       <div class="min-height-360">
-                       <h3 class="clearfix text-gray-900 mb-3 font-weight-bold" id="previewTitle"></h3>
-                       <h5 id="previewShortDescription"></h5>
-                       <h5 class="show-more-less-dec" style="display: none;" id="previewLongDescription"> </h5>
-                       <a class="show-more-less-btn" href="javascript:void(0);">Show More</a>
-                     </div>
-                       <div class="text-center mt-4"> <a href="#" class="btn btn-primary btn-block btn-lg">Got It!</a> </div>
-                   </div>
-               </div>
-
-   </div>
-</main></div>
-       <!-- <div class="modal-footer">
-         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-         <a class="btn btn-primary" href="#">Submit</a>
-       </div> -->
-     </div>
-   </div>
- </div>
-
-
- <!-- Bootstrap core JavaScript-->
- <script src="vendor/jquery/jquery.min.js"></script>
- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
- <!-- Core plugin JavaScript-->
- <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
---><link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-
-<script type="text/javascript">
- $(document).ready(function () {
-//change selectboxes to selectize mode to be searchable
-  $("select").select2();
-});
-</script>
-
-<!-- <script src="//cdn.ckeditor.com/4.5.9/standard/ckeditor.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.5.9/adapters/jquery.js"></script>
+<!-- Page Heading -->
+<!--  <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
 -->
- <!-- Custom scripts for all pages-->
- <script src="js/sb-admin-2.min.js"></script>
-<script src="js/choosen.js"></script>
+<!-- DataTales Example -->
+
+<div class="card shadow mb-4">
+ <div class="card-header py-3">
+   <h6 class="m-0 font-weight-bold text-primary">User List</h6>
+ </div>
+ <div class="card-body">
+   <div class="table-responsive">
+     <table class="table table-bordered" id="dataTables" width="100%" cellspacing="0">
+       <thead>
+         <tr>
+           <th>Id</th>
+           <th>Email</th>
+           <th>Mentor Name</th>
+           <th>Mentor Service</th>
+           <!-- <th>Subscription</th> -->
+           <th>Date</th>
+           <!-- <th>Image</th>
+           <th>Status</th> -->
+           <!-- <th>Action</th> -->
+<!--                       <th>Authenticate by Email</th>-->
+         </tr>
+       </thead>
+       <tbody>
+         <div id='loader' style="display: none;">
+<img src='/img/Reload-Image-Gif-1.gif' width='32px' height='32px'>
+</div>
+       </tbody>
+      <!--  <tfoot>
+         <tr>
+           <th>Id</th>
+           <th>UserName</th>
+           <th>Email</th>
+           <th>Mentor</th>
+           <th>Subscription</th>
+           <th>Date</th>
+           <th>Image</th>
+           <th>Status</th>
+
+         </tr>
+       </tfoot> -->
+      <!--  <tbody id="showData">
+       </tbody> -->
+
+
+     </table>
+   </div>
+ </div>
+</div>
+
+</div>
+
+</div>
+<!-- End of Main Content -->
+
+      <%- include partials/footer %>
+
+
+</div>
+<!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+<i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+ <span aria-hidden="true">×</span>
+</button>
+</div>
+<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+<div class="modal-footer">
+<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+<a class="btn btn-primary" href="/">Logout</a>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="js/sb-admin-2.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
 <!-- Page level plugins -->
- <script src="vendor/datatables/jquery.dataTables.min.js"></script>
- <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
- <!-- Page level custom scripts -->
- <script src="js/demo/datatables-demo.js"></script>
+<!-- Page level custom scripts -->
+<script src="js/demo/datatables-demo.js"></script>
+<!-- 
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
 
-<style type="text/css">
- span.tox-statusbar__branding {
-   display: none;
-}
-</style>
+<script src="//cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js" type="text/javascript"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"> -->
 
 
- <script type="text/javascript">
+
+<script type="text/javascript">
 
 window.history.forward(); 
-       function noBack() { 
-           window.history.forward(); 
-       } 
+function noBack() { 
+ window.history.forward(); 
+} 
+
+
+window.addEventListener("load", function() {
+
+// alert(window.location.href);
+
 var url_string = window.location.href; 
- var urls = new URL(url_string);
- var tokens = urls.searchParams.get("tokendata");
+var urls = new URL(url_string);
+var tokens = urls.searchParams.get("tokendata");
+// alert(tokens);
+
+// const Offset = "1";
+// const Limit = "1000";
+// const formdata = {offset : Offset , limit : Limit};
+// alert(JSON.stringify(formdata));
+
+
+$.ajax({
+type: 'POST',
+// url: 'https://apis.tradetipsapp.com/api/appUserWebModify/getAllAppUsersPagination',
+url: 'https://apis.tradetipsapp.com/api/servicePurchaseInterestDetails/getAllServicePurchaseInterest',
+headers: {
+Authorization: 'Bearer '+ tokens
+},
+async:false,
+// data: formdata,
+beforeSend: function(){
+// Show image container
+// alert("hii");
+$("#loader").show();
+},
+success: function(data) {
+var datak = JSON.stringify(data);
+var dataResult = JSON.parse(datak); 
+// console.log(dataResult);
+var len = dataResult.length;
+$('#dataTables').dataTable( {
+ "aaData": data,   
+ "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ,8000,10000,12000,15000 ],
+ "pageLength": 3000,
+ "aaSorting": [[ 4, "desc" ]],
+ "columnDefs": [ {
+ "targets": 4,
+ "orderable": false
+ } ],
+ "columns": [
+ { "data": "userId" },
+     { "data": "email" },
+     { "data": "mentorName" },
+     { "data": "serviceId" },
+  //    {
+  //    "data":   "isMentor",
+  //    render: function ( data, type, row ) {
+  //        if ( type === 'display' ) {
+  //            // return '<a href="updateData?id='+row.id+'&username='+row.userName+'&tokendata='+tokens+'"><input type="checkbox" class="editor-active"></a>';
+  //            return '<input type="checkbox" class="editor-active">';
+  //        }
+  //        return data;
+  //    },
+
+  //  },
+  //  {
+  //    "data":   "internalSubscribedUser",
+  //    render: function ( data, type, row ) {
+  //        if ( type === 'display' ) {
+  //            // return '<a href="updateData?id='+row.id+'&username='+row.userName+'&tokendata='+tokens+'"><input type="checkbox" class="editor-active"></a>';
+  //            return '<input type="checkbox" class="editor-activesubscibe">';
+  //        }
+  //        return data;
+  //    },
+
+  //  },
+   { 
+   "data": "createdOn",
+    "name":"date",
+    "visible":true,
+    "title":"Date Created",
+    "render": function(data, type, full, meta){
+     if(type == "display"){
+             var date = new Date(data);
+             var options = {year: "numeric", month: "long", day: "numeric"};
+
+             return date.toLocaleDateString('en-US', options);
+     }
+
+     return data;
+   }
+   // render: function ( data, type, row ) {
+   //       // alert(data);
+   //         var current_date= new Date(data);
+
+   //         var timestamp=new Date(data).getTime();
+   //         var todate=new Date(timestamp).getDate();
+   //         if(todate < 10){
+   //           var fdate = "0"+todate;
+   //         }else{
+   //           var fdate = todate;
+   //         }
+   //         var tomonth=new Date(timestamp).getMonth()+1;
+   //         if(tomonth < 10){
+   //           var fmonth = "0"+tomonth;
+   //         }else{
+   //           var fmonth = tomonth;
+   //         }
+   //         var toyear=new Date(timestamp).getFullYear();
+   //         var original_date=fdate+'/'+fmonth+'/'+toyear;
+   //       // alert(current_date);
+   //       $("#dateval"+row.id).html(original_date);
+   //           return '<span id="dateval'+row.id+'"></span>';
+   // },
+ },
+//  {
+//      "data":   "image",
+//      render: function ( data, type, row ) {
+//          if ( type === 'display' ) {
+//              return '<button type="button" class="imgbtn btn btn-info btn-lg" data-toggle="modal" data-target="#myModal'+row.id+'">Image</button><div class="modal fade" id="myModal'+row.id+'" role="dialog"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h4 class="modal-title">Image</h4></div><div class="modal-body" style="height:400px;"><a class="imgPhoto" href="#" id="'+row.id+'" style="text-align:center;display: block;">Delete Image</a><img src="https://apis.tradetipsapp.com/api/appUser/getImageByAppUserId?appUserId='+ row.id+'" class="img-responsive" style="height:350px;width:100%;"/></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div></div></div></div>';
+            
+//          }
+//          return data;
+//      },
+
+//    },
+//    {
+//      "data":   "status",
+//      render: function ( data, type, row ) {
+//          if ( type === 'display' ) {
+
+//             if(data == null){
+
+//              return '<input type="button" class="updateStatusdata" value="Block">';
+
+//              //  return '<a href="updateData?id='+row.id+'&username='+row.userName+'&tokendata='+tokens+'&status=1" id="userStatus">UnBlock</a>';
+
+//              }else if(data == "Enable") {
+
+//                 return '<input type="button" class="updateStatusdata" value="Block">';
+//              //   return '<a href="updateData?id='+row.id+'&username='+row.userName+'&tokendata='+tokens+'&status=1" id="userStatus">UnBlock</a>';
+
+//              }else {
+//              //   return '<a href="updateData?id='+row.id+'&username='+row.userName+'&tokendata='+tokens+'&status=0" id="userStatus">Block</a>';
+//               return '<input type="button" class="updateStatusdata" value="Release">';
+
+//              }
+            
+//          }
+//          return data;
+//      },
+
+//    },
+ ],
+ rowCallback: function ( row, data ) {
+ // Set the checked state of the checkbox in the table
+ $('input.editor-active', row).prop( 'checked', data.isMentor == true );
+
+ $('input.editor-activesubscibe', row).prop( 'checked', data.internalSubscribedUser == true );
+
+},
+complete:function(data){
+ // Hide image container
+ $("#loader").hide();
+}
+    
+});
+}
+
+});
+
+$('#dataTables').on('click', 'a.imgPhoto', function () {
+
+// alert(tokens);
+//alert("hii");
+var id = $(this).attr('id');
+//alert(id);
+var table = $('#dataTables').DataTable();
+var row = table.row(this.closest('tr')).data();
+var result =   Confirm.open({
+title: 'Delete Confirm',
+message: "Are you sure you want to delete ?",
+onok: () => {
+// if(result){
+// Delete logic goes here
+// var ids = row["id"];
+var formData = {appuserid:id};
+//alert(formData);
+$.ajax({
+url : "https://apis.tradetipsapp.com/api/appUserWebModify/deleteUserImageByAppUserId",
+type: "POST",
+headers: {
+Authorization: 'Bearer ' + tokens,
+},
+data : formData,
+success: function(data, textStatus, jqXHR)
+{
+//data - response from server
+// alert(data);
+var datak = JSON.stringify(data);
+var dataResultp = JSON.parse(datak); 
+// alert("Image deleted Sucessfully !!");
+window.FlashMessage.success(" Image deleted Sucessfully !!", {timeout: 3000,});
+// window.location.reload();
+setTimeout(()=> { window.location.reload()},3500)
+},
+error: function (jqXHR, textStatus, errorThrown)
+{
+//  alert("Not updated !!");
+window.FlashMessage.error(" Not updated !! ", {timeout: 5000,});
+}
+
+});
+// } 
+},
+oncancel: ()=>{ 
+setTimeout(()=> { window.location.reload()},500)
+}
+});
+
+// $('#dataTables').DataTable().ajax.reload();
+
+
+});
+
+
+// $('#dataTables').on('click', 'tbody td:not(:first-child)', function () {
+$('#dataTables').on('click', 'input.editor-active', function () {
+
+// alert(tokens);
+// alert("hii");
+var id = $(this).attr('id');
+var table = $('#dataTables').DataTable();
+var row = table.row(this.closest('tr')).data();
+var url ;
+var result =   Confirm.open({
+title: 'Update Confirm',
+message: 'Are you sure you want to update?',
+onok: () => {
+// if(result){
+// Delete logic goes here
+var userdata = row["userName"];
+var formData = {appUserName:userdata};
+var mentordata = row["isMentor"];
+// alert(mentordata);
+if(mentordata == false) {
+url = "https://apis.tradetipsapp.com/api/appUserWebModify/addMentorUserByUserName";
+} else if(mentordata == true) {
+url = "https://apis.tradetipsapp.com/api/appUserWebModify/removeMentorUserByUserName";
+} else if(mentordata == null) {
+url = "https://apis.tradetipsapp.com/api/appUserWebModify/addMentorUserByUserName";
+}
+$.ajax({
+url : url,
+type: "POST",
+headers: {
+  Authorization: 'Bearer ' + tokens,
+},
+data : formData,
+success: function(data, textStatus, jqXHR)
+{
+ //data - response from server
+ var datak = JSON.stringify(data);
+ var dataResultp = JSON.parse(datak); 
+ // alert("User updated Sucessfully !!");
+ window.FlashMessage.success(" User updated Sucessfully !!", {timeout: 3000,});
+ // window.location.reload();
+ setTimeout(()=> { window.location.reload()},3500)            
+
+},
+error: function (jqXHR, textStatus, errorThrown)
+{
+//  alert("Not updated !!");
+window.FlashMessage.error(" Not updated !!", {timeout: 5000,});
+}
+
+});
+// } 
+},
+oncancel: ()=>{
+setTimeout(()=> { window.location.reload()},500)
+}
+});
+
+
+// $('#dataTables').DataTable().ajax.reload();
+
+
+});
+
+
+$('#dataTables').on('click', 'input.editor-activesubscibe', function () {
+
+// alert(tokens);
+// alert("hii");
+var id = $(this).attr('id');
+var table = $('#dataTables').DataTable();
+var row = table.row(this.closest('tr')).data();
+var url ;
+var result =   Confirm.open({
+title: 'Update Confirm',
+message: 'Are you sure you want to update ?',
+onok: () => {
+// if(result){
+// Delete logic goes here
+var userdata = row["id"];
+var formData = {appuserid:userdata};
+var subscribedata = row["internalSubscribedUser"];
+// alert(mentordata);
+if(subscribedata == false) {
+url = "https://apis.tradetipsapp.com/api/appUserWebModify/appUserUpdateInternalSubscription";
+} else if(subscribedata == true) {
+url = "https://apis.tradetipsapp.com/api/appUserWebModify/appUserRemoveInternalSubscription";
+} else if(subscribedata == null) {
+url = "https://apis.tradetipsapp.com/api/appUserWebModify/appUserUpdateInternalSubscription";
+}
+$.ajax({
+url : url,
+type: "POST",
+headers: {
+  Authorization: 'Bearer ' + tokens,
+},
+data : formData,
+success: function(data, textStatus, jqXHR)
+{
+ //data - response from server
+ var datak = JSON.stringify(data);
+ var dataResultp = JSON.parse(datak); 
+ // alert("User updated Sucessfully !!");
+ window.FlashMessage.success(" User updated Sucessfully !!", {timeout: 3000,});
+ // window.location.reload();
+ setTimeout(()=> { window.location.reload()},3500)
+},
+error: function (jqXHR, textStatus, errorThrown)
+{
+//  alert("Not updated !!");
+window.FlashMessage.error(" Not updated !!", {timeout: 5000,});
+}
+
+
+});
+
+},
+oncancel: ()=>{
+setTimeout(()=> { window.location.reload()},500)
+}
+});
+
+
+// $('#dataTables').DataTable().ajax.reload();
+
+
+});
+
+
+$('#dataTables').on('click', 'input.updateStatusdata', function () {
+
+var id = $(this).attr('id');
+var vals = $(this).attr('value');
+// alert(vals);
+var table = $('#dataTables').DataTable();
+var row = table.row(this.closest('tr')).data();
+var url ;
+var formData;
+var result ;
+if(vals == "Block"){
+result =   Confirm.open({
+title: 'Block Confirm',
+message: 'Are you sure you want to Block?',
+onok: () => {
+// if(result){
+// Delete logic goes here
+var userdata = row["userName"];
+var useremail = row["email"];
+var userpass = row["password"];
+var userId = row["id"];
+var usertypeof = row["userType"];
+var statusdata = row["status"];
+// alert(statusdata);
+if(statusdata == "Block") {
+url = "https://apis.tradetipsapp.com/api/appUserWebModify/appUserUpdateByUserName";
+formData = {appUserName:userdata,appuserid:userId,userName:userdata,email:useremail,password:userpass,status:"Enable",firstName:"",middleName:"",lastName:"",gender:"",imageDetails:"",userLocation:"",userType:usertypeof,saved_stocks:"",savedMentors:"",description:""};
+} else if(statusdata == "Enable") {
+url = "https://apis.tradetipsapp.com/api/appUserWebModify/appUserUpdateByUserName";
+formData = {appUserName:userdata,appuserid:userId,userName:userdata,email:useremail,password:userpass,status:"Block",firstName:"",middleName:"",lastName:"",gender:"",imageDetails:"",userLocation:"",userType:usertypeof,saved_stocks:"",savedMentors:"",description:""};
+} else if(statusdata == null) {
+url = "https://apis.tradetipsapp.com/api/appUserWebModify/appUserUpdateByUserName";
+formData = {appUserName:userdata,appuserid:userId,userName:userdata,email:useremail,password:userpass,status:"Enable",firstName:"",middleName:"",lastName:"",gender:"",imageDetails:"",userLocation:"",userType:usertypeof,saved_stocks:"",savedMentors:"",description:""};
+}
+$.ajax({
+url : url,
+type: "POST",
+headers: {
+  Authorization: 'Bearer ' + tokens,
+},
+data : formData,
+success: function(data, textStatus, jqXHR)
+{
+ //data - response from server
+ var datak = JSON.stringify(data);
+ var dataResultp = JSON.parse(datak); 
+ // alert("Status updated Sucessfully !!");
+ window.FlashMessage.success(" Status Updated Successfully !!", {timeout: 3000,});
+ // window.location.reload();
+ setTimeout(()=> { window.location.reload()},3500)
+},
+error: function (jqXHR, textStatus, errorThrown)
+{
+//  alert("Not updated !!");
+window.FlashMessage.error(" Not updated !!", {timeout: 5000,});
+}
+
+});
+// } 
+},
+oncancel: ()=>{
+setTimeout(()=> { window.location.reload()},500)
+
+}
+});
+}
+if(vals == "Release"){
+result =   Confirm.open({
+title: 'Release Confirm',
+message: 'Are you sure you want to Release',
+onok: () => {
+// if(result){
+// Delete logic goes here
+var userdata = row["userName"];
+var useremail = row["email"];
+var userpass = row["password"];
+var userId = row["id"];
+var usertypeof = row["userType"];
+var statusdata = row["status"];
+// alert(statusdata);
+if(statusdata == "Block") {
+url = "https://apis.tradetipsapp.com/api/appUserWebModify/appUserUpdateByUserName";
+formData = {appUserName:userdata,appuserid:userId,userName:userdata,email:useremail,password:userpass,status:"Enable",firstName:"",middleName:"",lastName:"",gender:"",imageDetails:"",userLocation:"",userType:usertypeof,saved_stocks:"",savedMentors:"",description:""};
+} else if(statusdata == "Enable") {
+url = "https://apis.tradetipsapp.com/api/appUserWebModify/appUserUpdateByUserName";
+formData = {appUserName:userdata,appuserid:userId,userName:userdata,email:useremail,password:userpass,status:"Block",firstName:"",middleName:"",lastName:"",gender:"",imageDetails:"",userLocation:"",userType:usertypeof,saved_stocks:"",savedMentors:"",description:""};
+} else if(statusdata == null) {
+url = "https://apis.tradetipsapp.com/api/appUserWebModify/appUserUpdateByUserName";
+formData = {appUserName:userdata,appuserid:userId,userName:userdata,email:useremail,password:userpass,status:"Enable",firstName:"",middleName:"",lastName:"",gender:"",imageDetails:"",userLocation:"",userType:usertypeof,saved_stocks:"",savedMentors:"",description:""};
+}
+$.ajax({
+url : url,
+type: "POST",
+headers: {
+  Authorization: 'Bearer ' + tokens,
+},
+data : formData,
+success: function(data, textStatus, jqXHR)
+{
+ //data - response from server
+ var datak = JSON.stringify(data);
+ var dataResultp = JSON.parse(datak); 
+ // alert("Status updated Sucessfully !!");
+ window.FlashMessage.success(" Status Updated Successfully !!", {timeout: 3000,});
+ // window.location.reload();
+ setTimeout(()=> { window.location.reload()},3500)
+},
+error: function (jqXHR, textStatus, errorThrown)
+{
+//  alert("Not updated !!");
+window.FlashMessage.error(" Not updated !!", {timeout: 5000,});
+}
+
+});
+// } 
+
+},
+oncancel: ()=>{
+setTimeout(()=> { window.location.reload()},500)
+}
+});
+
+}
+
+
+});
+
+
+
+//  $('#dataTables').on('click', 'button.imgbtn', function () {
+
+//  var table = $('#dataTables').DataTable();
+//  var row = table.row(this.closest('tr')).data();
+//  var userdata = row["userName"];
+//  var formData = {appUserName:userdata};
+//  alert(formdata);
+//     $.ajax({
+//      url : "https://apis.tradetipsapp.com/api/appUser/getUserImageByUserName",
+//      type: "POST",
+//      headers: {
+//           Authorization: 'Bearer ' + tokens,
+//      },
+//      data : formData,
+//      success: function(data)
+//      {
+//          var img = document.getElementById('dishPhoto');
+//              img.src = 'data:image/png;base64,'+data;
+
+//      },
+//      error: function (jqXHR, textStatus, errorThrown)
+//      {
+//         alert("Not updated !!");
+//      }
+
+//  });
+
+// });
+
+
+
+});
+
 
 
 
 </script>
+<%- include partials/commonlink %>
 
- <%- include partials/commonlink %>
-
-<script>
-  $(document).on("click", ".show-more-less-btn", function(e) {
-   if ($(".show-more-less-dec").is(":hidden")) {
-     $(this).text('Show Less');
-     $('.show-more-less-dec').slideDown();
-     $("#previewShortDescription").css('display','none');
-   }
-   else{
-     $(this).text('Show More');
-     $('.show-more-less-dec').slideUp();
-     $("#previewShortDescription").css('display','block');
-   }
-       
-   })
-</script>
 
 </body>
 

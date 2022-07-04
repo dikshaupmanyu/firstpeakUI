@@ -1386,6 +1386,13 @@ app.get('/backmale', isLoggedIn, function(req, res) {
      
     
   });
+  
+  app.get('/waitlist',  function(req, res) {
+
+    res.render('waitingList.ejs');
+ 
+
+});
 
   app.get('/verifyuserlist',  function(req, res) {
 
