@@ -290,13 +290,15 @@ fetch(url, {
     // alert("Mentor is " + UserSelect);
     var startDates = $('#start_date').val();
     var endDates = $('#end_date').val();
-     var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkaXRpLm5vdmFzb2Z0Y29ycHNAZ21haWwuY29tIiwic3ViIjoiZTE3NzBjMDgtZTJlYy00MGY4LTlhOTgtNjZhNGVmZmJkNjZiIiwiaWF0IjoxNjI2OTM5MTQ2LCJleHAiOjE2Mjc1NDM5NDZ9.4RZZmTIKn41DZalI_VJ5vA-83hNWbpVrGExB67JbI-UozLYZgscCT63d6LwxW3QVISX-vL5X5_nYn6kN6JyTVQ";
+       var url_string = window.location.href; 
+  var urls = new URL(url_string);
+  var tokens = urls.searchParams.get("tokendata");
 
     var formdata = {mentorId : UserSelect,startDate : startDates , endDate : endDates};
     if(UserSelect == "All"){
     $.ajax({
         type: 'POST',
-        url: 'https://apistest.tradetipsapp.com/api/stripe/getAllInvoicesForAllUsers',
+        url: 'https://apis.tradetipsapp.com/api/stripe/getAllInvoicesForAllUsers',
         headers: {
           Authorization: 'Bearer '+ tokens
         },
@@ -436,7 +438,7 @@ fetch(url, {
     }else{
       $.ajax({
         type: 'POST',
-        url: 'https://apistest.tradetipsapp.com/api/stripe/getAllInvoicesByMentorId',
+        url: 'https://apis.tradetipsapp.com/api/stripe/getAllInvoicesByMentorId',
         headers: {
           Authorization: 'Bearer '+ tokens
         },
@@ -674,13 +676,15 @@ fetch(url, {
     var UserSelect = $('#sel_mentor').val();
     // alert("User is " + UserSelect);
     // var formdata = {userName : UserSelect};
-    var tokens = "eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6ImFkaXRpLm5vdmFzb2Z0Y29ycHNAZ21haWwuY29tIiwic3ViIjoiZTE3NzBjMDgtZTJlYy00MGY4LTlhOTgtNjZhNGVmZmJkNjZiIiwiaWF0IjoxNjI2OTM5MTQ2LCJleHAiOjE2Mjc1NDM5NDZ9.4RZZmTIKn41DZalI_VJ5vA-83hNWbpVrGExB67JbI-UozLYZgscCT63d6LwxW3QVISX-vL5X5_nYn6kN6JyTVQ";
+     var url_string = window.location.href; 
+  var urls = new URL(url_string);
+  var tokens = urls.searchParams.get("tokendata");
 
     var formdata = {userId : UserSelect};
     if(UserSelect == "All"){
          $.ajax({
         type: 'POST',
-        url: 'https://apistest.tradetipsapp.com/api/stripe/getAllInvoicesForAllUsers',
+        url: 'https://apis.tradetipsapp.com/api/stripe/getAllInvoicesForAllUsers',
         headers: {
           Authorization: 'Bearer '+ tokens
         },
