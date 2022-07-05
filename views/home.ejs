@@ -79,6 +79,7 @@
               </div>
             </div>
 
+            
             <div class="col-xl-3 col-md-6 mb-4">
               <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
@@ -95,6 +96,22 @@
               </div>
             </div>
 
+
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <a id="WaitListLink"><div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Wait List</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><span id="toatlWaitCount"></span></div>
+                    </div></a>
+                    <div class="col-auto">
+                      <i class="fas fa-user fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
 
             <!-- Earnings (Monthly) Card Example -->
@@ -286,6 +303,7 @@ fetch(url1, {
   });
 
 
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const urlds = "https://apis.tradetipsapp.com/api/dataAnalytics/getLiveUserCount";
@@ -306,6 +324,38 @@ fetch(urlds, {
     console.log(error);
   });
 
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////
+  
+      const url12 = " https://apis.tradetipsapp.com/api/servicePurchaseInterestDetails/getAllServicePurchaseInterest";
+  fetch(url12, {
+    method: "POST",
+    headers: {
+            Authorization: 'Bearer ' + tokens,
+          },
+  })
+    .then(resp => resp.json())
+      .then(function(data) {
+         var dataki = JSON.stringify(data);
+         var dataResulti = JSON.parse(dataki); 
+         // var fileLicenses = [];  
+           // for(var i=0, len=dataResulti.length; i<len; i++){
+           //  alert(dataResulti[i].isFlag);
+  
+             
+           // }
+          //  var count = dataResulti.filter(function(s) { return s.isFlag; }).length;
+           var count = dataResulti.length;
+         
+          $('#toatlWaitCount').html(count);
+  
+  
+  
+  
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
 // $.ajax({
 //         type: 'POST',
 //         url: 'https://apis.tradetipsapp.com/api/appUser/getAllAppUsers',
@@ -355,6 +405,7 @@ function logout() {
    document.getElementById("UserCallLink").href = "/userlist?tokendata="+tokens;
   document.getElementById("VerifyUserCallLink").href = "/verifyuserlist?tokendata="+tokens;
    document.getElementById("NonVerifyUserCallLink").href = "/nonverifyuserlist?tokendata="+tokens;
+   document.getElementById("WaitListLink").href = "/waitlist?tokendata="+tokens;
 document.getElementById("dashboardLink").href = "/home?tokendata="+tokens;
   document.getElementById("FlagCallsLink").href = "/flaglist?tokendata="+tokens;
 
