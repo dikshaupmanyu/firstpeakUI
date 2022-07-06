@@ -15,17 +15,17 @@
 
 <div class="card shadow mb-4">
  <div class="card-header py-3">
-   <h6 class="m-0 font-weight-bold text-primary">User List</h6>
+   <h6 class="m-0 font-weight-bold text-primary">Waitlist</h6>
  </div>
  <div class="card-body">
    <div class="table-responsive">
      <table class="table table-bordered" id="dataTables" width="100%" cellspacing="0">
        <thead>
          <tr>
-           <th>Id</th>
+           <th>User Name</th>
            <th>Email</th>
            <th>Mentor Name</th>
-           <th>Mentor Service</th>
+           <th> Service</th>
            <!-- <th>Subscription</th> -->
            <th>Date</th>
            <!-- <th>Image</th>
@@ -177,10 +177,10 @@ $('#dataTables').dataTable( {
  "orderable": false
  } ],
  "columns": [
- { "data": "userId" },
+ { "data": "userName" },
      { "data": "email" },
      { "data": "mentorName" },
-     { "data": "serviceId" },
+     { "data": "serviceName" },
   //    {
   //    "data":   "isMentor",
   //    render: function ( data, type, row ) {
