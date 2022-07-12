@@ -40,19 +40,19 @@
                               </div>
                             </div>
                             <div class="form-row">                        
-                                <label class="col-lg-2 col-form-label form-control-label">Start Date</label>
+                               <!--  <label class="col-lg-2 col-form-label form-control-label">Start Date</label>
                                 <div class="col-lg-2">
                                   <input class="form-control" type="date" id="start_date" min="1997-01-01" max="2030-12-31" placeholder="yyyy-mm-dd">
                                 </div>
 
-                                <!--  <div class="col-lg-2">
+                                 <div class="col-lg-2">
                                 </div>
-                               -->
+                              
                                  <label class="col-lg-2 col-form-label form-control-label">End Date</label>
                                 <div class="col-lg-2">
                                   <input class="form-control" type="date" id="end_date" min="1997-01-01" max="2030-12-31" placeholder="yyyy-mm-dd">
                                 </div>
-
+ -->
                                 <div class="col-lg-4">
                                   <input class="btn btn-secondary" type="reset" value="Cancel"> 
                                   <input class="btn btn-primary" type="button" value="Search Mentor" id="MentorBtnData">
@@ -112,18 +112,18 @@
                               </div>
 
                                <div class="form-row">                        
-                                <label class="col-lg-2 col-form-label form-control-label">Start Date</label>
+                               <!--  <label class="col-lg-2 col-form-label form-control-label">Start Date</label>
                                 <div class="col-lg-2">
                                   <input class="form-control" type="date" id="start_date1" min="1997-01-01" max="2030-12-31" placeholder="yyyy-mm-dd">
                                 </div>
 
-                                <!--  <div class="col-lg-2">
+                                 <div class="col-lg-2">
                                 </div>
-                               -->
+                              
                                  <label class="col-lg-2 col-form-label form-control-label">End Date</label>
                                 <div class="col-lg-2">
                                   <input class="form-control" type="date" id="end_date1" min="1997-01-01" max="2030-12-31" placeholder="yyyy-mm-dd">
-                                </div>
+                                </div> -->
 
                                 <div class="col-lg-4">
                                   <input class="btn btn-secondary" type="reset" value="Cancel"> 
@@ -306,8 +306,9 @@ fetch(url, {
   $('#MentorBtnData').on('click', function() {
     var UserSelect = $('#sel_user').val();
     // alert("Mentor is " + UserSelect);
-    var startDates = $('#start_date').val();
-    var endDates = $('#end_date').val();
+    var startDates = "2020-01-01";
+    var endDates = new Date().toISOString().slice(0, 10);
+    // alert(endDates);
        var url_string = window.location.href; 
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
@@ -337,12 +338,12 @@ fetch(url, {
            // var serviceData = dataResultp.filter(function(s) { return s.productSubscription == null });
            $('#dataTablesf').empty();
            if ( $.fn.DataTable.isDataTable('#dataTablesf') ) {
-    $('#dataTablesf').DataTable().destroy();
-    $('.containeruserall').empty();
-    $('.containertradeall').empty();
-    $('.containeruser').empty();
+               $('#dataTablesf').DataTable().destroy();
+               $('.containeruserall').empty();
+               $('.containertradeall').empty();
+               $('.containeruser').empty();
                $('.containertrade').empty();
-   }
+            }
 
           if(len > 0){
           
@@ -862,8 +863,8 @@ fetch(url, {
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
 
-    var startDates1 = $('#start_date1').val();
-    var endDates1 = $('#end_date1').val();
+      var startDates1 = "2020-01-01";
+    var endDates1 = new Date().toISOString().slice(0, 10);
 
     var formdata = {userId : UserSelect,startDate : startDates1 , endDate : endDates1};
 
