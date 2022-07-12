@@ -314,7 +314,7 @@ fetch(url, {
 
     var formdata = {mentorId : UserSelect,startDate : startDates , endDate : endDates};
     if(UserSelect == "All"){
-      alert("if condition")
+      // alert("if condition")
       // $('#dataTablesf').empty();
 
 
@@ -552,7 +552,7 @@ fetch(url, {
         data: formdata,
         success: function(data, textStatus, jqXHR)
         {
-          alert(data);
+          // alert(data);
           var datak = JSON.stringify(data);
           var dataResultp = JSON.parse(datak); 
           // if($('#dataTablesf').is(':empty'))
