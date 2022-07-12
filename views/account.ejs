@@ -355,6 +355,7 @@ fetch(url, {
                 "aaData": data,   
                 "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
                 "pageLength": 500,
+                "order": [[ 2, "desc" ]], //or asc 
                 "columns": [
 
                   
@@ -584,6 +585,7 @@ fetch(url, {
             "aaData": data,   
             "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
             "pageLength": 500,
+            "order": [[ 2, "desc" ]],
             // "aaSorting": [[ 0, "desc" ]],
             // "columnDefs": [ {
             // "targets": 4,
@@ -909,6 +911,7 @@ fetch(url, {
             "aaData": data,   
             "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
             "pageLength": 500,
+            "order": [[ 1, "desc" ]],
             // "aaSorting": [[ 0, "desc" ]],
             // "columnDefs": [ {
             // "targets": 4,
@@ -1057,11 +1060,11 @@ fetch(url, {
 
            $('#dataTabless').empty();
 
-if ( $.fn.DataTable.isDataTable('#dataTabless') ) {
-    $('#dataTabless').DataTable().destroy();
-    $('.containerk').empty();
-    $('.containerkall').empty();
-   }
+          if ( $.fn.DataTable.isDataTable('#dataTabless') ) {
+              $('#dataTabless').DataTable().destroy();
+              $('.containerk').empty();
+              $('.containerkall').empty();
+             }
         
            if(len > 0){
           $('#dataTabless').empty();
@@ -1078,6 +1081,7 @@ if ( $.fn.DataTable.isDataTable('#dataTabless') ) {
             "aaData": data,   
             "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
             "pageLength": 500,
+            "order": [[ 1, "desc" ]],
             // "aaSorting": [[ 0, "desc" ]],
             // "columnDefs": [ {
             // "targets": 4,
