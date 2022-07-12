@@ -315,9 +315,6 @@ fetch(url, {
 
     var formdata = {mentorId : UserSelect,startDate : startDates , endDate : endDates};
     if(UserSelect == "All"){
-      // alert("if condition")
-      // $('#dataTablesf').empty();
-
 
     $.ajax({
         type: 'POST',
@@ -328,22 +325,17 @@ fetch(url, {
         data: formdata,
         success: function(data, textStatus, jqXHR)
         {
-          // alert(data);
           var datak = JSON.stringify(data);
           var dataResultp = JSON.parse(datak); 
-          // if($('#dataTablesf').is(':empty'))
-          // alert(dataResultp);
           var len = dataResultp.length;
-          // // alert(len);
-           // var serviceData = dataResultp.filter(function(s) { return s.productSubscription == null });
-           $('#dataTablesf').empty();
-           if ( $.fn.DataTable.isDataTable('#dataTablesf') ) {
-               $('#dataTablesf').DataTable().destroy();
-               // $('.containeruserall').empty();
-               // $('.containertradeall').empty();
-               $('.containeruser').empty();
-               $('.containertrade').empty();
-            }
+           // $('#dataTablesf').empty();
+           // if ( $.fn.DataTable.isDataTable('#dataTablesf') ) {
+           //     $('#dataTablesf').DataTable().destroy();
+           //     $('.containeruserall').empty();
+           //     $('.containertradeall').empty();
+           //     $('.containeruser').empty();
+           //     $('.containertrade').empty();
+           //  }
 
           if(len > 0){
           
@@ -351,8 +343,8 @@ fetch(url, {
 
              if ( $.fn.DataTable.isDataTable('#dataTablesf') ) {
                  $('#dataTablesf').DataTable().destroy();
-                 // $('.containeruserall').empty();
-                 // $('.containertradeall').empty();
+                 $('.containeruserall').empty();
+                 $('.containertradeall').empty();
                   $('.containeruser').empty();
                  $('.containertrade').empty();
                 }
@@ -569,8 +561,9 @@ fetch(url, {
                 $('#dataTablesf').DataTable().destroy();
                 $('.containeruserall').empty();
                 $('.containertradeall').empty();
-               //   $('.containeruser').empty();
-               // $('.containertrade').empty();
+                $('.containeruser').empty();
+                $('.containertrade').empty();
+
               }
 
           // // alert(len);
@@ -579,10 +572,9 @@ fetch(url, {
 
            if ( $.fn.DataTable.isDataTable('#dataTablesf') ) {
                $('#dataTablesf').DataTable().destroy();
-               $('.containeruserall').empty();
-                $('.containertradeall').empty();
-               // $('.containeruser').empty();
-               // $('.containertrade').empty();
+
+               $('.containeruser').empty();
+               $('.containertrade').empty();
               }
 
           }
@@ -805,14 +797,11 @@ fetch(url, {
 
         // $('#dataTablesf').empty();
 
-           if ( $.fn.DataTable.isDataTable('#dataTablesf') ) {
-               $('#dataTablesf').DataTable().destroy();
-               $('.containeruserall').empty();
-               $('.containertradeall').empty();
-               $('.containeruser').empty();
-               $('.containertrade').empty();
-               
-              }
+           // if ( $.fn.DataTable.isDataTable('#dataTablesf') ) {
+           //     $('#dataTablesf').DataTable().destroy();
+           //     $('.containeruser').empty();
+           //     $('.containertrade').empty();
+           //    }
 
            var totalf = 0;
            var totalft = 0;
