@@ -339,8 +339,8 @@ fetch(url, {
            $('#dataTablesf').empty();
            if ( $.fn.DataTable.isDataTable('#dataTablesf') ) {
                $('#dataTablesf').DataTable().destroy();
-               $('.containeruserall').empty();
-               $('.containertradeall').empty();
+               // $('.containeruserall').empty();
+               // $('.containertradeall').empty();
                $('.containeruser').empty();
                $('.containertrade').empty();
             }
@@ -351,8 +351,10 @@ fetch(url, {
 
              if ( $.fn.DataTable.isDataTable('#dataTablesf') ) {
                  $('#dataTablesf').DataTable().destroy();
-                 $('.containeruserall').empty();
-                 $('.containertradeall').empty();
+                 // $('.containeruserall').empty();
+                 // $('.containertradeall').empty();
+                  $('.containeruser').empty();
+                 $('.containertrade').empty();
                 }
 
             }
@@ -567,6 +569,8 @@ fetch(url, {
                 $('#dataTablesf').DataTable().destroy();
                 $('.containeruserall').empty();
                 $('.containertradeall').empty();
+               //   $('.containeruser').empty();
+               // $('.containertrade').empty();
               }
 
           // // alert(len);
@@ -575,8 +579,10 @@ fetch(url, {
 
            if ( $.fn.DataTable.isDataTable('#dataTablesf') ) {
                $('#dataTablesf').DataTable().destroy();
-               $('.containeruser').empty();
-               $('.containertrade').empty();
+               $('.containeruserall').empty();
+                $('.containertradeall').empty();
+               // $('.containeruser').empty();
+               // $('.containertrade').empty();
               }
 
           }
@@ -801,8 +807,11 @@ fetch(url, {
 
            if ( $.fn.DataTable.isDataTable('#dataTablesf') ) {
                $('#dataTablesf').DataTable().destroy();
+               $('.containeruserall').empty();
+               $('.containertradeall').empty();
                $('.containeruser').empty();
                $('.containertrade').empty();
+               
               }
 
            var totalf = 0;
