@@ -314,6 +314,10 @@ fetch(url, {
 
     var formdata = {mentorId : UserSelect,startDate : startDates , endDate : endDates};
     if(UserSelect == "All"){
+      alert("if condition")
+      // $('#dataTablesf').empty();
+
+
     $.ajax({
         type: 'POST',
         url: 'https://apis.tradetipsapp.com/api/stripe/getAllInvoicesForAllUsers',
@@ -331,6 +335,14 @@ fetch(url, {
           var len = dataResultp.length;
           // // alert(len);
            // var serviceData = dataResultp.filter(function(s) { return s.productSubscription == null });
+           $('#dataTablesf').empty();
+           if ( $.fn.DataTable.isDataTable('#dataTablesf') ) {
+    $('#dataTablesf').DataTable().destroy();
+    $('.containeruserall').empty();
+    $('.containertradeall').empty();
+    $('.containeruser').empty();
+               $('.containertrade').empty();
+   }
 
           if(len > 0){
           
@@ -343,7 +355,7 @@ fetch(url, {
                 }
 
             }
-           
+
            $('#dataTablesf').dataTable({
                 "aaData": data,   
                 "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
@@ -540,12 +552,22 @@ fetch(url, {
         data: formdata,
         success: function(data, textStatus, jqXHR)
         {
-          // alert(data);
+          alert(data);
           var datak = JSON.stringify(data);
           var dataResultp = JSON.parse(datak); 
           // if($('#dataTablesf').is(':empty'))
           // alert(dataResultp);
           var len = dataResultp.length;
+
+
+          $('#dataTablesf').empty();
+
+            if ( $.fn.DataTable.isDataTable('#dataTablesf') ) {
+                $('#dataTablesf').DataTable().destroy();
+                $('.containeruserall').empty();
+                $('.containertradeall').empty();
+              }
+
           // // alert(len);
           if(len > 0){
           $('#dataTablesf').empty();
@@ -773,6 +795,14 @@ fetch(url, {
 
 
         });
+
+        // $('#dataTablesf').empty();
+
+           if ( $.fn.DataTable.isDataTable('#dataTablesf') ) {
+               $('#dataTablesf').DataTable().destroy();
+               $('.containeruser').empty();
+               $('.containertrade').empty();
+              }
 
            var totalf = 0;
            var totalft = 0;
