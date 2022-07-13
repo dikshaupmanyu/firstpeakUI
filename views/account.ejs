@@ -219,7 +219,7 @@
 
   <!-- Core plugin JavaScript-->
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
@@ -303,6 +303,411 @@ fetch(url, {
 </script>
 
 <script type="text/javascript">
+  $(document).ready(function () {
+    var UserSelect = "ALL";
+    // alert("Mentor is " + UserSelect);
+    var startDates = "2020-01-01";
+    var endDates = new Date().toISOString().slice(0, 10);
+    // alert(endDates);
+    var url_string = window.location.href; 
+    var urls = new URL(url_string);
+    var tokens = urls.searchParams.get("tokendata");
+
+    var formdata = {mentorId : UserSelect,startDate : startDates , endDate : endDates};
+      $.ajax({
+        type: 'POST',
+        url: 'https://apis.tradetipsapp.com/api/stripe/getAllInvoicesForAllUsers',
+        headers: {
+          Authorization: 'Bearer '+ tokens
+        },
+        data: formdata,
+        success: function(data, textStatus, jqXHR)
+        {
+          var datak = JSON.stringify(data);
+          var dataResultp = JSON.parse(datak); 
+          var len = dataResultp.length;
+           // $('#dataTablesf').empty();
+           // if ( $.fn.DataTable.isDataTable('#dataTablesf') ) {
+           //     $('#dataTablesf').DataTable().destroy();
+           //     $('.containeruserall').empty();
+           //     $('.containertradeall').empty();
+           //     $('.containeruser').empty();
+           //     $('.containertrade').empty();
+           //  }
+
+          if(len > 0){
+          
+              $('#dataTablesf').empty();
+
+             if ( $.fn.DataTable.isDataTable('#dataTablesf') ) {
+                 $('#dataTablesf').DataTable().destroy();
+                 $('.containeruserall').empty();
+                 $('.containertradeall').empty();
+                  $('.containeruser').empty();
+                 $('.containertrade').empty();
+                }
+
+            }
+
+           $('#dataTablesf').dataTable({
+                "aaData": data,   
+                "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
+                "pageLength": 500,
+                "order": [[ 2, "desc" ]], //or asc 
+                "columns": [
+
+                  
+                     {"title":"Username",
+                    "render" : function (data, type, row) {
+               
+                      if(row.productSubscription == null){
+
+
+                        var uname = row.serviceSubscription.userName;
+                       
+                      return uname;
+                       
+                      }else{
+
+                          // alert(JSON.stringify(row.productSubscription));
+
+                          var upname = row.productSubscription.userName;
+                       
+                      return upname;
+                       
+                      }
+                      }},
+                      {"title":"Mentorname",
+                    "render" : function (data, type, row) {
+               
+                      if(row.productSubscription == null){
+
+                        var uname = row.serviceSubscription.serviceSubscriptionPlan.mentorName;
+                       
+                      return uname;
+                       
+                      }else{
+
+                          var upname = "";
+                       
+                      return upname;
+                       
+                      }
+                      }},
+ 
+
+              
+                    // { "data": "serviceSubscription.userName",
+                    //   "title":"Username",
+                    //    "render": function(data, type, full, meta){
+                    //     return data;
+                    // }
+                    // },
+                    //  { "data": "serviceSubscription.serviceSubscriptionPlan.mentorName",
+                    //   "title":"Mentorname",
+                    //    "render": function(data, type, full, meta){
+                    //     return data;
+                    // }
+                    // },
+                    { 
+                      "data": "createdOn",
+                       "name":"date",
+                       "visible":true,
+                       "title":"Date Created",
+                       "render": function(data, type, full, meta){
+                        if(type == "display"){
+                                var date = new Date(data);
+                                var options = {year: "numeric", month: "long", day: "numeric"};
+
+                                var sdates =  date.toUTCString('en-US', options);
+                                var fstring = sdates.substring(0,16);
+                                return fstring;
+                        }
+
+                        return data;
+                      }
+                    },
+                    // { "data": "serviceSubscription.serviceSubscriptionPlan.stripeProductName",
+                    //   "title":"Subscription ",
+                    //    "render": function(data, type, full, meta){
+                    //     return data;
+                    // }
+                    // },
+                    //  { "data": "serviceSubscription.serviceSubscriptionPlan.serviceTypeMaster.serviceType",
+                    //   "title":"Service Type ",
+                    //    "render": function(data, type, full, meta){
+                    //     return data;
+                    // }
+                    // },
+                    {"title":"Subscription",
+                    "render" : function (data, type, row) {
+               
+                      if(row.productSubscription == null){
+
+                        var uname = row.serviceSubscription.serviceSubscriptionPlan.stripeProductName;
+                       
+                      return uname;
+                       
+                      }else{
+
+                          var upname = row.productSubscription.stripeSubscriptionId;
+                       
+                      return upname;
+                       
+                      }
+                      }},
+                      {"title":"Service Type",
+                    "render" : function (data, type, row) {
+               
+                      if(row.productSubscription == null){
+
+                        var uname = row.serviceSubscription.serviceSubscriptionPlan.serviceTypeMaster.serviceType;
+                       
+                      return uname;
+                       
+                      }else{
+
+                          var upname = row.productSubscription.subscriptionPlan.subscriptionType;
+                       
+                      return upname;
+                       
+                      }
+                      }},
+                    {
+                      "data": "amountPaid" ,
+                      "title": "Price",                  
+                      render: function (data, type, row, meta) {
+                         if(type === 'display'){
+                            var symbol = "$";
+
+                            var num = $.fn.dataTable.render.number(',', '.', 2, symbol).display(data);              
+                            return num ;           
+                         } else {           
+                            return data;
+                         }
+                      }
+                  },
+                  {
+                      "data": "amountPaid" , "sClass": "pricessMentorAll", "title": "Mentor Share", 
+                      render: function (data, type, row, meta) {
+                         if(type === 'display'){
+                            var num = "$" + (parseFloat(data * 80) / 100).toFixed(2);           
+                            return num ;           
+                         } else {           
+                            return data;
+                         }
+                      }
+                  },
+                    {
+                      "data": "amountPaid" , "sClass": "pricessTradetipsAll" , "title": "TradeTips Share",
+                      render: function (data, type, row, meta) {
+                         if(type === 'display'){
+                            var num = "$" + (parseFloat(data * 20) / 100).toFixed(2);           
+                            return num ;           
+                         } else {           
+                            return data;
+                         }
+                      }
+                  },          
+                ],
+                "deferRender": true,
+                rowCallback: function ( row, data ) {
+                // Set the checked state of the checkbox in the table
+                // $('input.editor-active', row).prop( 'checked', data.isFlag == true );
+              }
+
+           });
+
+           var totalfall = 0;
+           var totalftall = 0;
+
+            $("td.pricessMentorAll").each(function() {
+               totalfall += parseInt($(this).text().replace(/[$,]/g, ''));
+            });
+
+            $("td.pricessTradetipsAll").each(function() {
+              totalftall += parseInt($(this).text().replace(/[$,]/g, ''));            
+            });
+            
+            $('.containeruserall').append("<b>Total Mentor Share<b> :<b><span> $" + parseFloat(totalfall).toFixed(2) + "</span></b>");
+            $('.containertradeall').append("<b><br>Total TradeTips Share<b> :<b><span> $" + parseFloat(totalftall).toFixed(2)  + "</span></b>");  
+
+        }
+
+      });
+
+      /////////////////////////all user show////////////////////////////////
+
+       $.ajax({
+        type: 'POST',
+        url: 'https://apis.tradetipsapp.com/api/stripe/getAllInvoicesForAllUsers',
+        headers: {
+          Authorization: 'Bearer '+ tokens
+        },
+        data: formdata,
+        success: function(data, textStatus, jqXHR)
+        {
+          // alert(data);
+          var datak = JSON.stringify(data);
+          // alert(datak);
+          // console.log(datak);
+          var dataResultp = JSON.parse(datak); 
+          // alert(dataResultp);
+          var len = dataResultp.length;
+           // $('#dataTabless').empty();
+
+           // if ( $.fn.DataTable.isDataTable('#dataTables') ) {
+           //     $('#dataTabless').DataTable().destroy();
+           //    }
+
+           // var serviceDatas = dataResultp.filter(function(s) { return s.productSubscription == null });
+
+          // var productDatas = dataResultp.filter(function(s) { return s.serviceSubscription == null });
+           if(len > 0){
+          $('#dataTabless').empty();
+
+           if ( $.fn.DataTable.isDataTable('#dataTabless') ) {
+               $('#dataTabless').DataTable().destroy();
+               $('.containerk').empty();
+               $('.containerkall').empty();
+              }
+
+          }
+         
+
+           $('#dataTabless').dataTable( {
+            "aaData": data,   
+            "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
+            "pageLength": 500,
+            "order": [[ 1, "desc" ]],
+            // "aaSorting": [[ 0, "desc" ]],
+            // "columnDefs": [ {
+            // "targets": 4,
+            // "orderable": false
+            // } ],
+            "columns": [
+            
+                // { "data": "productSubscription.userId" },
+                // { "data": "serviceSubscription.userName" },
+                  {"title":"Username",
+                    "render" : function (data, type, row) {
+               
+                      if(row.productSubscription == null){
+
+
+                        var uname = row.serviceSubscription.userName;
+                       
+                      return uname;
+                       
+                      }else{
+
+                          // alert(JSON.stringify(row.productSubscription));
+
+                          var upname = row.productSubscription.userName;
+                       
+                      return upname;
+                       
+                      }
+                      }},
+                      
+ 
+                { "data": "createdOn",
+                   "name":"date",
+                   "visible":true,
+                   "title":"Date Created",
+                   "render": function(data, type, full, meta){
+                    if(type == "display"){
+                            var date = new Date(data);
+                            var options = {year: "numeric", month: "long", day: "numeric"};
+
+                            return date.toLocaleDateString('en-US', options);
+                    }
+
+                    return data;
+                  }
+                },  
+                {"title":"Subscription",
+                    "render" : function (data, type, row) {
+               
+                      if(row.productSubscription == null){
+
+                        var uname = row.serviceSubscription.serviceSubscriptionPlan.stripeProductName;
+                       
+                      return uname;
+                       
+                      }else{
+
+                          var upname = row.productSubscription.stripeSubscriptionId;
+                       
+                      return upname;
+                       
+                      }
+                      }},
+                      {"title":"Service Type",
+                    "render" : function (data, type, row) {
+               
+                      if(row.productSubscription == null){
+
+                        var uname = row.serviceSubscription.serviceSubscriptionPlan.serviceTypeMaster.serviceType;
+                       
+                      return uname;
+                       
+                      }else{
+
+                          var upname = row.productSubscription.subscriptionPlan.subscriptionType;
+                       
+                      return upname;
+                       
+                      }
+                      }},
+                    {
+                      "data": "amountPaid" , "sClass": "priceAll", "title":"Price",
+                      render: function (data, type, row, meta) {
+                         if(type === 'display'){
+                            var symbol = "$";
+
+                            var num = $.fn.dataTable.render.number(',', '.', 2, symbol).display(data);              
+                            return num ;           
+                         } else {           
+                            return data;
+                         }
+                      }
+                  },
+
+
+              // { "data" : "percentOff"},
+              // { "data" : "amountPaid" * "percentOff" / 100},              
+            ], 
+           
+            "deferRender": true,
+            rowCallback: function ( row, data ) {
+            // Set the checked state of the checkbox in the table
+            // $('input.editor-active', row).prop( 'checked', data.isFlag == true );
+        }
+
+
+
+        });
+
+        var totalAll = 0;
+        $('td.priceAll').each(function() {
+          // parseInt(num.replace(/[$,]/g, ''))
+
+          totalAll += parseInt($(this).text().replace(/[$,]/g, ''));
+          // alert(total);
+        });
+        $('.containerkall').append("<div class='sum' style='text-align:end;line-height:0px;'><b>Total<b> :<b><span> $" + parseFloat(totalAll).toFixed(2)  + "</span></b></div>");
+              
+
+      }
+
+      });
+
+
+
+
+    });
+
   $('#MentorBtnData').on('click', function() {
     var UserSelect = $('#sel_user').val();
     // alert("Mentor is " + UserSelect);
@@ -870,7 +1275,7 @@ fetch(url, {
 
     // var formdata = {userId : UserSelect};
     if(UserSelect == "All"){
-         $.ajax({
+      $.ajax({
         type: 'POST',
         url: 'https://apis.tradetipsapp.com/api/stripe/getAllInvoicesForAllUsers',
         headers: {
