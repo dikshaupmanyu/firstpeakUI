@@ -233,7 +233,7 @@ href=
     var endDates = new Date();
     var finalenddate = moment(endDates).format("YYYY-MM-DD HH:mm:ss");
     var formdata = {fromDate : finalstartdate , toDate : finalenddate};
-  
+    window.FlashMessage.info( " It will take few seconds to load data Loading...", { timeout: 2000,});
       $.ajax({
         type: 'POST',
         url: 'https://apis.tradetipsapp.com/api/dataAnalytics/getAllTipDetailsByDate',

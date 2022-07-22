@@ -135,7 +135,7 @@ window.history.forward();
         } 
 
 window.addEventListener("load", function() {
-
+  window.FlashMessage.info( " It will take few seconds to load data Loading...", { timeout: 2000,});
   var url_string = window.location.href; 
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
@@ -245,7 +245,7 @@ window.addEventListener("load", function() {
             var dataResultp = JSON.parse(datak); 
             // alert(dataResultp);
             // alert("Delete Sucessfully !!");
-            window.FlashMessage.error(" Delete Sucessfully !!", {timeout: 3000,});
+            window.FlashMessage.success(" Delete Sucessfully !!", {timeout: 3000,});
             // window.location.reload();
             setTimeout(()=> { window.location.reload()},3500)
 
