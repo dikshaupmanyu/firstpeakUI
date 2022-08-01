@@ -256,14 +256,12 @@
                     success: function (data, textStatus, jqXHR) {
                       //data - response from server
                       var datak = JSON.stringify(data);
-                      var dataResultp = JSON.parse(datak);
-                      // alert(dataResultp);
-                      // alert("Delete Sucessfully !!");
+                      var dataResultp = JSON.parse(datak);  
+                      $('#'+id).text('Already deleted')
                       window.FlashMessage.success('Delete Successfully !!', {
                         timeout: 2000,
                       });
-                      // window.location.reload();
-                      setTimeout(() => { window.location.reload() }, 2100)
+                      // setTimeout(() => { window.location.reload() }, 2100)
 
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
@@ -408,13 +406,12 @@
                         //data - response from server
                         var datak = JSON.stringify(data);
                         var dataResultp = JSON.parse(datak);
-                        // alert(dataResultp);
-                        // alert("Delete Sucessfully !!");
+                        $('#'+id).text('Already deleted')
                         window.FlashMessage.success('Delete Successfully !!', {
                           timeout: 2000,
                         });
                         // window.location.reload();
-                        setTimeout(() => { window.location.reload() }, 2100)
+                        // setTimeout(() => { window.location.reload() }, 2100)
 
                       },
                       error: function (jqXHR, textStatus, errorThrown) {

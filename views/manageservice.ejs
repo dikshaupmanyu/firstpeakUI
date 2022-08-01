@@ -157,10 +157,16 @@ $('#dataTables').on('click', 'a.updateStatusdata', function () {
             //data - response from server
             var datak = JSON.stringify(data);
             var dataResultp = JSON.parse(datak); 
-            // alert("Status updated Sucessfully !!");
-            // window.location.reload();
-            window.FlashMessage.success( " Status updated Sucessfully !!", { timeout: 3000,});
-            setTimeout(()=> { window.location.reload()},3100)
+            if(dataResultp == true){
+                          if(vals === "Active"){ 
+                            window.FlashMessage.success( " Status updated Sucessfully !!", { timeout: 3000,});
+                            $('#'+id).removeClass('btn-success')
+                            $('#'+id).addClass('btn-danger')
+                            $('#'+id).text('Inactive')
+                            $('#'+id).attr('value','Inactive')
+                          }
+                        }
+            // setTimeout(()=> { window.location.reload()},3100)
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
@@ -203,16 +209,20 @@ $('#dataTables').on('click', 'a.updateStatusdata', function () {
             //data - response from server
             var datak = JSON.stringify(data);
             var dataResultp = JSON.parse(datak); 
-            // alert("Status updated Sucessfully !!");
-            // window.location.reload();
-            window.FlashMessage.success( " Status updated Sucessfully !!", { timeout: 3000,});
-            setTimeout(()=> { window.location.reload()},3100)
+            if(dataResultp == true){
+                          // alert('true')
+                          if(vals === "Inactive"){ 
+                            window.FlashMessage.success( " Status updated Sucessfully !!", { timeout: 3000,});
+                            $("#"+id).removeClass('btn-danger')
+                            $("#"+id).addClass('btn-success')
+                            $('#'+id).text('Active')
+                            $('#'+id).attr('value','Active')
+                          }
+                        }
+            // setTimeout(()=> { window.location.reload()},3100)
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-          // alert("fail");
-          // alert("Not updated !!");
-          // window.location.reload();
 
           window.FlashMessage.error( " Not updated !!", { timeout: 3000,});
           setTimeout(()=> { window.location.reload()},3500)
