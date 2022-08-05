@@ -1,5 +1,5 @@
            <%- include partials/header %>
-
+           <script src="js/amajiLoader.js"></script>
            <link href="css/flash-main.css" rel="stylesheet" type="text/css">
            <script src="/js/flash-main.js"></script>
        
@@ -150,7 +150,7 @@ fetch(url, {
   });  
 
    $('#dataTables').on('click', 'button.sendNotifyagain', function (e) {
- 
+    AmagiLoader.show();
   var table = $('#dataTables').DataTable();
   var row = table.row(this.closest('tr')).data();
   var bannerids = $(this).attr('id');
@@ -192,6 +192,7 @@ fetch(url, {
                 var dataResultp = JSON.parse(datak); 
                 // alert(dataResultp.title);
                 // alert("Notification has been sent");
+                AmagiLoader.hide();
                 window.FlashMessage.success(" Notification has been sent", {timeout: 5000,});
                 // window.location.reload("/notification?tokendata="+tokens); 
           

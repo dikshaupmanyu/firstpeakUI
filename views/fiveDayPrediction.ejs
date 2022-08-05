@@ -5,7 +5,7 @@
 
   <link href="css/flash-main.css" rel="stylesheet" type="text/css">
   <script src="/js/flash-main.js"></script>
-
+  <script src="js/amajiLoader.js"></script>
 
        <style type="text/css">
        
@@ -233,6 +233,7 @@ window.addEventListener("load", function() {
   var urls = new URL(url_string);
   var tokens = urls.searchParams.get("tokendata");
   $('#MentorBtnData').on('click', function() {
+    AmagiLoader.show();
     var startDates = $('#start_date').val();
     // alert(moment(startDates).format("YYYY-MM-DD HH:mm:ss"));
     var finalstartdate = moment(startDates).format("YYYY-MM-DD HH:mm:ss");
@@ -277,7 +278,7 @@ window.addEventListener("load", function() {
 
           $("#countTipData").text(len);
 
-         
+         AmagiLoader.hide();
             $('#dataTableone').dataTable( {
             "aaData": data,   
             "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
@@ -367,7 +368,7 @@ $.ajax(settings).done(function (response) {
 
 
 ////////////////////////////////////////////////////////////////////////////////
-
+AmagiLoader.show()
  var form1 = new FormData();
   form1.append("limit", "500");
   form1.append("offset", "0");
@@ -388,6 +389,7 @@ fetch(url1, {
        var totalds = dataResults.length;
 
         $("#countTipData").text(totalds);   
+        AmagiLoader.hide();
           $('#dataTableone').dataTable( {
            "aaData": dataResults, 
            "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],

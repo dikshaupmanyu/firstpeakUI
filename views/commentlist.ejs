@@ -4,7 +4,7 @@
   <script src="/js/flash-main.js"></script>
   <link href="css/confirmMsg.css" rel="stylesheet" type="text/css">
   <script src="/js/confirmMsg.js"></script>
-
+  <script src="js/amajiLoader.js"></script>
 
   <div class="container-fluid">
 
@@ -174,7 +174,8 @@
       }
 
       window.addEventListener("load", function () {
-        window.FlashMessage.info( " It will take few seconds to load data Loading...", { timeout: 3000,});
+        AmagiLoader.show();
+        // window.FlashMessage.info( " It will take few seconds to load data Loading...", { timeout: 3000,});
 
         var url_string = window.location.href;
         var urls = new URL(url_string);
@@ -231,7 +232,7 @@
 
             });
 
-
+            AmagiLoader.hide();
             $('#dataTables').on('click', 'button.deleteButtons', function () {
 
               // alert("fff");
@@ -309,6 +310,7 @@
 
 
         $('#butSaveData').on('click', function () {
+          AmagiLoader.show();
           var UserSelect = $('#sel_user').val();
           // alert(UserSelect);
           var Offset = "0";
@@ -336,7 +338,7 @@
                 if ($.fn.DataTable.isDataTable('#dataTables')) {
                   $('#dataTables').DataTable().destroy();
                 }
-
+                AmagiLoader.hide();
                 $('#dataTables').dataTable({
                   "aaData": data,
                   "lengthMenu": [500, 1000, 2000, 2000, 4000, 5000],

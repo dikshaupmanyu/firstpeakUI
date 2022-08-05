@@ -5,7 +5,7 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <link href="css/flash-main.css" rel="stylesheet" type="text/css">
   <script src="/js/flash-main.js"></script>
-
+  <script src="js/amajiLoader.js"></script>
        <style type="text/css">
        
            li.nav-item.sidebars.active {
@@ -233,7 +233,8 @@ href=
     var endDates = new Date();
     var finalenddate = moment(endDates).format("YYYY-MM-DD HH:mm:ss");
     var formdata = {fromDate : finalstartdate , toDate : finalenddate};
-    window.FlashMessage.info( " It will take few seconds to load data Loading...", { timeout: 2000,});
+    AmagiLoader.show();
+    // window.FlashMessage.info( " It will take few seconds to load data Loading...", { timeout: 2000,});
       $.ajax({
         type: 'POST',
         url: 'https://apis.tradetipsapp.com/api/dataAnalytics/getAllTipDetailsByDate',
@@ -263,7 +264,7 @@ href=
 
           $("#countTipData").text(len);
 
-         
+          AmagiLoader.hide();
             $('#dataTablesf').dataTable( {
             "aaData": data,   
             "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
@@ -334,6 +335,7 @@ href=
       });
 
   $('#MentorBtnData').on('click', function() {
+    AmagiLoader.show();
     var startDates = $('#start_date').val();
     // alert(moment(startDates).format("YYYY-MM-DD HH:mm:ss"));
     var finalstartdate = moment(startDates).format("YYYY-MM-DD HH:mm:ss");
@@ -368,7 +370,7 @@ href=
           }
 
            $("#countTipData").text(len);
-         
+           AmagiLoader.hide();
             $('#dataTablesf').dataTable( {
             "aaData": data,   
             "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],

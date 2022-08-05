@@ -4,6 +4,7 @@
  <script src="/js/flash-main.js"></script>
  <link href="css/confirmMsg.css" rel="stylesheet" type="text/css">
  <script src="/js/confirmMsg.js"></script>
+ <script src="js/amajiLoader.js"></script>
     <script>
       window.addEventListener('DOMContentLoaded', () => {
   EmojiButton(document.querySelector('#emoji-button'), function (emoji) {
@@ -1136,6 +1137,7 @@ $("#bannerSubmitbannerone").on('click', function (e) {
       formdata.append("imageDetails", "");
 
     }else{
+      AmagiLoader.show();
     // alert("not null");
       if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
             formdata.append("imageDetails", file , filename);
@@ -1169,6 +1171,7 @@ $("#bannerSubmitbannerone").on('click', function (e) {
                 var dataResultp = JSON.parse(datak); 
                 // alert(dataResultp.title);
                 // alert("Your banner "+dataResultp.title+" was submitted successfully");
+                AmagiLoader.hide();
                 window.FlashMessage.success("Your banner "+dataResultp.title+" was submitted successfully", {
                   timeout: 5000,
                 }); 
@@ -1362,6 +1365,7 @@ var idxDot3 = filename3.lastIndexOf(".") + 1;
                 });
  }else {
    
+  AmagiLoader.show();
    formdata.append("title1", title1);
    formdata.append("shortDescription1", shortDescription1);
    formdata.append("longDescription1", longDescription1);
@@ -1419,6 +1423,7 @@ var idxDot3 = filename3.lastIndexOf(".") + 1;
                var dataResultp = JSON.parse(datak); 
                // alert(dataResultp.title);
               //  alert("Your Multiple Banner was submitted successfully");
+              AmagiLoader.hide();
               window.FlashMessage.success('Your Multiple Banner was submitted successfully', {
                   timeout: 2000,
                 });

@@ -4,6 +4,7 @@
   <script src="/js/flash-main.js"></script>
   <link href="css/confirmMsg.css" rel="stylesheet" type="text/css">
   <script src="/js/confirmMsg.js"></script>
+  <script src="js/amajiLoader.js"></script>
 
   <div class="container-fluid">
 
@@ -135,7 +136,8 @@
 
 
       window.addEventListener("load", function () {
-        window.FlashMessage.info(" It will take few seconds to load data Loading...", { timeout: 3000, });
+        AmagiLoader.show();
+        // window.FlashMessage.info(" It will take few seconds to load data Loading...", { timeout: 3000, });
         // alert(window.location.href);
 
         var url_string = window.location.href;
@@ -168,6 +170,7 @@
             var dataResult = JSON.parse(datak);
             // console.log(dataResult);
             var len = dataResult.length;
+            AmagiLoader.hide();
             $('#dataTables').dataTable({
               "aaData": data,
               "lengthMenu": [500, 1000, 2000, 3000, 4000, 5000, 8000, 10000, 12000, 15000],

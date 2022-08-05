@@ -1,6 +1,7 @@
            <%- include partials/header %>
            <link href="css/flash-main.css" rel="stylesheet" type="text/css">
            <script src="/js/flash-main.js"></script>
+           <script src="js/amajiLoader.js"></script>
 
        
         <div class="container-fluid">
@@ -304,6 +305,7 @@ fetch(url, {
 
 <script type="text/javascript">
   $(document).ready(function () {
+    AmagiLoader.show();
     var UserSelect = "ALL";
     // alert("Mentor is " + UserSelect);
     var startDates = "2020-01-01";
@@ -348,7 +350,7 @@ fetch(url, {
                 }
 
             }
-
+            AmagiLoader.hide();
            $('#dataTablesf').dataTable({
                 "aaData": data,   
                 "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
@@ -541,7 +543,7 @@ fetch(url, {
       });
 
       /////////////////////////all user show////////////////////////////////
-
+      AmagiLoader.show();
        $.ajax({
         type: 'POST',
         url: 'https://apis.tradetipsapp.com/api/stripe/getAllInvoicesForAllUsers',
@@ -578,7 +580,7 @@ fetch(url, {
 
           }
          
-
+          AmagiLoader.hide();
            $('#dataTabless').dataTable( {
             "aaData": data,   
             "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
@@ -719,12 +721,13 @@ fetch(url, {
     var startDates = "2020-01-01";
     var endDates = new Date().toISOString().slice(0, 10);
     // alert(endDates);
-       var url_string = window.location.href; 
-  var urls = new URL(url_string);
-  var tokens = urls.searchParams.get("tokendata");
-
+    var url_string = window.location.href; 
+    var urls = new URL(url_string);
+    var tokens = urls.searchParams.get("tokendata");
+    
     var formdata = {mentorId : UserSelect,startDate : startDates , endDate : endDates};
     if(UserSelect == "All"){
+      AmagiLoader.show();
 
     $.ajax({
         type: 'POST',
@@ -760,7 +763,7 @@ fetch(url, {
                 }
 
             }
-
+            AmagiLoader.hide();
            $('#dataTablesf').dataTable({
                 "aaData": data,   
                 "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
@@ -953,6 +956,7 @@ fetch(url, {
       });
 
     }else{
+      AmagiLoader.show();
       $.ajax({
         type: 'POST',
         url: 'https://apis.tradetipsapp.com/api/stripe/getAllInvoicesByMentorId',
@@ -994,7 +998,7 @@ fetch(url, {
 
           }
          
-
+          AmagiLoader.hide();
            $('#dataTablesf').dataTable( {
             "aaData": data,   
             "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
@@ -1287,6 +1291,7 @@ fetch(url, {
 
     // var formdata = {userId : UserSelect};
     if(UserSelect == "All"){
+      AmagiLoader.show();
       $.ajax({
         type: 'POST',
         url: 'https://apis.tradetipsapp.com/api/stripe/getAllInvoicesForAllUsers',
@@ -1323,7 +1328,7 @@ fetch(url, {
 
           }
          
-
+          AmagiLoader.hide();
            $('#dataTabless').dataTable( {
             "aaData": data,   
             "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
@@ -1454,6 +1459,7 @@ fetch(url, {
       });
 
     } else {
+      AmagiLoader.show();
       $.ajax({
         type: 'POST',
         url: 'https://apis.tradetipsapp.com/api/stripe/getAllInvoicesByUserId',
@@ -1494,7 +1500,7 @@ fetch(url, {
 
           }
          
-
+          AmagiLoader.hide();
            $('#dataTabless').dataTable( {
             "aaData": data,   
             "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
