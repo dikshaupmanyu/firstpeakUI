@@ -23,7 +23,7 @@
           <table class="table table-bordered" id="dataTables" width="100%" cellspacing="0">
             <thead>
               <tr>
-                <th>Id</th>
+                <!-- <th>Id</th> -->
                 <th>UserName</th>
                 <th>Email</th>
                 <th>Mentor</th>
@@ -175,13 +175,13 @@
               "aaData": data,
               "lengthMenu": [500, 1000, 2000, 3000, 4000, 5000, 8000, 10000, 12000, 15000],
               "pageLength": 3000,
-              "aaSorting": [[5, "desc"]],
-              "columnDefs": [{
-                "targets": 4,
-                "orderable": false
-              }],
+              "aaSorting": [[4, "desc"]],
+              // "columnDefs": [{
+              //   "targets": 4,
+              //   "orderable": false
+              // }],
               "columns": [
-                { "data": "id" },
+                // { "data": "id" },
                 { "data": "userName" },
                 { "data": "email" },
                 // { "data": "isMentor" },
