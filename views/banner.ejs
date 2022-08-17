@@ -310,6 +310,7 @@ button:hover {
              <!--  <th>Long Description</th> -->
               <th>Image</th>
               <th>Status</th>
+              <th>Date</th>
               <th>Action</th>
           <tbody>
             
@@ -479,6 +480,7 @@ button:hover {
                         <th>Description</th>
                         <th>Image</th>
                         <th>Status</th>
+                         <th>Date</th>
                         <th>Action</th>
                     <tbody>
                     </tbody>
@@ -1491,6 +1493,7 @@ var formdata = new FormData();
           $('#dataTablesone').dataTable( {
            "aaData": countdataa, 
            "lengthMenu": [ 500, 1000, 2000, 2000, 4000, 5000 ],
+            "order": [[ 4, "desc" ]],
            "pageLength": 500,
            // "aaSorting": [[ 0, "desc" ]],
            // "columnDefs": [ {
@@ -1549,6 +1552,21 @@ var formdata = new FormData();
                },
 
              },
+             { "data": "createdOn",
+                   "name":"date",
+                   "visible":true,
+                   "title":"Date Created",
+                   "render": function(data, type, full, meta){
+                    if(type == "display"){
+                            var date = new Date(data);
+                            var options = {year: "numeric", month: "long", day: "numeric"};
+
+                            return date.toLocaleDateString('en-US', options);
+                    }
+
+                    return data;
+                  }
+                },  
              { 'data': null,
                 'render': function (data, type, row) {
                        return '<a href="editBanner?id='+row.id+'&tokendata='+tokens+'"><button>Edit</button></a> | <button id="' + row.id + '" class="deleteButtonsBanner">Delete</button> | <a href="viewBannerDetail?id='+row.id+'&tokendata='+tokens+'"><button>View</button></a>';
@@ -1788,6 +1806,7 @@ var formdata = new FormData();
            "aaData": countdataa, 
            "lengthMenu": [ 500, 1000, 2000, 2000, 4000, 5000 ],
            "pageLength": 500,
+           "order": [[ 4, "desc" ]],
            // "aaSorting": [[ 0, "desc" ]],
            // "columnDefs": [ {
            // "targets": 4,
@@ -1871,6 +1890,21 @@ var formdata = new FormData();
                },
 
              },
+             { "data": "createdOn",
+                   "name":"date",
+                   "visible":true,
+                   "title":"Date Created",
+                   "render": function(data, type, full, meta){
+                    if(type == "display"){
+                            var date = new Date(data);
+                            var options = {year: "numeric", month: "long", day: "numeric"};
+
+                            return date.toLocaleDateString('en-US', options);
+                    }
+
+                    return data;
+                  }
+                },  
              { 'data': null,
                 'render': function (data, type, row) {
                        return '<a href="editBanner?id='+row.id+'&tokendata='+tokens+'"><button>Edit</button></a> | <button id="' + row.id + '" class="deleteButtonsBanner">Delete</button> | <a href="viewBannerDetail?id='+row.id+'&tokendata='+tokens+'"><button>View</button></a>';

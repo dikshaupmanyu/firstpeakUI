@@ -382,6 +382,7 @@ $(document).ready(function(){
                                       <th>Title</th>
                                       <th>Short Description</th>
                                       <th>Image</th>
+                                      <th>Date</th>
                                       <!-- <th>View</th> -->
                                       <!-- <th>Action</th> -->
                                   <tbody>
@@ -399,6 +400,7 @@ $(document).ready(function(){
                                   <th>Title</th>
                                   <th>Short Description</th>
                                   <th>Image</th>
+                                   <th>Date</th>
                                   <!-- <th>View</th> -->
                                   <!-- <th>Action</th> -->
                               <tbody>
@@ -566,6 +568,7 @@ window.addEventListener("load", function() {
             "aaData": countdataa, 
             "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
             "pageLength": 500,
+             "order": [[ 4, "desc" ]],
             // "aaSorting": [[ 0, "desc" ]],
             // "columnDefs": [ {
             // "targets": 4,
@@ -587,6 +590,21 @@ window.addEventListener("load", function() {
                        return '<img src="https://apis.tradetipsapp.com' + data + '" class="avatar" width="50" height="50"/>';
                        }
                 },
+                 { "data": "createdOn",
+                   "name":"date",
+                   "visible":true,
+                   "title":"Date Created",
+                   "render": function(data, type, full, meta){
+                    if(type == "display"){
+                            var date = new Date(data);
+                            var options = {year: "numeric", month: "long", day: "numeric"};
+
+                            return date.toLocaleDateString('en-US', options);
+                    }
+
+                    return data;
+                  }
+                }
                 // { 'data': null,
                 // 'render': function (data, type, row) {
                 //        return ' <a href="viewNotificationDetail?id='+row.id+'&tokendata='+tokensn+'"><button>View</button></a>';
@@ -641,6 +659,7 @@ window.addEventListener("load", function() {
             "aaData": countdataa, 
             "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
             "pageLength": 500,
+             "order": [[ 4, "desc" ]],
             // "aaSorting": [[ 0, "desc" ]],
             // "columnDefs": [ {
             // "targets": 4,
@@ -687,6 +706,21 @@ window.addEventListener("load", function() {
                        return '<img src="https://apis.tradetipsapp.com' + row.image1 + '" class="avatar" width="50" height="50"/>';
                        }
                 },
+                 { "data": "createdOn",
+                   "name":"date",
+                   "visible":true,
+                   "title":"Date Created",
+                   "render": function(data, type, full, meta){
+                    if(type == "display"){
+                            var date = new Date(data);
+                            var options = {year: "numeric", month: "long", day: "numeric"};
+
+                            return date.toLocaleDateString('en-US', options);
+                    }
+
+                    return data;
+                  }
+                }
                 // { 'data': null,
                 // 'render': function (data, type, row) {
                 //        return ' <a href="viewNotificationDetail?id='+row.id+'&tokendata='+tokensn+'"><button>View</button></a>';
