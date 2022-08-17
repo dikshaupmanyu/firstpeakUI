@@ -26,6 +26,7 @@
                       <th>UserName</th>
                       <th>Email</th>
                       <th>Mentor</th>
+                      <th>Subscription</th>
                       <th>Date</th>
                       <th>Image</th>
                       <th>Status</th>
@@ -157,11 +158,11 @@ $.ajax({
             "aaData": countdataa,   
             "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
             "pageLength": 500,
-            "aaSorting": [[ 3, "desc" ]],
-            "columnDefs": [ {
-            "targets": 4,
-            "orderable": false
-            } ],
+            "aaSorting": [[ 4, "desc" ]],
+            // "columnDefs": [ {
+            // "targets": 4,
+            // "orderable": false
+            // } ],
             "columns": [
                 // { "data": "id" },
                 { "data": "userName" },
@@ -178,6 +179,17 @@ $.ajax({
                 },
 
               },
+              {
+                  "data": "internalSubscribedUser",
+                  render: function (data, type, row) {
+                    if (type === 'display') {
+                      // return '<a href="updateData?id='+row.id+'&username='+row.userName+'&tokendata='+tokens+'"><input type="checkbox" class="editor-active"></a>';
+                      return '<input type="checkbox" class="editor-activesubscibe">';
+                    }
+                    return data;
+                  },
+
+                },
               { 
               "data": "createdOn",
                "name":"date",
@@ -259,6 +271,7 @@ $.ajax({
             rowCallback: function ( row, data ) {
             // Set the checked state of the checkbox in the table
             $('input.editor-active', row).prop( 'checked', data.isMentor == true );
+            $('input.editor-activesubscibe', row).prop('checked', data.internalSubscribedUser == true);
 
           }
        
@@ -383,6 +396,69 @@ $.ajax({
 
 
    });
+
+
+   
+   $('#dataTables').on('click', 'input.editor-activesubscibe', function () {
+
+// alert(tokens);
+// alert("hii");
+var id = $(this).attr('id');
+var table = $('#dataTables').DataTable();
+var row = table.row(this.closest('tr')).data();
+var url;
+var result = Confirm.open({
+  title: 'Update Confirm',
+  message: 'Are you sure you want to update ?',
+  onok: () => {
+    // if(result){
+    // Delete logic goes here
+    var userdata = row["id"];
+    var formData = { appuserid: userdata };
+    var subscribedata = row["internalSubscribedUser"];
+    // alert(mentordata);
+    if (subscribedata == false) {
+      url = "https://apis.tradetipsapp.com/api/appUserWebModify/appUserUpdateInternalSubscription";
+    } else if (subscribedata == true) {
+      url = "https://apis.tradetipsapp.com/api/appUserWebModify/appUserRemoveInternalSubscription";
+    } else if (subscribedata == null) {
+      url = "https://apis.tradetipsapp.com/api/appUserWebModify/appUserUpdateInternalSubscription";
+    }
+    $.ajax({
+      url: url,
+      type: "POST",
+      headers: {
+        Authorization: 'Bearer ' + tokens,
+      },
+      data: formData,
+      success: function (data, textStatus, jqXHR) {
+        //data - response from server
+        var datak = JSON.stringify(data);
+        var dataResultp = JSON.parse(datak);
+        // alert("User updated Sucessfully !!");
+        window.FlashMessage.success(" User updated Sucessfully !!", { timeout: 3000, });
+        // window.location.reload();
+        // setTimeout(() => { window.location.reload() }, 3500)
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        //  alert("Not updated !!");
+        window.FlashMessage.error(" Not updated !!", { timeout: 5000, });
+      }
+
+
+    });
+
+  },
+  oncancel: () => {
+    setTimeout(() => { window.location.reload() }, 500)
+  }
+});
+
+
+// $('#dataTables').DataTable().ajax.reload();
+
+
+});
 
    $('#dataTables').on('click', 'input.updateStatusdata', function () {
 
