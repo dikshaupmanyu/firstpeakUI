@@ -1,6 +1,6 @@
            <%- include partials/header %>
            <link href="css/flash-main.css" rel="stylesheet" type="text/css">
-    
+           <script src="js/amajiLoader.js"></script>
 <style type="text/css">
 .switch {
   position: relative;
@@ -782,7 +782,7 @@ window.addEventListener("load", function() {
                   timeout: 5000,
                 });
   }else {
-   
+    AmagiLoader.show();
   var formdatas = new FormData();
     formdatas.append("title", title);
     formdatas.append("description", description);
@@ -821,13 +821,9 @@ window.addEventListener("load", function() {
     fetch("https://apis.tradetipsapp.com/api/adBannerSimpleNotification/sendFCMNotificationForSimpleAdBannerWithUserType", requestOptionsnn)
       .then(response => response.json())
       .then(result => {
-            
+        AmagiLoader.hide();
                 var datak = JSON.stringify(result);
-               // alert(datak);
                 var dataResultp = JSON.parse(datak); 
-                // alert(dataResultp.title);
-
-                // alert("Notification has been sent");
                 window.FlashMessage.success('Notification has been sent', {
                   timeout: 5000,
                 });

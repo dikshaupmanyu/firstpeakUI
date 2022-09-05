@@ -3,6 +3,7 @@
 <script src="https://cdn.jsdelivr.net/npm/emoji-button@0.6.0/dist/index.min.js"></script>
 <link href="css/flash-main.css" rel="stylesheet" type="text/css">
 <script src="/js/flash-main.js"></script>
+<script src="js/amajiLoader.js"></script>
     <script>
       window.addEventListener('DOMContentLoaded', () => {
   EmojiButton(document.querySelector('#emoji-button'), function (emoji) {
@@ -955,6 +956,7 @@ $("#bannerSubmitbannerone").on('click', function (e) {
       window.FlashMessage.error("Please fill all the fields", {timeout: 5000,}); 
          
       }else{
+        AmagiLoader.show();
         var formdata = new FormData();
         formdata.append("adBannerId", ids);
         
@@ -1017,12 +1019,9 @@ $("#bannerSubmitbannerone").on('click', function (e) {
                 fetch("https://apis.tradetipsapp.com/api/adBannerSimple/modifySimpleAdBanner", requestOptions)
                 .then(response => response.json())
                 .then(result => {
-                      
+                  AmagiLoader.hide();
                           var datak = JSON.stringify(result);
-                          // alert(datak);
                           var dataResultp = JSON.parse(datak); 
-                          // alert(dataResultp.title);
-                          // alert("Your Multiple Banner Updated Successfully");
                           window.FlashMessage.success("Your Multiple Banner Updated Successfully", {timeout: 3000,});
                           // window.location.href = "/banner?tokendata="+tokens; 
                           setTimeout(()=> { window.location.href="banner?tokendata="+tokens; },3500)
@@ -1175,7 +1174,7 @@ $("#bannerSubmit").on('click', function (e) {
     // alert("Please fill all the field");
     window.FlashMessage.error( "Please fill all the fields", {timeout: 5000,});
   }else {
-      
+    AmagiLoader.show();
         var formdata = new FormData();
         formdata.append("adBannerId", ids);
         formdata.append("title", title);
@@ -1234,12 +1233,9 @@ $("#bannerSubmit").on('click', function (e) {
         fetch("https://apis.tradetipsapp.com/api/adBannerSimple/modifySimpleAdBanner", requestOptions)
           .then(response => response.json())
           .then(result => {
-                
+            AmagiLoader.hide();
                     var datak = JSON.stringify(result);
-                    // alert(datak);
                     var dataResultp = JSON.parse(datak); 
-                    // alert(dataResultp.title);
-                    // alert("Your banner "+dataResultp.title+" Updated successfully");
                     window.FlashMessage.success("Your banner "+dataResultp.title+" updated successfully", {timeout: 3000,});
                     // window.location.href = "/banner?tokendata="+tokens; 
                     setTimeout(()=> { window.location.href="/banner?tokendata="+tokens},3500)
