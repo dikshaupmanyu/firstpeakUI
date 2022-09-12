@@ -1473,7 +1473,7 @@ var longDescription2 = tinymce.get("longDescriptionss2").getContent();
 
 var formdata = new FormData();
   formdata.append("offset", "0");
-  formdata.append("limit", "500");
+  formdata.append("limit", "100000");
 
   var requestOptions = {
     method: 'POST',
@@ -1492,9 +1492,10 @@ var formdata = new FormData();
      var countdataa = data_Results.filter(function(s) { return s.isSingleBanner == null || s.isSingleBanner == true } ); 
           $('#dataTablesone').dataTable( {
            "aaData": countdataa, 
-           "lengthMenu": [ 500, 1000, 2000, 2000, 4000, 5000 ],
+           "lengthMenu":  [10, 20, 50, 100, 200, 300, 400, 500 ,800,1000,1200,1500  ],
+                "pageLength": 50,
             "order": [[ 4, "desc" ]],
-           "pageLength": 500,
+          //  "pageLength": 500,
            // "aaSorting": [[ 0, "desc" ]],
            // "columnDefs": [ {
            // "targets": 4,
@@ -1785,7 +1786,7 @@ var formdata = new FormData();
 
 var formdata = new FormData();
  formdata.append("offset", "0");
- formdata.append("limit", "500");
+ formdata.append("limit", "100000");
 
  var requestOptions = {
    method: 'POST',
@@ -1804,8 +1805,8 @@ var formdata = new FormData();
       var countdataa = data_Result.filter(function(s) { return s.isSingleBanner == false  } ); 
           $('#dataTablesMultiple').dataTable( {
            "aaData": countdataa, 
-           "lengthMenu": [ 500, 1000, 2000, 2000, 4000, 5000 ],
-           "pageLength": 500,
+           "lengthMenu": [10, 20, 50, 100, 200, 300, 400, 500 ,800,1000,1200,1500  ],
+                "pageLength": 50,
            "order": [[ 4, "desc" ]],
            // "aaSorting": [[ 0, "desc" ]],
            // "columnDefs": [ {

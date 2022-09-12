@@ -520,7 +520,7 @@ window.addEventListener("load", function() {
     
   var formdata = new FormData();
   formdata.append("offset", "0");
-  formdata.append("limit", "500");
+  formdata.append("limit", "100000");
 
   var requestOptions = {
     method: 'POST',
@@ -544,7 +544,7 @@ window.addEventListener("load", function() {
 
   var formdata = new FormData();
   formdata.append("offset", "0");
-  formdata.append("limit", "500");
+  formdata.append("limit", "100000");
 
   var requestOptions = {
     method: 'POST',
@@ -566,8 +566,8 @@ window.addEventListener("load", function() {
 
            $('#dataTables').dataTable( {
             "aaData": countdataa, 
-            "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
-            "pageLength": 500,
+            "lengthMenu": [10, 20, 50, 100, 200, 300, 400, 500 ,800,1000,1200,1500  ],
+                "pageLength": 50,
              "order": [[ 4, "desc" ]],
             // "aaSorting": [[ 0, "desc" ]],
             // "columnDefs": [ {
@@ -636,7 +636,7 @@ window.addEventListener("load", function() {
 
   var formdata = new FormData();
   formdata.append("offset", "0");
-  formdata.append("limit", "500");
+  formdata.append("limit", "100000");
 
   var requestOptions = {
     method: 'POST',
@@ -657,8 +657,8 @@ window.addEventListener("load", function() {
          var countdataa = dataResult.filter(function(s) { return s.isSingleBanner == false; });
            $('#dataTablesOne').dataTable( {
             "aaData": countdataa, 
-            "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
-            "pageLength": 500,
+            "lengthMenu":  [10, 20, 50, 100, 200, 300, 400, 500 ,800,1000,1200,1500  ],
+                "pageLength": 50,
              "order": [[ 4, "desc" ]],
             // "aaSorting": [[ 0, "desc" ]],
             // "columnDefs": [ {

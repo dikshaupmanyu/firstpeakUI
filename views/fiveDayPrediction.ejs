@@ -281,8 +281,8 @@ window.addEventListener("load", function() {
          AmagiLoader.hide();
             $('#dataTableone').dataTable( {
             "aaData": data,   
-            "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
-            "pageLength": 500,
+            "lengthMenu": [10, 20, 50, 100, 200, 300, 400, 500 ,800,1000,1200,1500  ],
+                "pageLength": 50,
             // "ordering": true,
             "order": [[ 2, "desc" ]],
             retrieve: true,
@@ -331,7 +331,7 @@ window.addEventListener("load", function() {
   
   });
   var form = new FormData();
-form.append("limit", "500");
+form.append("limit", "1000000");
 form.append("offset", "0");
 
 var settings = {
@@ -350,8 +350,8 @@ $.ajax(settings).done(function (response) {
        var dataResultsdetail = JSON.parse(response); 
            $('#dataTabletwo').dataTable({
            "aaData": dataResultsdetail, 
-           "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
-           "pageLength": 500,
+           "lengthMenu":  [10, 20, 50, 100, 200, 300, 400, 500 ,800,1000,1200,1500  ],
+                "pageLength": 50,
            "order": [[ 1, "desc" ]],
              "columns": [
                
@@ -370,7 +370,7 @@ $.ajax(settings).done(function (response) {
 ////////////////////////////////////////////////////////////////////////////////
 AmagiLoader.show()
  var form1 = new FormData();
-  form1.append("limit", "500");
+  form1.append("limit", "100000");
   form1.append("offset", "0");
 
 const url1 = "https://apis.tradetipsapp.com/api/stockNonDefaultDateRecord/getAllStockNonDefaultDateRecord";
@@ -392,8 +392,8 @@ fetch(url1, {
         AmagiLoader.hide();
           $('#dataTableone').dataTable( {
            "aaData": dataResults, 
-           "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
-           "pageLength": 500,
+           "lengthMenu":  [10, 20, 50, 100, 200, 300, 400, 500 ,800,1000,1200,1500  ],
+                "pageLength": 50,
            "order": [[ 2, "desc" ]],
              "columns": [
                

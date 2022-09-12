@@ -604,8 +604,8 @@ $('#butSaveData').on('click', function() {
               AmagiLoader.hide();
            $('#dataTables').dataTable( {
                 "aaData": data,   
-                "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
-                "pageLength": 500,
+                "lengthMenu": [10, 20, 50, 100, 200, 300, 400, 500 ,800,1000,1200,1500  ],
+                "pageLength": 50,
                 "oLanguage": {
                   "sSearch": "<span>Search Stocks</span> _INPUT_" //search
                 },
@@ -643,7 +643,7 @@ $('#butSaveData').on('click', function() {
 
        }else{
         AmagiLoader.show();
-          var formdata = {userName : UserSelect,limit:"1000",offset:"0"};
+          var formdata = {userName : UserSelect,limit:"100000",offset:"0"};
           $.ajax({
         type: 'POST',
         url: 'https://apis.tradetipsapp.com/api/dataAnalytics/getAllSearchStockOfUserByUserName',
@@ -666,8 +666,8 @@ $('#butSaveData').on('click', function() {
               AmagiLoader.hide();
            $('#dataTables').dataTable( {
                 "aaData": data,   
-                "lengthMenu": [ 500, 1000, 2000, 3000, 4000, 5000 ],
-                "pageLength": 500,
+                "lengthMenu": [10, 20, 50, 100, 200, 300, 400, 500 ,800,1000,1200,1500  ],
+                "pageLength": 50,
                 "oLanguage": {
                   "sSearch": "<span>Search Stocks</span> _INPUT_" //search
                 },
