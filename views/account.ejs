@@ -93,6 +93,7 @@
                               <th>Date</th>
                               <th>Subscription</th>
                               <th>Service Type</th>
+                              <th>Purchase Type</th>
                               <th>Price</th>
                               <th>Mentor Share</th>
                               <th>Tradetips Share</th>
@@ -162,6 +163,7 @@
                               <th>Date</th>
                               <th>Subscription</th>
                               <th>Service Type</th>
+                              <th>Purchase Type</th>
                               <th>Price</th>
                               <!-- <th>Percent Off</th>
                               <th>Discount Price</th> -->
@@ -482,6 +484,44 @@ fetch(url, {
                        
                       }
                       }},
+                       {"title":"Purchase Type",
+                    "render" : function (data, type, row) {
+               
+                      if(row.productSubscription == null){
+
+                        if(row.serviceSubscription.remark == "charge_automatically"){
+                        
+                          var uname = "Stripe"
+                       
+                          return uname;
+
+                        }else if(row.serviceSubscription.remark == "in-app") {
+
+                           var uname = "IOS"
+                       
+                           return uname;
+                        }
+
+                        
+                       
+                      }else{
+
+                          if(row.productSubscription.remark == "charge_automatically"){
+                        
+                              var uname = "Stripe"
+                           
+                              return uname;
+
+                            }else if(row.productSubscription.remark == "in-app") {
+
+                               var uname = "IOS"
+                           
+                               return uname;
+                            }
+
+                       
+                      }
+                      }},
                     {
                       "data": "amountPaid" ,
                       "title": "Price",                  
@@ -676,6 +716,44 @@ fetch(url, {
                           var upname = "";
                        
                       return upname;
+                       
+                      }
+                      }},
+                       {"title":"Purchase Type",
+                    "render" : function (data, type, row) {
+               
+                      if(row.productSubscription == null){
+
+                        if(row.serviceSubscription.remark == "charge_automatically"){
+                        
+                          var uname = "Stripe"
+                       
+                          return uname;
+
+                        }else if(row.serviceSubscription.remark == "in-app") {
+
+                           var uname = "IOS"
+                       
+                           return uname;
+                        }
+
+                        
+                       
+                      }else{
+
+                          if(row.productSubscription.remark == "charge_automatically"){
+                        
+                              var uname = "Stripe"
+                           
+                              return uname;
+
+                            }else if(row.productSubscription.remark == "in-app") {
+
+                               var uname = "IOS"
+                           
+                               return uname;
+                            }
+
                        
                       }
                       }},
@@ -904,6 +982,44 @@ fetch(url, {
                           var upname = "";
                        
                       return upname;
+                       
+                      }
+                      }},
+                       {"title":"Purchase Type",
+                    "render" : function (data, type, row) {
+               
+                      if(row.productSubscription == null){
+
+                        if(row.serviceSubscription.remark == "charge_automatically"){
+                        
+                          var uname = "Stripe"
+                       
+                          return uname;
+
+                        }else if(row.serviceSubscription.remark == "in-app") {
+
+                           var uname = "IOS"
+                       
+                           return uname;
+                        }
+
+                        
+                       
+                      }else{
+
+                          if(row.productSubscription.remark == "charge_automatically"){
+                        
+                              var uname = "Stripe"
+                           
+                              return uname;
+
+                            }else if(row.productSubscription.remark == "in-app") {
+
+                               var uname = "IOS"
+                           
+                               return uname;
+                            }
+
                        
                       }
                       }},
@@ -1138,6 +1254,44 @@ fetch(url, {
                           var upname = "";
                        
                       return upname;
+                       
+                      }
+                      }},
+                       {"title":"Purchase Type",
+                    "render" : function (data, type, row) {
+               
+                      if(row.productSubscription == null){
+
+                        if(row.serviceSubscription.remark == "charge_automatically"){
+                        
+                          var uname = "Stripe"
+                       
+                          return uname;
+
+                        }else if(row.serviceSubscription.remark == "in-app") {
+
+                           var uname = "IOS"
+                       
+                           return uname;
+                        }
+
+                        
+                       
+                      }else{
+
+                          if(row.productSubscription.remark == "charge_automatically"){
+                        
+                              var uname = "Stripe"
+                           
+                              return uname;
+
+                            }else if(row.productSubscription.remark == "in-app") {
+
+                               var uname = "IOS"
+                           
+                               return uname;
+                            }
+
                        
                       }
                       }},
@@ -1443,6 +1597,44 @@ fetch(url, {
                        
                       }
                       }},
+                       {"title":"Purchase Type",
+                    "render" : function (data, type, row) {
+               
+                      if(row.productSubscription == null){
+
+                        if(row.serviceSubscription.remark == "charge_automatically"){
+                        
+                          var uname = "Stripe"
+                       
+                          return uname;
+
+                        }else if(row.serviceSubscription.remark == "in-app") {
+
+                           var uname = "IOS"
+                       
+                           return uname;
+                        }
+
+                        
+                       
+                      }else{
+
+                          if(row.productSubscription.remark == "charge_automatically"){
+                        
+                              var uname = "Stripe"
+                           
+                              return uname;
+
+                            }else if(row.productSubscription.remark == "in-app") {
+
+                               var uname = "IOS"
+                           
+                               return uname;
+                            }
+
+                       
+                      }
+                      }},
                     {
                       "data": "amountPaid" , "sClass": "priceAll", "title":"Price",
                       render: function (data, type, row, meta) {
@@ -1617,6 +1809,44 @@ fetch(url, {
                           var upname = "";
                        
                       return upname;
+                       
+                      }
+                      }},
+                       {"title":"Purchase Type",
+                    "render" : function (data, type, row) {
+               
+                      if(row.productSubscription == null){
+
+                        if(row.serviceSubscription.remark == "charge_automatically"){
+                        
+                          var uname = "Stripe"
+                       
+                          return uname;
+
+                        }else if(row.serviceSubscription.remark == "in-app") {
+
+                           var uname = "IOS"
+                       
+                           return uname;
+                        }
+
+                        
+                       
+                      }else{
+
+                          if(row.productSubscription.remark == "charge_automatically"){
+                        
+                              var uname = "Stripe"
+                           
+                              return uname;
+
+                            }else if(row.productSubscription.remark == "in-app") {
+
+                               var uname = "IOS"
+                           
+                               return uname;
+                            }
+
                        
                       }
                       }},
